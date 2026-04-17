@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苏南县域供水管网 · AI规则引擎知识库</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --navy: #0b1e3d;
+  --navy-mid: #132e5c;
+  --blue: #1a56a0;
+  --teal: #0891b2;
+  --teal-light: #06b6d4;
+  --aqua: #67e8f9;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --orange: #f97316;
+  --bg: #f0f5fb;
+  --card: #ffffff;
+  --text: #0f172a;
+  --text-mid: #334155;
+  --text-light: #64748b;
+  --border: #cbd5e1;
+  --border-light: #e2e8f0;
+  --shadow: 0 2px 16px rgba(10,30,80,0.08);
+  --shadow-lg: 0 8px 40px rgba(10,30,80,0.14);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ===== LAYOUT ===== */
+.app { display: flex; min-height: 100vh; }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(6,182,212,0.15);
+  border: 1px solid rgba(6,182,212,0.3);
+  color: var(--teal-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.logo-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+.logo-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+.sidebar-nav { flex: 1; padding: 12px 0; }
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  padding: 12px 20px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  position: relative;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active {
+  color: var(--teal-light);
+  background: rgba(6,182,212,0.1);
+  border-left-color: var(--teal-light);
+}
+.nav-item .nav-icon { font-size: 16px; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto;
+  background: rgba(6,182,212,0.25);
+  color: var(--teal-light);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.version-tag {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ===== MAIN ===== */
+.main {
+  flex: 1;
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 8px rgba(10,30,80,0.06);
+}
+.topbar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.topbar-search {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  width: 220px;
+}
+.topbar-search input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 13px;
+  color: var(--text);
+  width: 100%;
+}
+.topbar-search input::placeholder { color: var(--text-light); }
+
+.content { flex: 1; padding: 28px 32px; }
+
+/* ===== PAGE SECTIONS ===== */
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* ===== DASHBOARD ===== */
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.section-desc { font-size: 13px; color: var(--text-light); margin-top: 4px; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.stat-card.blue::before { background: var(--blue); }
+.stat-card.teal::before { background: var(--teal); }
+.stat-card.green::before { background: var(--green); }
+.stat-card.amber::before { background: var(--amber); }
+.stat-num {
+  font-size: 28px;
+  font-weight: 900;
+  font-family: 'Noto Serif SC', serif;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num span { font-size: 14px; font-weight: 500; color: var(--text-mid); }
+.stat-label { font-size: 12px; color: var(--text-light); }
+.stat-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  opacity: 0.12;
+}
+
+/* ===== GRID 2COL ===== */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.card-icon { font-size: 18px; }
+.card-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-green { background: #dcfce7; color: #15803d; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+.badge-teal { background: #cffafe; color: #155e75; }
+
+/* ===== RULE ITEMS ===== */
+.rule-list { list-style: none; }
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-light);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-item:hover { background: rgba(6,182,212,0.04); margin: 0 -12px; padding: 12px; border-radius: 8px; }
+.rule-severity {
+  width: 6px;
+  border-radius: 3px;
+  align-self: stretch;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+.sev-critical { background: var(--red); }
+.sev-high { background: var(--orange); }
+.sev-medium { background: var(--amber); }
+.sev-low { background: var(--green); }
+.rule-content { flex: 1; min-width: 0; }
+.rule-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.rule-ref {
+  font-size: 11px;
+  color: var(--teal);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 4px;
+}
+.rule-desc { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+.rule-action { flex-shrink: 0; }
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-outline-teal { border-color: var(--teal); color: var(--teal); background: transparent; }
+.btn-outline-teal:hover { background: var(--teal); color: #fff; }
+.btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.btn-primary:hover { background: var(--navy-mid); }
+
+/* ===== TABLE ===== */
+.table-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead tr { background: var(--navy); color: #fff; }
+thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border-light); }
+tbody tr:hover { background: rgba(6,182,212,0.04); }
+tbody td { padding: 10px 14px; vertical-align: middle; }
+
+/* ===== LEVEL TAGS ===== */
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tag-red { background: #fee2e2; color: #b91c1c; }
+.tag-orange { background: #ffedd5; color: #c2410c; }
+.tag-amber { background: #fef3c7; color: #92400e; }
+.tag-green { background: #dcfce7; color: #15803d; }
+.tag-blue { background: #dbeafe; color: #1e40af; }
+.tag-teal { background: #cffafe; color: #155e75; }
+.tag-gray { background: #f1f5f9; color: #475569; }
+
+/* ===== CODE BLOCK ===== */
+.code-block {
+  background: #0f172a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+.code-header {
+  background: #1e293b;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+.code-dot:nth-child(1) { background: #ff5f57; }
+.code-dot:nth-child(2) { background: #febc2e; }
+.code-dot:nth-child(3) { background: #28c840; }
+.code-lang {
+  margin-left: auto;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.code-content {
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.75;
+  color: #94a3b8;
+  white-space: pre;
+  overflow-x: auto;
+}
+.code-content .c-kw { color: #7dd3fc; }
+.code-content .c-str { color: #86efac; }
+.code-content .c-num { color: #fda4af; }
+.code-content .c-fn { color: #f0abfc; }
+.code-content .c-cm { color: #475569; }
+.code-content .c-teal { color: #67e8f9; }
+
+/* ===== PROMPT CARD ===== */
+.prompt-card {
+  background: #fafbff;
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.prompt-role {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.prompt-text {
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===== INDICATOR TABLE ===== */
+.indicator-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.indicator-search input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  outline: none;
+}
+.indicator-search input:focus { border-color: var(--teal); }
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--text-mid);
+  transition: all 0.15s;
+}
+.filter-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+/* ===== SCENARIO GRID ===== */
+.scenario-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.scenario-card {
+  background: var(--card);
+  border: 2px solid var(--border-light);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.scenario-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.scenario-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
+.scenario-card:hover::after { transform: scaleX(1); }
+.scenario-card.selected { border-color: var(--teal); background: rgba(8,145,178,0.04); }
+.scenario-icon { font-size: 28px; margin-bottom: 10px; }
+.scenario-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.scenario-count { font-size: 11px; color: var(--text-light); }
+
+/* ===== ALERT PANEL ===== */
+.alert-panel {
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+.alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert-content { flex: 1; }
+.alert-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.alert-desc { font-size: 12px; line-height: 1.6; }
+.alert-ref { font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 4px; opacity: 0.7; }
+.alert-red { background: #fef2f2; border: 1px solid #fecaca; }
+.alert-red .alert-title { color: #991b1b; }
+.alert-orange { background: #fff7ed; border: 1px solid #fed7aa; }
+.alert-orange .alert-title { color: #c2410c; }
+.alert-amber { background: #fffbeb; border: 1px solid #fde68a; }
+.alert-amber .alert-title { color: #92400e; }
+.alert-green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.alert-green .alert-title { color: #15803d; }
+.alert-blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+.alert-blue .alert-title { color: #1e40af; }
+
+/* ===== ROLE SELECTOR ===== */
+.role-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.role-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--text-mid);
+  transition: all 0.2s;
+}
+.role-tab:hover { border-color: var(--teal); color: var(--teal); }
+.role-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+.role-content { display: none; }
+.role-content.active { display: block; }
+
+/* ===== STD REF ===== */
+.std-ref-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8,145,178,0.08);
+  border: 1px solid rgba(8,145,178,0.2);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ===== FORMULA BOX ===== */
+.formula-box {
+  background: linear-gradient(135deg, #0b1e3d, #132e5c);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #67e8f9;
+  line-height: 2;
+}
+.formula-title {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.formula-line .var { color: #fda4af; }
+.formula-line .op { color: rgba(255,255,255,0.5); }
+.formula-line .const { color: #86efac; }
+.formula-line .comment { color: rgba(255,255,255,0.3); font-size: 11px; }
+
+/* ===== DIVIDER ===== */
+hr.divider { border: none; border-top: 1px solid var(--border-light); margin: 20px 0; }
+
+/* ===== INDICATOR FILTER ROW ===== */
+#indicator-table-body tr { cursor: pointer; }
+#indicator-table-body tr:hover td { background: rgba(6,182,212,0.06); }
+.hidden-row { display: none; }
+
+/* ===== SCROLL ===== */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">💧 AI · 规则引擎</div>
+    <div class="logo-title">苏南县域供水管网<br>AI规则引擎知识库</div>
+    <div class="logo-sub">供水企业岗位应用手册 v2.0</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-group-label">总览</div>
+    <div class="nav-item active" onclick="switchPage('dashboard')">
+      <span class="nav-icon">📊</span> 知识库首页
+    </div>
+    <div class="nav-group-label">法规标准库</div>
+    <div class="nav-item" onclick="switchPage('laws')">
+      <span class="nav-icon">📋</span> 法规条款索引
+      <span class="nav-badge">14部</span>
+    </div>
+    <div class="nav-item" onclick="switchPage('water-quality')">
+      <span class="nav-icon">🧪</span> GB5749水质指标
+      <span class="nav-badge">97项</span>
+    </div>
+    <div class="nav-group-label">规则引擎库</div>
+    <div class="nav-item" onclick="switchPage('dma')">
+      <span class="nav-icon">📡</span> DMA漏损管控规则
+    </div>
+    <div class="nav-item" onclick="switchPage('quality-rules')">
+      <span class="nav-icon">⚗️</span> 水质合规监测规则
+    </div>
+    <div class="nav-item" onclick="switchPage('secondary')">
+      <span class="nav-icon">🏗️</span> 二次供水管控规则
+    </div>
+    <div class="nav-item" onclick="switchPage('pipeline')">
+      <span class="nav-icon">🔧</span> 管网运维告警规则
+    </div>
+    <div class="nav-item" onclick="switchPage('dosing')">
+      <span class="nav-icon">💊</span> 智能加药规则
+    </div>
+    <div class="nav-item" onclick="switchPage('renovation')">
+      <span class="nav-icon">🏚️</span> 管网改造优先级
+    </div>
+    <div class="nav-group-label">岗位DeepSeek应用</div>
+    <div class="nav-item" onclick="switchPage('prompts')">
+      <span class="nav-icon">🤖</span> 岗位Prompt模板
+      <span class="nav-badge">5岗</span>
+    </div>
+    <div class="nav-item" onclick="switchPage('arch')">
+      <span class="nav-icon">🏛️</span> 系统架构说明
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="version-tag">数据基准：GB5749-2022 · CJJ92-2016 · GB17051-2025<br>适用范围：苏州·无锡·常州·镇江·南京（苏南）</div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">知识库首页</div>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:12px;">
+      <span style="font-size:12px;color:var(--text-light);">最新法规：新《供水条例》2026年6月1日施行</span>
+      <div style="width:8px;height:8px;background:var(--green);border-radius:50%;"></div>
+      <span style="font-size:12px;color:var(--green);font-weight:600;">知识库在线</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="page-dashboard" class="page-section active">
+      <div class="section-header">
+        <div>
+          <div class="section-title">苏南县域供水管网 AI规则引擎知识库</div>
+          <div class="section-desc">覆盖六大业务场景 · 14部法规标准 · 200+条结构化规则 · 5岗DeepSeek应用模板</div>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="stat-num">14<span> 部</span></div>
+          <div class="stat-label">法规标准覆盖（国标+省标+市标）</div>
+          <div class="stat-icon">📋</div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-num">97<span> 项</span></div>
+          <div class="stat-label">GB5749-2022水质指标全收录</div>
+          <div class="stat-icon">🧪</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-num">6<span> 场景</span></div>
+          <div class="stat-label">业务场景规则引擎</div>
+          <div class="stat-icon">⚙️</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-num">5<span> 岗位</span></div>
+          <div class="stat-label">DeepSeek应用Prompt模板</div>
+          <div class="stat-icon">🤖</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">🚨</span>
+            <span class="card-title">核心法规红线（硬性不可逾越）</span>
+            <span class="card-badge badge-red">强制性</span>
+          </div>
+          <ul class="rule-list">
+            <li class="rule-item" onclick="switchPage('water-quality')">
+              <div class="rule-severity sev-critical"></div>
+              <div class="rule-content">
+                <div class="rule-name">出厂水游离氯上限：≤2 mg/L</div>
+                <div class="rule-ref">GB 5749-2022 表2（强制性）</div>
+                <div class="rule-desc">2022版新标准从4 mg/L降至2 mg/L，精准投氯成为刚需</div>
+              </div>
+              <div class="rule-action"><span class="btn-sm btn-outline-teal">查看 →</span></div>
+            </li>
+            <li class="rule-item" onclick="switchPage('water-quality')">
+              <div class="rule-severity sev-critical"></div>
+              <div class="rule-content">
+                <div class="rule-name">管网末梢余氯下限：≥0.05 mg/L</div>
+                <div class="rule-ref">GB 5749-2022 表2（强制性）</div>
+                <div class="rule-desc">末梢水质的最后防线，低于此值立即触发告警</div>
+              </div>
+              <div class="rule-action"><span class="btn-sm btn-outline-teal">查看 →</span></div>
+            </li>
+            <li class="rule-item" onclick="switchPage('pipeline')">
+              <div class="rule-severity sev-critical"></div>
+              <div class="rule-content">
+                <div class="rule-name">消防管网最低压力：≥0.14 MPa</div>
+                <div class="rule-ref">GB 55036-2022 §3.0.3（强制性）</div>
+                <div class="rule-desc">一层住宅最小服务水头10m，违反即构成法规违规</div>
+              </div>
+              <div class="rule-action"><span class="btn-sm btn-outline-teal">查看 →</span></div>
+            </li>
+            <li class="rule-item" onclick="switchPage('secondary')">
+              <div class="rule-severity sev-high"></div>
+              <div class="rule-content">
+                <div class="rule-name">二次供水水箱清洗：≥每半年1次</div>
+                <div class="rule-ref">江苏省城乡供水管理条例 第24条</div>
+                <div class="rule-desc">省条例比GB 17051-2025更严，超期面临5000~20000元罚款</div>
+              </div>
+              <div class="rule-action"><span class="btn-sm btn-outline-teal">查看 →</span></div>
+            </li>
+            <li class="rule-item" onclick="switchPage('dma')">
+              <div class="rule-severity sev-high"></div>
+              <div class="rule-content">
+                <div class="rule-name">漏损率国家目标：≤9%（2025）</div>
+                <div class="rule-ref">建办城〔2022〕2号文</div>
+                <div class="rule-desc">苏南试点目标≤8%，超标部分不得计入供水成本</div>
+              </div>
+              <div class="rule-action"><span class="btn-sm btn-outline-teal">查看 →</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">📅</span>
+            <span class="card-title">2026年关键合规节点</span>
+            <span class="card-badge badge-amber">时效提醒</span>
+          </div>
+          <div style="padding: 4px 0;">
+            <div class="alert-panel alert-red">
+              <span class="alert-icon">🔴</span>
+              <div class="alert-content">
+                <div class="alert-title">2026年6月1日 — 双重法规切换</div>
+                <div class="alert-desc">新《城市供水条例》（国务院）+ GB 17051-2025同日施行。二次供水设施须新增门禁/视频监控，规则引擎需同步更新</div>
+              </div>
+            </div>
+            <div class="alert-panel alert-amber">
+              <span class="alert-icon">🟡</span>
+              <div class="alert-content">
+                <div class="alert-title">2025年底 — 江苏省管网改造节点</div>
+                <div class="alert-desc">全省供水管道改造目标3470公里，AI健康评分模型优先排序是核心工具</div>
+              </div>
+            </div>
+            <div class="alert-panel alert-amber">
+              <span class="alert-icon">🟡</span>
+              <div class="alert-content">
+                <div class="alert-title">3月1日~10月31日 — 太湖蓝藻监测期</div>
+                <div class="alert-desc">2-MIB/土臭素/微囊藻毒素-LR进入加密监测模式，每4h检测一次；藻密度>2亿个/L触发水源切换</div>
+              </div>
+            </div>
+            <div class="alert-panel alert-blue">
+              <span class="alert-icon">🔵</span>
+              <div class="alert-content">
+                <div class="alert-title">每年1月1日 — 年度设备检定周期</div>
+                <div class="alert-desc">DN15~25水表检定周期≤6年；DN50≤4年（CJJ 207-2013 §8.2.8强制性条款）</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🗂️</span>
+          <span class="card-title">六大业务场景规则引擎导航</span>
+        </div>
+        <div class="scenario-cards">
+          <div class="scenario-card" onclick="switchPage('dma')">
+            <div class="scenario-icon">📡</div>
+            <div class="scenario-name">场景A：DMA漏损管控</div>
+            <div class="scenario-count">核心规则：MNF分析 · 漏损率分级 · ILI指数</div>
+          </div>
+          <div class="scenario-card" onclick="switchPage('quality-rules')">
+            <div class="scenario-icon">⚗️</div>
+            <div class="scenario-name">场景B：水质合规监测</div>
+            <div class="scenario-count">核心规则：97项阈值 · 分级预警 · 水源切换</div>
+          </div>
+          <div class="scenario-card" onclick="switchPage('secondary')">
+            <div class="scenario-icon">🏗️</div>
+            <div class="scenario-name">场景C：二次供水管控</div>
+            <div class="scenario-count">核心规则：清洗周期 · 水质告警 · 泵组异常</div>
+          </div>
+          <div class="scenario-card" onclick="switchPage('pipeline')">
+            <div class="scenario-icon">🔧</div>
+            <div class="scenario-name">场景D：管网运维告警</div>
+            <div class="scenario-count">核心规则：压力监控 · 爆管判断 · 巡检周期</div>
+          </div>
+          <div class="scenario-card" onclick="switchPage('dosing')">
+            <div class="scenario-icon">💊</div>
+            <div class="scenario-name">场景E：智能加药</div>
+            <div class="scenario-count">核心规则：投药上下限 · 余氯约束 · 副产物控制</div>
+          </div>
+          <div class="scenario-card" onclick="switchPage('renovation')">
+            <div class="scenario-icon">🏚️</div>
+            <div class="scenario-name">场景F：管网改造优先级</div>
+            <div class="scenario-count">核心规则：管材系数 · 综合评分 · 强制更换</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 法规条款 ===== -->
+    <section id="page-laws" class="page-section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">法规条款索引</div>
+          <div class="section-desc">14部现行法规标准 · 精确到条款号 · 含AI赋能关联说明</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🇨🇳</span><span class="card-title">国家级法规</span><span class="card-badge badge-red">优先级最高</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>法规名称</th><th>关键条款</th><th>核心数值/要求</th><th>AI规则引擎映射</th></tr></thead>
+            <tbody>
+              <tr><td>《城市供水条例》（2020修正，2026年6月新版施行）</td><td>第20条（水质）<br>第21条（水压）<br>第22条（连续供水）</td><td>水质符合卫生标准<br>设测压点<br>停水提前<strong>24小时</strong>通知</td><td>水质告警触发规则<br>压力监控规则<br>停水审批规则</td></tr>
+              <tr><td>《建办城〔2022〕2号文》漏损控制通知</td><td>漏损目标<br>管材规范<br>成本监审</td><td>2025年全国≤<strong>9%</strong><br>试点城市≤<strong>8%/7%</strong><br>DN≤80mm→薄壁不锈钢</td><td>漏损率分级规则<br>管材风险系数<br>成本核算规则</td></tr>
+              <tr><td>GB 5749-2022《生活饮用水卫生标准》</td><td>表1（常规43项）<br>表2（消毒剂4项）<br>表3（扩展54项）</td><td>浊度≤<strong>1 NTU</strong><br>游离氯≤<strong>2 mg/L</strong><br>末梢≥<strong>0.05 mg/L</strong></td><td>水质告警97项阈值<br>加药上下限规则<br>蓝藻特殊指标规则</td></tr>
+              <tr><td>CJJ 92-2016（2018修订）漏损控制标准</td><td>§4.4节DMA要求<br>§4.3.1检漏周期<br>§3.0.12管网更新率</td><td>DMA进水口安装流量计<br>检漏周期≤<strong>12个月</strong><br>年更新率≥<strong>2%</strong></td><td>DMA建设规范<br>MNF分析规则<br>改造触发规则</td></tr>
+              <tr><td>GB 17051-2025《二次供水设施卫生规范》</td><td>清洗消毒频次<br>年度水质检测<br>新增设施要求</td><td>每年≥<strong>1次</strong>清洗（省级取更严值）<br>年度检测GB5749表1<br><strong>2026.6.1施行</strong></td><td>清洗周期告警规则<br>水质检测提醒规则<br>门禁/视频触发规则</td></tr>
+              <tr><td>CJJ 207-2013管网运维技术规程</td><td>§7.3.1巡检周期<br>§7.4.2爆管修复<br>§8.2.8水表检定</td><td>一般管线<strong>5~7天</strong><br>DN≤600mm≤<strong>24小时</strong><br>DN15-25≤<strong>6年</strong></td><td>巡检频次规则<br>爆管处置时限规则<br>水表检定提醒规则</td></tr>
+              <tr><td>GB 50013-2018《室外给水设计标准》</td><td>§3.0.10服务水头<br>§7.1.8管网布置<br>§4.0.7漏损设计</td><td>一层≥<strong>10m</strong>每增一层+4m<br>宜环状布置<br>设计漏损率<strong>10%</strong></td><td>压力告警下限规则<br>管网优化设计规则<br>漏损基准设定</td></tr>
+              <tr><td>GB 55036-2022消防设施通用规范</td><td>§3.0.3平时压力</td><td>市政消火栓管网平时≥<strong>0.14 MPa</strong></td><td>管网压力红线规则（强制性）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🏛️</span><span class="card-title">江苏省及苏南地方法规</span><span class="card-badge badge-blue">地方优先</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>法规名称</th><th>条款号</th><th>具体要求</th><th>苏南特色规则</th></tr></thead>
+            <tbody>
+              <tr><td>《江苏省城乡供水管理条例》（2021修正）</td><td>第3条<br>第24条<br>第35条<br>第49条</td><td>城乡同水源同管网<br>二次供水<strong>每半年≥1次</strong>清洗<br>停水>24h须应急供水<br>水质不合规罚款<strong>5~20万</strong></td><td>城乡一体化规则<br>清洗周期（取严格值）<br>应急触发规则<br>违规处罚等级规则</td></tr>
+              <tr><td>《苏州市供水条例》（2021施行）</td><td>第9条<br>第11条<br>第17条<br>第20条<br>第34条</td><td>相邻区域出厂水互联互通<br>新建水厂同步深度处理<br>太湖/长江/阳澄湖等水源保护<br>门户网站公布浊度/余氯/水压<br>水有异味2h内到现场</td><td>区域互联调度规则<br>深度处理投运规则<br>太湖蓝藻应急规则<br>信息公开触发规则<br>投诉响应时限规则</td></tr>
+              <tr><td>《无锡市供水条例》（2022施行）</td><td>第15条<br>第18条<br>第22条<br>第41条</td><td>二次供水独立设置<br>农村供水设施改造<br>水质监测月度公布<br>影响>1万户须主管部门批准</td><td>二次供水分类规则<br>农村管网改造排序<br>月报生成规则<br>大范围停水审批规则</td></tr>
+              <tr><td>《江苏省设备更新工作方案》（2024）</td><td>供水专项</td><td>2025年底改造供水管道<strong>3470km</strong><br>2027年底改造<strong>100座水厂</strong>+<strong>3000个小区</strong></td><td>管网改造优先级规则<br>年度任务进度监控规则</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 水质指标 ===== -->
+    <section id="page-water-quality" class="page-section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">GB 5749-2022 全部97项水质指标</div>
+          <div class="section-desc">2023年4月1日强制实施 · 浊度≤1NTU（全国统一）· 游离氯上限降至2mg/L</div>
+        </div>
+      </div>
+      <div class="indicator-search">
+        <input type="text" id="indicator-search" placeholder="搜索指标名称..." oninput="filterIndicators(this.value)" />
+        <button class="filter-btn active" onclick="filterType('all',this)">全部97项</button>
+        <button class="filter-btn" onclick="filterType('regular',this)">常规43项</button>
+        <button class="filter-btn" onclick="filterType('disinfect',this)">消毒剂4项</button>
+        <button class="filter-btn" onclick="filterType('extend',this)">扩展54项</button>
+        <button class="filter-btn" onclick="filterType('taihu',this)">太湖特关注</button>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>序号</th><th>指标名称</th><th>限值</th><th>单位</th><th>类型</th><th>苏南风险</th><th>AI预警线</th></tr></thead>
+            <tbody id="indicator-table-body">
+              <tr data-type="regular" data-name="总大肠菌群"><td>1</td><td>总大肠菌群</td><td class="fw-bold">不应检出</td><td>/100mL</td><td><span class="tag tag-blue">微生物</span></td><td><span class="tag tag-red">零容忍</span></td><td>任何检出→红色告警</td></tr>
+              <tr data-type="regular" data-name="大肠埃希氏菌"><td>2</td><td>大肠埃希氏菌</td><td class="fw-bold">不应检出</td><td>/100mL</td><td><span class="tag tag-blue">微生物</span></td><td><span class="tag tag-red">零容忍</span></td><td>任何检出→红色告警</td></tr>
+              <tr data-type="regular" data-name="菌落总数"><td>3</td><td>菌落总数</td><td>100</td><td>CFU/mL</td><td><span class="tag tag-blue">微生物</span></td><td><span class="tag tag-orange">常规</span></td><td>≥80 CFU→黄色预警</td></tr>
+              <tr data-type="regular" data-name="砷"><td>4</td><td>砷</td><td>0.01</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.008mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="镉"><td>5</td><td>镉</td><td>0.005</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.004mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="铬"><td>6</td><td>铬（六价）</td><td>0.05</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-amber">注意</span></td><td>≥0.04mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="铅"><td>7</td><td>铅</td><td>0.01</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-amber">注意</span></td><td>≥0.008mg/L→黄色（老旧管网）</td></tr>
+              <tr data-type="regular" data-name="汞"><td>8</td><td>汞</td><td>0.001</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.0008mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="氰化物"><td>9</td><td>氰化物</td><td>0.05</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.04mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="氟化物"><td>10</td><td>氟化物</td><td>1.0</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.8mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="硝酸盐"><td>11</td><td>硝酸盐（以N计）</td><td>10</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-amber">注意</span></td><td>≥8mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="三氯甲烷"><td>12</td><td>三氯甲烷</td><td>0.06</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-orange">中</span></td><td>≥0.05mg/L→黄色（消毒副产物）</td></tr>
+              <tr data-type="regular" data-name="溴酸盐"><td>19</td><td>溴酸盐</td><td>0.01</td><td>mg/L</td><td><span class="tag tag-teal">毒理</span></td><td><span class="tag tag-orange">中</span></td><td>≥0.008mg/L→黄色（臭氧消毒）</td></tr>
+              <tr data-type="regular" data-name="浑浊度 浊度"><td>23</td><td>浑浊度</td><td style="color:var(--red);font-weight:bold;">≤1</td><td>NTU</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-red">高</span></td><td>≥0.8→黄; ≥1.0→红（全国统一标准）</td></tr>
+              <tr data-type="regular" data-name="臭和味"><td>24</td><td>臭和味</td><td>无异臭异味</td><td>—</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-red">高</span></td><td>感官异常→立即检测2-MIB/土臭素</td></tr>
+              <tr data-type="regular" data-name="pH"><td>26</td><td>pH值</td><td>6.5~8.5</td><td>—</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-orange">中</span></td><td><6.8或>8.2→黄色预警</td></tr>
+              <tr data-type="regular" data-name="铁"><td>28</td><td>铁</td><td>0.3</td><td>mg/L</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-orange">中</span></td><td>≥0.25mg/L→黄色（老旧铸铁管）</td></tr>
+              <tr data-type="regular" data-name="锰"><td>29</td><td>锰</td><td>0.1</td><td>mg/L</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-amber">注意</span></td><td>≥0.08mg/L→黄色</td></tr>
+              <tr data-type="regular" data-name="高锰酸盐指数 CODMn"><td>36</td><td><strong>高锰酸盐指数（CODMn）</strong></td><td style="color:var(--red);font-weight:bold;">≤3</td><td>mg/L</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-red">高</span></td><td>≥2.4→黄; ≥3.0→红（已统一不再有5mg/L宽限）</td></tr>
+              <tr data-type="regular" data-name="氨氮 氨"><td>37</td><td><strong>氨（以N计）</strong></td><td style="color:var(--orange);font-weight:bold;">0.5</td><td>mg/L</td><td><span class="tag tag-amber">感官</span></td><td><span class="tag tag-orange">高</span></td><td>≥0.4→黄（苏南汛期氨氮波动）</td></tr>
+              <tr data-type="disinfect" data-name="游离氯 余氯"><td>40</td><td><strong>游离氯（出厂水）</strong></td><td style="color:var(--red);font-weight:bold;">0.3~2.0</td><td>mg/L</td><td><span class="tag tag-green">消毒剂</span></td><td><span class="tag tag-red">核心</span></td><td>下限&lt;0.3→红色; 上限&gt;2.0→红色（2022版新上限）</td></tr>
+              <tr data-type="disinfect" data-name="游离氯 末梢余氯"><td>40</td><td><strong>游离氯（末梢水）</strong></td><td style="color:var(--red);font-weight:bold;">≥0.05</td><td>mg/L</td><td><span class="tag tag-green">消毒剂</span></td><td><span class="tag tag-red">核心</span></td><td>&lt;0.05→立即触发红色告警</td></tr>
+              <tr data-type="disinfect" data-name="总氯"><td>41</td><td>总氯（出厂水）</td><td>0.5~3.0</td><td>mg/L</td><td><span class="tag tag-green">消毒剂</span></td><td><span class="tag tag-amber">注意</span></td><td>末梢水≥0.05mg/L</td></tr>
+              <tr data-type="disinfect" data-name="二氧化氯"><td>43</td><td>二氧化氯（出厂水）</td><td>0.1~0.8</td><td>mg/L</td><td><span class="tag tag-green">消毒剂</span></td><td><span class="tag tag-amber">注意</span></td><td>末梢水≥0.02mg/L</td></tr>
+              <tr data-type="extend taihu" data-name="微囊藻毒素 蓝藻"><td>92</td><td><strong>微囊藻毒素-LR</strong></td><td style="color:var(--red);font-weight:bold;">0.001</td><td>mg/L（1μg/L）</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-red">太湖高危</span></td><td>≥0.0008→黄; ≥0.001→红（蓝藻季必测）</td></tr>
+              <tr data-type="extend taihu" data-name="2-甲基异莰醇 2MIB 土腥味"><td>96</td><td><strong>2-甲基异莰醇（2-MIB）</strong></td><td style="color:var(--red);font-weight:bold;">0.00001</td><td>mg/L（10 ng/L）</td><td><span class="tag tag-teal">扩展感官</span></td><td><span class="tag tag-red">苏南核心</span></td><td>≥8 ng/L→黄; ≥10 ng/L→红（蓝藻代谢物）</td></tr>
+              <tr data-type="extend taihu" data-name="土臭素 Geosmin 土腥味"><td>97</td><td><strong>土臭素（Geosmin）</strong></td><td style="color:var(--red);font-weight:bold;">0.00001</td><td>mg/L（10 ng/L）</td><td><span class="tag tag-teal">扩展感官</span></td><td><span class="tag tag-red">苏南核心</span></td><td>≥8 ng/L→黄; ≥10 ng/L→红（与2-MIB联合判断）</td></tr>
+              <tr data-type="extend" data-name="高氯酸盐"><td>—</td><td>高氯酸盐（新增）</td><td>0.07</td><td>mg/L</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.056→黄色预警</td></tr>
+              <tr data-type="extend" data-name="乙草胺"><td>—</td><td>乙草胺（新增）</td><td>0.02</td><td>mg/L</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-amber">注意</span></td><td>≥0.016→黄色（农业面源）</td></tr>
+              <tr data-type="extend" data-name="锑"><td>—</td><td>锑</td><td>0.005</td><td>mg/L</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.004→黄色</td></tr>
+              <tr data-type="extend" data-name="钡"><td>—</td><td>钡</td><td>0.7</td><td>mg/L</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-green">低</span></td><td>≥0.56→黄色</td></tr>
+              <tr data-type="extend" data-name="苯并芘"><td>—</td><td>苯并(a)芘</td><td>0.00001</td><td>mg/L</td><td><span class="tag tag-teal">扩展毒理</span></td><td><span class="tag tag-amber">注意</span></td><td>任何检出→立即告警</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px; font-size:12px; color:var(--text-light);">
+          ⚠️ 本表展示规则引擎关键指标，完整97项请参阅GB 5749-2022原文。标红指标为苏南太湖水源重点关注项。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DMA规则 ===== -->
+    <section id="page-dma" class="page-section">
+      <div class="section-header">
+        <div><div class="section-title">场景A：DMA分区与漏损管控规则引擎</div>
+        <div class="section-desc">依据：CJJ 92-2016（2018修订）· 建办城〔2022〕2号文</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">📐</span><span class="card-title">漏损率计算公式</span><span class="card-badge badge-teal">CJJ92 §5.2</span></div>
+          <div class="formula-box">
+            <div class="formula-title">漏损率计算（CJJ 92-2016 §5.2.2~5.2.3）</div>
+            <div class="formula-line"><span class="var">RWL</span> = (<span class="var">Qs</span> - <span class="var">Qa</span>) / <span class="var">Qs</span> × 100%  <span class="comment">  综合漏损率</span></div>
+            <div class="formula-line"><span class="var">RBL</span> = <span class="var">RWL</span> - (<span class="var">R1</span>+<span class="var">R2</span>+<span class="var">R3</span>+<span class="var">R4</span>)  <span class="comment">  修正漏损率</span></div>
+            <div style="height:8px;"></div>
+            <div class="formula-line"><span class="var">R1</span> = <span class="const">0.08</span>×<span class="var">r</span>×100%  <span class="comment">  r=居民抄表到户占比</span></div>
+            <div class="formula-line"><span class="var">R2</span> = <span class="const">0.99</span>×(<span class="var">A</span>-<span class="const">0.0693</span>)×100%  <span class="comment"> A=单位供水量管长</span></div>
+            <div class="formula-line"><span class="var">R3</span> = 压力修正值  <span class="comment">  0.35~0.55MPa→0.5%</span></div>
+            <div class="formula-line"><span class="var">R4</span> = 冻土修正  <span class="comment">  冻土深>1.4m→1%</span></div>
+          </div>
+          <div class="alert-panel alert-blue">
+            <span class="alert-icon">ℹ️</span>
+            <div class="alert-content">
+              <div class="alert-title">苏南无需考虑R4修正</div>
+              <div class="alert-desc">苏南属长三角平原，标准冻土深度接近0，R4=0</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🚦</span><span class="card-title">漏损率分级处置规则</span></div>
+          <div class="alert-panel alert-green"><span class="alert-icon">✅</span><div class="alert-content"><div class="alert-title">≤9%：合规达标</div><div class="alert-desc">维持常规检漏巡查，保持主动检漏体系 · 建办城[2022]2号</div></div></div>
+          <div class="alert-panel alert-amber"><span class="alert-icon">🟡</span><div class="alert-content"><div class="alert-title">9%~10%：一级预警</div><div class="alert-desc">加强DMA监测频次，安排重点区域检漏 · CJJ92一级标准</div></div></div>
+          <div class="alert-panel alert-orange"><span class="alert-icon">🟠</span><div class="alert-content"><div class="alert-title">10%~12%：二级预警</div><div class="alert-desc">启动重点区域检漏+压力管理优化，编制降漏方案 · CJJ92二级</div></div></div>
+          <div class="alert-panel alert-red"><span class="alert-icon">🔴</span><div class="alert-content"><div class="alert-title">≥12%：超标处置</div><div class="alert-desc">全面检漏+管网改造+超标部分不得计入供水成本 · 建办城[2022]2号</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">📡</span><span class="card-title">MNF夜间最小流量告警规则</span><span class="card-badge badge-teal">RULE-MNF-001</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>规则ID</th><th>触发条件</th><th>MNF变化量</th><th>判断逻辑</th><th>处置动作</th><th>时限</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tag tag-green">MNF-L0</span></td><td>正常</td><td>偏差&lt;10%</td><td>MNF &lt; 基线值×1.1</td><td>正常监测</td><td>—</td></tr>
+              <tr><td><span class="tag tag-amber">MNF-L1</span></td><td>连续3天趋势上升</td><td>增幅&gt;15%</td><td>7日滚动均值持续增加</td><td>加密监测+安排检漏队巡查</td><td>3天内</td></tr>
+              <tr><td><span class="tag tag-orange">MNF-L2</span></td><td>单日突增</td><td>突增&gt;30%</td><td>当日MNF / AVG(前7日MNF) &gt; 1.3</td><td>立即派检漏队+部署听漏仪</td><td>24h内</td></tr>
+              <tr><td><span class="tag tag-red">MNF-L3</span></td><td>严重异常</td><td>绝对值超高</td><td>MNF &gt; 日均供水量×30%</td><td>启动专项检漏+关阀分隔排查</td><td>4h内止水</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="formula-box" style="margin-top:12px;">
+          <div class="formula-title">净夜间流量分析（IWA方法）</div>
+          <div class="formula-line"><span class="var">NNF</span> = AVG(<span class="var">MNF</span>[7d]) - 3×STDEV(<span class="var">MNF</span>[7d])  <span class="comment">  净夜间流量</span></div>
+          <div class="formula-line">日漏失量 = <span class="var">NNF</span> × <span class="const">24</span> (m³/天)</div>
+          <div class="formula-line"><span class="var">KL</span> = 最小夜间流量 / 平均日流量  <span class="comment">  KL&gt;0.3(小区)或0.5(区域)→检漏</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 水质规则 ===== -->
+    <section id="page-quality-rules" class="page-section">
+      <div class="section-header"><div><div class="section-title">场景B：水质合规监测规则引擎</div>
+      <div class="section-desc">依据：GB 5749-2022 · 江苏省太湖蓝藻暴发应急预案 · 《江苏省生活饮用水卫生监督条例》（2024）</div></div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🚨</span><span class="card-title">水质四级预警规则</span></div>
+          <div class="alert-panel alert-green"><span class="alert-icon">🟢</span><div class="alert-content"><div class="alert-title">一级（绿色）：正常运行</div><div class="alert-desc">所有指标在限值80%以内 · 按常规频次监测</div><div class="alert-ref">GB 5749-2022 全指标</div></div></div>
+          <div class="alert-panel alert-amber"><span class="alert-icon">🟡</span><div class="alert-content"><div class="alert-title">二级（黄色）：加密监测</div><div class="alert-desc">任一指标达限值80%~100% → 4h采样频次，通知值班负责人</div></div></div>
+          <div class="alert-panel alert-orange"><span class="alert-icon">🟠</span><div class="alert-content"><div class="alert-title">三级（橙色）：工艺调整</div><div class="alert-desc">超标≤30% → 调整工艺（加大投氯/PAC吸附）+启动应急预案</div></div></div>
+          <div class="alert-panel alert-red"><span class="alert-icon">🔴</span><div class="alert-content"><div class="alert-title">四级（红色）：停水/切换</div><div class="alert-desc">微生物检出或任一指标超标&gt;50% → 停水处理/切换水源/上报主管部门</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🌿</span><span class="card-title">太湖蓝藻水源切换规则</span><span class="card-badge badge-red">3月1日~10月31日生效</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>指标</th><th>🟡黄色预警</th><th>🟠橙色预警</th><th>🔴切换触发</th></tr></thead>
+              <tbody>
+                <tr><td>藻密度（个/L）</td><td>5000万~1亿</td><td>1亿~2亿</td><td style="color:var(--red);font-weight:bold;">＞2亿</td></tr>
+                <tr><td>嗅味等级</td><td>轻微土腥味</td><td>明显异味</td><td style="color:var(--red);font-weight:bold;">恶臭</td></tr>
+                <tr><td>溶解氧(mg/L)</td><td>4~5</td><td>2~4</td><td style="color:var(--red);font-weight:bold;">＜2（疑湖泛）</td></tr>
+                <tr><td>高锰酸盐指数</td><td>3~5 mg/L</td><td>5~10 mg/L</td><td style="color:var(--red);font-weight:bold;">＞10 mg/L</td></tr>
+                <tr><td>2-MIB / 土臭素</td><td>8 ng/L</td><td>—</td><td style="color:var(--red);font-weight:bold;">10 ng/L</td></tr>
+                <tr><td>微囊藻毒素-LR</td><td>0.8 μg/L</td><td>—</td><td style="color:var(--red);font-weight:bold;">1.0 μg/L</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="alert-panel alert-blue" style="margin-top:12px;">
+            <span class="alert-icon">📋</span>
+            <div class="alert-content">
+              <div class="alert-title">切换决策逻辑</div>
+              <div class="alert-desc">藻密度&gt;1亿/L + 嗅味≥3级 + 常规工艺无法保障达标 → 启动引江济太或全面启动深度处理（粉末活性炭+臭氧氧化）</div>
+              <div class="alert-ref">苏州市吴江区太湖蓝藻暴发应急预案 · 江苏省太湖蓝藻暴发应急预案</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 二次供水 ===== -->
+    <section id="page-secondary" class="page-section">
+      <div class="section-header"><div><div class="section-title">场景C：二次供水管控规则引擎</div>
+      <div class="section-desc">依据：GB 17051-2025（2026.6.1施行）· 江苏省城乡供水管理条例第24条（取严格值每半年1次）</div></div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🪣</span><span class="card-title">水箱清洗周期告警规则</span><span class="card-badge badge-red">RULE-SEC-001</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>距上次清洗天数</th><th>告警级别</th><th>处置动作</th><th>法规依据</th></tr></thead>
+              <tbody>
+                <tr><td>0~150天</td><td><span class="tag tag-green">正常</span></td><td>定期记录检查</td><td>—</td></tr>
+                <tr><td>150~170天</td><td><span class="tag tag-amber">黄色预警</span></td><td>制定清洗计划，通知运维班组</td><td>江苏省条例第24条</td></tr>
+                <tr><td>170~180天</td><td><span class="tag tag-orange">橙色告警</span></td><td>通知物业/用户，加快安排清洗</td><td>同上</td></tr>
+                <tr><td>&gt;180天（超期）</td><td><span class="tag tag-red">红色违规</span></td><td>立即安排清洗+上报，面临5000~20000元罚款</td><td>省条例第51条</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="alert-panel alert-amber" style="margin-top:12px;">
+            <span class="alert-icon">⚖️</span>
+            <div class="alert-content">
+              <div class="alert-title">取严格值原则</div>
+              <div class="alert-desc">GB 17051-2025要求每年≥1次，但江苏省条例要求每半年≥1次。规则引擎采用省条例严格值（180天），下限为170天。</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-icon">⚗️</span><span class="card-title">二次供水水质告警阈值</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>指标</th><th>正常范围</th><th>黄色告警</th><th>红色告警</th><th>依据</th></tr></thead>
+              <tbody>
+                <tr><td><strong>游离氯</strong></td><td>0.05~2.0 mg/L</td><td>0.05~0.08 mg/L</td><td style="color:var(--red)"><strong>&lt;0.05 mg/L</strong></td><td>GB 5749-2022（强制）</td></tr>
+                <tr><td><strong>浑浊度</strong></td><td>≤1.0 NTU</td><td>1.0~3.0 NTU</td><td style="color:var(--red)"><strong>&gt;3.0 NTU</strong></td><td>GB 5749-2022（强制）</td></tr>
+                <tr><td>水温差</td><td>进出水差&lt;3℃</td><td>差3~5℃</td><td>差&gt;5℃</td><td>行业推荐</td></tr>
+                <tr><td>菌落总数</td><td>≤100 CFU/mL</td><td>—</td><td style="color:var(--red)"><strong>超标即告警</strong></td><td>GB 5749-2022（强制）</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">⚙️</span><span class="card-title">泵组运行异常判断规则</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>异常类型</th><th>触发条件</th><th>告警级别</th><th>处置动作</th></tr></thead>
+            <tbody>
+              <tr><td>电流异常</td><td>运行电流偏离额定值±15%</td><td><span class="tag tag-amber">黄色</span></td><td>告警→检查电机/叶轮</td></tr>
+              <tr><td>振动异常</td><td>振动值&gt;4.5 mm/s</td><td><span class="tag tag-orange">橙色</span></td><td>告警→安排检修计划</td></tr>
+              <tr><td>频繁启停</td><td>每小时启停&gt;10次</td><td><span class="tag tag-amber">黄色</span></td><td>检查控制逻辑/压力设定</td></tr>
+              <tr><td>长时连续运行</td><td>单台连续运行&gt;24h不切换</td><td><span class="tag tag-amber">黄色</span></td><td>检查备用泵和轮换设置</td></tr>
+              <tr><td><strong>零流量运行</strong></td><td>出水管流量=0但泵运行中</td><td><span class="tag tag-red">红色</span></td><td><strong>立即停泵</strong>→检查阀门/管路</td></tr>
+              <tr><td>进出水压差低</td><td>压差低于设计值50%</td><td><span class="tag tag-orange">橙色</span></td><td>告警→检查叶轮磨损情况</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 管网运维 ===== -->
+    <section id="page-pipeline" class="page-section">
+      <div class="section-header"><div><div class="section-title">场景D：管网运维告警规则引擎</div>
+      <div class="section-desc">依据：CJJ 207-2013 · GB 50013-2018 · GB 55036-2022（强制性）</div></div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">📊</span><span class="card-title">管网压力告警规则</span><span class="card-badge badge-red">强制性</span></div>
+          <div class="formula-box">
+            <div class="formula-title">最小服务水头（GB 50013-2018 §3.0.10）</div>
+            <div class="formula-line">一层建筑 = <span class="const">10m</span> (0.10 MPa)</div>
+            <div class="formula-line">二层建筑 = <span class="const">12m</span> (0.12 MPa)</div>
+            <div class="formula-line">N层建筑 = <span class="const">12</span> + (<span class="var">N</span>-2)×<span class="const">4</span> m</div>
+            <div class="formula-line">消防最低线 = <span class="const">0.14 MPa</span> <span class="comment"> GB55036-2022 强制性</span></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>压力范围</th><th>告警级别</th><th>处置</th></tr></thead>
+              <tbody>
+                <tr><td>≥0.20 MPa</td><td><span class="tag tag-green">正常</span></td><td>日常监测</td></tr>
+                <tr><td>0.16~0.20 MPa</td><td><span class="tag tag-amber">黄色预警</span></td><td>调度增压</td></tr>
+                <tr><td>0.14~0.16 MPa</td><td><span class="tag tag-orange">橙色告警</span></td><td>启动应急增压泵</td></tr>
+                <tr><td>&lt;0.14 MPa</td><td><span class="tag tag-red">红色违规</span></td><td>违反GB55036强制性→立即增压+上报</td></tr>
+                <tr><td>&gt;0.45 MPa</td><td><span class="tag tag-orange">超压告警</span></td><td>检查减压阀，防止管道损伤</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-icon">💥</span><span class="card-title">爆管联合判断规则</span><span class="card-badge badge-red">RULE-BURST-001</span></div>
+          <div class="formula-box">
+            <div class="formula-title">爆管判断逻辑（DMA联合判断）</div>
+            <div class="formula-line"><span class="c-kw">IF</span> (流量突增 > 基线×<span class="const">1.3</span>)</div>
+            <div class="formula-line">  <span class="c-kw">AND</span> (压力突降 > 基线×<span class="const">0.2</span>)</div>
+            <div class="formula-line">  <span class="c-kw">AND</span> (同一DMA内，时间窗口≤<span class="const">15min</span>)</div>
+            <div class="formula-line"><span class="c-kw">THEN</span> → 疑似爆管 🔴红色告警</div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>管径</th><th>抢修时限</th><th>标准依据</th></tr></thead>
+              <tbody>
+                <tr><td>DN≤600mm</td><td style="color:var(--red);font-weight:bold;">≤24小时</td><td>CJJ 207-2013 §7.4.2</td></tr>
+                <tr><td>600&lt;DN≤1200mm</td><td style="font-weight:bold;">宜≤36小时</td><td>CJJ 207-2013 §7.4.2</td></tr>
+                <tr><td>DN&gt;1200mm</td><td>宜≤48小时</td><td>CJJ 207-2013 §7.4.2</td></tr>
+                <tr><td>止水（任意管径）</td><td style="color:var(--red);font-weight:bold;">≤4小时</td><td>CJJ 207-2013 §7.4.2</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🚶</span><span class="card-title">管网巡检周期规则</span><span class="card-badge badge-teal">CJJ207 §7.3.1</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>管线类型</th><th>巡检周期要求</th><th>依据</th><th>AI应用</th></tr></thead>
+            <tbody>
+              <tr><td>重要管段（DN≥400mm输水干管）</td><td style="color:var(--red);font-weight:bold;">1~2天/次</td><td>CJJ 207-2013</td><td>GPS轨迹验证+AI视觉确认</td></tr>
+              <tr><td>一般管线</td><td style="font-weight:bold;">5~7天/次</td><td>CJJ 207-2013</td><td>工单系统自动提醒</td></tr>
+              <tr><td>事故多发管段</td><td style="color:var(--orange);font-weight:bold;">24小时监测</td><td>CJJ 207-2013</td><td>IoT传感器持续监测</td></tr>
+              <tr><td>全网检漏周期</td><td style="font-weight:bold;">≤12个月/次</td><td>CJJ 92-2016 §4.3.1</td><td>AI辅助检漏任务规划</td></tr>
+              <tr><td>DN15~25水表检定</td><td style="font-weight:bold;">≤6年</td><td>CJJ 207-2013 §8.2.8（强制）</td><td>资产管理系统到期提醒</td></tr>
+              <tr><td>DN40~50水表检定</td><td style="font-weight:bold;">≤4年</td><td>CJJ 207-2013 §8.2.8（强制）</td><td>到期前90天自动预警</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 加药规则 ===== -->
+    <section id="page-dosing" class="page-section">
+      <div class="section-header"><div><div class="section-title">场景E：智能加药规则引擎</div>
+      <div class="section-desc">依据：GB 5749-2022 表2（消毒剂硬性约束）</div></div></div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🔒</span><span class="card-title">投氯量硬性约束（不可突破）</span><span class="card-badge badge-red">GB5749-2022表2</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>控制点</th><th>硬性下限</th><th>推荐操作区间</th><th>硬性上限</th><th>接触时间要求</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出厂水游离氯</strong></td><td style="color:var(--blue)">≥0.3 mg/L</td><td>0.3~0.8 mg/L</td><td style="color:var(--red)">≤2.0 mg/L（新标准！）</td><td>≥30分钟</td></tr>
+              <tr><td><strong>管网末梢余氯</strong></td><td style="color:var(--red)">≥0.05 mg/L</td><td>0.05~0.5 mg/L</td><td>≤2.0 mg/L</td><td>—</td></tr>
+              <tr><td>二氧化氯出厂</td><td>≥0.1 mg/L</td><td>0.1~0.5 mg/L</td><td>≤0.8 mg/L</td><td>≥30分钟</td></tr>
+              <tr><td>二氧化氯末梢</td><td>≥0.02 mg/L</td><td>—</td><td>≤0.8 mg/L</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">⚠️</span><span class="card-title">异常投药告警规则</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>异常类型</th><th>触发条件</th><th>告警级别</th><th>处置</th></tr></thead>
+            <tbody>
+              <tr><td>投加量过高</td><td>出厂水余氯&gt;1.5 mg/L持续30min</td><td><span class="tag tag-amber">黄色</span></td><td>告警+检查加药泵和流量计</td></tr>
+              <tr><td><strong>上限超标</strong></td><td>出厂水余氯&gt;2.0 mg/L</td><td><span class="tag tag-red">红色</span></td><td><strong>立即降低投加量</strong>（违反GB5749强制性）</td></tr>
+              <tr><td><strong>末梢不足</strong></td><td>末梢余氯&lt;0.05 mg/L</td><td><span class="tag tag-red">红色</span></td><td><strong>立即排查原因</strong>（违反GB5749强制性）</td></tr>
+              <tr><td>副产物风险</td><td>三卤甲烷&gt;0.048 mg/L（80%限值）</td><td><span class="tag tag-amber">黄色</span></td><td>预警+降低投氯量或调整消毒方式</td></tr>
+              <tr><td>药剂耗尽预警</td><td>储罐液位&lt;20%设计容量</td><td><span class="tag tag-amber">黄色</span></td><td>提前告警+安排补充</td></tr>
+              <tr><td>投药量异常</td><td>单次投药量偏离均值±40%</td><td><span class="tag tag-orange">橙色</span></td><td>告警+检查计量泵/流量计</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 改造规则 ===== -->
+    <section id="page-renovation" class="page-section">
+      <div class="section-header"><div><div class="section-title">场景F：老旧管网改造优先级规则引擎</div>
+      <div class="section-desc">依据：建办城〔2022〕2号文 · 江苏省设备更新方案（2024）· CJJ 92-2016 §3.0.12</div></div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🏚️</span><span class="card-title">管材风险系数赋值标准</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>管材类型</th><th>风险系数</th><th>状态</th><th>苏南存量</th></tr></thead>
+              <tbody>
+                <tr><td>灰口铸铁管(GCIP)</td><td style="color:var(--red);font-weight:bold;">1.00</td><td><span class="tag tag-red">立即更换</span></td><td>高（1960-1990年代）</td></tr>
+                <tr><td>石棉水泥管(ACP)</td><td style="color:var(--red);">0.95</td><td><span class="tag tag-red">立即更换</span></td><td>少量残存</td></tr>
+                <tr><td>镀锌钢管</td><td style="color:var(--orange);">0.85</td><td><span class="tag tag-orange">近期更换</span></td><td>中（2000年前住宅）</td></tr>
+                <tr><td>普通钢管（无防腐）</td><td>0.70</td><td><span class="tag tag-amber">计划更换</span></td><td>少量</td></tr>
+                <tr><td>UPVC管</td><td>0.50</td><td><span class="tag tag-amber">加强监测</span></td><td>中（1990-2000年代）</td></tr>
+                <tr><td>球墨铸铁管(DIP)</td><td style="color:var(--green);">0.30</td><td><span class="tag tag-green">优先保留</span></td><td>大量（主干管）</td></tr>
+                <tr><td>PE管(HDPE)</td><td style="color:var(--green);">0.20</td><td><span class="tag tag-green">优先保留</span></td><td>大量（新建）</td></tr>
+                <tr><td>薄壁不锈钢管</td><td style="color:var(--green);">0.15</td><td><span class="tag tag-green">最优选择</span></td><td>新建推荐（建办城）</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-icon">📊</span><span class="card-title">综合健康评分公式</span></div>
+          <div class="formula-box">
+            <div class="formula-title">管道健康综合评分（0-100分，越高越危险）</div>
+            <div class="formula-line">Score = <span class="var">W1</span>×管材分 + <span class="var">W2</span>×管龄分</div>
+            <div class="formula-line">      + <span class="var">W3</span>×管径分 + <span class="var">W4</span>×压力分</div>
+            <div class="formula-line">      + <span class="var">W5</span>×漏损历史 + <span class="var">W6</span>×水质投诉</div>
+            <div style="height:8px;"></div>
+            <div class="formula-line"><span class="const">W1=0.30</span>  <span class="var">W2=0.25</span>  <span class="const">W3=0.15</span></div>
+            <div class="formula-line"><span class="const">W4=0.10</span>  <span class="var">W5=0.10</span>  <span class="const">W6=0.10</span></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>评分范围</th><th>优先级</th><th>处置方案</th></tr></thead>
+              <tbody>
+                <tr><td style="color:var(--red);font-weight:bold;">≥80分</td><td><span class="tag tag-red">一级·立即</span></td><td>列入当年改造计划</td></tr>
+                <tr><td>60~79分</td><td><span class="tag tag-orange">二级·近期</span></td><td>纳入3年改造规划</td></tr>
+                <tr><td>40~59分</td><td><span class="tag tag-amber">三级·中期</span></td><td>纳入5年规划+加密监测</td></tr>
+                <tr><td>&lt;40分</td><td><span class="tag tag-green">四级·观察</span></td><td>日常巡检维护</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="alert-panel alert-red" style="margin-top:12px;">
+            <span class="alert-icon">⚡</span>
+            <div class="alert-content">
+              <div class="alert-title">强制更换规则（不论评分）</div>
+              <div class="alert-desc">灰口铸铁管、石棉水泥管 → 均应优先更换；管龄超50年金属管道 → 纳入年度计划；年度管网更新率 ≥ 2%（CJJ 92 §3.0.12）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROMPTS ===== -->
+    <section id="page-prompts" class="page-section">
+      <div class="section-header"><div><div class="section-title">岗位 DeepSeek 应用 Prompt 模板</div>
+      <div class="section-desc">五大岗位 · 结构化Prompt · 开箱即用 · 与规则引擎闭环集成</div></div></div>
+      <div class="role-tabs">
+        <div class="role-tab active" onclick="switchRole('dispatcher',this)">🖥️ 调度员</div>
+        <div class="role-tab" onclick="switchRole('chemist',this)">⚗️ 水质化验员</div>
+        <div class="role-tab" onclick="switchRole('inspector',this)">🚶 管网巡检员</div>
+        <div class="role-tab" onclick="switchRole('engineer',this)">⚙️ 运维工程师</div>
+        <div class="role-tab" onclick="switchRole('manager',this)">📊 管理者</div>
+      </div>
+      <div id="role-dispatcher" class="role-content active">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🖥️</span><span class="card-title">调度员 · MNF异常分析Prompt</span><span class="card-badge badge-teal">deepseek-chat</span></div>
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">使用场景：DMA分区夜间最小流量异常时，调度员输入数据，AI辅助分析原因和处置方案</p>
+          <div class="prompt-card">
+            <div class="prompt-role">📋 System Prompt</div>
+            <div class="prompt-text">你是苏南县域供水管网调度专家，精通CJJ 92-2016漏损控制标准和苏南DMA管理规范。分析时严格引用标准条款，给出可操作的处置建议。输出必须为JSON格式。</div>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-role">💬 User Prompt（模板）</div>
+            <div class="prompt-text">【DMA-{dma_id}分区MNF异常告警】
+
+当前数据：
+- MNF当前值：{mnf_value} m³/h
+- 昨日MNF：{yesterday_mnf} m³/h，变化：{change_percent}%
+- 该分区：{user_count}户用户，管网{pipe_length}km，平均管龄{avg_pipe_age}年
+- 近7日MNF趋势：{mnf_trend}（逗号分隔）
+- 近期施工/水表更换情况：{recent_events}
+
+请参照CJJ 92-2016 §4.4.9 MNF分析方法，输出JSON：
+{
+  "risk_level": "高/中/低",
+  "root_cause_analysis": ["可能原因1", "可能原因2"],
+  "standard_reference": "引用标准条款",
+  "immediate_actions": ["立即行动1", "立即行动2"],
+  "monitoring_plan": "后续监测方案",
+  "estimated_leakage": "估算漏失量（m³/天）"
+}</div>
+          </div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div><span class="code-lang">Python · API调用示例</span></div>
+            <div class="code-content"><span class="c-kw">import</span> requests, json
+
+data = {
+    <span class="c-str">"dma_id"</span>: <span class="c-str">"苏州昆山-DMA-023"</span>,
+    <span class="c-str">"mnf_value"</span>: <span class="c-num">45.2</span>,
+    <span class="c-str">"yesterday_mnf"</span>: <span class="c-num">32.1</span>,
+    <span class="c-str">"change_percent"</span>: <span class="c-num">40.8</span>,
+    <span class="c-str">"user_count"</span>: <span class="c-num">1250</span>,
+    <span class="c-str">"pipe_length"</span>: <span class="c-num">8.3</span>,
+    <span class="c-str">"avg_pipe_age"</span>: <span class="c-num">22</span>,
+    <span class="c-str">"mnf_trend"</span>: <span class="c-str">"28,30,31,29,32,38,45"</span>,
+    <span class="c-str">"recent_events"</span>: <span class="c-str">"本周无施工记录"</span>
+}
+
+response = requests.post(
+    <span class="c-str">"https://api.deepseek.com/v1/chat/completions"</span>,
+    headers={<span class="c-str">"Authorization"</span>: <span class="c-str">"Bearer YOUR_KEY"</span>},
+    json={
+        <span class="c-str">"model"</span>: <span class="c-str">"deepseek-chat"</span>,
+        <span class="c-str">"temperature"</span>: <span class="c-num">0.2</span>,
+        <span class="c-str">"response_format"</span>: {<span class="c-str">"type"</span>: <span class="c-str">"json_object"</span>},
+        <span class="c-str">"messages"</span>: [
+            {<span class="c-str">"role"</span>:<span class="c-str">"system"</span>, <span class="c-str">"content"</span>: SYSTEM_PROMPT},
+            {<span class="c-str">"role"</span>:<span class="c-str">"user"</span>, <span class="c-str">"content"</span>: USER_PROMPT.format(**data)}
+        ]
+    }
+)
+result = json.loads(response.json()[<span class="c-str">'choices'</span>][<span class="c-num">0</span>][<span class="c-str">'message'</span>][<span class="c-str">'content'</span>])</div>
+          </div>
+        </div>
+      </div>
+      <div id="role-chemist" class="role-content">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">⚗️</span><span class="card-title">水质化验员 · 合规判断Prompt</span><span class="card-badge badge-teal">deepseek-chat</span></div>
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">使用场景：检测数据录入系统后，自动调用AI对照GB 5749-2022进行合规性判断和风险评估</p>
+          <div class="prompt-card">
+            <div class="prompt-role">📋 System Prompt</div>
+            <div class="prompt-text">你是饮用水水质检测专家，精通GB 5749-2022《生活饮用水卫生标准》全部97项指标。重点关注苏南太湖水源特征：2-甲基异莰醇(10ng/L)、土臭素(10ng/L)、微囊藻毒素-LR(1μg/L)。输出JSON格式。</div>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-role">💬 User Prompt（模板）</div>
+            <div class="prompt-text">【水质检测报告合规性审查】
+
+采样点：{sample_point}
+采样时间：{sample_time}
+水源类型：{water_source}（太湖/长江/地下水）
+
+检测数据（JSON格式）：{water_quality_json}
+
+请逐项对照GB 5749-2022进行合规性判断，输出：
+{
+  "compliant": true/false,
+  "items": [
+    {"parameter": "指标名", "measured": 数值, "standard": 限值,
+     "unit": "单位", "result": "合格/超标", "risk_note": "风险说明"}
+  ],
+  "overall_risk": "低/中/高/极高",
+  "taihu_special_check": "太湖特殊指标评估",
+  "recommendations": ["建议1", "建议2"],
+  "reporting_required": false,
+  "standard_refs": ["GB 5749-2022 §X.X.X"]
+}</div>
+          </div>
+        </div>
+      </div>
+      <div id="role-inspector" class="role-content">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">🚶</span><span class="card-title">管网巡检员 · 漏损事件处置Prompt</span><span class="card-badge badge-teal">deepseek-chat</span></div>
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">使用场景：现场发现疑似漏损或爆管时，巡检员通过移动端输入现场情况，AI给出处置指引</p>
+          <div class="prompt-card">
+            <div class="prompt-role">💬 User Prompt（模板）</div>
+            <div class="prompt-text">【管网现场异常事件处置】
+
+管段信息：{pipe_id}（{pipe_material}，DN{diameter}mm，管龄{pipe_age}年）
+位置描述：{location}
+发现情况：{event_description}
+当前压力：{pressure} MPa
+流量变化：{flow_change}
+
+请评估：
+1. 风险等级和紧急程度
+2. 预估影响用户数
+3. 止水点位置建议（结合管网拓扑）
+4. 抢修时限要求（参照CJJ 207-2013 §7.4.2）
+5. 需要通知的部门和用户
+6. 是否需立即上报
+
+输出JSON，便于派单系统解析。</div>
+          </div>
+        </div>
+      </div>
+      <div id="role-engineer" class="role-content">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">⚙️</span><span class="card-title">运维工程师 · 泵站故障诊断Prompt</span><span class="card-badge badge-blue">deepseek-reasoner</span></div>
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">使用场景：泵站设备告警时，工程师使用deepseek-reasoner进行深度故障原因分析和维修方案生成</p>
+          <div class="prompt-card">
+            <div class="prompt-role">💬 User Prompt（模板）</div>
+            <div class="prompt-text">【泵站设备故障诊断】
+
+泵站：{station_name}，{pump_id}号泵
+告警类型：{alarm_type}
+
+实时参数：
+- 运行电流：{current}A（额定：{rated_current}A）
+- 振动值：{vibration} mm/s（正常&lt;4.5）
+- 轴温：{temperature}°C
+- 出水压力：{outlet_pressure} MPa
+- 进水压力：{inlet_pressure} MPa
+- 流量：{flow} m³/h
+
+运行记录：
+- 已运行{running_hours}小时
+- 上次维保：{last_maintenance}
+- 历史故障：{fault_history}
+
+请诊断故障原因（列出可能性从高到低），给出：
+1. 故障类型判断
+2. 建议检查步骤（逐步操作指导）
+3. 备件清单
+4. 是否需要立即停机（影响供水评估）
+5. 维修时限建议</div>
+          </div>
+        </div>
+      </div>
+      <div id="role-manager" class="role-content">
+        <div class="card">
+          <div class="card-header"><span class="card-icon">📊</span><span class="card-title">管理者 · 运营月报生成Prompt</span><span class="card-badge badge-teal">deepseek-chat</span></div>
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">使用场景：每月自动从系统获取运营数据，AI生成分析报告和改进建议，对标法规要求</p>
+          <div class="prompt-card">
+            <div class="prompt-role">💬 User Prompt（模板）</div>
+            <div class="prompt-text">【供水企业月度运营分析报告生成】
+
+{year}年{month}月度运营数据：
+- 供水量：{total_supply} 万m³，售水量：{total_sales} 万m³
+- 产销差率：{nrw_rate}%（月度目标：{target}%）
+- 漏损率：{leakage_rate}%
+- 爆管次数：{burst_count}次（DN100以上）
+- 水质合格率：{quality_rate}%
+- 用户投诉：{complaint_count}件（水质{quality_complaint}件/压力{pressure_complaint}件）
+- 单位能耗：{energy} kWh/千m³
+- 二次供水清洗超期：{overdue_tanks}个
+
+法规对标要求：
+- 国家漏损目标：≤9%（建办城[2022]2号）
+- 苏南试点目标：≤8%
+- CJJ 92一级标准：≤10%
+
+请生成月度分析报告，包含：
+1. 关键指标达标情况
+2. 同比/环比趋势分析
+3. 主要问题诊断
+4. 下月重点工作建议
+5. 需要上报监管部门的事项</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 架构说明 ===== -->
+    <section id="page-arch" class="page-section">
+      <div class="section-header"><div><div class="section-title">系统架构与DeepSeek集成说明</div>
+      <div class="section-desc">规则引擎+大模型三层决策架构 · 技术接口规范</div></div></div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🏛️</span><span class="card-title">三层决策架构</span></div>
+        <div style="text-align:center; padding:16px 0; font-size:13px; color:var(--text-mid);">
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:600px;margin:0 auto;">
+            <div style="background:var(--navy);color:#fff;padding:14px 24px;border-radius:10px;"><strong>第一层：规则引擎层（毫秒级响应）</strong><br><span style="font-size:12px;opacity:0.75;">处理所有硬性阈值规则 | 直接触发告警和自动动作 | 不依赖大模型</span></div>
+            <div style="text-align:center;color:var(--text-light);">↓ 复杂/不确定场景转交</div>
+            <div style="background:var(--teal);color:#fff;padding:14px 24px;border-radius:10px;"><strong>第二层：DeepSeek AI分析层（秒级响应）</strong><br><span style="font-size:12px;opacity:0.85;">RAG检索规范条文 | 结构化Prompt推理 | JSON结构化输出</span></div>
+            <div style="text-align:center;color:var(--text-light);">↓ 输出建议，不直接执行</div>
+            <div style="background:var(--green);color:#fff;padding:14px 24px;border-radius:10px;"><strong>第三层：人工确认层</strong><br><span style="font-size:12px;opacity:0.85;">运营人员确认AI建议 | 执行操作 | 反馈优化规则</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🔌</span><span class="card-title">DeepSeek API技术规格</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>参数</th><th>推荐配置</th><th>适用场景</th></tr></thead>
+            <tbody>
+              <tr><td>Base URL</td><td><code>https://api.deepseek.com</code></td><td>所有场景</td></tr>
+              <tr><td>日常分析模型</td><td><code>deepseek-chat</code>（V3）</td><td>水质判断、漏损分析、月报生成</td></tr>
+              <tr><td>复杂诊断模型</td><td><code>deepseek-reasoner</code></td><td>泵站故障诊断、水源切换决策</td></tr>
+              <tr><td>temperature</td><td>0.1~0.3（低随机性）</td><td>确保规则分析一致性</td></tr>
+              <tr><td>response_format</td><td><code>{"type":"json_object"}</code></td><td>便于规则引擎解析输出</td></tr>
+              <tr><td>上下文窗口</td><td>128K tokens</td><td>可注入大量历史数据和标准条文</td></tr>
+              <tr><td>私有化部署</td><td>Ollama + DeepSeek-V3</td><td>图纸等敏感数据保护</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-panel alert-red" style="margin-top:12px;">
+          <span class="alert-icon">⚡</span>
+          <div class="alert-content">
+            <div class="alert-title">核心原则：规则引擎处理所有硬性阈值</div>
+            <div class="alert-desc">GB 5749-2022水质限值、GB 55036-2022压力要求、江苏省条例清洗频次等强制性规则，必须由规则引擎直接判断，不可委托大模型决策。大模型仅用于分析、建议和报告生成。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+</div>
+
+<script>
+const pageTitles = {
+  dashboard: '知识库首页',
+  laws: '法规条款索引',
+  'water-quality': 'GB5749-2022 水质指标库',
+  dma: '场景A：DMA漏损管控规则',
+  'quality-rules': '场景B：水质合规监测规则',
+  secondary: '场景C：二次供水管控规则',
+  pipeline: '场景D：管网运维告警规则',
+  dosing: '场景E：智能加药规则',
+  renovation: '场景F：管网改造优先级规则',
+  prompts: '岗位DeepSeek Prompt模板',
+  arch: '系统架构说明'
+};
+
+function switchPage(page) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[page] || page;
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("'" + page + "'")) {
+      item.classList.add('active');
+    }
+  });
+}
+
+function switchRole(role, el) {
+  document.querySelectorAll('.role-content').forEach(r => r.classList.remove('active'));
+  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('role-' + role).classList.add('active');
+  el.classList.add('active');
+}
+
+let currentFilter = 'all';
+
+function filterIndicators(searchText) {
+  const rows = document.querySelectorAll('#indicator-table-body tr');
+  rows.forEach(row => {
+    const name = row.getAttribute('data-name') || '';
+    const type = row.getAttribute('data-type') || '';
+    const matchSearch = name.toLowerCase().includes(searchText.toLowerCase());
+    const matchFilter = currentFilter === 'all' ||
+      (currentFilter === 'taihu' && type.includes('taihu')) ||
+      type.includes(currentFilter);
+    row.style.display = (matchSearch && matchFilter) ? '' : 'none';
+  });
+}
+
+function filterType(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterIndicators(document.getElementById('indicator-search').value);
+}
+</script>
+</body>
+</html>
