@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>某水务｜汛期网格化防汛防潮内部调度页</title>
+  <style>
+    :root{
+      --bg:#eef4fb;
+      --card:#ffffff;
+      --line:#d9e6f4;
+      --primary:#0d4f92;
+      --primary-2:#1b6fc9;
+      --cyan:#2ea6dd;
+      --teal:#119f9f;
+      --green:#2f9f5c;
+      --yellow:#f0b42a;
+      --orange:#ea7a1a;
+      --red:#d84343;
+      --purple:#6f5bd6;
+      --text:#17324d;
+      --muted:#617a93;
+      --shadow:0 8px 24px rgba(17,58,102,.08);
+      --radius:18px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#f7fbff 0,#eef4fb 52%,#eaf2fb 100%);color:var(--text);font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif}
+    body{min-width:0}
+    .page{max-width:760px;margin:0 auto;padding:calc(10px + var(--safe-top)) 12px calc(16px + var(--safe-bottom));}
+    .hero,.panel,.warning-card,.footer{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero{padding:14px 14px 12px;background:linear-gradient(135deg,rgba(13,79,146,.08),rgba(46,166,221,.06)),#fff;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;right:-30px;top:-24px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(46,166,221,.15),rgba(46,166,221,0) 72%)}
+    .hero-top{display:flex;align-items:flex-start;gap:12px;position:relative;z-index:1}
+    .brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(160deg,var(--primary),var(--cyan));position:relative;flex:0 0 auto}
+    .brand-mark:before,.brand-mark:after{content:"";position:absolute;border-radius:999px;background:#fff}
+    .brand-mark:before{width:29px;height:10px;left:6px;top:11px;transform:rotate(-17deg)}
+    .brand-mark:after{width:22px;height:8px;left:11px;top:22px;transform:rotate(12deg);opacity:.82}
+    h1{margin:0;font-size:24px;line-height:1.25;color:#083f7d;letter-spacing:.4px}
+    .subtitle{margin-top:6px;color:#2f5f95;font-size:13px;font-weight:700;line-height:1.5}
+    .hero-note{margin-top:12px;padding:10px 12px;border-radius:14px;background:rgba(13,79,146,.05);border:1px solid rgba(13,79,146,.1);font-size:12px;line-height:1.7;color:#46627d}
+    .identity{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{padding:6px 10px;border-radius:999px;background:#edf5ff;border:1px solid #d5e5f8;color:#245486;font-size:11px;font-weight:700}
+
+    .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .fact{padding:12px;border-radius:16px;background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--line)}
+    .fact .label{font-size:11px;color:#6d8398}
+    .fact .value{margin-top:4px;font-size:19px;font-weight:800;color:var(--primary);line-height:1.2}
+    .fact .desc{margin-top:5px;font-size:11px;color:#536d86;line-height:1.6}
+
+    .top-nav{position:sticky;top:0;z-index:20;margin:12px 0 10px;padding:8px;background:rgba(247,251,255,.9);backdrop-filter:blur(10px);border:1px solid rgba(217,230,244,.9);border-radius:16px;display:flex;gap:8px;overflow:auto;box-shadow:var(--shadow)}
+    .nav-btn{border:none;background:#edf5ff;color:#2d5886;font-size:12px;font-weight:800;padding:9px 12px;border-radius:999px;white-space:nowrap;cursor:pointer;flex:0 0 auto}
+    .nav-btn.active{background:linear-gradient(180deg,var(--primary-2),var(--primary));color:#fff}
+
+    .section{margin-top:12px}
+    .panel-header{padding:14px 14px 10px;border-bottom:1px solid #e8f1fb;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .panel-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:#0c4a8b;line-height:1.3}
+    .num{width:30px;height:30px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--primary-2),var(--primary));color:#fff;font-weight:800;font-size:17px;flex:0 0 auto}
+    .panel-sub{font-size:11px;color:#71879c;text-align:right;line-height:1.5}
+
+    .panel-body{padding:12px 14px 14px}
+    .risk-strip{padding:12px 13px;border-radius:15px;background:linear-gradient(90deg,#d55240,#c33131);color:#fff;font-size:13px;font-weight:700;line-height:1.7}
+    .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .mini{padding:11px 12px;border-radius:14px;border:1px solid #deebf8;background:#f8fbff}
+    .mini h4{margin:0 0 6px;font-size:14px;color:#0c4a8b}
+    .mini p{margin:0;font-size:12px;color:#516b84;line-height:1.65}
+
+    .toolbar{display:flex;gap:8px;overflow:auto;padding-bottom:2px;margin-bottom:10px}
+    .toggle{border:none;border-radius:999px;padding:9px 12px;background:#edf5ff;border:1px solid #d4e5fa;color:#325978;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
+    .toggle.active{background:linear-gradient(180deg,var(--primary-2),var(--primary));color:#fff;border-color:var(--primary)}
+    .legend{display:flex;flex-wrap:wrap;gap:8px 10px;margin-bottom:10px;font-size:11px;color:#556f89}
+    .legend-item{display:flex;align-items:center;gap:6px}
+    .swatch{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+    .map-box{position:relative;min-height:0;border-radius:16px;overflow:hidden;border:1px solid #dce8f6;background:linear-gradient(180deg,#fbfdff,#f5f9fd)}
+    svg{display:block;width:100%;height:auto}
+    .svg-label{font-size:12px;font-weight:700;fill:#355473}
+    .svg-small{font-size:10px;font-weight:600;fill:#4b6a86}
+    .svg-chip{fill:#fff;stroke:#d7e4f4;stroke-width:1}
+    .layer{transition:opacity .2s ease}
+    .hotspot{cursor:pointer}
+    .hotspot circle,.hotspot rect,.hotspot path{transition:transform .16s ease,filter .16s ease}
+    .hotspot:active circle,.hotspot:hover circle{filter:drop-shadow(0 5px 10px rgba(18,98,181,.22))}
+    .map-note{margin-top:10px;font-size:12px;color:#688098;line-height:1.7}
+
+    .info-stack{display:grid;gap:12px;margin-top:12px}
+    .point-type{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#edf5ff;border:1px solid #d9e8f9;color:#255487;font-size:12px;font-weight:800}
+    .point-card h3{margin:10px 0 8px;font-size:20px;color:#0c4a8b;line-height:1.35}
+    .point-card p{margin:0;color:#4d6781;font-size:13px;line-height:1.8}
+    .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .meta{padding:11px 12px;border-radius:14px;background:#f6fbff;border:1px solid #dfebf7}
+    .meta .k{font-size:11px;color:#6f88a0;margin-bottom:4px}
+    .meta .v{font-size:12px;font-weight:700;color:#244867;line-height:1.6}
+
+    .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .status-card{padding:12px;border-radius:15px;background:#f8fbff;border:1px solid #deebf8}
+    .status-card h4{margin:0 0 6px;font-size:14px;color:#0c4a8b}
+    .status-card p{margin:0;font-size:12px;color:#516b84;line-height:1.7}
+
+    .flow-steps{display:grid;gap:8px}
+    .step{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:11px 12px;border-radius:15px;border:1px solid #ddeaf8;background:linear-gradient(180deg,#fff,#f8fbff)}
+    .idx{width:34px;height:34px;border-radius:12px;background:linear-gradient(180deg,var(--primary-2),var(--primary));color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
+    .step h4{margin:1px 0 5px;font-size:14px;color:#0b4a8a}
+    .step p{margin:0;font-size:12px;color:#506983;line-height:1.7}
+    .step-arrow{text-align:center;color:#7ba7d8;font-size:18px;font-weight:900;line-height:1}
+    .slogan{margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--primary);color:#fff;font-size:13px;font-weight:800;line-height:1.6}
+
+    .check-list{display:grid;gap:8px}
+    .check{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:11px 12px;border-radius:15px;border:1px solid #dfebf7;background:#f9fbff}
+    .icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--primary-2),var(--primary));color:#fff;font-weight:900;font-size:15px}
+    .check h4{margin:0 0 4px;font-size:14px;color:#0c4a8b}
+    .check p{margin:0;font-size:12px;color:#526b84;line-height:1.72}
+    .public .icon{background:linear-gradient(180deg,var(--cyan),var(--primary-2))}
+
+    .warning-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .warning-card{padding:12px 12px 10px}
+    .warning-card h3{margin:0 0 7px;font-size:16px}
+    .warning-card p,.warning-card li{font-size:12px;line-height:1.65;color:#334d67}
+    .warning-card ul{margin:8px 0 0 18px;padding:0}
+    .lvl-blue{border-top:5px solid #2b77d9}
+    .lvl-yellow{border-top:5px solid var(--yellow)}
+    .lvl-orange{border-top:5px solid var(--orange)}
+    .lvl-red{border-top:5px solid var(--red)}
+
+    .footer{padding:14px 14px 16px;margin-top:12px;background:linear-gradient(135deg,var(--primary),#0d67b2);color:#fff}
+    .footer h3{margin:0 0 8px;font-size:18px}
+    .footer p,.footer li{font-size:12px;line-height:1.75;color:rgba(255,255,255,.94)}
+    .footer ul{margin:6px 0 0 18px;padding:0}
+    .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .tag{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:700}
+    .small-note{margin-top:10px;padding:10px 11px;border-radius:13px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14)}
+
+    @media (max-width:560px){
+      .facts,.risk-grid,.meta-grid,.status-grid,.warning-grid{grid-template-columns:1fr}
+      h1{font-size:22px}
+      .panel-title{font-size:17px}
+      .panel-sub{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero" id="top">
+      <div class="hero-top">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <h1>某水务｜汛期网格化防汛防潮内部调度页</h1>
+          <div class="subtitle">手机屏优先｜内部调度导向｜供排水一体化｜脱敏示意展示</div>
+        </div>
+      </div>
+      <div class="hero-note">
+        本页基于已提供的深度研究报告整理为脱敏版本。
+        页面重点服务于值班调度、片区网格、设施巡查、应急资源前置和移动端快速查看；地图按示意表达，不替代正式调度图。
+      </div>
+      <div class="identity">
+        <span class="chip">企业：某水务（脱敏）</span>
+        <span class="chip">地区：某市（脱敏）</span>
+        <span class="chip">用途：内部调度 / 培训 / 预案演示</span>
+      </div>
+      <div class="facts">
+        <div class="fact">
+          <div class="label">调度主线</div>
+          <div class="value">厂—站—网—河—用户</div>
+          <div class="desc">从单点设施值守转向全链条韧性管理，适用于供水、排水、污水处理和客服联动。</div>
+        </div>
+        <div class="fact">
+          <div class="label">当前定位</div>
+          <div class="value">更偏内部调度</div>
+          <div class="desc">优先展示网格责任、关键设施、点位说明、派单闭环与分级响应动作。</div>
+        </div>
+        <div class="fact">
+          <div class="label">移动端重点</div>
+          <div class="value">单列阅读 + 点按联动</div>
+          <div class="desc">适配手机屏查看，信息顺序按“先研判—再看图—后执行”组织。</div>
+        </div>
+        <div class="fact">
+          <div class="label">资料边界</div>
+          <div class="value">脱敏 + 示意</div>
+          <div class="desc">保留治理逻辑与操作结构，不展示真实企业名称、城市名称和精确 GIS 坐标。</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="top-nav" id="navBar">
+      <button class="nav-btn active" data-target="riskPanel">研判</button>
+      <button class="nav-btn" data-target="mapPanel">地图</button>
+      <button class="nav-btn" data-target="pointPanel">点位</button>
+      <button class="nav-btn" data-target="flowPanel">闭环</button>
+      <button class="nav-btn" data-target="staffPanel">员工</button>
+      <button class="nav-btn" data-target="publicPanel">市民</button>
+      <button class="nav-btn" data-target="warningPanel">预警</button>
+      <button class="nav-btn" data-target="sourcePanel">说明</button>
+    </nav>
+
+    <section class="section panel" id="riskPanel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="num">1</span> 汛情研判</div>
+        <div class="panel-sub">先看风险，再看点位，再安排调度</div>
+      </div>
+      <div class="panel-body">
+        <div class="risk-strip">
+          当前重点风险：暴雨内涝、沿江高水位 / 潮位顶托、低洼片区积水、下穿通道与地下空间倒灌、泵站高负荷或故障、供排水设施停电、井盖冒溢与污水外溢，以及“天气 + 设备 + 用户报障”叠加形成的复合型险情。
+        </div>
+        <div class="risk-grid">
+          <div class="mini">
+            <h4>复合灾害</h4>
+            <p>不是单点事故，而是暴雨、顶托、外电波动、交通受阻和群众报障同时出现的连续场景。</p>
+          </div>
+          <div class="mini">
+            <h4>全链条治理</h4>
+            <p>调度对象已从单一水厂或泵站，扩展为“厂—站—网—河—用户”的统一事件处理链。</p>
+          </div>
+          <div class="mini">
+            <h4>关键设施优先</h4>
+            <p>关键泵站、原水取输、水厂高配电、重点排口、历史积水点、下穿通道应先纳入统一清单。</p>
+          </div>
+          <div class="mini">
+            <h4>人机协同</h4>
+            <p>先做“规则阈值 + 模型辅助 + 值班确认”的轻量闭环，比一开始追求复杂大系统更适合落地。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="mapPanel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="num">2</span> 地图版核心可视化</div>
+        <div class="panel-sub">示意图，仅用于宣传展示，不替代官方实战调度图</div>
+      </div>
+      <div class="panel-body">
+        <div class="toolbar" id="layerToggles">
+          <button class="toggle active" data-layer="risk">风险带 / 易涝片区</button>
+          <button class="toggle active" data-layer="facility">供排水设施</button>
+          <button class="toggle active" data-layer="grid">网格责任区</button>
+          <button class="toggle active" data-layer="public">避险提示点</button>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="swatch" style="background:#e95d45"></span>沿江顶托风险带</div>
+          <div class="legend-item"><span class="swatch" style="background:#f4b45b"></span>中心易积水片区</div>
+          <div class="legend-item"><span class="swatch" style="background:#8c7cf4"></span>下穿 / 地下空间</div>
+          <div class="legend-item"><span class="swatch" style="background:#2f9fdc"></span>水厂 / 泵房 / 加压站</div>
+          <div class="legend-item"><span class="swatch" style="background:#37ad64"></span>泵站 / 闸站 / 污水设施</div>
+          <div class="legend-item"><span class="swatch" style="background:#5b86ff"></span>网格责任区</div>
+          <div class="legend-item"><span class="swatch" style="background:#11a0a0"></span>避险提示 / 上报点</div>
+        </div>
+        <div class="map-box">
+          <svg viewBox="0 0 920 760" role="img" aria-label="某市防汛防潮示意地图">
+            <defs>
+              <linearGradient id="riverGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#8ed8ff"/>
+                <stop offset="100%" stop-color="#4da8e8"/>
+              </linearGradient>
+              <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f9fcff"/>
+                <stop offset="100%" stop-color="#edf4fb"/>
+              </linearGradient>
+              <filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".14" flood-color="#0b4a8a"/></filter>
+            </defs>
+            <rect x="0" y="0" width="920" height="760" fill="url(#landGrad)"/>
+            <rect x="0" y="0" width="920" height="178" fill="url(#riverGrad)"/>
+            <path d="M0,160 C110,173 192,158 292,168 C414,180 488,160 618,145 C724,133 836,146 920,162 L920,0 L0,0 Z" fill="rgba(255,255,255,.2)"/>
+            <text x="458" y="70" text-anchor="middle" style="font-size:34px;font-weight:900;fill:#ffffff;letter-spacing:6px">某 市 沿 江 段</text>
+            <text x="822" y="46" class="svg-label" style="fill:#edf7ff">北 ↑</text>
+
+            <path d="M86,200 C132,174 218,186 262,205 C310,227 354,228 408,220 C470,210 548,194 595,214 C654,238 724,244 768,272 C805,296 830,355 830,420 C830,482 810,541 767,589 C724,639 642,668 585,662 C526,655 470,642 429,650 C375,661 314,684 258,667 C208,652 171,621 140,594 C106,564 75,523 59,479 C41,422 38,378 52,334 C63,297 55,244 86,200Z" fill="#fdfefe" stroke="#8bb9e8" stroke-width="4" stroke-dasharray="10 8"/>
+
+            <g opacity=".75">
+              <path d="M124,252 C182,284 205,330 262,360 C321,392 352,455 409,486 C457,513 518,528 557,563" fill="none" stroke="#a7c8ea" stroke-width="11" stroke-linecap="round"/>
+              <path d="M220,231 C260,274 315,286 356,332 C398,376 428,413 485,440 C545,469 595,472 648,498" fill="none" stroke="#b7d2ee" stroke-width="8" stroke-linecap="round"/>
+              <path d="M710,256 C675,306 651,347 634,406 C615,474 592,522 552,571" fill="none" stroke="#b7d2ee" stroke-width="8" stroke-linecap="round"/>
+              <path d="M138,406 L739,406" stroke="#d3dde8" stroke-width="3" stroke-dasharray="8 8"/>
+              <path d="M222,245 L222,603" stroke="#d3dde8" stroke-width="2" stroke-dasharray="8 8"/>
+              <path d="M406,220 L406,637" stroke="#d3dde8" stroke-width="2" stroke-dasharray="8 8"/>
+              <path d="M607,232 L607,622" stroke="#d3dde8" stroke-width="2" stroke-dasharray="8 8"/>
+            </g>
+
+            <g class="layer" data-layer="grid">
+              <path d="M115,223 L274,242 L260,392 L105,366 Z" fill="rgba(91,134,255,.13)" stroke="rgba(91,134,255,.38)" stroke-width="2"/>
+              <path d="M276,243 L458,225 L466,392 L260,392 Z" fill="rgba(91,134,255,.10)" stroke="rgba(91,134,255,.34)" stroke-width="2"/>
+              <path d="M467,226 L658,237 L651,402 L468,392 Z" fill="rgba(91,134,255,.08)" stroke="rgba(91,134,255,.30)" stroke-width="2"/>
+              <path d="M660,238 L772,286 L772,401 L651,402 Z" fill="rgba(91,134,255,.14)" stroke="rgba(91,134,255,.34)" stroke-width="2"/>
+              <path d="M105,368 L260,393 L258,571 L132,561 L84,510 Z" fill="rgba(91,134,255,.08)" stroke="rgba(91,134,255,.28)" stroke-width="2"/>
+              <path d="M260,393 L468,393 L476,634 L315,646 L258,571 Z" fill="rgba(91,134,255,.06)" stroke="rgba(91,134,255,.28)" stroke-width="2"/>
+              <path d="M468,393 L651,402 L690,624 L476,634 Z" fill="rgba(91,134,255,.10)" stroke="rgba(91,134,255,.28)" stroke-width="2"/>
+              <path d="M651,402 L772,401 L780,576 L691,624 Z" fill="rgba(91,134,255,.13)" stroke="rgba(91,134,255,.32)" stroke-width="2"/>
+              <text x="160" y="304" class="svg-label">沿江值守网格</text>
+              <text x="343" y="304" class="svg-label">主城调度网格</text>
+              <text x="540" y="305" class="svg-label">东部设施网格</text>
+              <text x="680" y="345" class="svg-label">沿江联动网格</text>
+              <text x="125" y="476" class="svg-label">西南巡查网格</text>
+              <text x="334" y="528" class="svg-label">中心处置网格</text>
+              <text x="538" y="550" class="svg-label">南部保供网格</text>
+              <text x="675" y="516" class="svg-label">东南应急网格</text>
+            </g>
+
+            <g class="layer" data-layer="risk">
+              <path d="M90,176 C190,195 327,191 442,176 C544,163 632,147 726,163 C769,170 801,180 837,196" fill="none" stroke="#e95d45" stroke-width="16" stroke-linecap="round" stroke-dasharray="14 9" opacity=".92"/>
+              <path d="M291,333 L376,306 L444,331 L419,390 L333,402 L277,374 Z" fill="rgba(244,180,91,.58)" stroke="#de8b2f" stroke-width="2"/>
+              <path d="M389,321 L469,302 L547,334 L522,403 L430,415 L379,382 Z" fill="rgba(244,180,91,.46)" stroke="#de8b2f" stroke-width="2"/>
+              <path d="M541,348 L613,343 L640,392 L589,431 L523,413 Z" fill="rgba(244,180,91,.40)" stroke="#de8b2f" stroke-width="2"/>
+              <path d="M337,433 L413,428 L438,472 L392,510 L329,494 L313,459 Z" fill="rgba(140,124,244,.26)" stroke="#6e5bd4" stroke-width="2"/>
+              <path d="M211,445 L279,438 L302,477 L272,519 L203,518 L189,475 Z" fill="rgba(140,124,244,.26)" stroke="#6e5bd4" stroke-width="2"/>
+            </g>
+
+            <g class="layer" data-layer="facility">
+              <g class="hotspot" tabindex="0" data-title="水厂 / 加压站 / 二次供水泵房" data-type="供水设施" data-risk="保供底线" data-owner="制水保障 / 片区网格" data-body="暴雨和外电波动叠加时，关键不是单一停电点位，而是水厂、加压站、二次供水泵房与高配电室的连续运行。移动端值班查看时，应优先确认供电状态、水质快检、应急切换和重点用户保障情况。">
+                <circle cx="336" cy="543" r="16" fill="#2f9fdc" stroke="#ffffff" stroke-width="4" filter="url(#shadow)"/>
+                <rect x="326" y="533" width="20" height="16" rx="2" fill="#fff"/>
+                <rect x="330" y="529" width="12" height="6" rx="1" fill="#fff"/>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="关键泵站 / 闸站 / 污水处理设施" data-type="排水设施" data-risk="强排与倒灌" data-owner="排水运维 / 值班长" data-body="这是内部调度最应盯紧的对象之一。若泵站液位接近满仓且备用泵不可用，系统应自动升级；现场动作应同步包含远程启停、移动泵车、发电保障与交通封控。">
+                <circle cx="607" cy="462" r="16" fill="#37ad64" stroke="#ffffff" stroke-width="4" filter="url(#shadow)"/>
+                <path d="M597 466 h20 M603 459 l7 14 M611 459 l7 14" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="沿江闸口联控点" data-type="排水设施" data-risk="潮位顶托" data-owner="沿江联动网格" data-body="当外河控制水位接近排口临界倒灌水位时，应联动止回、临时封堵、闸站运行和上游分流策略；手机端页面适合值班中快速确认当前动作状态。">
+                <circle cx="706" cy="287" r="13" fill="#37ad64" stroke="#fff" stroke-width="4"/>
+                <path d="M698 287 h16 M706 279 v16" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="应急物资前置点" data-type="应急资源" data-risk="快速到场" data-owner="调度中心 / 片区负责人" data-body="建议围绕历史积水点、关键泵站、低洼通道和易受顶托排口前置移动泵车、发电机、沙袋、挡水板和警示牌，形成‘签收—到场—恢复’考核链。">
+                <circle cx="133" cy="546" r="13" fill="#b8752a" stroke="#fff" stroke-width="4"/>
+                <rect x="126" y="538" width="14" height="11" rx="2" fill="#fff"/>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="抢险队伍机动点" data-type="应急资源" data-risk="联调联排" data-owner="中心处置网格" data-body="更偏内部调度时，应强调‘谁签收、谁到场、谁回传’，把供水、排水、抢修、物业、街道与供电接口放进同一事件闭环。">
+                <circle cx="531" cy="506" r="13" fill="#b8752a" stroke="#fff" stroke-width="4"/>
+                <path d="M525 508 h12 M531 502 v12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <g class="layer" data-layer="public">
+              <g class="hotspot" tabindex="0" data-title="下穿通道与地下空间避险提醒点" data-type="避险提示" data-risk="人员安全" data-owner="社区 / 物业 / 街道联动" data-body="即使页面更偏内部调度，也需保留公众风险提示：暴雨和高水位预警时，远离下穿通道、地下车库、井盖冒溢区域；不要围观、不要涉水试探。">
+                <circle cx="252" cy="471" r="13" fill="#11a0a0" stroke="#fff" stroke-width="4"/>
+                <text x="252" y="476" text-anchor="middle" style="fill:#fff;font-size:14px;font-weight:900">!</text>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="社区雨水口与物业泵房自查点" data-type="避险提示" data-risk="物业前置" data-owner="社区 / 物业" data-body="物业可按网格预案完成雨水口清理、地下车库泵房巡检、止回设施检查和应急电源自查，减轻抢险期的被动处置压力。">
+                <circle cx="451" cy="570" r="13" fill="#11a0a0" stroke="#fff" stroke-width="4"/>
+                <text x="451" y="575" text-anchor="middle" style="fill:#fff;font-size:14px;font-weight:900">i</text>
+              </g>
+              <g class="hotspot" tabindex="0" data-title="沿江步道与低洼路段提醒点" data-type="避险提示" data-risk="绕行避险" data-owner="宣传 / 交管 / 属地街道" data-body="值班中可把这一类点位作为对外发布提醒的统一口径模板，减少临场表述不一致。">
+                <circle cx="628" cy="249" r="13" fill="#11a0a0" stroke="#fff" stroke-width="4"/>
+                <text x="628" y="254" text-anchor="middle" style="fill:#fff;font-size:14px;font-weight:900">i</text>
+              </g>
+            </g>
+
+            <rect x="28" y="612" rx="18" ry="18" width="240" height="92" class="svg-chip"/>
+            <text x="46" y="640" class="svg-label" style="font-size:14px">值班查看建议</text>
+            <text x="46" y="664" class="svg-small">先看：风险带、泵站、排口、积水点、应急资源</text>
+            <text x="46" y="684" class="svg-small">再看：责任网格、派单对象、现场反馈与复盘字段</text>
+          </svg>
+        </div>
+        <div class="map-note">
+          地图表达逻辑：北侧突出沿江高水位 / 顶托风险，中部突出易积水与地下空间，东南侧强调供排水设施与应急资源联动。
+          点按地图图标，可在下方“点位说明”查看主要风险、责任建议与推荐动作。
+        </div>
+      </div>
+    </section>
+
+    <section class="section info-stack" id="pointPanel">
+      <div class="panel point-card">
+        <div class="panel-header">
+          <div class="panel-title"><span class="num">3</span> 点位说明</div>
+          <div class="panel-sub">移动端点按联动说明卡</div>
+        </div>
+        <div class="panel-body">
+          <div class="point-type" id="pointType">地图联动说明</div>
+          <h3 id="pointTitle">请点按上方地图中的点位</h3>
+          <p id="pointBody">本区域用于联动展示点位类型、主要风险、责任主体和建议动作。当前版本更偏内部调度，因此默认优先解释设施、网格、应急资源与派单逻辑。</p>
+          <div class="meta-grid">
+            <div class="meta">
+              <div class="k">主要风险</div>
+              <div class="v" id="pointRisk">顶托、积水、倒灌、泵站高负荷、停电、用户报障聚集</div>
+            </div>
+            <div class="meta">
+              <div class="k">责任建议</div>
+              <div class="v" id="pointOwner">调度中心牵头，片区网格负责，供水 / 排水 / 抢修 / 物业 / 街道联动</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title"><span class="num">4</span> 调度重点速览</div>
+          <div class="panel-sub">值班手机端先看这四类</div>
+        </div>
+        <div class="panel-body status-grid">
+          <div class="status-card">
+            <h4>先盯天气与外河</h4>
+            <p>短临强降雨、外河高水位和顶托预警是多数处置动作的起点，应与值守、封控和预置同步启动。</p>
+          </div>
+          <div class="status-card">
+            <h4>再盯泵站与排口</h4>
+            <p>液位接近上限、备用泵不可用、通信中断、外电波动时，优先升级事件等级。</p>
+          </div>
+          <div class="status-card">
+            <h4>同步盯群众报障</h4>
+            <p>同一网格短时间内出现多起同类报障，可视为“群众传感器”，用于校验是否形成积水或停水点。</p>
+          </div>
+          <div class="status-card">
+            <h4>最后盯回传复盘</h4>
+            <p>到场时间、恢复时长、是否顶托、是否停电、是否舆情集中，应在事件结束后快速沉淀。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="flowPanel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="num">5</span> “互联网 + 员工 + 用户 + AI”闭环</div>
+        <div class="panel-sub">更偏内部调度，突出派单与反馈</div>
+      </div>
+      <div class="panel-body">
+        <div class="flow-steps">
+          <div class="step">
+            <div class="idx">1</div>
+            <div><h4>用户上报</h4><p>APP / 热线 / 企业微信 / 社区联络 / 工单入口，兼顾用户投诉、报障和现场图片上报。</p></div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="step">
+            <div class="idx">2</div>
+            <div><h4>AI 研判</h4><p>融合雨量、水位、液位、SCADA、视频、工单与历史样本，做风险分级、热点聚类和到场优先级建议。</p></div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="step">
+            <div class="idx">3</div>
+            <div><h4>平台派单</h4><p>统一事件总线串联 GIS、泵站报警、用户报障和客服系统，自动定位、分级、就近派单至网格责任人。</p></div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="step">
+            <div class="idx">4</div>
+            <div><h4>现场处置</h4><p>清掏、抽排、封控、启停泵闸、供水切换、抢修复电、用户提醒同步推进，先保人身安全，再稳供排水。</p></div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="step">
+            <div class="idx">5</div>
+            <div><h4>复盘优化</h4><p>沉淀到场时间、恢复时长、原因分类、用户反馈与图像资料，形成“一点一策、一站一册、一案一复盘”。</p></div>
+          </div>
+        </div>
+        <div class="slogan">更早预警、更快派单、更准处置、更实复盘。</div>
+      </div>
+    </section>
+
+    <section class="section panel" id="staffPanel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="num">6</span> 员工行动清单（内部调度版）</div>
+        <div class="panel-sub">优先可执行、可派单、可考核</div>
+      </div>
+      <div class="panel-body">
+        <div class="check-list">
+          <div class="check"><div class="icon">✓</div><div><h4>预警前移</h4><p>联看气象短临预报、外河水位 / 潮位、泵站液位、重点用户报障和历史积水点；满足升级条件时不等待人工补报。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>设施巡查</h4><p>水厂、泵房、闸站、排口、井盖、下穿通道、高配电室、机房和施工点位按“问题—责任—时限—复核”闭环巡检。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>物资前置</h4><p>移动泵车、发电机、沙袋、挡水板、警示牌、排水软管和照明设备围绕历史高风险点前置到位。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>联调联排</h4><p>供水、排水、客服、抢修、物业、街道、防办、供电同图会商、同网格派单，避免“看得见但调不动”。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>安全作业</h4><p>涉水涉电执行“先断电、后作业；两人同行、先封控后抢险”；地下空间和交通要道先做风险隔离。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>保供保排</h4><p>供水侧紧盯水质、水压、原水异常与关键用户连续性；排水侧盯液位、满流率、排口回水和污水厂高负荷运行。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>抢修复电</h4><p>关键泵站和厂站配电室要做到移动电源快速接入、远程 / 现场双启动、抢修过程留痕并同步更新用户通知。</p></div></div>
+          <div class="check"><div class="icon">✓</div><div><h4>处置复盘</h4><p>重大事件 48 小时内完成复盘，记录积水时长、到场时长、恢复时长、是否顶托、是否停电、是否舆情聚集。</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="publicPanel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="num">7</span> 市民 / 物业行动清单（保留精简版）</div>
+        <div class="panel-sub">页面偏内部调度，公众内容作辅助口径</div>
+      </div>
+      <div class="panel-body">
+        <div class="check-list">
+          <div class="check public"><div class="icon">✓</div><div><h4>收到预警减少非必要外出</h4><p>避开低洼路段、沿江低地、施工围挡周边和已发布封控提示的道路。</p></div></div>
+          <div class="check public"><div class="icon">✓</div><div><h4>远离下穿通道、地下车库、井盖冒溢区域</h4><p>不围观、不涉水试探，不在雨水口和井盖附近停留。</p></div></div>
+          <div class="check public"><div class="icon">✓</div><div><h4>车辆不要强行涉水</h4><p>涉水熄火后不要二次启动；电动车和充电设备远离积水区域。</p></div></div>
+          <div class="check public"><div class="icon">✓</div><div><h4>发现险情及时拍照定位上报</h4><p>积水、污水外溢、井盖缺失、供水异常、路面塌陷等情况，应尽快通过统一入口上报。</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="warningPanel">
+      <div class="warning-grid">
+        <div class="warning-card lvl-blue"><h3>蓝色预警</h3><p>关注局地强降雨、短时积水和个别点位液位抬升。</p><ul><li>员工：加强巡查，核实重点泵站、排口、下穿通道状态。</li><li>市民：留意预警信息，减少前往低洼地段。</li></ul></div>
+        <div class="warning-card lvl-yellow"><h3>黄色预警</h3><p>降雨量级提升，局部风险点可能进入快速积水阶段。</p><ul><li>员工：队伍前置，历史易涝点和沿江顶托敏感点值守。</li><li>市民：避开地下空间和积水路段。</li></ul></div>
+        <div class="warning-card lvl-orange"><h3>橙色预警</h3><p>暴雨叠加外河高水位或关键设施故障，需进入强排与封控阶段。</p><ul><li>员工：启动强排、临时封控、重点设施保护和移动电源接入。</li><li>市民：非必要不外出，服从交通管制和社区提醒。</li></ul></div>
+        <div class="warning-card lvl-red"><h3>红色预警</h3><p>超标准降雨或复合型灾害来临，优先保障人身安全。</p><ul><li>员工：先人后物，优先保障生命线设施。</li><li>市民：立即避险转移，不涉水抢行。</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section footer" id="sourcePanel">
+      <h3>数据来源与说明</h3>
+      <p>本页主要依据你提供的深度研究报告整理，保留“供排水一体化、防汛防潮、城市排水防涝、智慧排水、防汛应急管理”等核心结构，并做移动端和脱敏处理。</p>
+      <ul>
+        <li>脱敏规则：企业统一表述为“某水务”，城市统一表述为“某市”。</li>
+        <li>地图规则：按沿江城市与主城区风险表达的培训需求绘制示意图，不展示真实坐标和真实站点名称。</li>
+        <li>使用场景：内部值班调度、培训演示、预案讨论、手机端巡查查看。</li>
+        <li>边界说明：不替代正式防汛调度系统、真实 GIS、视频平台和应急指挥图。</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">手机屏优先</span>
+        <span class="tag">内部调度</span>
+        <span class="tag">网格责任</span>
+        <span class="tag">设施点位</span>
+        <span class="tag">派单闭环</span>
+        <span class="tag">脱敏示意</span>
+      </div>
+      <div class="small-note">建议下一步如补充真实网格责任表、泵站台账、排口高程、历史积水点和联系电话，可直接升级为企业内网移动调度页。</div>
+    </section>
+  </div>
+
+  <script>
+    const toggles = document.querySelectorAll('.toggle');
+    const layers = document.querySelectorAll('.layer');
+    toggles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const layerName = btn.dataset.layer;
+        document.querySelectorAll(`.layer[data-layer="${layerName}"]`).forEach(layer => {
+          const active = btn.classList.contains('active');
+          layer.style.opacity = active ? '1' : '0';
+          layer.style.pointerEvents = active ? 'auto' : 'none';
+        });
+      });
+    });
+
+    const pointType = document.getElementById('pointType');
+    const pointTitle = document.getElementById('pointTitle');
+    const pointBody = document.getElementById('pointBody');
+    const pointRisk = document.getElementById('pointRisk');
+    const pointOwner = document.getElementById('pointOwner');
+
+    document.querySelectorAll('.hotspot').forEach(node => {
+      const update = () => {
+        pointType.textContent = node.dataset.type || '点位说明';
+        pointTitle.textContent = node.dataset.title || '点位';
+        pointBody.textContent = node.dataset.body || '';
+        pointRisk.textContent = node.dataset.risk || '待补充';
+        pointOwner.textContent = node.dataset.owner || '待补充';
+        document.getElementById('pointPanel').scrollIntoView({behavior:'smooth', block:'start'});
+      };
+      node.addEventListener('click', update);
+      node.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          update();
+        }
+      });
+    });
+
+    const navBtns = document.querySelectorAll('.nav-btn');
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (!target) return;
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    const sections = [...navBtns].map(btn => document.getElementById(btn.dataset.target)).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.target === id));
+        }
+      });
+    }, {rootMargin:'-30% 0px -55% 0px', threshold:0.01});
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
