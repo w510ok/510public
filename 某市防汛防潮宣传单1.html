@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>某水务 · 城市网格化防汛防潮宣传单</title>
+<meta name="viewport" content="width=1440" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3EFE6;
+    --paper:#FBF8F1;
+    --ink:#0E1E33;
+    --ink-2:#2A3B54;
+    --muted:#6B7689;
+    --line:#1A2B44;
+    --line-soft:#C9C0AC;
+    --navy:#0F2847;
+    --navy-2:#1B3D66;
+    --red:#C8342A;
+    --red-dk:#8F2018;
+    --amber:#E89B2B;
+    --amber-dk:#A46614;
+    --teal:#2D7A6B;
+    --teal-dk:#1B4F44;
+    --water:#D7E4E8;
+    --water-2:#B8CBD1;
+    --grid:#E4DBC4;
+    --stamp:#9C2B24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#2A2A28;font-family:"Noto Sans SC",system-ui,sans-serif;color:var(--ink);}
+  .page{
+    width:1440px; margin:24px auto; background:var(--paper);
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(200,52,42,.03), transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(15,40,71,.04), transparent 40%);
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+    position:relative; overflow:hidden;
+    border:1px solid #d9cfb7;
+  }
+  /* Hairline cross register marks */
+  .page::before, .page::after{
+    content:""; position:absolute; width:18px; height:18px; border:1px solid var(--line); opacity:.5;
+  }
+  .page::before{ top:14px; left:14px; border-right:none; border-bottom:none;}
+  .page::after{ bottom:14px; right:14px; border-left:none; border-top:none;}
+
+  /* ============= HEADER ============= */
+  header.masthead{
+    display:grid; grid-template-columns: 1fr auto 1fr;
+    align-items:end; padding:28px 40px 18px; border-bottom:2px solid var(--line);
+    position:relative;
+  }
+  .mast-left{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.6;}
+  .mast-left .doc-no{color:var(--ink); font-weight:600;}
+  .mast-center{text-align:center;}
+  .series{
+    display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;
+    color:var(--red); border:1px solid var(--red); padding:2px 10px; margin-bottom:8px;
+  }
+  h1.title{
+    font-family:"Noto Serif SC",serif; font-weight:900; font-size:44px; letter-spacing:.08em;
+    margin:0; color:var(--ink); line-height:1.1;
+  }
+  h1.title .accent{ color:var(--red); }
+  .subtitle{
+    font-family:"Noto Sans SC",sans-serif; font-weight:400; font-size:13px; letter-spacing:.35em;
+    color:var(--ink-2); margin-top:10px;
+  }
+  .mast-right{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); text-align:right; line-height:1.8;
+  }
+  .mast-right b{color:var(--ink); font-weight:600;}
+  .mast-right .issue-stamp{
+    display:inline-block; margin-top:6px; border:1.5px solid var(--stamp); color:var(--stamp);
+    padding:3px 10px; font-weight:600; letter-spacing:.12em; transform:rotate(-1.5deg);
+    background:rgba(156,43,36,.04);
+  }
+
+  /* Header ticker row */
+  .ticker{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 40px; background:var(--navy); color:#E5DFD1;
+    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.08em;
+  }
+  .ticker .dot{width:8px;height:8px;background:var(--amber);border-radius:50%;display:inline-block;margin-right:8px;
+    animation:pulse 1.8s infinite ease-in-out;}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  .ticker .seg{display:flex; gap:20px;}
+  .ticker .seg span b{color:#fff; font-weight:600; margin-right:6px;}
+
+  /* ============= JUDGEMENT BAR ============= */
+  .judge{
+    display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    border-bottom:1px solid var(--line); background:#F7F2E6;
+  }
+  .judge > div{ padding:18px 22px; border-right:1px solid var(--line-soft); }
+  .judge > div:last-child{border-right:none;}
+  .judge h3{font-size:11px;letter-spacing:.25em;color:var(--muted);margin:0 0 6px;font-weight:500;}
+  .judge .val{font-family:"Noto Serif SC",serif;font-size:28px;font-weight:900;color:var(--ink);line-height:1;}
+  .judge .val small{font-size:13px; font-weight:500; margin-left:4px; color:var(--muted); font-family:"Noto Sans SC";}
+  .judge .tag{display:inline-block; margin-top:6px; font-size:11px; font-family:"IBM Plex Mono",monospace; letter-spacing:.05em;}
+  .judge .tag.red{color:var(--red);} .judge.amber{color:var(--amber-dk);}
+  .judge .lede{font-size:13.5px; line-height:1.7; color:var(--ink-2);}
+  .judge .lede b{color:var(--red); font-weight:700;}
+
+  /* ============= MAIN GRID ============= */
+  .main{ display:grid; grid-template-columns: 1fr 420px; gap:0; }
+  .map-col{ padding:24px 24px 24px 40px; border-right:1px solid var(--line-soft); }
+  .side-col{ padding:24px 40px 24px 24px; }
+
+  /* Section header */
+  .sec-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:14px;
+  }
+  .sec-head .num{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--red); letter-spacing:.15em;
+  }
+  .sec-head h2{
+    font-family:"Noto Serif SC",serif; font-weight:900; font-size:22px; margin:0;
+    letter-spacing:.05em;
+  }
+  .sec-head .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);letter-spacing:.08em;}
+
+  /* ============= MAP ============= */
+  .map-wrap{
+    position:relative; border:1px solid var(--line); background:var(--water);
+    background-image:
+      linear-gradient(rgba(26,43,68,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,43,68,.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .map-wrap svg{display:block; width:100%; height:auto;}
+  .map-badge{
+    position:absolute; top:12px; left:12px;
+    background:rgba(251,248,241,.94); border:1px solid var(--line); padding:8px 12px;
+    font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+    color:var(--ink); line-height:1.5;
+  }
+  .map-badge b{color:var(--red); font-weight:700;}
+  .map-disclaimer{
+    position:absolute; bottom:10px; right:12px;
+    background:rgba(200,52,42,.9); color:#FBF8F1;
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.15em;
+    padding:5px 10px; font-weight:500;
+  }
+  .map-compass{
+    position:absolute; top:12px; right:12px;
+    width:54px; height:54px; background:rgba(251,248,241,.94); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono",monospace; font-size:11px;
+  }
+  .map-scale{
+    position:absolute; bottom:10px; left:12px;
+    background:rgba(251,248,241,.94); border:1px solid var(--line); padding:6px 10px;
+    font-family:"IBM Plex Mono",monospace; font-size:10px; display:flex; align-items:center; gap:8px;
+  }
+  .map-scale .bar{display:flex;}
+  .map-scale .bar span{display:inline-block;width:20px;height:6px;border:1px solid var(--line);}
+  .map-scale .bar span.f{background:var(--line);}
+
+  /* Map legend */
+  .legend{
+    margin-top:14px; border:1px solid var(--line); padding:14px 16px; background:#FBF8F1;
+  }
+  .legend-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .legend-head b{font-family:"Noto Serif SC",serif;font-size:14px;letter-spacing:.1em;}
+  .legend-head small{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;}
+  .legend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 16px;}
+  .lg-item{display:flex; gap:8px; align-items:flex-start; font-size:12px; line-height:1.4;}
+  .lg-item .sw{flex-shrink:0; margin-top:2px;}
+  .lg-item b{display:block; font-weight:600; color:var(--ink);}
+  .lg-item span{color:var(--muted); font-size:11px;}
+  .sw-box{width:14px;height:14px;border:1px solid var(--line);}
+  .sw-pin{width:14px;height:14px; border-radius:50%;border:1.5px solid #fff; box-shadow:0 0 0 1px var(--line);}
+  .sw-line{width:14px;height:4px; margin-top:7px;}
+  .sw-tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent; border-bottom:12px solid;}
+
+  /* ============= SIDE: RISK LEVEL ============= */
+  .risk-bar{display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:18px; border:1px solid var(--line);}
+  .risk-bar > div{ padding:10px 8px; text-align:center; border-right:1px solid rgba(255,255,255,.3); color:#fff; position:relative;}
+  .risk-bar > div:last-child{border-right:none;}
+  .risk-bar .lvl{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.15em;opacity:.85;}
+  .risk-bar .name{font-family:"Noto Serif SC",serif; font-size:17px; font-weight:900; margin-top:2px;}
+  .risk-bar .rule{font-size:10.5px; margin-top:3px; opacity:.9; line-height:1.3;}
+  .risk-bar .blue{background:#3A6FA8;}
+  .risk-bar .yellow{background:#D6A829;}
+  .risk-bar .orange{background:#D56823;}
+  .risk-bar .red{background:var(--red);}
+  .risk-bar .active::after{
+    content:"当前"; position:absolute; top:-10px; right:4px; background:var(--ink); color:#fff;
+    font-size:9px; padding:2px 5px; font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
+  }
+
+  /* ============= ACTION LISTS ============= */
+  .actions{ display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:22px; border:1px solid var(--line);}
+  .act-col{ padding:18px 18px 16px; }
+  .act-col.staff{ background:#EEF0F2; border-right:1px solid var(--line);}
+  .act-col.citizen{ background:#F6EDE2;}
+  .act-col .role{
+    display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:8px;
+    border-bottom:1px dashed var(--line-soft);
+  }
+  .role-badge{
+    width:30px;height:30px; border-radius:50%; display:flex;align-items:center;justify-content:center;
+    font-family:"Noto Serif SC",serif; font-weight:900; font-size:14px; color:#fff;
+  }
+  .staff .role-badge{background:var(--navy);}
+  .citizen .role-badge{background:var(--teal);}
+  .role .rname{font-family:"Noto Serif SC",serif; font-size:16px; font-weight:900; letter-spacing:.05em;}
+  .role .rsub{font-size:10.5px; color:var(--muted); font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;}
+  .act-col ol{list-style:none; padding:0; margin:0; counter-reset: stp;}
+  .act-col li{
+    counter-increment:stp; padding:8px 0 8px 30px; position:relative;
+    border-bottom:1px dotted var(--line-soft); font-size:12.5px; line-height:1.55;
+  }
+  .act-col li:last-child{border-bottom:none;}
+  .act-col li::before{
+    content: counter(stp,decimal-leading-zero);
+    position:absolute; left:0; top:9px;
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+    color:var(--red); font-weight:600; letter-spacing:.05em;
+  }
+  .act-col li b{color:var(--ink);}
+  .act-col li .tag{
+    display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.1em;
+    padding:1px 6px; margin-left:6px; vertical-align:1px;
+  }
+  .tag.t-pre{background:#D6E2D8;color:#1f5135;}
+  .tag.t-in{background:#F2D9B8;color:#8a4e10;}
+  .tag.t-post{background:#D8D4C6;color:#44402d;}
+
+  /* ============= LOOP DIAGRAM ============= */
+  .loop-sec{ padding:28px 40px; background:var(--navy); color:#E8E1CD; border-top:1px solid var(--line);}
+  .loop-sec .sec-head{border-bottom-color:rgba(255,255,255,.2);}
+  .loop-sec .sec-head .num{color:var(--amber);}
+  .loop-sec .sec-head h2{color:#fff;}
+  .loop-sec .sec-head .meta{color:rgba(232,225,205,.6);}
+  .loop-grid{ display:grid; grid-template-columns: 1fr 1.4fr; gap:32px; align-items:stretch;}
+  .loop-text{font-size:13.5px; line-height:1.75; color:#E5DFCC;}
+  .loop-text p{margin:0 0 10px;}
+  .loop-text b{color:var(--amber);}
+  .loop-stats{display:grid;grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px;}
+  .loop-stats .s{background:rgba(255,255,255,.05); padding:10px 12px; border-left:2px solid var(--amber);}
+  .loop-stats .s b{display:block; font-family:"Noto Serif SC",serif; font-size:22px; color:#fff; font-weight:900; line-height:1;}
+  .loop-stats .s span{font-size:11px; color:#B8B39F; letter-spacing:.05em;}
+
+  .loop-diagram{position:relative; min-height:360px;}
+
+  /* ============= FOOTER STRIP ============= */
+  .footer{ display:grid; grid-template-columns: 1.2fr 1fr 1fr; border-top:2px solid var(--line);}
+  .footer > div{ padding:22px 28px; border-right:1px solid var(--line-soft);}
+  .footer > div:last-child{border-right:none;}
+  .foot-h{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--red); letter-spacing:.15em; margin-bottom:8px;}
+  .foot-t{font-family:"Noto Serif SC",serif; font-size:15px; font-weight:700; margin-bottom:10px;}
+  .foot-l{font-size:11.5px; line-height:1.7; color:var(--ink-2);}
+  .foot-l li{margin-bottom:3px; padding-left:12px; position:relative;}
+  .foot-l li::before{content:"›"; position:absolute; left:0; color:var(--red);}
+  .hotlines{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .hotline{border:1px solid var(--line); padding:10px 12px; background:#FBF8F1;}
+  .hotline b{font-family:"IBM Plex Mono",monospace; font-size:18px; color:var(--red); letter-spacing:.05em; font-weight:600;}
+  .hotline span{display:block; font-size:11px; color:var(--muted);}
+  .sources{font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--muted); line-height:1.75;}
+  .sources b{color:var(--ink);}
+
+  /* Very bottom brand strip */
+  .brandstrip{
+    background:#E8DFC8; padding:10px 40px; display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--ink-2); letter-spacing:.12em;
+    border-top:1px solid var(--line-soft);
+  }
+  .brandstrip b{color:var(--ink);}
+
+  /* SVG map labels */
+  .mlabel{font-family:"Noto Sans SC"; font-size:11px; fill:var(--navy); font-weight:500;}
+  .mlabel-sm{font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--navy-2); letter-spacing:.05em;}
+  .mlabel-water{font-family:"Noto Serif SC"; font-size:14px; fill:#6A8088; font-style:italic; font-weight:500;}
+  .mlabel-bold{font-family:"Noto Serif SC"; font-size:12px; fill:var(--ink); font-weight:900;}
+
+  /* Pulse on map pins */
+  @keyframes mpulse{0%,100%{transform:scale(1); opacity:1;}50%{transform:scale(1.3);opacity:.55;}}
+  .pulse-pin{transform-origin:center; transform-box:fill-box; animation:mpulse 2.2s infinite ease-in-out;}
+
+  /* callouts */
+  .callout{
+    background:#FFFBEE; border:1px solid var(--amber); padding:10px 12px; margin-top:12px;
+    font-size:12px; line-height:1.55; color:var(--ink-2);
+  }
+  .callout b{color:var(--amber-dk);}
+
+  /* stat inline */
+  .stat-inline{display:flex; gap:18px; margin:12px 0 4px; flex-wrap:wrap;}
+  .stat-inline .si{border-left:2px solid var(--red); padding-left:10px;}
+  .stat-inline .si b{font-family:"Noto Serif SC",serif; font-size:19px; display:block; font-weight:900;}
+  .stat-inline .si span{font-size:10.5px; color:var(--muted); letter-spacing:.08em;}
+
+  /* Grid responsibility mini table */
+  .grid-tbl{width:100%; border-collapse:collapse; margin-top:8px; font-size:11.5px;}
+  .grid-tbl th{background:#EEE7D3; text-align:left; font-weight:600; padding:6px 8px; border-bottom:1px solid var(--line);}
+  .grid-tbl td{padding:6px 8px; border-bottom:1px dotted var(--line-soft);}
+  .grid-tbl tr:last-child td{border-bottom:none;}
+  .grid-tbl td.code{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--red); font-weight:600;}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- =========== MASTHEAD =========== -->
+  <header class="masthead">
+    <div class="mast-left">
+      <div class="doc-no">文件编号 · FX-2026-07-A</div>
+      <div>张贴范围 · 全市供排水片区网格</div>
+      <div>版本 · v3.1 · 公开宣传版 “换位跑一次” ◎江南ai工作小组</div>
+    </div>
+    <div class="mast-center">
+      <div class="series">CITY GRID FLOOD-PROOFING BRIEF · 城市网格化防汛防潮简报demo版</div>
+      <h1 class="title">汛 来 有 备 · <span class="accent">潮 涨 有 策</span></h1>
+      <div class="subtitle">员 工 有 岗 · 市 民 有 知 · 一 图 作 战</div>
+    </div>
+    <div class="mast-right">
+      <div>发行 · <b>防汛防潮指挥部办公室</b></div>
+      <div>印发 · 2026 汛前第一号</div>
+      <div class="issue-stamp">限 汛 期 使 用</div>
+    </div>
+  </header>
+
+  <!-- =========== TICKER =========== -->
+  <div class="ticker">
+    <div class="seg">
+      <span><span class="dot"></span><b>实时状态</b> 梅雨期 / 外河水位预警中</span>
+      <span><b>当前响应</b> Ⅲ 级 · 橙色</span>
+      <span><b>覆盖网格</b> 47 个</span>
+    </div>
+    <div class="seg">
+      <span><b>更新</b> 2026-04-22 08:00</span>
+      <span><b>下次研判</b> 12:00</span>
+    </div>
+  </div>
+
+  <!-- =========== JUDGEMENT BAR =========== -->
+  <section class="judge">
+    <div>
+      <h3>汛 情 研 判 · OUTLOOK</h3>
+      <div class="lede">未来 72 小时，<b>短临强降雨 + 长江高水位顶托</b> 叠加概率上升；排口倒灌与低洼点积涝为主要风险。<br>重点守护 <b>水厂电气 · 关键排涝泵站 · 污水厂进水</b>。</div>
+    </div>
+    <div>
+      <h3>1h 雨量阈值</h3>
+      <div class="val">35<small>mm</small></div>
+      <div class="tag" style="color:var(--amber-dk)">≥黄色预警启动</div>
+    </div>
+    <div>
+      <h3>外河警戒</h3>
+      <div class="val">85<small>%</small></div>
+      <div class="tag" style="color:var(--amber-dk)">距控制水位 · 顶托观察</div>
+    </div>
+    <div>
+      <h3>在线泵站</h3>
+      <div class="val">109<small>座</small></div>
+      <div class="tag" style="color:var(--teal-dk)">远程可达 · 在线率 99.0%</div>
+    </div>
+    <div>
+      <h3>运维管网</h3>
+      <div class="val">623<small>km</small></div>
+      <div class="tag" style="color:var(--teal-dk)">网格分段责任到人</div>
+    </div>
+  </section>
+
+  <!-- =========== MAIN GRID =========== -->
+  <section class="main">
+
+    <!-- ===== MAP COLUMN ===== -->
+    <div class="map-col">
+      <div class="sec-head">
+        <div>
+          <div class="num">§ 02 &nbsp;/&nbsp; SITUATION MAP</div>
+          <h2>网 格 化 防 汛 防 潮 总 览 图</h2>
+        </div>
+        <div class="meta">示 意 投 影 · 非 精 确 比 例</div>
+      </div>
+
+      <div class="map-wrap">
+        <div class="map-badge">
+          <b>示意地图 SCHEMATIC</b><br>
+          区域：沿江城市片区（示意）<br>
+          网格数：47 · 责任人全覆盖
+        </div>
+        <div class="map-compass">
+          <svg viewBox="0 0 50 50" width="40" height="40">
+            <circle cx="25" cy="25" r="22" fill="none" stroke="#0F2847" stroke-width="1"/>
+            <polygon points="25,6 29,26 25,22 21,26" fill="#C8342A"/>
+            <polygon points="25,44 29,24 25,28 21,24" fill="#0F2847"/>
+            <text x="25" y="15" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#0F2847" font-weight="700">N</text>
+          </svg>
+        </div>
+        <div class="map-scale">
+          <span>0</span>
+          <div class="bar"><span class="f"></span><span></span><span class="f"></span><span></span></div>
+          <span>约 2 km</span>
+        </div>
+        <div class="map-disclaimer">仅 用 于 宣 传 展 示 · NOT FOR NAV</div>
+
+        <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hatchRed" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+              <rect width="6" height="6" fill="rgba(200,52,42,.08)"/>
+              <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(200,52,42,.55)" stroke-width="1.2"/>
+            </pattern>
+            <pattern id="hatchAmber" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(-45)">
+              <rect width="7" height="7" fill="rgba(232,155,43,.08)"/>
+              <line x1="0" y1="0" x2="0" y2="7" stroke="rgba(232,155,43,.55)" stroke-width="1"/>
+            </pattern>
+            <pattern id="hatchTeal" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+              <rect width="8" height="8" fill="rgba(45,122,107,.06)"/>
+              <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(45,122,107,.4)" stroke-width=".8"/>
+            </pattern>
+            <pattern id="waterWave" patternUnits="userSpaceOnUse" width="24" height="8">
+              <path d="M0 4 Q 6 0 12 4 T 24 4" stroke="#7FA0A8" fill="none" stroke-width=".7" opacity=".6"/>
+            </pattern>
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.5"/>
+            </filter>
+          </defs>
+
+          <!-- Water body: Yangtze / 长江 (top) -->
+          <path d="M0 0 L900 0 L900 85 Q 720 110 540 95 Q 360 80 180 105 Q 90 115 0 95 Z"
+                fill="#B8CBD1"/>
+          <path d="M0 0 L900 0 L900 85 Q 720 110 540 95 Q 360 80 180 105 Q 90 115 0 95 Z"
+                fill="url(#waterWave)"/>
+          <text class="mlabel-water" x="440" y="50">长 江  Yangtze</text>
+          <text class="mlabel-sm" x="440" y="68">外 河 水 位：+4.82 m · 距控制水位 0.38 m</text>
+
+          <!-- Levee / 江堤 -->
+          <path d="M0 95 Q 90 115 180 105 Q 360 80 540 95 Q 720 110 900 85" fill="none"
+                stroke="#8F2018" stroke-width="2.2"/>
+          <path d="M0 95 Q 90 115 180 105 Q 360 80 540 95 Q 720 110 900 85" fill="none"
+                stroke="#8F2018" stroke-width="1" stroke-dasharray="2 4" transform="translate(0,4)"/>
+          <text class="mlabel-sm" x="20" y="128" fill="#8F2018">— — 沿 江 防 洪 堤 (一级)</text>
+
+          <!-- Ground base tone -->
+          <rect x="0" y="120" width="900" height="420" fill="#EAE1C9"/>
+
+          <!-- Urban block tint (light) -->
+          <rect x="120" y="160" width="620" height="300" fill="#F3EBD4" opacity=".7"/>
+
+          <!-- Grid sectors (faint) -->
+          <g stroke="#C9C0AC" stroke-width=".6" stroke-dasharray="3 3" fill="none">
+            <line x1="260" y1="120" x2="260" y2="540"/>
+            <line x1="400" y1="120" x2="400" y2="540"/>
+            <line x1="540" y1="120" x2="540" y2="540"/>
+            <line x1="680" y1="120" x2="680" y2="540"/>
+            <line x1="0" y1="260" x2="900" y2="260"/>
+            <line x1="0" y1="380" x2="900" y2="380"/>
+          </g>
+          <!-- grid codes -->
+          <g class="mlabel-sm" fill="#A09478">
+            <text x="140" y="140">G-01</text><text x="280" y="140">G-02</text><text x="420" y="140">G-03</text><text x="560" y="140">G-04</text><text x="700" y="140">G-05</text>
+            <text x="140" y="280">G-06</text><text x="280" y="280">G-07</text><text x="420" y="280">G-08</text><text x="560" y="280">G-09</text><text x="700" y="280">G-10</text>
+            <text x="140" y="400">G-11</text><text x="280" y="400">G-12</text><text x="420" y="400">G-13</text><text x="560" y="400">G-14</text><text x="700" y="400">G-15</text>
+          </g>
+
+          <!-- Risk zones (hatched polygons) -->
+          <!-- High risk: low-lying core (red hatch) -->
+          <path d="M290 300 L420 290 L460 350 L430 410 L310 415 L280 360 Z"
+                fill="url(#hatchRed)" stroke="#C8342A" stroke-width="1.2" stroke-dasharray="4 2"/>
+          <text class="mlabel-bold" x="330" y="360" fill="#8F2018">低 洼 重 点 区</text>
+          <text class="mlabel-sm" x="330" y="375" fill="#8F2018">HIGH · 历史积水 12 处</text>
+
+          <!-- Medium risk: waterfront edge (amber hatch) -->
+          <path d="M100 130 L820 130 L820 195 Q 640 210 420 198 Q 220 188 100 205 Z"
+                fill="url(#hatchAmber)" stroke="#A46614" stroke-width=".9" stroke-dasharray="3 2"/>
+          <text class="mlabel-bold" x="540" y="170" fill="#A46614">沿 江 顶 托 带 · MED</text>
+
+          <!-- Medium risk: downstream basin (amber hatch) -->
+          <path d="M580 400 L780 390 L820 460 L760 500 L600 495 L560 440 Z"
+                fill="url(#hatchAmber)" stroke="#A46614" stroke-width=".9" stroke-dasharray="3 2"/>
+          <text class="mlabel-bold" x="650" y="450" fill="#A46614">下 游 汇 流 区 · MED</text>
+
+          <!-- Safe zone: high ground (teal hatch) -->
+          <path d="M100 220 L250 210 L270 280 L180 320 L95 290 Z"
+                fill="url(#hatchTeal)" stroke="#2D7A6B" stroke-width=".8" stroke-dasharray="3 2"/>
+          <text class="mlabel-bold" x="140" y="265" fill="#1B4F44">高 地 避 险 区</text>
+
+          <!-- Inland river -->
+          <path d="M130 460 Q 280 420 440 440 Q 600 460 780 420" fill="none"
+                stroke="#8AA7AF" stroke-width="10" stroke-linecap="round" opacity=".6"/>
+          <path d="M130 460 Q 280 420 440 440 Q 600 460 780 420" fill="none"
+                stroke="#5A7880" stroke-width="1" stroke-dasharray="2 3"/>
+          <text class="mlabel-water" x="300" y="435">内 河 · 锡 澄 水 系</text>
+
+          <!-- Roads / arterial -->
+          <g stroke="#7A6B4A" stroke-width="3.5" fill="none" opacity=".55">
+            <line x1="0" y1="230" x2="900" y2="230"/>
+            <line x1="0" y1="340" x2="900" y2="340"/>
+            <line x1="340" y1="120" x2="340" y2="540"/>
+            <line x1="600" y1="120" x2="600" y2="540"/>
+          </g>
+          <g stroke="#FBF8F1" stroke-width=".6" stroke-dasharray="6 5" fill="none">
+            <line x1="0" y1="230" x2="900" y2="230"/>
+            <line x1="0" y1="340" x2="900" y2="340"/>
+            <line x1="340" y1="120" x2="340" y2="540"/>
+            <line x1="600" y1="120" x2="600" y2="540"/>
+          </g>
+          <text class="mlabel-sm" x="10" y="225" fill="#7A6B4A">滨 江 大 道</text>
+          <text class="mlabel-sm" x="10" y="335" fill="#7A6B4A">环 城 中 路</text>
+
+          <!-- Underpass hazard (下立交) -->
+          <g>
+            <circle cx="340" cy="230" r="10" fill="#FBF8F1" stroke="#C8342A" stroke-width="1.5"/>
+            <text x="340" y="234" text-anchor="middle" font-family="Noto Serif SC" font-size="11" fill="#C8342A" font-weight="900">⚠</text>
+            <text class="mlabel-sm" x="355" y="225" fill="#8F2018">下立交 · 易淹 0.6 m</text>
+          </g>
+
+          <!-- ============= FACILITIES ============= -->
+          <!-- Water plant 水厂 (square, navy) -->
+          <g transform="translate(210,175)">
+            <rect x="-10" y="-10" width="20" height="20" fill="#0F2847" stroke="#FBF8F1" stroke-width="2"/>
+            <text x="0" y="4" text-anchor="middle" font-family="Noto Serif SC" font-size="11" fill="#FBF8F1" font-weight="900">水</text>
+            <text class="mlabel" x="-30" y="-16">城北水厂 · WP-01</text>
+          </g>
+          <g transform="translate(760,235)">
+            <rect x="-10" y="-10" width="20" height="20" fill="#0F2847" stroke="#FBF8F1" stroke-width="2"/>
+            <text x="0" y="4" text-anchor="middle" font-family="Noto Serif SC" font-size="11" fill="#FBF8F1" font-weight="900">水</text>
+            <text class="mlabel" x="-60" y="-16">城东水厂 · WP-02</text>
+          </g>
+
+          <!-- Sewage plant 污水厂 (square, teal) -->
+          <g transform="translate(820,470)">
+            <rect x="-10" y="-10" width="20" height="20" fill="#1B4F44" stroke="#FBF8F1" stroke-width="2"/>
+            <text x="0" y="4" text-anchor="middle" font-family="Noto Serif SC" font-size="11" fill="#FBF8F1" font-weight="900">污</text>
+            <text class="mlabel" x="-75" y="-16">南区污水处理厂 · SP-01</text>
+          </g>
+
+          <!-- Dispatch center 调度中心 (diamond) -->
+          <g transform="translate(450,290)">
+            <polygon points="0,-12 12,0 0,12 -12,0" fill="#C8342A" stroke="#FBF8F1" stroke-width="2"/>
+            <text x="0" y="4" text-anchor="middle" font-family="Noto Serif SC" font-size="10" fill="#FBF8F1" font-weight="900">指</text>
+            <text class="mlabel-bold" x="18" y="4">调度指挥中心</text>
+            <text class="mlabel-sm" x="18" y="17">962001 · HQ</text>
+          </g>
+
+          <!-- Pump stations 泵站 (blue circles with P) -->
+          <g>
+          <!-- distributed -->
+          <g transform="translate(160,210)">
+            <g class="pulse-pin"><circle r="9" fill="#1B3D66" stroke="#fff" stroke-width="1.8"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fff" font-weight="700">P</text></g>
+            <text class="mlabel-sm" x="13" y="4">P-01</text>
+          </g>
+          <g transform="translate(380,200)">
+            <g class="pulse-pin"><circle r="9" fill="#1B3D66" stroke="#fff" stroke-width="1.8"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fff" font-weight="700">P</text></g>
+            <text class="mlabel-sm" x="13" y="4">P-02</text>
+          </g>
+          <g transform="translate(620,200)">
+            <g class="pulse-pin"><circle r="9" fill="#1B3D66" stroke="#fff" stroke-width="1.8"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fff" font-weight="700">P</text></g>
+            <text class="mlabel-sm" x="13" y="4">P-03</text>
+          </g>
+          <g transform="translate(320,380)">
+            <g class="pulse-pin"><circle r="10" fill="#C8342A" stroke="#fff" stroke-width="2"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#fff" font-weight="700">P!</text></g>
+            <text class="mlabel-sm" x="14" y="4" fill="#8F2018">P-04 · 关键</text>
+          </g>
+          <g transform="translate(500,420)">
+            <g class="pulse-pin"><circle r="9" fill="#1B3D66" stroke="#fff" stroke-width="1.8"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fff" font-weight="700">P</text></g>
+            <text class="mlabel-sm" x="13" y="4">P-05</text>
+          </g>
+          <g transform="translate(680,450)">
+            <g class="pulse-pin"><circle r="10" fill="#C8342A" stroke="#fff" stroke-width="2"/>
+            <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#fff" font-weight="700">P!</text></g>
+            <text class="mlabel-sm" x="14" y="4" fill="#8F2018">P-06 · 关键</text>
+          </g>
+          </g>
+
+          <!-- Outfalls 排口 (triangles, red) at levee -->
+          <g>
+            <g transform="translate(200,100)">
+              <polygon points="0,-8 7,6 -7,6" fill="#C8342A" stroke="#fff" stroke-width="1"/>
+              <text class="mlabel-sm" x="-15" y="-12" fill="#8F2018">O-1</text>
+            </g>
+            <g transform="translate(440,90)">
+              <polygon points="0,-8 7,6 -7,6" fill="#C8342A" stroke="#fff" stroke-width="1"/>
+              <text class="mlabel-sm" x="-15" y="-12" fill="#8F2018">O-2</text>
+            </g>
+            <g transform="translate(700,105)">
+              <polygon points="0,-8 7,6 -7,6" fill="#C8342A" stroke="#fff" stroke-width="1"/>
+              <text class="mlabel-sm" x="-15" y="-12" fill="#8F2018">O-3</text>
+            </g>
+          </g>
+
+          <!-- Emergency supply points 应急物资点 (amber hex) -->
+          <g>
+            <g transform="translate(180,390)">
+              <polygon points="0,-10 9,-5 9,5 0,10 -9,5 -9,-5" fill="#E89B2B" stroke="#FBF8F1" stroke-width="1.5"/>
+              <text x="0" y="3" text-anchor="middle" font-family="Noto Serif SC" font-size="10" fill="#fff" font-weight="900">物</text>
+              <text class="mlabel-sm" x="14" y="4">M-A · 物资仓</text>
+            </g>
+            <g transform="translate(560,280)">
+              <polygon points="0,-10 9,-5 9,5 0,10 -9,5 -9,-5" fill="#E89B2B" stroke="#FBF8F1" stroke-width="1.5"/>
+              <text x="0" y="3" text-anchor="middle" font-family="Noto Serif SC" font-size="10" fill="#fff" font-weight="900">物</text>
+              <text class="mlabel-sm" x="14" y="4">M-B · 移动泵车</text>
+            </g>
+            <g transform="translate(780,360)">
+              <polygon points="0,-10 9,-5 9,5 0,10 -9,5 -9,-5" fill="#E89B2B" stroke="#FBF8F1" stroke-width="1.5"/>
+              <text x="0" y="3" text-anchor="middle" font-family="Noto Serif SC" font-size="10" fill="#fff" font-weight="900">物</text>
+              <text class="mlabel-sm" x="14" y="4">M-C · 发电车</text>
+            </g>
+          </g>
+
+          <!-- Shelter / 避险点 (cross in circle, teal) -->
+          <g>
+            <g transform="translate(140,270)">
+              <circle r="10" fill="#2D7A6B" stroke="#FBF8F1" stroke-width="2"/>
+              <path d="M-5 0 H5 M0 -5 V5" stroke="#fff" stroke-width="2"/>
+              <text class="mlabel-sm" x="-28" y="22" fill="#1B4F44">S-1 避险</text>
+            </g>
+            <g transform="translate(420,280)">
+              <circle r="10" fill="#2D7A6B" stroke="#FBF8F1" stroke-width="2"/>
+              <path d="M-5 0 H5 M0 -5 V5" stroke="#fff" stroke-width="2"/>
+              <text class="mlabel-sm" x="-15" y="22" fill="#1B4F44">S-2</text>
+            </g>
+            <g transform="translate(720,310)">
+              <circle r="10" fill="#2D7A6B" stroke="#FBF8F1" stroke-width="2"/>
+              <path d="M-5 0 H5 M0 -5 V5" stroke="#fff" stroke-width="2"/>
+              <text class="mlabel-sm" x="-15" y="22" fill="#1B4F44">S-3</text>
+            </g>
+          </g>
+
+          <!-- Grid responsibility pins (network of black dots with code) -->
+          <g font-family="IBM Plex Mono" font-size="9" fill="#0F2847">
+            <g transform="translate(230,260)"><rect x="-10" y="-7" width="20" height="14" fill="#FBF8F1" stroke="#0F2847"/><text x="0" y="3" text-anchor="middle" font-weight="600">N-07</text></g>
+            <g transform="translate(370,330)"><rect x="-10" y="-7" width="20" height="14" fill="#FBF8F1" stroke="#0F2847"/><text x="0" y="3" text-anchor="middle" font-weight="600">N-12</text></g>
+            <g transform="translate(580,340)"><rect x="-10" y="-7" width="20" height="14" fill="#FBF8F1" stroke="#0F2847"/><text x="0" y="3" text-anchor="middle" font-weight="600">N-18</text></g>
+          </g>
+
+          <!-- Evacuation arrows -->
+          <g>
+            <path d="M340 380 Q 260 330 150 275" fill="none" stroke="#2D7A6B" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+            <path d="M640 440 Q 680 380 720 320" fill="none" stroke="#2D7A6B" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+          </g>
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#2D7A6B"/>
+            </marker>
+          </defs>
+
+          <!-- Bottom band label -->
+          <rect x="0" y="515" width="900" height="25" fill="#D8CEB2"/>
+          <text class="mlabel-sm" x="15" y="532" fill="#5A4E2E">GRID SECTORS 01–15 · 责任网格示意 · 每格≈ 1 平方公里 · 责任人见网格表</text>
+          <text class="mlabel-sm" x="895" y="532" text-anchor="end" fill="#5A4E2E">MAP v3.1 · 2026-04</text>
+
+        </svg>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-head">
+          <b>图 例  ·  LEGEND</b>
+          <small>FIG-02 / 标 记 说 明</small>
+        </div>
+        <div class="legend-grid">
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22><rect width=%2214%22 height=%2214%22 fill=%22rgba(200,52,42,.1)%22/><line x1=%220%22 y1=%220%22 x2=%2214%22 y2=%2214%22 stroke=%22rgba(200,52,42,.7)%22 stroke-width=%221%22/></svg>');"></div>
+            <div><b>高风险 · 低洼</b><span>历史积水／易涝</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22><rect width=%2214%22 height=%2214%22 fill=%22rgba(232,155,43,.12)%22/><line x1=%220%22 y1=%2214%22 x2=%2214%22 y2=%220%22 stroke=%22rgba(232,155,43,.8)%22 stroke-width=%221%22/></svg>');"></div>
+            <div><b>中风险 · 顶托</b><span>沿江与下游汇流</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:rgba(45,122,107,.15); border-color:#2D7A6B"></div>
+            <div><b>避险高地</b><span>转移集结建议</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-line" style="background:#8F2018"></div>
+            <div><b>沿江一级堤</b><span>防洪主线</span></div>
+          </div>
+
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:#0F2847"></div>
+            <div><b>水 厂</b><span>WP 系列</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:#1B4F44"></div>
+            <div><b>污水厂</b><span>SP 系列</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-pin" style="background:#1B3D66"></div>
+            <div><b>排涝泵站</b><span>P 编号 / 红色 = 关键</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw" style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #C8342A;margin-top:0;"></div>
+            <div><b>排口</b><span>O 系列 · 防倒灌</span></div>
+          </div>
+
+          <div class="lg-item">
+            <div class="sw" style="width:14px;height:14px;background:#E89B2B;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);"></div>
+            <div><b>应急物资点</b><span>沙袋／泵车／发电</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-pin" style="background:#2D7A6B"></div>
+            <div><b>避险集结点</b><span>S 编号</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:#FBF8F1; position:relative;">
+              <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 7px/1 'IBM Plex Mono';color:#0F2847;">N-</span>
+            </div>
+            <div><b>网格责任点</b><span>责任人 + 二维码</span></div>
+          </div>
+          <div class="lg-item">
+            <div class="sw sw-box" style="background:#FBF8F1;border-color:#C8342A; position:relative;">
+              <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 10px/1 'Noto Serif SC';color:#C8342A;">⚠</span>
+            </div>
+            <div><b>避险提示点</b><span>下立交／低洼／危墙</span></div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <b>说明：</b> 本图为 <b>示意图，仅用于宣传展示</b>，不作为导航、工程或应急调度依据；点位位置、编号与分区为 <b>教学演示化处理</b>，实际应以公司内部资产台账 GIS 与防指正式图件为准。
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SIDE COLUMN ===== -->
+    <div class="side-col">
+
+      <!-- Warning levels -->
+      <div class="sec-head">
+        <div>
+          <div class="num">§ 03 &nbsp;/&nbsp; WARNING TIERS</div>
+          <h2>四 级 预 警 · 分 级 响 应</h2>
+        </div>
+        <div class="meta">当 前  ·  Ⅲ 级</div>
+      </div>
+      <div class="risk-bar">
+        <div class="blue"><div class="lvl">Ⅳ · BLUE</div><div class="name">蓝色</div><div class="rule">1h≥20mm<br>日累 ≥50mm</div></div>
+        <div class="yellow"><div class="lvl">Ⅲ · YELLOW</div><div class="name">黄色</div><div class="rule">1h≥35mm<br>日累 ≥80mm</div></div>
+        <div class="orange active"><div class="lvl">Ⅱ · ORANGE</div><div class="name">橙色</div><div class="rule">1h≥50mm<br>或顶托启动</div></div>
+        <div class="red"><div class="lvl">Ⅰ · RED</div><div class="name">红色</div><div class="rule">日累≥120mm<br>或复合致灾</div></div>
+      </div>
+
+      <!-- Grid responsibility -->
+      <div class="sec-head" style="margin-top:22px;">
+        <div>
+          <div class="num">§ 04 &nbsp;/&nbsp; GRID ROSTER</div>
+          <h2>网 格 责 任 分 区</h2>
+        </div>
+        <div class="meta">47 格 · 一 格 一 人</div>
+      </div>
+      <table class="grid-tbl">
+        <thead><tr><th>网格</th><th>责任片区</th><th>主风险</th><th>班次</th></tr></thead>
+        <tbody>
+          <tr><td class="code">G-02/03</td><td>滨江顶托带</td><td>排口倒灌</td><td>24h</td></tr>
+          <tr><td class="code">G-07/08</td><td>老城低洼区</td><td>积水内涝</td><td>24h</td></tr>
+          <tr><td class="code">G-12/13</td><td>关键泵站带</td><td>设备故障</td><td>12h轮</td></tr>
+          <tr><td class="code">G-14/15</td><td>下游汇流区</td><td>污水冲击</td><td>12h轮</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="background:#F0F3EE;border-color:#2D7A6B;">
+        <b>扫码到岗：</b>每个网格桩／井盖贴有二维码，巡查员扫码打卡，系统自动关联气象、液位与工单，形成可追溯的电子巡查链。
+      </div>
+
+      <!-- Hotlines at side bottom -->
+      <div class="sec-head" style="margin-top:22px;">
+        <div>
+          <div class="num">§ 05 &nbsp;/&nbsp; HOTLINES</div>
+          <h2>求 助 与 报 障</h2>
+        </div>
+        <div class="meta">24 × 7</div>
+      </div>
+      <div class="hotlines">
+        <div class="hotline">
+          <b>96 20 01</b>
+          <span>供排水服务热线 · 报障 / 咨询</span>
+        </div>
+        <div class="hotline">
+          <b>110 / 119</b>
+          <span>人员危险 / 积水被困 · 优先</span>
+        </div>
+        <div class="hotline">
+          <b>政 务 12345</b>
+          <span>综合投诉 · 联勤联动</span>
+        </div>
+        <div class="hotline">
+          <b>公 众 号</b>
+          <span>搜索“962001” · 一键报障</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========== ACTION LISTS =========== -->
+  <section style="padding:28px 40px 8px; border-top:1px solid var(--line-soft);">
+    <div class="sec-head">
+      <div>
+        <div class="num">§ 06 &nbsp;/&nbsp; ACTION ROSTER</div>
+        <h2>汛 前 · 汛 中 · 汛 后 · 行 动 清 单</h2>
+      </div>
+      <div class="meta">STAFF × CITIZEN · 分 区 展 示</div>
+    </div>
+    <div class="actions">
+      <!-- STAFF -->
+      <div class="act-col staff">
+        <div class="role">
+          <div class="role-badge">员</div>
+          <div>
+            <div class="rname">员 工 行 动 清 单</div>
+            <div class="rsub">STAFF / 网 格 员 · 泵 站 · 水 厂 · 调 度</div>
+          </div>
+        </div>
+        <ol>
+          <li><b>汛前清疏</b> <span class="tag t-pre">PRE</span>：按网格完成雨水口、截流井、排口下游段清疏；重点积水点前置移动泵车与沙袋。</li>
+          <li><b>厂站防淹核查</b> <span class="tag t-pre">PRE</span>：水厂／污水厂配电室挡水板到位，双电源与移动发电车接口完好，记录拍照留档。</li>
+          <li><b>系统统一阈值</b> <span class="tag t-pre">PRE</span>：气象、液位、流量、工单、视频接入指挥平台，预警阈值上墙，班次交接带数据。</li>
+          <li><b>响应分级上岗</b> <span class="tag t-in">IN</span>：Ⅲ级 12h 轮 · Ⅱ级 24h 驻点 · Ⅰ级 全员到岗，关键泵站不少于 2 人。</li>
+          <li><b>关键泵站值守</b> <span class="tag t-in">IN</span>：液位达启泵 90% 远程启动；备泵不可用即升级一级；3 分钟内上报调度。</li>
+          <li><b>外河顶托监测</b> <span class="tag t-in">IN</span>：外河位距控制水位 ≤0.3 m 时，启动排口止回与临时封堵预案。</li>
+          <li><b>用户侧预警推送</b> <span class="tag t-in">IN</span>：停水／积水／停气公告经 962001 公众号分片区推送，触达率 ≥95%。</li>
+          <li><b>48h 量化复盘</b> <span class="tag t-post">POST</span>：到场时长、恢复时长、是否顶托、是否停电、舆情字段全量入库，供模型再训练。</li>
+          <li><b>资产台账更新</b> <span class="tag t-post">POST</span>：新暴露的薄弱点／接管资产，一资产一编码一责任人一 SOP 归档。</li>
+        </ol>
+      </div>
+      <!-- CITIZEN -->
+      <div class="act-col citizen">
+        <div class="role">
+          <div class="role-badge">民</div>
+          <div>
+            <div class="rname">市 民 行 动 清 单</div>
+            <div class="rsub">CITIZEN · 家 庭 · 沿 街 商 户 · 出 行</div>
+          </div>
+        </div>
+        <ol>
+          <li><b>关注预警分级</b> <span class="tag t-pre">PRE</span>：蓝黄做准备、橙红减少外出；家里常备手电、饮用水、充电宝和防水袋。</li>
+          <li><b>家门口三件事</b> <span class="tag t-pre">PRE</span>：清理门前雨水箅子、抬高地库门槛、检查阳台与屋顶排水口是否通畅。</li>
+          <li><b>电器与贵重物品</b> <span class="tag t-pre">PRE</span>：低层与地下室插座关闭，贵重物品抬离地面 50 cm 以上。</li>
+          <li><b>暴雨中不冒险</b> <span class="tag t-in">IN</span>：积水没过脚踝不涉水，没过膝盖不骑行，不要通过下立交、涵洞、低洼路段。</li>
+          <li><b>远离危险点</b> <span class="tag t-in">IN</span>：远离井盖、变电箱、广告牌、大树和临时围挡；不触摸漂浮电线。</li>
+          <li><b>就近就高避险</b> <span class="tag t-in">IN</span>：按图示 S-1 / S-2 / S-3 避险点，听从社区与网格员引导有序转移。</li>
+          <li><b>用好求助渠道</b> <span class="tag t-in">IN</span>：供排水报障拨 962001 · 人员被困拨 110／119 · 综合事项拨 12345。</li>
+          <li><b>停水应急</b> <span class="tag t-in">IN</span>：家庭常备 3 天饮用水（每人每天 3 L），收到停水通知立即储水并节约用水。</li>
+          <li><b>汛后返家三查</b> <span class="tag t-post">POST</span>：查燃气、查电路、查自来水（放水 1–3 分钟）；水质浑浊暂缓饮用。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== LOOP SECTION =========== -->
+  <section class="loop-sec">
+    <div class="sec-head">
+      <div>
+        <div class="num">§ 07 &nbsp;/&nbsp; CLOSED LOOP</div>
+        <h2>互 联 网 + 员 工 + 用 户 + AI · 闭 环</h2>
+      </div>
+      <div class="meta">从 "看 到" 到 "调 得 动"</div>
+    </div>
+    <div class="loop-grid">
+      <div class="loop-text">
+        <p>防汛防潮实战中的多数重大险情，<b>不是输在没有监测</b>，而是输在系统知道但组织动作太慢。我们将"互联网平台、一线员工、市民用户和 AI 辅助"压缩到同一条事件链上：</p>
+        <p>① <b>群众与传感器同时发声</b>：962001 投诉、公众号报障与液位、视频、气象共同进入事件中心；<br>
+           ② <b>规则 + 模型分级</b>：阈值触发与 AI 预测给出蓝黄橙红等级和影响范围；<br>
+           ③ <b>一键派单</b>：片区网格员、抢险队、泵站运维同步签收；<br>
+           ④ <b>用户侧联动</b>：受影响市民收到停水／积水／避险提醒，反馈再次进入事件中心；<br>
+           ⑤ <b>48h 量化复盘</b>：所有动作沉淀为下一次更准的判断。</p>
+        <div class="loop-stats">
+          <div class="s"><b>≤5′</b><span>红色工单签收目标</span></div>
+          <div class="s"><b>≤30′</b><span>城区到场目标</span></div>
+          <div class="s"><b>≥95%</b><span>市民预警触达</span></div>
+          <div class="s"><b>100%</b><span>重大事件 48h 复盘</span></div>
+        </div>
+      </div>
+
+      <div class="loop-diagram">
+        <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+          <defs>
+            <marker id="arrL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#E89B2B"/>
+            </marker>
+            <marker id="arrL2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#88A0C4"/>
+            </marker>
+          </defs>
+
+          <!-- Outer ring dashed -->
+          <circle cx="320" cy="190" r="160" fill="none" stroke="rgba(232,225,205,.15)" stroke-dasharray="3 5"/>
+
+          <!-- Center hub -->
+          <g>
+            <circle cx="320" cy="190" r="70" fill="#1B3D66" stroke="#E89B2B" stroke-width="1.5"/>
+            <text x="320" y="180" text-anchor="middle" font-family="Noto Serif SC" font-size="18" fill="#fff" font-weight="900">指挥平台</text>
+            <text x="320" y="202" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#E89B2B" letter-spacing="2">EVENT HUB</text>
+            <text x="320" y="218" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#B8B39F">一 图 · 一 键 · 一 账</text>
+          </g>
+
+          <!-- 4 nodes -->
+          <!-- Internet (top) -->
+          <g>
+            <rect x="250" y="15" width="140" height="56" fill="#0F2847" stroke="#E89B2B" stroke-width="1"/>
+            <text x="320" y="38" text-anchor="middle" font-family="Noto Serif SC" font-size="15" fill="#fff" font-weight="900">互联网·数据</text>
+            <text x="320" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#B8B39F">气象 · 雷达 · 水位 · IoT</text>
+          </g>
+          <!-- Staff (right) -->
+          <g>
+            <rect x="490" y="160" width="140" height="56" fill="#0F2847" stroke="#E89B2B" stroke-width="1"/>
+            <text x="560" y="183" text-anchor="middle" font-family="Noto Serif SC" font-size="15" fill="#fff" font-weight="900">员 工 · 网 格</text>
+            <text x="560" y="201" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#B8B39F">调度 · 抢险 · 泵站</text>
+          </g>
+          <!-- Citizen (bottom) -->
+          <g>
+            <rect x="250" y="310" width="140" height="56" fill="#0F2847" stroke="#E89B2B" stroke-width="1"/>
+            <text x="320" y="333" text-anchor="middle" font-family="Noto Serif SC" font-size="15" fill="#fff" font-weight="900">市 民 · 用 户</text>
+            <text x="320" y="351" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#B8B39F">962001 · 公众号 · 12345</text>
+          </g>
+          <!-- AI (left) -->
+          <g>
+            <rect x="10" y="160" width="140" height="56" fill="#0F2847" stroke="#E89B2B" stroke-width="1"/>
+            <text x="80" y="183" text-anchor="middle" font-family="Noto Serif SC" font-size="15" fill="#fff" font-weight="900">AI · 模 型</text>
+            <text x="80" y="201" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#B8B39F">预报 · 识别 · 推荐</text>
+          </g>
+
+          <!-- Arrows inward (orange) -->
+          <path d="M320 75 L320 115" stroke="#E89B2B" stroke-width="1.6" marker-end="url(#arrL)"/>
+          <path d="M150 188 L245 188" stroke="#E89B2B" stroke-width="1.6" marker-end="url(#arrL)"/>
+          <path d="M320 305 L320 263" stroke="#E89B2B" stroke-width="1.6" marker-end="url(#arrL)"/>
+          <path d="M490 188 L395 188" stroke="#E89B2B" stroke-width="1.6" marker-end="url(#arrL)"/>
+
+          <!-- Arrows outward (light blue feedback) -->
+          <path d="M340 115 L340 75" stroke="#88A0C4" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrL2)"/>
+          <path d="M245 200 L150 200" stroke="#88A0C4" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrL2)"/>
+          <path d="M340 263 L340 305" stroke="#88A0C4" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrL2)"/>
+          <path d="M395 200 L490 200" stroke="#88A0C4" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrL2)"/>
+
+          <!-- Edge labels -->
+          <g font-family="IBM Plex Mono" font-size="9" fill="#E8E1CD">
+            <text x="350" y="98" text-anchor="start">① 感知采集</text>
+            <text x="160" y="183" text-anchor="start">② 模型分级</text>
+            <text x="170" y="298" text-anchor="start">③ 触达用户</text>
+            <text x="395" y="183" text-anchor="start">④ 派单到人</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== FOOTER =========== -->
+  <section class="footer">
+    <div>
+      <div class="foot-h">§ 08 &nbsp;/&nbsp; DATA SOURCES</div>
+      <div class="foot-t">数 据 与 依 据 来 源</div>
+      <div class="sources">
+        <b>法规标准 ·</b> 《中华人民共和国防洪法》《防汛条例》《突发事件应对法》《城镇排水与污水处理条例》《江苏省防洪条例》《江苏省防汛抗旱应急预案》<br>
+        <b>技术规范 ·</b> GB 55026-2022 · GB 55027-2022 · GB 50013-2018 · GB 50014-2021 · GB 5749-2022 · CJJ 68-2016 · CJJ 207-2013 · DB32/4440-2022<br>
+        <b>政策文件 ·</b> 国办《加强城市内涝治理实施意见》· 住建部"十四五"城市排水防涝建设行动计划 · 属地厂网一体化方案<br>
+        <b>企业口径 ·</b> 公司 2024 年年报、2025 年半年度报告、2025 年"提质增效重回报"行动方案<br>
+        <b>历史样本 ·</b> 2020 太湖红色预警 / 2021 台风"烟花" / 2022 江苏海洋灾害公报 / 2023 雷暴泵站故障 / 2024 梅雨期 Ⅳ 级响应
+      </div>
+    </div>
+    <div>
+      <div class="foot-h">§ 09 &nbsp;/&nbsp; KPI SNAPSHOT</div>
+      <div class="foot-t">本 汛 期 核 心 目 标</div>
+      <ul class="foot-l" style="list-style:none;padding:0;margin:0;">
+        <li>关键泵站在线率 <b>≥ 99.0%</b></li>
+        <li>重点积水点有效提前预警率 <b>≥ 85%</b></li>
+        <li>红色工单签收 ≤ 5′ · 到场 ≤ 30′ (城区)</li>
+        <li>汛期出厂水 / 末梢水达标率 <b>100%</b></li>
+        <li>重大事件 48h 量化复盘 <b>100%</b></li>
+        <li>重大停供事件 <b>0 起</b> · 重点污水厂异常外溢 <b>0 起</b></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-h">§ 10 &nbsp;/&nbsp; NOTICE</div>
+      <div class="foot-t">读 者 须 知</div>
+      <ul class="foot-l" style="list-style:none;padding:0;margin:0;">
+        <li>本宣传单所涉 <b>地图为示意图</b>，不作为导航或工程依据。</li>
+        <li>编号、点位、数字阈值为 <b>宣传演示</b>，以正式预案为准。</li>
+        <li>市民如遇险情优先保护人身安全，再考虑财产。</li>
+        <li>请勿撕毁 · 宣传期至汛期结束。</li>
+        <li>如需电子版 / 大字版 / 方言版，请拨 <b>962001</b>。</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="brandstrip">
+    <span>防 汛 防 潮 指 挥 部 办 公 室 &nbsp;·&nbsp; 城 市 网 格 化 宣 传 专 栏</span>
+    <span><b>一 图 在 手 · 汛 潮 不 慌</b></span>
+    <span>FX-2026-07-A &nbsp;/&nbsp; PUBLIC ISSUE</span>
+  </div>
+
+</div>
+<script>
+  // small interaction: clicking the risk bar changes the "active" ring
+  document.querySelectorAll('.risk-bar > div').forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll('.risk-bar > div').forEach(x=>x.classList.remove('active'));
+      el.classList.add('active');
+      const name = el.querySelector('.name').textContent;
+      const ticker = document.querySelector('.ticker .seg span:nth-child(2)');
+      if(ticker) ticker.innerHTML = '<b>当前响应</b> · '+name+' 级演示';
+    });
+  });
+</script>
+</body>
+</html>
