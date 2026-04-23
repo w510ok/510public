@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>江苏江南水务｜培训演练与场景模拟 Demo</title>
+<style>
+
+:root{
+  --bg:#071624;
+  --bg2:#0a2236;
+  --panel:#102a44;
+  --panel2:#143553;
+  --panel3:#0d2034;
+  --line:rgba(154,201,233,.16);
+  --line2:rgba(154,201,233,.28);
+  --text:#ecf5ff;
+  --muted:#9eb8cf;
+  --blue:#3fb1ff;
+  --cyan:#53dfff;
+  --green:#35d391;
+  --yellow:#ffd053;
+  --orange:#ff9b45;
+  --red:#ff6767;
+  --purple:#9a8cff;
+  --radius:18px;
+  --shadow:0 12px 38px rgba(0,0,0,.34);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(circle at top,#13395a 0,#081521 42%,#030a12 100%);color:var(--text);font-family:var(--font)}
+a{text-decoration:none;color:inherit}
+.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line2);border-radius:999px;font-size:12px;background:rgba(64,131,180,.14)}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700}
+.blue{background:rgba(63,177,255,.15);color:#caecff;border:1px solid rgba(63,177,255,.28)}
+.yellow{background:rgba(255,208,83,.14);color:#ffe69d;border:1px solid rgba(255,208,83,.24)}
+.orange{background:rgba(255,155,69,.16);color:#ffd0a5;border:1px solid rgba(255,155,69,.28)}
+.red{background:rgba(255,103,103,.14);color:#ffc3c3;border:1px solid rgba(255,103,103,.24)}
+.green{background:rgba(53,211,145,.14);color:#bff5db;border:1px solid rgba(53,211,145,.24)}
+.panel{background:linear-gradient(180deg,rgba(16,42,68,.96),rgba(9,25,40,.98));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card{background:linear-gradient(180deg,rgba(21,53,83,.95),rgba(12,33,52,.95));border:1px solid var(--line);border-radius:16px;padding:14px}
+.small{font-size:12px}
+.title{font-size:30px;line-height:1.18;font-weight:800;margin:0}
+.sec-title{margin:0 0 12px;font-size:18px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{color:#d9efff;background:rgba(255,255,255,.03);font-weight:700}
+.grid{display:grid;gap:14px}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.kv:last-child{border-bottom:none}
+.tip{padding:12px 14px;border-left:3px solid var(--cyan);background:rgba(83,223,255,.08);border-radius:12px}
+.map-note{font-size:12px;color:var(--muted)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:20px 16px 34px}
+.hero{padding:20px}
+.hero-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.layout{display:grid;grid-template-columns:1.08fr .92fr;gap:16px;margin-top:16px}
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.scenario{padding:16px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(19,50,79,.98),rgba(9,24,39,.98));cursor:pointer}
+.scenario.active{outline:2px solid rgba(83,223,255,.42)}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stage{padding:14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.stage h4{margin:0 0 8px;font-size:16px}
+.timeline{display:grid;gap:10px}
+.timeline .line{display:grid;grid-template-columns:84px 1fr;gap:10px;padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03)}
+.score{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.score .box{padding:14px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.case-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pic{height:180px;border-radius:18px;border:1px solid var(--line);position:relative;overflow:hidden;background:
+linear-gradient(180deg,rgba(38,83,129,.4),rgba(13,31,47,.3)),
+linear-gradient(135deg,#29537b 0,#1a3c5e 45%,#102941 100%)}
+.pic:before{content:"";position:absolute;inset:0;background:
+linear-gradient(90deg,transparent 0 10%,rgba(255,255,255,.08) 10% 11%,transparent 11% 22%,rgba(255,255,255,.08) 22% 23%,transparent 23%),
+linear-gradient(180deg,transparent 0 18%,rgba(255,255,255,.06) 18% 19%,transparent 19% 48%,rgba(255,255,255,.06) 48% 49%,transparent 49%) }
+.pic .tagline{position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;background:rgba(6,18,29,.76);border:1px solid rgba(255,255,255,.16);font-size:12px}
+.pic .caption{position:absolute;left:12px;bottom:12px;right:12px;font-size:13px;line-height:1.65}
+.note{font-size:13px;color:var(--muted);line-height:1.75}
+@media (max-width:1100px){.layout,.columns{grid-template-columns:1fr} .scenarios,.score,.case-gallery{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel hero">
+    <div class="hero-top">
+      <div>
+        <div class="badge">培训演练 / 工作软件场景化模拟 / 图文案例 / 班组评分</div>
+        <h1 class="title" style="margin-top:10px">江苏江南水务汛期网格化防汛防潮<br/>培训演练与场景模拟平台</h1>
+        <div class="muted" style="margin-top:8px;max-width:860px;line-height:1.8">这里把“工作软件怎么用”转成“演练怎么练”。页面把值班系统、移动端岗位驾驶舱、工单流程、案例复盘、岗位 SOP 和培训 KPI 串起来，用于班组桌面推演、集中培训和跨岗位联演。</div>
+      </div>
+      <div class="card" style="min-width:290px">
+        <div class="small muted">演练模式</div>
+        <div style="font-size:28px;font-weight:800;margin:4px 0">复合灾害场景</div>
+        <div class="kv"><span class="muted">当前课程</span><span>橙色响应专项</span></div>
+        <div class="kv"><span class="muted">对象</span><span>领导 / 总值班 / 泵站值守 / 抢险队</span></div>
+        <div class="kv"><span class="muted">评分口径</span><span>用于班组演练评分，不代表正式考核口径</span></div>
+      </div>
+    </div>
+    <div class="scenarios" id="scenario-tabs">
+      <div class="scenario active" data-scenario="s1"><b>场景 1</b><div style="font-size:18px;margin-top:8px">梅雨暴雨 + 沿江高水位顶托</div><div class="note">主城区排口受限、下穿通道积水、沿江片群众报障聚集。</div></div>
+      <div class="scenario" data-scenario="s2"><b>场景 2</b><div style="font-size:18px;margin-top:8px">台风外围雨带 + 泵站故障 + 外电中断</div><div class="note">重点泵站液位高位、备用泵切换、发电车前置、人员双岗值守。</div></div>
+      <div class="scenario" data-scenario="s3"><b>场景 3</b><div style="font-size:18px;margin-top:8px">原水浊度突变 + 用户报障激增</div><div class="note">供水连续性与客服口径同步，检验水厂运行、客服与宣传协同。</div></div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <section class="panel" style="padding:18px">
+      <h2 class="sec-title">演练进度脚本</h2>
+      <div class="timeline" id="timeline-box">
+        <div class="line"><div class="muted">T+00</div><div><b>预警生成</b><div class="note">系统接入雨量、沿江控制水位、液位和群众报障后自动生成事件。</div></div></div>
+        <div class="line"><div class="muted">T+05</div><div><b>等级研判</b><div class="note">总值班按统一阈值研判，确认橙色响应，锁定 G01 / G05 / G03 为重点网格。</div></div></div>
+        <div class="line"><div class="muted">T+10</div><div><b>后台派单</b><div class="note">派单至移动端：抢险队签到、泵站值守复核、交警联动封控。</div></div></div>
+        <div class="line"><div class="muted">T+30</div><div><b>现场处置</b><div class="note">下穿通道抽排、井口复核、泵车增援、沿江排口临时封堵。</div></div></div>
+        <div class="line"><div class="muted">T+90</div><div><b>复盘评分</b><div class="note">形成岗位闭环，沉淀图像、到场时效、SOP 执行情况和改进事项。</div></div></div>
+      </div>
+
+      <div class="columns" style="margin-top:16px">
+        <div class="stage">
+          <h4>演练分类</h4>
+          <ul class="small-list">
+            <li>桌面推演：适合班组集中培训和岗位口径统一。</li>
+            <li>系统演示：适合介绍后台看板、移动端流程和角色分工。</li>
+            <li>实战联演：适合与泵站、抢险队、客服、宣传联动。</li>
+            <li>专项复盘：适合围绕一个典型案例做岗位 SOP 训练。</li>
+          </ul>
+        </div>
+        <div class="stage">
+          <h4>培训关注点</h4>
+          <ul class="small-list">
+            <li>复合灾害不是单点异常，必须同时看雨量、顶托、液位、供电和群众报障。</li>
+            <li>软件培训不只教点按钮，而是教“什么时候点、为什么点、后果是什么”。</li>
+            <li>岗位闭环至少包含：派单、签到、处置、拍照、销项、复盘六步。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" style="padding:18px">
+      <h2 class="sec-title">图文案例复盘与岗位 SOP</h2>
+      <div class="case-gallery">
+        <div class="pic">
+          <div class="tagline">案例 A｜下穿通道积水</div>
+          <div class="caption">图示意：道路封控、井口复核、泵车抽排。<br/>岗位要点：先封控再排水，先查井口再加泵，处置前后都要拍照。</div>
+        </div>
+        <div class="pic">
+          <div class="tagline">案例 B｜泵站外电波动</div>
+          <div class="caption">图示意：值守岗复核供电、泵组状态、液位曲线。<br/>岗位要点：超过 1 分钟先上报，发电车前置，值守改双人。</div>
+        </div>
+      </div>
+      <table style="margin-top:14px">
+        <thead><tr><th>岗位</th><th>训练重点</th><th>错误易发点</th><th>达标表现</th></tr></thead>
+        <tbody>
+          <tr><td>领导</td><td>统一口径、抓主风险、资源前置</td><td>只看雨量，不看顶托和供电</td><td>10 分钟内锁定重点网格和红橙事件</td></tr>
+          <tr><td>总值班</td><td>派单准确、联动及时、销项闭环</td><td>漏派、重派、口径不一</td><td>红色工单全部有签到和处置回传</td></tr>
+          <tr><td>泵站值守</td><td>液位、泵组、供电、现场图像</td><td>只启泵不留痕、单人夜间处置</td><td>按一站一表完成回传</td></tr>
+          <tr><td>抢险队</td><td>人员安全、现场秩序、处置取证</td><td>未先封控、图片证据缺失</td><td>动作正确、图像齐全、销项规范</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <section class="panel" style="padding:18px;margin-top:16px">
+    <h2 class="sec-title">培训 KPI 看板</h2>
+    <div class="score">
+      <div class="box"><div class="small muted">红色工单签收时长</div><div style="font-size:30px;font-weight:800">4.6 分钟</div><div class="small muted">目标 ≤ 5 分钟</div></div>
+      <div class="box"><div class="small muted">城区到场时长</div><div style="font-size:30px;font-weight:800">24 分钟</div><div class="small muted">目标 ≤ 30 分钟</div></div>
+      <div class="box"><div class="small muted">闭环完整率</div><div style="font-size:30px;font-weight:800">88%</div><div class="small muted">含签到 / 图片 / 销项 / 复盘</div></div>
+      <div class="box"><div class="small muted">SOP 执行达标率</div><div style="font-size:30px;font-weight:800">91%</div><div class="small muted">用于班组演练评分，不代表正式考核口径</div></div>
+    </div>
+    <div class="tip" style="margin-top:14px">建议用法：先用后台 Demo 讲“全局怎么看”，再用移动端 Demo 讲“岗位怎么做”，最后用本页按场景走一遍“怎么演、怎么评、怎么复盘”。</div>
+  </section>
+</div>
+
+<script>
+const content = {
+  s1: [
+    ["T+00","预警生成","系统识别 1 小时雨强 68mm、沿江控制水位 4.82m、群众报障聚集。"],
+    ["T+05","等级研判","确认橙色响应，沿江片、主城中、北部排口带列为重点网格。"],
+    ["T+10","后台派单","总值班派发抢险、泵站、封控、客服四类工单。"],
+    ["T+30","现场处置","下穿通道抽排、排口临时封堵、沿江片巡查加密。"],
+    ["T+90","复盘评分","按到场时效、动作正确性、闭环完整性评分。"]
+  ],
+  s2: [
+    ["T+00","泵站告警","P-07 高液位叠加外电中断，备用泵待切换。"],
+    ["T+08","升级响应","从黄色升级为橙色，发电车和设备组前置。"],
+    ["T+15","移动端签到","泵站值守和设备组到场，双人复核后切换电源。"],
+    ["T+35","恢复抽排","维持两台泵运行，液位回落，记录温升与振动。"],
+    ["T+70","案例复盘","重点讨论“先上报还是先切泵”的岗位判断。"]
+  ],
+  s3: [
+    ["T+00","原水异常","原水浊度突变，客服侧出现用户报障激增。"],
+    ["T+10","会商研判","水厂、检测、客服、宣传同步确认口径。"],
+    ["T+20","稳供措施","优化工艺、加密检测、对重点用户定向通知。"],
+    ["T+60","舆情解释","平台发布解释信息，客服统一答复模板。"],
+    ["T+120","培训总结","复盘供水连续性与用户沟通的双闭环。"]
+  ]
+};
+const tabs = document.querySelectorAll('.scenario');
+const box = document.getElementById('timeline-box');
+function render(name){
+  box.innerHTML = content[name].map(i=>`<div class="line"><div class="muted">${i[0]}</div><div><b>${i[1]}</b><div class="note">${i[2]}</div></div></div>`).join('');
+}
+tabs.forEach(tab=>tab.addEventListener('click',()=>{
+  tabs.forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  render(tab.dataset.scenario);
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>江苏江南水务｜网格化防汛防潮后台调度 Demo</title>
+<style>
+
+:root{
+  --bg:#071624;
+  --bg2:#0a2236;
+  --panel:#102a44;
+  --panel2:#143553;
+  --panel3:#0d2034;
+  --line:rgba(154,201,233,.16);
+  --line2:rgba(154,201,233,.28);
+  --text:#ecf5ff;
+  --muted:#9eb8cf;
+  --blue:#3fb1ff;
+  --cyan:#53dfff;
+  --green:#35d391;
+  --yellow:#ffd053;
+  --orange:#ff9b45;
+  --red:#ff6767;
+  --purple:#9a8cff;
+  --radius:18px;
+  --shadow:0 12px 38px rgba(0,0,0,.34);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(circle at top,#13395a 0,#081521 42%,#030a12 100%);color:var(--text);font-family:var(--font)}
+a{text-decoration:none;color:inherit}
+.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line2);border-radius:999px;font-size:12px;background:rgba(64,131,180,.14)}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700}
+.blue{background:rgba(63,177,255,.15);color:#caecff;border:1px solid rgba(63,177,255,.28)}
+.yellow{background:rgba(255,208,83,.14);color:#ffe69d;border:1px solid rgba(255,208,83,.24)}
+.orange{background:rgba(255,155,69,.16);color:#ffd0a5;border:1px solid rgba(255,155,69,.28)}
+.red{background:rgba(255,103,103,.14);color:#ffc3c3;border:1px solid rgba(255,103,103,.24)}
+.green{background:rgba(53,211,145,.14);color:#bff5db;border:1px solid rgba(53,211,145,.24)}
+.panel{background:linear-gradient(180deg,rgba(16,42,68,.96),rgba(9,25,40,.98));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card{background:linear-gradient(180deg,rgba(21,53,83,.95),rgba(12,33,52,.95));border:1px solid var(--line);border-radius:16px;padding:14px}
+.small{font-size:12px}
+.title{font-size:30px;line-height:1.18;font-weight:800;margin:0}
+.sec-title{margin:0 0 12px;font-size:18px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{color:#d9efff;background:rgba(255,255,255,.03);font-weight:700}
+.grid{display:grid;gap:14px}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.kv:last-child{border-bottom:none}
+.tip{padding:12px 14px;border-left:3px solid var(--cyan);background:rgba(83,223,255,.08);border-radius:12px}
+.map-note{font-size:12px;color:var(--muted)}
+
+.wrap{max-width:1460px;margin:0 auto;padding:18px 16px 28px}
+.header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;padding:18px}
+.layout{display:grid;grid-template-columns:1.32fr .88fr;gap:16px;margin-top:16px}
+.status-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:0 18px 18px}
+.metric{padding:14px;border-radius:16px;background:linear-gradient(180deg,rgba(21,53,83,.95),rgba(10,28,45,.95));border:1px solid var(--line)}
+.metric b{display:block;font-size:24px;margin-top:4px}
+.map-wrap{padding:18px}
+.map-shell{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+.map{position:relative;min-height:620px;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:
+linear-gradient(180deg,rgba(38,83,129,.35),rgba(13,31,47,.35)),
+radial-gradient(circle at 76% 88%,rgba(42,168,255,.15),transparent 18%),
+radial-gradient(circle at 30% 65%,rgba(255,147,67,.16),transparent 15%),
+linear-gradient(180deg,#0f2d49 0%,#173a5f 19%,#0e2236 20%,#142a40 100%);
+}
+.yangtze{position:absolute;left:0;right:0;top:0;height:22%;background:linear-gradient(180deg,#4ea9e6,#2d6fa8);border-bottom:2px dashed rgba(255,255,255,.24)}
+.yangtze:after{content:"长 江 / 沿江高水位顶托带";position:absolute;left:22px;top:18px;font-size:22px;font-weight:800;letter-spacing:3px;color:#e9f6ff}
+.riverline,.riverline2{position:absolute;background:linear-gradient(180deg,#5fc4ff,#2b7fc9);opacity:.75;border-radius:999px}
+.riverline{width:68%;height:9px;left:8%;top:54%;transform:rotate(-14deg)}
+.riverline2{width:46%;height:7px;right:8%;top:63%;transform:rotate(14deg)}
+.road{position:absolute;background:rgba(255,255,255,.15);border-radius:999px}
+.r1{left:12%;top:33%;width:68%;height:4px;transform:rotate(4deg)}
+.r2{left:10%;top:47%;width:78%;height:5px;transform:rotate(-8deg)}
+.r3{left:18%;top:73%;width:62%;height:4px;transform:rotate(8deg)}
+.r4{left:34%;top:28%;width:4px;height:48%;transform:rotate(10deg)}
+.r5{left:62%;top:24%;width:4px;height:54%;transform:rotate(-8deg)}
+.gridline{position:absolute;border:1px dashed rgba(255,255,255,.16);border-radius:16px}
+.g1{left:8%;top:24%;width:25%;height:24%} .g2{left:34%;top:24%;width:24%;height:24%} .g3{left:59%;top:24%;width:24%;height:24%}
+.g4{left:8%;top:50%;width:25%;height:20%} .g5{left:34%;top:50%;width:24%;height:20%} .g6{left:59%;top:50%;width:24%;height:20%}
+.g7{left:20%;top:72%;width:26%;height:15%} .g8{left:48%;top:72%;width:28%;height:15%}
+.label{position:absolute;padding:4px 8px;border-radius:999px;background:rgba(6,18,29,.76);border:1px solid rgba(255,255,255,.18);font-size:12px;color:#e8f6ff}
+.dot{position:absolute;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;color:#081521;font-size:11px;font-weight:800;box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+.dot.orange{background:var(--orange)} .dot.blue{background:var(--blue)} .dot.green{background:var(--green)} .dot.red{background:var(--red)} .dot.purple{background:var(--purple);color:#fff}
+.list-panel{display:grid;gap:12px}
+.event-list .item{padding:12px;border-bottom:1px solid var(--line)}
+.event-list .item:last-child{border-bottom:none}
+.rightcol{display:grid;gap:16px}
+.resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:12px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.flow .step{padding:12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:13px}
+.timeline{display:grid;gap:10px}
+.timeline .line{padding:12px 12px 12px 16px;border-left:3px solid var(--cyan);background:rgba(255,255,255,.03);border-radius:0 14px 14px 0}
+@media (max-width:1100px){.layout{grid-template-columns:1fr} .map-shell{grid-template-columns:1fr} .status-row{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel">
+    <div class="header">
+      <div>
+        <div class="badge">后台管控 / 一张图 / 统一阈值 / 统一派单</div>
+        <h1 class="title" style="margin-top:10px">江苏江南水务汛期网格化防汛防潮专业调度系统</h1>
+        <div class="muted" style="margin-top:8px;line-height:1.8">定位为后台统一管控平台。用于领导和总值班看态势、看网格、看事件、看资源、看处置进度；不替代 SCADA、GIS、客服、工单等正式生产系统，而是作为 Demo 进行培训、评审和原型沟通。</div>
+      </div>
+      <div class="card" style="min-width:300px">
+        <div class="small muted">当前值守时段</div>
+        <div style="font-size:28px;font-weight:800;margin:4px 0">主汛期 / 16:55:55</div>
+        <div class="kv"><span class="muted">当前响应</span><span class="status orange">橙色响应</span></div>
+        <div class="kv"><span class="muted">当前主场景</span><span>梅雨暴雨叠加沿江高水位顶托</span></div>
+        <div class="kv"><span class="muted">后台角色</span><span>总值班 / 领导会商 / 调度中心</span></div>
+      </div>
+    </div>
+    <div class="status-row">
+      <div class="metric"><div class="small muted">1 小时最大雨强</div><b>68 mm</b><div class="small muted">主城区北部与澄江沿江带偏高</div></div>
+      <div class="metric"><div class="small muted">沿江控制水位</div><b>4.82 m</b><div class="small muted">接近排口倒灌敏感阈值</div></div>
+      <div class="metric"><div class="small muted">活跃事件</div><b>17 起</b><div class="small muted">其中红 2 / 橙 5 / 黄 10</div></div>
+      <div class="metric"><div class="small muted">在岗抢险力量</div><b>9 组</b><div class="small muted">泵车 5 / 发电车 3 / 巡查车 8</div></div>
+      <div class="metric"><div class="small muted">重点泵站健康度</div><b>91%</b><div class="small muted">1 座外电波动 / 1 座液位高位</div></div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <section class="panel map-wrap">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <h2 class="sec-title">某市主城区一张图（更接近江阴城区结构的示意地图）</h2>
+          <div class="legend">
+            <span class="badge">沿江顶托带</span><span class="badge">中心城区易涝片区</span><span class="badge">下穿通道 / 地下空间</span><span class="badge">泵站 / 闸站 / 污水厂</span><span class="badge">水厂 / 加压站</span><span class="badge">应急物资前置点</span>
+          </div>
+        </div>
+        <div class="map-note">示意图，仅用于培训展示，不替代官方实战调度图。</div>
+      </div>
+      <div class="map-shell" style="margin-top:14px">
+        <div class="map">
+          <div class="yangtze"></div>
+          <div class="riverline"></div><div class="riverline2"></div>
+          <div class="road r1"></div><div class="road r2"></div><div class="road r3"></div><div class="road r4"></div><div class="road r5"></div>
+          <div class="gridline g1"></div><div class="gridline g2"></div><div class="gridline g3"></div><div class="gridline g4"></div><div class="gridline g5"></div><div class="gridline g6"></div><div class="gridline g7"></div><div class="gridline g8"></div>
+          <div class="label" style="left:11%;top:26%">网格 G01 澄江沿江</div>
+          <div class="label" style="left:38%;top:26%">网格 G02 贸易城片</div>
+          <div class="label" style="left:62%;top:26%">网格 G03 北部排口带</div>
+          <div class="label" style="left:10%;top:52%">网格 G04 主城西</div>
+          <div class="label" style="left:38%;top:52%">网格 G05 主城中</div>
+          <div class="label" style="left:63%;top:52%">网格 G06 主城东</div>
+          <div class="label" style="left:24%;top:74%">网格 G07 南片居住区</div>
+          <div class="label" style="left:54%;top:74%">网格 G08 工业与镇街接合部</div>
+          <div class="dot orange" style="left:23%;top:18%">1</div><div class="label" style="left:26%;top:17%">沿江顶托敏感带</div>
+          <div class="dot red" style="left:44%;top:41%">2</div><div class="label" style="left:47%;top:40%">下穿通道 A｜积水 28cm</div>
+          <div class="dot blue" style="left:62%;top:45%">3</div><div class="label" style="left:65%;top:44%">泵站 P-07｜液位 92%</div>
+          <div class="dot green" style="left:28%;top:58%">4</div><div class="label" style="left:31%;top:57%">应急物资点 R-03</div>
+          <div class="dot purple" style="left:53%;top:61%">5</div><div class="label" style="left:56%;top:60%">污水厂 W-02｜高负荷工况</div>
+          <div class="dot blue" style="left:39%;top:69%">6</div><div class="label" style="left:42%;top:68%">加压站 B-02</div>
+          <div class="dot red" style="left:70%;top:32%">7</div><div class="label" style="left:73%;top:31%">北部排口 O-11｜受限</div>
+          <div class="dot orange" style="left:14%;top:42%">8</div><div class="label" style="left:17%;top:41%">老城易涝片 L-04</div>
+        </div>
+        <div class="list-panel">
+          <div class="card">
+            <h3 class="sec-title">点位说明（联动示例）</h3>
+            <div class="kv"><span class="muted">当前选择</span><span>下穿通道 A</span></div>
+            <div class="kv"><span class="muted">所属网格</span><span>G05 主城中</span></div>
+            <div class="kv"><span class="muted">事件等级</span><span class="status red">红色</span></div>
+            <div class="kv"><span class="muted">当前状态</span><span>水深 28cm，交通封控中，1 组抢险队在场</span></div>
+            <div class="kv"><span class="muted">建议动作</span><span>泵车增援 + 交警联动 + 井口复核 + 视频持续识别</span></div>
+          </div>
+          <div class="card">
+            <h3 class="sec-title">统一事件总线</h3>
+            <div class="flow">
+              <div class="step">1. 气象 / 水位 / 液位 / 视频</div>
+              <div class="step">2. 阈值分级与 AI 研判</div>
+              <div class="step">3. 平台自动派单</div>
+              <div class="step">4. 移动端签到 / 处置 / 回传</div>
+              <div class="step">5. 复盘与样本沉淀</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="sec-title">网格责任快照</h3>
+            <table>
+              <thead><tr><th>网格</th><th>负责人</th><th>重点资产</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr><td>G01</td><td>沿江片区长 张涛</td><td>排口 4 / 闸站 1</td><td><span class="tag orange">顶托预警</span></td></tr>
+                <tr><td>G05</td><td>主城片区长 周洁</td><td>下穿通道 2 / 泵站 1</td><td><span class="tag red">正在处置</span></td></tr>
+                <tr><td>G08</td><td>东南片区长 徐鹏</td><td>污水厂 1 / 工业支管网</td><td><span class="tag yellow">巡查加强</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rightcol">
+      <section class="panel" style="padding:16px">
+        <h2 class="sec-title">活跃事件队列</h2>
+        <div class="event-list">
+          <div class="item"><div style="display:flex;justify-content:space-between;gap:8px"><b>下穿通道 A 积水预警</b><span class="status red">红色</span></div><div class="small muted">来源：视频识别 + 群众上报 + 液位计；已派单至抢险 2 组、交警、排水运维。</div></div>
+          <div class="item"><div style="display:flex;justify-content:space-between;gap:8px"><b>泵站 P-07 高液位且外电波动</b><span class="status orange">橙色</span></div><div class="small muted">来源：SCADA + 电力告警；建议就位发电车 1 辆，泵站值守改双人。</div></div>
+          <div class="item"><div style="display:flex;justify-content:space-between;gap:8px"><b>北部排口 O-11 外河水位顶托</b><span class="status orange">橙色</span></div><div class="small muted">来源：沿江控制水位；建议启用临时封堵与内源强排联动。</div></div>
+          <div class="item"><div style="display:flex;justify-content:space-between;gap:8px"><b>污水厂 W-02 进水峰值升高</b><span class="status yellow">黄色</span></div><div class="small muted">来源：进水流量 / 液位双升；建议准备高负荷工况。</div></div>
+        </div>
+      </section>
+
+      <section class="panel" style="padding:16px">
+        <h2 class="sec-title">应急资源态势</h2>
+        <div class="resource-grid">
+          <div class="card"><div class="small muted">移动泵车</div><div style="font-size:26px;font-weight:800">5 / 6</div><div class="small muted">已派出 5，待命 1</div></div>
+          <div class="card"><div class="small muted">发电车</div><div style="font-size:26px;font-weight:800">3 / 4</div><div class="small muted">沿江片 1，主城片 2</div></div>
+          <div class="card"><div class="small muted">抢险队伍</div><div style="font-size:26px;font-weight:800">9 组</div><div class="small muted">到场 7，集结 2</div></div>
+          <div class="card"><div class="small muted">值守泵站</div><div style="font-size:26px;font-weight:800">12 座</div><div class="small muted">重点双人值守 4 座</div></div>
+        </div>
+      </section>
+
+      <section class="panel" style="padding:16px">
+        <h2 class="sec-title">后台培训关注点</h2>
+        <div class="timeline">
+          <div class="line"><b>关注点 1｜统一口径。</b><div class="small muted">后台必须先统一事件编号、网格归属、等级口径，再派单，避免多头通知。</div></div>
+          <div class="line"><b>关注点 2｜先人后物。</b><div class="small muted">对下穿通道、地下空间等场景，优先封控和人员安全，再做抽排。</div></div>
+          <div class="line"><b>关注点 3｜顶托与内涝并看。</b><div class="small muted">沿江高水位会影响排口能力，后台调度不能只盯雨量。</div></div>
+          <div class="line"><b>关注点 4｜复盘字段完整。</b><div class="small muted">到场时间、恢复时间、是否停电、是否投诉激增，都要沉淀到事件库。</div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</body>
+</html>

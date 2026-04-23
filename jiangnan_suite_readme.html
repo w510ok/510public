@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>江苏江南水务｜套件说明页</title>
+<style>
+
+:root{
+  --bg:#071624;
+  --bg2:#0a2236;
+  --panel:#102a44;
+  --panel2:#143553;
+  --panel3:#0d2034;
+  --line:rgba(154,201,233,.16);
+  --line2:rgba(154,201,233,.28);
+  --text:#ecf5ff;
+  --muted:#9eb8cf;
+  --blue:#3fb1ff;
+  --cyan:#53dfff;
+  --green:#35d391;
+  --yellow:#ffd053;
+  --orange:#ff9b45;
+  --red:#ff6767;
+  --purple:#9a8cff;
+  --radius:18px;
+  --shadow:0 12px 38px rgba(0,0,0,.34);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(circle at top,#13395a 0,#081521 42%,#030a12 100%);color:var(--text);font-family:var(--font)}
+a{text-decoration:none;color:inherit}
+.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line2);border-radius:999px;font-size:12px;background:rgba(64,131,180,.14)}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700}
+.blue{background:rgba(63,177,255,.15);color:#caecff;border:1px solid rgba(63,177,255,.28)}
+.yellow{background:rgba(255,208,83,.14);color:#ffe69d;border:1px solid rgba(255,208,83,.24)}
+.orange{background:rgba(255,155,69,.16);color:#ffd0a5;border:1px solid rgba(255,155,69,.28)}
+.red{background:rgba(255,103,103,.14);color:#ffc3c3;border:1px solid rgba(255,103,103,.24)}
+.green{background:rgba(53,211,145,.14);color:#bff5db;border:1px solid rgba(53,211,145,.24)}
+.panel{background:linear-gradient(180deg,rgba(16,42,68,.96),rgba(9,25,40,.98));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card{background:linear-gradient(180deg,rgba(21,53,83,.95),rgba(12,33,52,.95));border:1px solid var(--line);border-radius:16px;padding:14px}
+.small{font-size:12px}
+.title{font-size:30px;line-height:1.18;font-weight:800;margin:0}
+.sec-title{margin:0 0 12px;font-size:18px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{color:#d9efff;background:rgba(255,255,255,.03);font-weight:700}
+.grid{display:grid;gap:14px}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.kv:last-child{border-bottom:none}
+.tip{padding:12px 14px;border-left:3px solid var(--cyan);background:rgba(83,223,255,.08);border-radius:12px}
+.map-note{font-size:12px;color:var(--muted)}
+
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 36px}
+.block{padding:18px;margin-top:16px}
+ol li, ul li{margin:0 0 10px;line-height:1.75;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel block">
+    <div class="badge">使用说明 / 套件关系 / 二次开发建议</div>
+    <h1 class="title" style="margin-top:10px">专业调度系统 HTML 套件说明页</h1>
+    <p class="muted" style="line-height:1.8">推荐理解方式：<b>网格化调度</b>是后台管控，解决统一视角和统一派单；<b>岗位驾驶舱</b>是移动端应用，解决岗位执行和现场回传；<b>培训演练</b>是围绕工作软件的场景化模拟，解决怎么练、怎么评、怎么复盘。</p>
+  </section>
+
+  <section class="panel block">
+    <h2 class="sec-title">推荐使用顺序</h2>
+    <ol>
+      <li>先打开后台 Demo，讲清楚“为什么要一张图、事件总线、统一阈值和网格责任”。</li>
+      <li>再打开移动端 Demo，讲清楚“领导、总值班、泵站值守分别在手机上看什么、做什么”。</li>
+      <li>最后用培训演练页跑一遍场景，完成案例复盘、岗位 SOP 训练和班组评分。</li>
+    </ol>
+  </section>
+
+  <section class="panel block">
+    <h2 class="sec-title">二次开发建议</h2>
+    <ul>
+      <li>正式项目应把 SCADA、GIS、视频平台、客服工单、资产台账接入统一事件中心。</li>
+      <li>移动端应支持真正的定位签到、图片上传、语音备注、离线缓存和断点续传。</li>
+      <li>后台应支持多图层筛选、事件回放、统计报表和演练脚本模板配置。</li>
+      <li>演练模块可独立做成“课程 + 评分 + 复盘”子系统，支持班组积分和题库。</li>
+    </ul>
+  </section>
+
+  <section class="panel block">
+    <h2 class="sec-title">文件清单</h2>
+    <table>
+      <thead><tr><th>文件</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>index.html</td><td>套件入口页</td></tr>
+        <tr><td>jiangnan_grid_dispatch_backend_demo_v2.html</td><td>后台一张图与统一调度</td></tr>
+        <tr><td>jiangnan_mobile_cockpit_v2.html</td><td>移动端岗位驾驶舱</td></tr>
+        <tr><td>jiangnan_training_simulation_v2.html</td><td>培训演练与图文案例</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>江苏江南水务｜网格化防汛防潮系统 Demo 套件</title>
+<style>
+
+:root{
+  --bg:#071624;
+  --bg2:#0a2236;
+  --panel:#102a44;
+  --panel2:#143553;
+  --panel3:#0d2034;
+  --line:rgba(154,201,233,.16);
+  --line2:rgba(154,201,233,.28);
+  --text:#ecf5ff;
+  --muted:#9eb8cf;
+  --blue:#3fb1ff;
+  --cyan:#53dfff;
+  --green:#35d391;
+  --yellow:#ffd053;
+  --orange:#ff9b45;
+  --red:#ff6767;
+  --purple:#9a8cff;
+  --radius:18px;
+  --shadow:0 12px 38px rgba(0,0,0,.34);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(circle at top,#13395a 0,#081521 42%,#030a12 100%);color:var(--text);font-family:var(--font)}
+a{text-decoration:none;color:inherit}
+.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line2);border-radius:999px;font-size:12px;background:rgba(64,131,180,.14)}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700}
+.blue{background:rgba(63,177,255,.15);color:#caecff;border:1px solid rgba(63,177,255,.28)}
+.yellow{background:rgba(255,208,83,.14);color:#ffe69d;border:1px solid rgba(255,208,83,.24)}
+.orange{background:rgba(255,155,69,.16);color:#ffd0a5;border:1px solid rgba(255,155,69,.28)}
+.red{background:rgba(255,103,103,.14);color:#ffc3c3;border:1px solid rgba(255,103,103,.24)}
+.green{background:rgba(53,211,145,.14);color:#bff5db;border:1px solid rgba(53,211,145,.24)}
+.panel{background:linear-gradient(180deg,rgba(16,42,68,.96),rgba(9,25,40,.98));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card{background:linear-gradient(180deg,rgba(21,53,83,.95),rgba(12,33,52,.95));border:1px solid var(--line);border-radius:16px;padding:14px}
+.small{font-size:12px}
+.title{font-size:30px;line-height:1.18;font-weight:800;margin:0}
+.sec-title{margin:0 0 12px;font-size:18px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{color:#d9efff;background:rgba(255,255,255,.03);font-weight:700}
+.grid{display:grid;gap:14px}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.kv:last-child{border-bottom:none}
+.tip{padding:12px 14px;border-left:3px solid var(--cyan);background:rgba(83,223,255,.08);border-radius:12px}
+.map-note{font-size:12px;color:var(--muted)}
+
+body{min-height:100vh}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 16px 36px}
+.hero{padding:22px;border-radius:28px;background:linear-gradient(180deg,rgba(13,37,58,.98),rgba(7,21,34,.98));border:1px solid var(--line);box-shadow:var(--shadow)}
+.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.logo{width:62px;height:62px;border-radius:20px;background:linear-gradient(180deg,#61d7ff,#2a8ce0);display:grid;place-items:center;flex:0 0 auto}
+.logo svg{width:34px;height:34px}
+.brand{display:flex;gap:14px}
+.sub{max-width:820px;color:var(--muted);line-height:1.8;font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px}
+.module{padding:18px;position:relative;overflow:hidden}
+.module h3{margin:0 0 10px;font-size:20px}
+.module p{color:var(--muted);margin:0 0 12px;line-height:1.75;font-size:14px}
+.module .go{display:inline-flex;padding:10px 14px;border-radius:12px;background:rgba(63,177,255,.16);border:1px solid rgba(63,177,255,.28);font-size:14px}
+.row{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:16px}
+.list li{margin:0 0 10px;color:var(--muted);line-height:1.7}
+@media (max-width:900px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="top">
+      <div class="brand">
+        <div class="logo"><svg viewBox="0 0 64 64" fill="none"><path d="M12 35C22 25 30 24 42 31c4 2 7 2 10-1" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M12 46c10-10 18-11 30-4 4 2 8 3 12 2" stroke="#dff8ff" stroke-width="6" stroke-linecap="round"/></svg></div>
+        <div>
+          <div class="badge">Demo 套件 / 模拟数据 / 岗位应用优化</div>
+          <h1 class="title" style="margin-top:10px">江苏江南水务汛期网格化防汛防潮<br/>专业调度系统 HTML 套件</h1>
+          <div class="sub">这套文件把体系分成三层：<b>网格化调度</b>用于后台管控，面向领导与总值班的统一看板；<b>岗位驾驶舱</b>用于移动端执行，面向领导、总值班、泵站值守等岗位；<b>培训演练</b>结合工作软件场景做过程模拟、案例复盘与班组评分。这样的拆分是合适的，也更接近实际落地路径。</div>
+        </div>
+      </div>
+      <div class="card" style="min-width:260px">
+        <div class="small muted">当前包版本</div>
+        <div style="font-size:30px;font-weight:800;margin:4px 0 10px">V1.0 套件版</div>
+        <div class="kv"><span class="muted">生成时间</span><span>2026-04-23 16:55:55</span></div>
+        <div class="kv"><span class="muted">适用对象</span><span>值班培训 / 班组演练 / 原型评审</span></div>
+        <div class="kv"><span class="muted">边界说明</span><span>模拟数据，不替代正式生产系统</span></div>
+      </div>
+    </div>
+    <div class="cards">
+      <a class="panel module" href="jiangnan_grid_dispatch_backend_demo_v2.html">
+        <h3>01｜网格化调度后台</h3>
+        <p>桌面端后台管控，突出一张图、事件总线、网格态势、资源调度、阈值分级与统一派单，适合领导和总值班统筹使用。</p>
+        <span class="go">打开后台 Demo</span>
+      </a>
+      <a class="panel module" href="jiangnan_mobile_cockpit_v2.html">
+        <h3>02｜员工岗位移动驾驶舱</h3>
+        <p>移动端岗位应用，内置领导版、总值班版、泵站值守版三套界面，适合岗位培训、移动值班、到场签到与处置回传演示。</p>
+        <span class="go">打开移动端 Demo</span>
+      </a>
+      <a class="panel module" href="jiangnan_training_simulation_v2.html">
+        <h3>03｜培训演练与场景模拟</h3>
+        <p>把工作软件场景化，串起演练分类、进度控制、脚本、图文案例、培训关注点、岗位 SOP 和 KPI 评分，便于班组演练。</p>
+        <span class="go">打开演练 Demo</span>
+      </a>
+      <a class="panel module" href="jiangnan_suite_readme.html">
+        <h3>04｜使用说明与实施建议</h3>
+        <p>说明三类页面的角色分工、串联方式、推荐使用顺序和二次开发建议，便于原型讨论、开发交底和项目立项沟通。</p>
+        <span class="go">打开说明页</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="row">
+    <section class="panel" style="padding:18px">
+      <h2 class="sec-title">为什么这样的拆分是合适的</h2>
+      <ul class="list">
+        <li><b>后台管控</b>解决“谁在统筹”：看全域、看网格、看资产、看资源、看事件，强调统一阈值和统一指挥。</li>
+        <li><b>移动端岗位驾驶舱</b>解决“谁来执行”：岗位人员需要小屏高频操作，看待办、看路线、看签到、看现场回传、看 SOP。</li>
+        <li><b>培训演练</b>解决“怎么练起来”：把真实工作软件流程拆成可演练、可评分、可复盘的场景，才能用于班组训练。</li>
+        <li>三者合在一起，能把“看板展示”升级成“后台调度 + 移动执行 + 场景演练”的完整原型。</li>
+      </ul>
+      <div class="tip">建议实际项目落地时，先做统一资产台账和事件总线，再做后台一张图，最后做移动端与演练模块联动。</div>
+    </section>
+    <section class="panel" style="padding:18px">
+      <h2 class="sec-title">套件包含文件</h2>
+      <table>
+        <thead><tr><th>文件</th><th>用途</th><th>推荐对象</th></tr></thead>
+        <tbody>
+          <tr><td>jiangnan_grid_dispatch_backend_demo_v2.html</td><td>网格化调度后台</td><td>领导 / 总值班 / 调度中心</td></tr>
+          <tr><td>jiangnan_mobile_cockpit_v2.html</td><td>员工岗位移动驾驶舱</td><td>领导 / 总值班 / 泵站值守 / 抢险人员</td></tr>
+          <tr><td>jiangnan_training_simulation_v2.html</td><td>培训演练与场景模拟</td><td>班组培训 / 联演推演 / 评分复盘</td></tr>
+          <tr><td>jiangnan_suite_readme.html</td><td>说明页</td><td>原型评审 / 开发交底 / 方案汇报</td></tr>
+          <tr><td>江苏江南水务专业调度系统软件开发说明书.docx</td><td>开发说明书</td><td>产品 / 开发 / 测试 / 项目管理</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+</body>
+</html>
