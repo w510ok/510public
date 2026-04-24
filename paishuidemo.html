@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, initial-scale=1">
+  <title>江南水务专业调度系统 · Demo</title>
+  <style>
+    :root {
+      --c-bg-dark: #0B1220; --c-bg-mid: #131B2D; --c-bg-card: #1A2440;
+      --c-primary: #1F8FFF; --c-text: #E5E7EB; --c-text-dim: #8B93A7;
+      --c-red: #EF4444; --c-orange: #F59E0B; --c-yellow: #EAB308; --c-blue: #3B82F6;
+      --c-green: #10B981;
+      --radius: 6px; --pad: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; font-family: "PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif; }
+    body { display: flex; flex-direction: column; background: var(--c-bg-dark); color: var(--c-text); font-size: 13px; }
+
+    nav.top {
+      height: 48px; background: var(--c-bg-mid); display: flex; align-items: center;
+      padding: 0 var(--pad); gap: 8px; border-bottom: 1px solid #22304F; flex-shrink: 0;
+    }
+    nav.top .brand {
+      font-weight: 600; margin-right: 24px; color: var(--c-text); font-size: 15px;
+      display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px;
+    }
+    nav.top .brand::before {
+      content: ''; display: inline-block; width: 4px; height: 20px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+    nav.top .tab {
+      padding: 8px 20px; cursor: pointer; border-radius: 4px;
+      color: var(--c-text-dim); font-size: 13px; user-select: none; letter-spacing: 0.3px;
+    }
+    nav.top .tab:hover { color: var(--c-text); }
+    nav.top .tab.active { background: var(--c-primary); color: #fff; }
+    nav.top .spacer { flex: 1; }
+    nav.top .help-btn {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--c-bg-card);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      color: var(--c-text-dim); font-weight: 600; border: 1px solid #22304F;
+    }
+    nav.top .help-btn:hover { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+
+    main { flex: 1; position: relative; overflow: hidden; }
+    main section { position: absolute; inset: 0; display: none; overflow: auto; }
+    main section.active { display: block; }
+
+    /* 通用小标记 —— 替代 emoji */
+    .marker {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px; border-radius: 3px; font-size: 10px;
+      font-weight: 700; color: #fff; letter-spacing: 0; flex-shrink: 0;
+    }
+    .marker.pump  { background: #1F8FFF; }
+    .marker.gate  { background: #F59E0B; }
+    .marker.outlet{ background: #10B981; border-radius: 50%; }
+    .marker.outlet.backflow { background: #EF4444; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c-text-dim); flex-shrink: 0; }
+    .dot.red { background: var(--c-red); }
+    .dot.orange { background: var(--c-orange); }
+    .dot.yellow { background: var(--c-yellow); }
+    .dot.green { background: var(--c-green); }
+    .dot.blue { background: var(--c-blue); }
+
+    /* ========== View 1: Dashboard ========== */
+    #view-dashboard { padding: 12px; background: var(--c-bg-dark); }
+    .dashboard-grid {
+      display: grid; height: 100%;
+      grid-template-columns: 300px 1fr 360px;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+    }
+    .d-header {
+      grid-column: 1 / -1; display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(90deg, var(--c-bg-mid), var(--c-bg-card));
+      padding: 12px 20px; border-radius: var(--radius); border: 1px solid #22304F;
+    }
+    .d-header .title { font-size: 18px; font-weight: 600; color: var(--c-primary); letter-spacing: 0.5px; }
+    .d-header .resp-badge {
+      padding: 4px 12px; border-radius: 3px; font-size: 12px; font-weight: 600;
+      background: var(--c-orange); color: #fff; letter-spacing: 0.5px;
+    }
+    .d-header .resp-badge[data-level="Ⅰ"] { background: var(--c-red); }
+    .d-header .resp-badge[data-level="Ⅱ"] { background: var(--c-orange); }
+    .d-header .resp-badge[data-level="Ⅲ"] { background: var(--c-yellow); color:#1A1D23; }
+    .d-header .resp-badge[data-level="Ⅳ"] { background: var(--c-blue); }
+    .d-header .spacer { flex: 1; }
+    .d-header .clock-display { font-family: "JetBrains Mono",Consolas,Menlo,monospace; font-size: 16px; color: var(--c-text); }
+
+    .d-left, .d-center, .d-right { display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+    .d-card {
+      background: var(--c-bg-card); border-radius: var(--radius);
+      border: 1px solid #22304F; padding: 12px; overflow: hidden; display: flex; flex-direction: column;
+    }
+    .d-card h3 {
+      font-size: 12px; color: var(--c-text); margin-bottom: 10px; font-weight: 600;
+      padding-left: 10px; position: relative; letter-spacing: 0.5px;
+    }
+    .d-card h3::before {
+      content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+    .d-card h3 .aux { float: right; color: var(--c-text-dim); font-weight: 400; font-size: 11px; }
+    .d-card .body { flex: 1; overflow: auto; min-height: 0; }
+
+    .d-footer {
+      grid-column: 1 / -1;
+      background: var(--c-bg-card); border-radius: var(--radius);
+      border: 1px solid #22304F; padding: 12px;
+      display: grid; grid-template-columns: 2fr 1fr; gap: 16px; height: 130px;
+    }
+    .d-footer h3 {
+      font-size: 12px; color: var(--c-text); font-weight: 600; margin-bottom: 6px;
+      padding-left: 10px; position: relative; letter-spacing: 0.5px;
+    }
+    .d-footer h3::before {
+      content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+
+    .alert-item {
+      display: flex; align-items: center; gap: 8px; padding: 6px 8px;
+      border-radius: 3px; margin-bottom: 3px; cursor: pointer; font-size: 12px;
+      border-left: 3px solid var(--c-blue);
+    }
+    .alert-item:hover { background: rgba(255,255,255,0.04); }
+    .alert-item[data-level="red"]    { border-left-color: var(--c-red); }
+    .alert-item[data-level="orange"] { border-left-color: var(--c-orange); }
+    .alert-item[data-level="yellow"] { border-left-color: var(--c-yellow); }
+    .alert-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-blue); flex-shrink: 0; }
+    .alert-item[data-level="red"] .dot    { background: var(--c-red); }
+    .alert-item[data-level="orange"] .dot { background: var(--c-orange); }
+    .alert-item[data-level="yellow"] .dot { background: var(--c-yellow); }
+    .alert-item.ack { opacity: 0.45; }
+    .alert-item .title { flex: 1; letter-spacing: 0.3px; }
+    .alert-item .t { color: var(--c-text-dim); font-size: 11px; font-family: "JetBrains Mono",Consolas,monospace; }
+
+    .fac-card {
+      background: rgba(255,255,255,0.03); border-radius: 4px;
+      padding: 10px; margin-bottom: 8px; border: 1px solid transparent;
+    }
+    .fac-card.alarm { border-color: var(--c-red); background: rgba(239,68,68,0.08); }
+    .fac-card .line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; gap: 6px; }
+    .fac-card .name { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+    .fac-card .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .fac-card .status-dot.normal { background: var(--c-green); }
+    .fac-card .status-dot.warning { background: var(--c-orange); }
+    .fac-card .status-dot.fault { background: var(--c-red); }
+    .fac-card .meter { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin: 4px 0; }
+    .fac-card .meter > i { display: block; height: 100%; background: var(--c-primary); border-radius: 2px; transition: width 0.3s; }
+    .fac-card .actions { display: flex; gap: 6px; margin-top: 6px; }
+    .fac-card button {
+      flex: 1; background: rgba(31,143,255,0.15); color: var(--c-primary);
+      border: 1px solid rgba(31,143,255,0.35); padding: 5px 0; border-radius: 3px;
+      cursor: pointer; font-size: 11px; font-weight: 500;
+    }
+    .fac-card button:hover { background: rgba(31,143,255,0.3); }
+
+    .task-item {
+      padding: 8px; border-left: 3px solid var(--c-primary); background: rgba(255,255,255,0.02);
+      border-radius: 3px; margin-bottom: 6px; font-size: 12px;
+    }
+    .task-item[data-priority="high"] { border-left-color: var(--c-red); }
+    .task-item .line1 { display: flex; justify-content: space-between; margin-bottom: 2px; }
+    .task-item .line1 .id { color: var(--c-text-dim); font-size: 11px; font-family: "JetBrains Mono",Consolas,monospace; }
+    .task-item .line2 { color: var(--c-text-dim); font-size: 11px; }
+
+    .map-wrap { flex: 1; position: relative; min-height: 0; }
+    .map-wrap svg { width: 100%; height: 100%; display: block; }
+    .grid-poly { cursor: pointer; stroke: #22304F; stroke-width: 1; transition: opacity 0.2s; }
+    .grid-poly:hover { stroke: #fff; stroke-width: 2; }
+    .grid-poly[data-risk="blue"]   { fill: rgba(59,130,246,0.25); }
+    .grid-poly[data-risk="yellow"] { fill: rgba(234,179,8,0.45); }
+    .grid-poly[data-risk="orange"] { fill: rgba(245,158,11,0.55); }
+    .grid-poly[data-risk="red"]    { fill: rgba(239,68,68,0.65); }
+    .grid-label { font-size: 11px; fill: #fff; pointer-events: none; text-anchor: middle; font-weight: 500; }
+    .facility-icon { cursor: pointer; }
+    .outlet-backflow { animation: pulse 1s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .map-legend {
+      position: absolute; left: 12px; bottom: 12px; background: rgba(11,18,32,0.85);
+      border: 1px solid #22304F; border-radius: 4px; padding: 8px 10px;
+      font-size: 11px; color: var(--c-text-dim); display: flex; gap: 12px; align-items: center;
+    }
+    .map-legend > span { display: flex; align-items: center; gap: 4px; }
+
+    .sug-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4);
+      padding: 6px 10px; border-radius: 3px; font-size: 12px; margin: 0 6px 6px 0;
+      cursor: pointer; color: var(--c-text);
+    }
+    .sug-item:hover { background: rgba(16,185,129,0.25); }
+    .sug-item::before {
+      content: ''; display: inline-block; width: 0; height: 0;
+      border-left: 6px solid var(--c-green); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+    }
+
+    .drawer {
+      position: fixed; top: 48px; right: -440px; width: 440px; height: calc(100vh - 48px);
+      background: var(--c-bg-mid); border-left: 1px solid #22304F; padding: 16px;
+      transition: right 0.3s; overflow-y: auto; z-index: 100;
+    }
+    .drawer.open { right: 0; }
+    .drawer h2 { margin-bottom: 12px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .drawer .close { position: absolute; top: 12px; right: 12px; cursor: pointer; color: var(--c-text-dim); font-size: 18px; }
+
+    /* ========== View 2: Mobile ========== */
+    #view-mobile {
+      background: #20232A; display: flex; align-items: center; justify-content: center;
+      padding: 20px; overflow: auto;
+    }
+    .phone-frame {
+      width: 390px; height: 844px; background: #000; border-radius: 44px;
+      padding: 14px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); position: relative;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; background: #F7F8FA; border-radius: 32px;
+      overflow: hidden; display: flex; flex-direction: column; color: #1A1D23;
+    }
+    .phone-notch {
+      position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 28px; background: #000; border-radius: 0 0 16px 16px; z-index: 2;
+    }
+    .phone-status-bar {
+      height: 44px; padding: 8px 28px; display: flex; justify-content: space-between;
+      align-items: flex-end; font-size: 13px; font-weight: 600;
+    }
+    .m-header {
+      padding: 12px 16px; background: #fff; border-bottom: 1px solid #E5E7EB;
+    }
+    .m-role-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; color: #6B7280; }
+    .m-role-select {
+      background: #EEF2FF; color: #3730A3; border: 0; padding: 4px 10px;
+      border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .m-staff-row { display: flex; align-items: center; gap: 10px; }
+    .m-avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--c-primary);
+      display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 14px;
+    }
+    .m-staff-info { flex: 1; }
+    .m-staff-info .name { font-weight: 600; font-size: 14px; }
+    .m-staff-info .sub { font-size: 11px; color: #6B7280; }
+    .m-shift-badge {
+      background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;
+    }
+
+    .m-main { flex: 1; overflow-y: auto; padding: 12px; }
+    .m-section-title {
+      font-size: 12px; color: #374151; font-weight: 600; margin: 12px 4px 6px;
+      padding-left: 8px; position: relative; letter-spacing: 0.3px;
+    }
+    .m-section-title::before {
+      content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+    .m-section-title:first-child { margin-top: 0; }
+
+    .m-task {
+      background: #fff; border-radius: 6px; padding: 12px; margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .m-task .line1 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .m-task .prio-badge { padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+    .m-task .prio-high { background: #FEE2E2; color: #991B1B; }
+    .m-task .prio-mid  { background: #FEF3C7; color: #92400E; }
+    .m-task .prio-low  { background: #D1FAE5; color: #065F46; }
+    .m-task .title { font-weight: 600; font-size: 14px; }
+    .m-task .meta { font-size: 11px; color: #6B7280; margin-bottom: 8px; }
+    .m-task .actions { display: flex; gap: 6px; }
+    .m-task .actions button {
+      flex: 1; background: var(--c-primary); color: #fff; border: 0; padding: 8px 0;
+      border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 500;
+    }
+    .m-task .actions button.sec { background: #E5E7EB; color: #374151; }
+
+    .m-kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .m-kpi-cell {
+      background: #fff; padding: 10px; border-radius: 6px; text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .m-kpi-cell .val { font-size: 18px; font-weight: 700; color: var(--c-primary); }
+    .m-kpi-cell .lbl { font-size: 11px; color: #6B7280; margin-top: 2px; }
+
+    .m-tab-bar {
+      height: 60px; background: #fff; border-top: 1px solid #E5E7EB;
+      display: grid; grid-template-columns: repeat(4,1fr); padding-bottom: 6px;
+    }
+    .m-tab-bar .tab {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; color: #6B7280; font-size: 11px; gap: 4px; letter-spacing: 0.5px;
+    }
+    .m-tab-bar .tab .ic {
+      width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+    }
+    .m-tab-bar .tab:hover { color: var(--c-primary); }
+    .m-tab-bar .tab:hover .ic svg { stroke: var(--c-primary); }
+
+    .m-pump-card {
+      background: #fff; border-radius: 6px; padding: 12px; margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .m-pump-card .big { font-size: 28px; font-weight: 700; color: var(--c-primary); line-height: 1; }
+    .m-pump-gauge { display: flex; gap: 4px; margin: 10px 0; }
+    .m-pump-gauge > i { flex: 1; height: 8px; border-radius: 2px; background: #E5E7EB; }
+    .m-pump-gauge > i.on { background: var(--c-green); }
+
+    .m-emerg-slot {
+      background: #fff; border-radius: 6px; padding: 12px; margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .m-emerg-slot .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; border-bottom: 1px solid #F3F4F6; }
+    .m-emerg-slot .row:last-child { border: 0; }
+
+    /* ========== View 3: Drill ========== */
+    #view-drill { background: #1A1D23; padding: 12px; }
+    .drill-layout { display: grid; grid-template-rows: auto 1fr; gap: 12px; height: 100%; }
+    .drill-toolbar {
+      background: #252932; border-radius: var(--radius); padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px; color: #E5E7EB; flex-wrap: wrap;
+      border: 1px solid #3B4152;
+    }
+    .drill-toolbar label { font-size: 12px; color: #8B93A7; }
+    .drill-toolbar select {
+      background: #1A1D23; color: #E5E7EB; border: 1px solid #3B4152;
+      padding: 6px 10px; border-radius: 3px; font-size: 13px;
+    }
+    .drill-toolbar button {
+      background: var(--c-primary); color: #fff; border: 0; padding: 6px 14px;
+      border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 500;
+    }
+    .drill-toolbar button:hover { opacity: 0.9; }
+    .drill-toolbar button.ghost { background: transparent; border: 1px solid #3B4152; color: #E5E7EB; }
+    .drill-toolbar button.danger { background: #6B7280; }
+    .drill-toolbar .speed-group { display: flex; gap: 4px; }
+    .drill-toolbar .speed-group button {
+      background: #1A1D23; border: 1px solid #3B4152; color: #8B93A7; padding: 4px 10px; font-size: 12px;
+    }
+    .drill-toolbar .speed-group button.on { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+    .drill-toolbar .progress {
+      flex: 1; height: 6px; background: #3B4152; border-radius: 3px; overflow: hidden; position: relative;
+      margin: 0 8px; min-width: 100px;
+    }
+    .drill-toolbar .progress > i { display: block; height: 100%; background: var(--c-primary); border-radius: 3px; transition: width 0.3s; }
+    .drill-toolbar .clock-big {
+      font-family: "JetBrains Mono",Consolas,Menlo,monospace; font-size: 18px; color: var(--c-green); min-width: 90px; text-align: right;
+    }
+
+    .drill-body { display: grid; grid-template-columns: 280px 1fr 340px; gap: 12px; overflow: hidden; min-height: 0; }
+    .drill-col { background: #252932; border-radius: var(--radius); padding: 12px; overflow: auto; border: 1px solid #3B4152; }
+    .drill-col h3 {
+      font-size: 12px; color: #E5E7EB; margin-bottom: 10px; font-weight: 600;
+      padding-left: 10px; position: relative; letter-spacing: 0.5px;
+    }
+    .drill-col h3::before {
+      content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+
+    .script-line {
+      display: flex; gap: 10px; padding: 6px 8px; font-size: 12px; color: #C4C8D4;
+      border-left: 2px solid #3B4152; margin-bottom: 2px;
+    }
+    .script-line.fired { color: #E5E7EB; border-left-color: var(--c-primary); background: rgba(31,143,255,0.08); }
+    .script-line.current { color: #FCD34D; border-left-color: var(--c-orange); background: rgba(245,158,11,0.15); font-weight: 600; }
+    .script-line.future { opacity: 0.45; }
+    .script-line .t { color: #8B93A7; font-family: "JetBrains Mono",Consolas,monospace; min-width: 50px; }
+    .script-line .tag {
+      display: inline-block; padding: 1px 5px; font-size: 10px; font-weight: 600;
+      border-radius: 2px; margin-right: 4px; letter-spacing: 0.5px;
+    }
+    .script-line .tag.wx  { background: #374151; color: #9CA3AF; }
+    .script-line .tag.alt { background: rgba(245,158,11,0.25); color: #FCD34D; }
+    .script-line .tag.exp { background: rgba(31,143,255,0.25); color: #7DB9FF; }
+    .script-line .tag.end { background: rgba(107,114,128,0.3); color: #E5E7EB; }
+
+    .drill-sandbox { display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+
+    .op-card {
+      background: #1A1D23; border: 1px solid #3B4152; border-radius: 4px;
+      padding: 10px; margin-bottom: 6px; cursor: pointer; color: #E5E7EB; font-size: 13px;
+      transition: border-color 0.15s;
+    }
+    .op-card:hover { border-color: var(--c-primary); background: #1F2836; }
+    .op-card .title { font-weight: 500; margin-bottom: 3px; letter-spacing: 0.3px; }
+    .op-card .desc { font-size: 11px; color: #8B93A7; }
+
+    .op-history-item {
+      padding: 6px 10px 6px 28px; font-size: 12px; border-left: 3px solid #3B4152;
+      margin-bottom: 4px; background: #1A1D23; border-radius: 3px; position: relative;
+    }
+    .op-history-item.pos { border-left-color: var(--c-green); }
+    .op-history-item.neg { border-left-color: var(--c-red); }
+    .op-history-item .delta { font-weight: 600; float: right; font-family: "JetBrains Mono",Consolas,monospace; }
+    .op-history-item.pos .delta { color: var(--c-green); }
+    .op-history-item.neg .delta { color: var(--c-red); }
+    .op-history-item .tag {
+      position: absolute; left: 6px; top: 6px;
+      display: inline-block; padding: 1px 4px; font-size: 10px; font-weight: 600;
+      border-radius: 2px; letter-spacing: 0.5px; min-width: 18px; text-align: center;
+      background: #374151; color: #E5E7EB;
+    }
+    .op-history-item .tag.pump { background: rgba(31,143,255,0.3); color: #7DB9FF; }
+    .op-history-item .tag.gate { background: rgba(245,158,11,0.3); color: #FCD34D; }
+    .op-history-item .tag.task { background: rgba(16,185,129,0.3); color: #6EE7B7; }
+    .op-history-item .tag.resp { background: rgba(239,68,68,0.3); color: #FCA5A5; }
+
+    .score-display {
+      background: #1A1D23; border-radius: 6px; padding: 16px; text-align: center;
+      margin-bottom: 12px; border: 1px solid #3B4152;
+    }
+    .score-display .big { font-size: 36px; font-weight: 700; color: var(--c-primary); line-height: 1; font-family: "JetBrains Mono",Consolas,monospace; }
+    .score-display .lbl { font-size: 12px; color: #8B93A7; margin-top: 4px; }
+    .score-display .lines { font-size: 11px; color: #8B93A7; margin-top: 4px; font-family: "JetBrains Mono",Consolas,monospace; }
+
+    /* ========== Help overlay ========== */
+    .help-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 2000;
+      display: none; align-items: center; justify-content: center;
+    }
+    .help-overlay.open { display: flex; }
+    .help-box {
+      background: var(--c-bg-card); border-radius: 6px; padding: 28px;
+      max-width: 720px; max-height: 85vh; overflow-y: auto; color: var(--c-text); position: relative;
+      border: 1px solid #22304F;
+    }
+    .help-box h2 { color: var(--c-primary); margin-bottom: 16px; font-size: 18px; letter-spacing: 0.5px; }
+    .help-box h3 {
+      color: var(--c-text); margin: 18px 0 8px; font-size: 13px; font-weight: 600;
+      padding-left: 10px; position: relative; letter-spacing: 0.5px;
+    }
+    .help-box h3::before {
+      content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px;
+      background: var(--c-primary); border-radius: 1px;
+    }
+    .help-box p, .help-box li { color: var(--c-text-dim); font-size: 13px; line-height: 1.8; }
+    .help-box ul { padding-left: 20px; margin-bottom: 8px; }
+    .help-box code {
+      background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 2px;
+      font-family: "JetBrains Mono",Consolas,Menlo,monospace; font-size: 12px; color: var(--c-primary);
+    }
+    .help-box .close-btn { position: absolute; top: 12px; right: 16px; cursor: pointer; font-size: 22px; color: var(--c-text-dim); }
+    .help-box .close-btn:hover { color: var(--c-text); }
+
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>window.__ECHARTS_OK = typeof echarts !== 'undefined';</script>
+</head>
+<body>
+  <nav class="top">
+    <div class="brand">江南水务专业调度系统</div>
+    <div class="tab active" data-view="dashboard">网格化调度管控</div>
+    <div class="tab" data-view="mobile">员工岗位驾驶舱</div>
+    <div class="tab" data-view="drill">培训演练模拟</div>
+    <div class="spacer"></div>
+    <div class="help-btn" id="help-btn" title="帮助">?</div>
+  </nav>
+
+  <main>
+    <!-- ========== View 1: Dashboard ========== -->
+    <section id="view-dashboard" class="active">
+      <div class="dashboard-grid">
+        <div class="d-header">
+          <div class="title">网格化调度管控</div>
+          <div class="resp-badge" data-level="Ⅳ" id="d-resp-badge">Ⅳ 级响应</div>
+          <div class="spacer"></div>
+          <div class="clock-display" id="d-clock">00:00:00</div>
+          <div style="font-size:12px;color:var(--c-text-dim)">值班长 <b id="d-commander" style="color:var(--c-text)">—</b></div>
+        </div>
+        <div class="d-left">
+          <div class="d-card" style="flex:1 1 0">
+            <h3>告警中心<span class="aux" id="d-alert-count">0</span></h3>
+            <div class="body" id="d-alerts"></div>
+          </div>
+          <div class="d-card" style="height:220px">
+            <h3>雨情水情趋势<span class="aux">TOP 3 网格</span></h3>
+            <div class="body" id="d-rain-chart" style="width:100%;height:100%"></div>
+          </div>
+        </div>
+        <div class="d-center">
+          <div class="d-card" style="flex:1">
+            <h3>江阴网格化地图<span class="aux">网格 15 · 泵站 5 · 闸门 3 · 排口 8</span></h3>
+            <div class="map-wrap" id="d-map"></div>
+          </div>
+        </div>
+        <div class="d-right">
+          <div class="d-card" style="flex:1 1 0">
+            <h3>泵站 / 闸门 / 排口</h3>
+            <div class="body" id="d-facilities"></div>
+          </div>
+          <div class="d-card" style="flex:1 1 0">
+            <h3>工单队列<span class="aux" id="d-task-count">0</span></h3>
+            <div class="body" id="d-tasks"></div>
+          </div>
+        </div>
+        <div class="d-footer">
+          <div style="display:flex;flex-direction:column">
+            <h3>风险分布</h3>
+            <div id="d-risk-chart" style="width:100%;flex:1"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;overflow:hidden">
+            <h3>系统调度建议 · 点击采纳</h3>
+            <div id="d-suggestions" style="overflow:auto;flex:1"></div>
+          </div>
+        </div>
+      </div>
+      <div class="drawer" id="d-drawer">
+        <span class="close" onclick="document.getElementById('d-drawer').classList.remove('open')">✕</span>
+        <div id="d-drawer-body"></div>
+      </div>
+    </section>
+
+    <!-- ========== View 2: Mobile ========== -->
+    <section id="view-mobile">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="m-screen">
+          <div class="phone-status-bar">
+            <span id="m-time">00:00</span>
+            <span style="letter-spacing:2px">●●●</span>
+          </div>
+          <div class="m-header">
+            <div class="m-role-row">
+              岗位
+              <select class="m-role-select" id="m-role-select">
+                <option value="inspector">网格巡检员</option>
+                <option value="pump">泵站班组</option>
+                <option value="emergency">应急抢险队</option>
+              </select>
+              <span style="flex:1"></span>
+              <span id="m-resp-badge" class="m-shift-badge">Ⅳ 级响应</span>
+            </div>
+            <div class="m-staff-row">
+              <div class="m-avatar" id="m-avatar">王</div>
+              <div class="m-staff-info">
+                <div class="name" id="m-staff-name">—</div>
+                <div class="sub" id="m-staff-sub">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="m-main" id="m-main"></div>
+          <div class="m-tab-bar">
+            <div class="tab" onclick="mobileQuickAction('report')"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6 L9.5 3 L14.5 3 L16 6"/></svg></span>上报</div>
+            <div class="tab" onclick="mobileQuickAction('cmd')"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span>指令</div>
+            <div class="tab" onclick="mobileQuickAction('call')"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8"><path d="M5 4 C 4 4 3 5 3 6 Q 3 14 10 18 Q 14 22 18 21 C 19 21 20 20 20 19 L 20 17 L 16 15 L 14 17 Q 9 14 7 9 L 9 7 L 8 4 Z"/></svg></span>呼叫</div>
+            <div class="tab" onclick="mobileQuickAction('sos')"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M12 3 L22 20 L2 20 Z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="#EF4444"/></svg></span>紧急</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== View 3: Drill ========== -->
+    <section id="view-drill">
+      <div class="drill-layout">
+        <div class="drill-toolbar">
+          <label>场景</label>
+          <select id="drill-scenario">
+            <option value="">-- 选择一个演练场景 --</option>
+          </select>
+          <button id="drill-play">▶ 开始</button>
+          <button id="drill-pause" class="ghost">⏸ 暂停</button>
+          <button id="drill-stop" class="danger">⏹ 重置</button>
+          <label>倍速</label>
+          <div class="speed-group" id="drill-speed">
+            <button data-s="1" class="on">1x</button>
+            <button data-s="2">2x</button>
+            <button data-s="4">4x</button>
+            <button data-s="8">8x</button>
+          </div>
+          <div class="progress"><i id="drill-progress" style="width:0%"></i></div>
+          <div class="clock-big" id="drill-clock">00:00:00</div>
+        </div>
+        <div class="drill-body">
+          <div class="drill-col">
+            <h3>剧本时间线</h3>
+            <div id="drill-script"><div style="color:#8B93A7;font-size:12px">未选择场景</div></div>
+          </div>
+          <div class="drill-col drill-sandbox">
+            <h3>沙盘视图 · 实时同步</h3>
+            <div style="display:grid;grid-template-rows:1fr auto;gap:8px;flex:1;min-height:0">
+              <div style="background:#0B1220;border-radius:4px;padding:8px;overflow:hidden" id="drill-mini-dashboard"></div>
+              <div style="background:#F7F8FA;border-radius:4px;padding:8px" id="drill-mini-mobile"></div>
+            </div>
+          </div>
+          <div class="drill-col">
+            <h3>学员操作与评分</h3>
+            <div class="score-display" id="drill-score-display">
+              <div class="big" id="drill-score">—</div>
+              <div class="lbl">当前得分</div>
+              <div class="lines" id="drill-score-lines">选中场景后开始</div>
+            </div>
+            <div style="margin-bottom:12px">
+              <div style="font-size:12px;color:#8B93A7;margin-bottom:6px;font-weight:500">可执行动作</div>
+              <div id="drill-ops-palette"><div style="color:#8B93A7;font-size:11px">选场景后显示</div></div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:#8B93A7;margin-bottom:6px;font-weight:500">操作历史</div>
+              <div id="drill-ops-history"><div style="color:#8B93A7;font-size:11px">暂无操作</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="help-overlay" id="help-overlay">
+    <div class="help-box">
+      <span class="close-btn" onclick="document.getElementById('help-overlay').classList.remove('open')">✕</span>
+      <h2>江南水务专业调度系统 · Demo 使用指南</h2>
+      <p>本 demo 是三个核心场景的单文件原型，<b>所有数据均为模拟</b>，用于评审、路演与培训演练。</p>
+
+      <h3>网格化调度管控 · Tab 1</h3>
+      <ul>
+        <li><b>15 个网格</b>：主城区 10 格 + 沿江 5 格。点击任一网格查看详情并可派发巡检。</li>
+        <li><b>5 泵站 / 3 闸门 / 8 排口</b>：一键启停机组、调整开度；沿江排口在高潮位时会闪烁提示倒灌。</li>
+        <li><b>告警中心</b>：规则引擎自动识别雨强 / 水位 / 潮位告警；点击条目确认。</li>
+        <li><b>系统建议</b>：绿色胶囊为自动生成的调度建议，点击即采纳、自动执行。</li>
+        <li><b>响应等级</b>：Ⅰ~Ⅳ 级，随红橙网格数自动联动。</li>
+      </ul>
+
+      <h3>员工岗位驾驶舱 · Tab 2</h3>
+      <ul>
+        <li><b>3 种一线角色</b>：网格巡检员 / 泵站班组 / 应急抢险队，顶部下拉切换。</li>
+        <li><b>巡检员</b>：待办任务列表、导航 / 签到 / 上报。</li>
+        <li><b>泵站班组</b>：我的泵站机组状态、本站指令回溯。</li>
+        <li><b>应急抢险</b>：队伍在岗、红色网格分布、视频接入清单。</li>
+      </ul>
+
+      <h3>培训演练模拟 · Tab 3</h3>
+      <ul>
+        <li><b>3 个剧本</b>：典型暴雨 / 暴雨+高潮位复合 / 局部强降水。</li>
+        <li><b>沙盘时钟</b>：1x / 2x / 4x / 8x 倍速。2 小时剧本在 4x 下约 30 秒跑完。</li>
+        <li><b>评分规则</b>：按时命中剧本期望动作 <code>+10</code>，超时 <code>+5</code>，剧本明确错误动作 <code>-8</code>，额外预置动作 <code>+3</code>。</li>
+        <li>剧本结束自动结算，显示命中率、错误数与明细。</li>
+      </ul>
+
+      <h3>技术边界</h3>
+      <ul>
+        <li>纯前端，单文件 HTML，无后端、无数据库、无登录。</li>
+        <li>断网可用（ECharts 自动降级为内置 SVG 线图）。</li>
+        <li>所有调度指令写入 <code>STATE.commands</code> 审计流（带 traceId，可在 console 查）。</li>
+      </ul>
+
+      <h3>调试入口</h3>
+      <ul>
+        <li><code>STATE</code> — 全局状态</li>
+        <li><code>clock.start() / pause() / stop()</code> — 时钟控制</li>
+        <li><code>startPump('P01') / stopPump('P01')</code> — 手动调度</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // ==================== SECTION 1: Constants ====================
+    const RISK_COLORS = { red:'#EF4444', orange:'#F59E0B', yellow:'#EAB308', blue:'#3B82F6' };
+    const RISK_LEVEL_CN = { red:'红色', orange:'橙色', yellow:'黄色', blue:'蓝色' };
+    const GRID_VIEWBOX = { w: 800, h: 600 };
+
+    // ==================== SECTION 2: Master data ====================
+    const MASTER_GRIDS = [
+      { id:'G01', name:'城中',   polygon:[[340,200],[420,200],[430,280],[350,280]], center:[385,240], type:'urban',     population:2.3, area:1.2 },
+      { id:'G02', name:'西横河', polygon:[[250,180],[340,200],[350,280],[260,270]], center:[300,232], type:'urban',     population:1.8, area:0.9 },
+      { id:'G03', name:'要塞东', polygon:[[430,200],[520,200],[525,285],[430,280]], center:[477,241], type:'urban',     population:2.1, area:1.1 },
+      { id:'G04', name:'澄江',   polygon:[[340,280],[430,280],[430,360],[345,360]], center:[386,320], type:'urban',     population:2.5, area:1.3 },
+      { id:'G05', name:'肖山',   polygon:[[430,285],[525,285],[525,360],[430,360]], center:[477,322], type:'urban',     population:1.7, area:0.8 },
+      { id:'G06', name:'南闸',   polygon:[[260,270],[350,280],[345,360],[265,350]], center:[305,315], type:'urban',     population:1.5, area:0.7 },
+      { id:'G07', name:'云亭',   polygon:[[525,200],[610,210],[615,285],[525,285]], center:[570,245], type:'urban',     population:2.0, area:1.0 },
+      { id:'G08', name:'周庄',   polygon:[[345,360],[430,360],[435,440],[350,435]], center:[390,400], type:'urban',     population:1.2, area:0.6 },
+      { id:'G09', name:'华士',   polygon:[[430,360],[525,360],[525,440],[435,440]], center:[480,400], type:'urban',     population:1.1, area:0.6 },
+      { id:'G10', name:'新桥',   polygon:[[525,285],[615,285],[615,365],[525,365]], center:[570,325], type:'urban',     population:0.9, area:0.5 },
+      { id:'G11', name:'沿江北', polygon:[[250,100],[420,110],[420,180],[250,170]], center:[335,140], type:'riverside', population:0.7, area:1.5 },
+      { id:'G12', name:'沿江中', polygon:[[420,110],[560,115],[560,185],[420,180]], center:[490,150], type:'riverside', population:0.6, area:1.4 },
+      { id:'G13', name:'沿江东', polygon:[[560,115],[700,120],[700,195],[560,185]], center:[630,157], type:'riverside', population:0.5, area:1.6 },
+      { id:'G14', name:'申港',   polygon:[[150,170],[250,180],[260,270],[155,265]], center:[205,221], type:'riverside', population:0.8, area:1.2 },
+      { id:'G15', name:'利港',   polygon:[[615,210],[720,215],[720,300],[615,285]], center:[670,252], type:'riverside', population:0.4, area:1.5 }
+    ];
+    const MASTER_PUMPS = [
+      { id:'P01', name:'要塞泵站', gridId:'G03', units:4, capacity:8000,  x:490, y:250 },
+      { id:'P02', name:'澄江泵站', gridId:'G04', units:3, capacity:6000,  x:395, y:330 },
+      { id:'P03', name:'肖山泵站', gridId:'G05', units:4, capacity:7500,  x:485, y:332 },
+      { id:'P04', name:'沿江中泵', gridId:'G12', units:6, capacity:12000, x:500, y:155 },
+      { id:'P05', name:'南闸泵站', gridId:'G06', units:2, capacity:4000,  x:310, y:325 }
+    ];
+    const MASTER_GATES = [
+      { id:'GT1', name:'澄江闸',   gridId:'G04', x:410, y:355 },
+      { id:'GT2', name:'沿江东闸', gridId:'G13', x:640, y:190 },
+      { id:'GT3', name:'申港闸',   gridId:'G14', x:210, y:180 }
+    ];
+    const MASTER_OUTLETS = [
+      { id:'O01', name:'北门排口',   gridId:'G11', x:335, y:115 },
+      { id:'O02', name:'澄江北排口', gridId:'G11', x:400, y:118 },
+      { id:'O03', name:'沿江中排口', gridId:'G12', x:490, y:118 },
+      { id:'O04', name:'华士排口',   gridId:'G09', x:480, y:435 },
+      { id:'O05', name:'要塞排口',   gridId:'G03', x:515, y:215 },
+      { id:'O06', name:'申港排口',   gridId:'G14', x:200, y:185 },
+      { id:'O07', name:'云亭排口',   gridId:'G07', x:605, y:220 },
+      { id:'O08', name:'利港排口',   gridId:'G15', x:715, y:260 }
+    ];
+    const MASTER_STAFF = [
+      { id:'S01', name:'王五', role:'inspector', gridId:'G03' },
+      { id:'S02', name:'李强', role:'inspector', gridId:'G04' },
+      { id:'S03', name:'赵敏', role:'inspector', gridId:'G07' },
+      { id:'S04', name:'陈浩', role:'inspector', gridId:'G11' },
+      { id:'S05', name:'刘芳', role:'inspector', gridId:'G14' },
+      { id:'S06', name:'张伟', role:'pump',      gridId:'G03' },
+      { id:'S07', name:'孙磊', role:'pump',      gridId:'G04' },
+      { id:'S08', name:'周婷', role:'pump',      gridId:'G05' },
+      { id:'S09', name:'吴凯', role:'pump',      gridId:'G12' },
+      { id:'S10', name:'郑刚', role:'emergency', gridId:'G01' },
+      { id:'S11', name:'黄雷', role:'emergency', gridId:'G04' },
+      { id:'S12', name:'徐峰', role:'emergency', gridId:'G12' }
+    ];
+    const ROLE_CN = { inspector:'网格巡检员', pump:'泵站班组', emergency:'应急抢险队' };
+
+    // ==================== SECTION 3: STATE + Reactive ====================
+    function buildInitialState() {
+      return {
+        meta: {
+          version: '1.0',
+          clockMode: 'realtime',
+          responseLevel: 'Ⅳ',
+          shift: { commanderId:'S10' },
+          currentRole: 'inspector',
+          currentStaffId: 'S01'
+        },
+        grids:   MASTER_GRIDS.map(g => ({ ...g, risk:'blue' })),
+        pumps:   MASTER_PUMPS.map(p => ({ ...p, running:0, status:'normal' })),
+        gates:   MASTER_GATES.map(g => ({ ...g, opening:0, status:'normal' })),
+        outlets: MASTER_OUTLETS.map(o => ({ ...o, backflow:false, waterQuality:'good' })),
+        staff:   MASTER_STAFF.map(s => ({ ...s, status:'online', kpi:{ todayHandled:0, avgResponse:5.0, score:85 } })),
+        timeseries: { rainfall:{}, waterLevel:{}, tide:[] },
+        alerts: [], tasks: [], commands: [],
+        drill: { active:false, scenarioId:null, clock:0, speed:1, script:[], ops:[], score:0, passLine:70, excellentLine:90 }
+      };
+    }
+    const subs = [];
+    function notify(reason) { subs.forEach(f => { try { f(reason); } catch(e) { console.error('[sub]', e); } }); }
+    function subscribe(f)   { subs.push(f); return () => subs.splice(subs.indexOf(f), 1); }
+
+    const STATE = buildInitialState();
+    window.STATE = STATE;
+
+    // ==================== SECTION 5 (前置): Rule engine ====================
+    const ALERT_THRESHOLDS = {
+      rainfallRed:   40, rainfallOrange: 25, rainfallYellow: 15,
+      waterLevelRed: 2.5, waterLevelOrange: 2.0, waterLevelYellow: 1.5,
+      tideHigh: 2.8
+    };
+
+    function latestValue(arr) { return arr && arr.length ? arr[arr.length-1].v : 0; }
+
+    function _newAlert(level, gridId, type, title, message, t) {
+      const last = STATE.alerts.find(a => a.gridId === gridId && a.type === type);
+      if (last && t - last.t < 300) return;
+      const id = 'A' + String(STATE.alerts.length + 1).padStart(3,'0');
+      STATE.alerts.unshift({ id, level, gridId, type, title, message, t, ack:false });
+      if (STATE.alerts.length > 30) STATE.alerts.length = 30;
+    }
+
+    function runAlertRules(t) {
+      STATE.grids.forEach(g => {
+        const rain = latestValue(STATE.timeseries.rainfall[g.id]);
+        if (rain >= ALERT_THRESHOLDS.rainfallRed) {
+          _newAlert('red', g.id, 'rainfall', `${g.name} 雨强红色`, `雨强 ${rain.toFixed(1)} mm/h 超红色阈值`, t);
+        } else if (rain >= ALERT_THRESHOLDS.rainfallOrange) {
+          _newAlert('orange', g.id, 'rainfall', `${g.name} 雨强橙色`, `雨强 ${rain.toFixed(1)} mm/h`, t);
+        } else if (rain >= ALERT_THRESHOLDS.rainfallYellow) {
+          _newAlert('yellow', g.id, 'rainfall', `${g.name} 雨强黄色`, `雨强 ${rain.toFixed(1)} mm/h`, t);
+        }
+
+        const water = latestValue(STATE.timeseries.waterLevel[g.id]);
+        if (water >= ALERT_THRESHOLDS.waterLevelRed) {
+          _newAlert('red', g.id, 'waterLevel', `${g.name} 水位红色`, `水位 ${water.toFixed(2)} m 超警戒`, t);
+        } else if (water >= ALERT_THRESHOLDS.waterLevelOrange) {
+          _newAlert('orange', g.id, 'waterLevel', `${g.name} 水位橙色`, `水位 ${water.toFixed(2)} m`, t);
+        }
+      });
+
+      const tide = latestValue(STATE.timeseries.tide);
+      if (tide >= ALERT_THRESHOLDS.tideHigh) {
+        _newAlert('orange', null, 'tide', '外河高潮位', `潮位 ${tide.toFixed(2)} m，沿江排口有倒灌风险`, t);
+        STATE.outlets.forEach(o => {
+          const og = STATE.grids.find(g => g.id === o.gridId);
+          if (og && og.type === 'riverside') o.backflow = true;
+        });
+      } else {
+        STATE.outlets.forEach(o => o.backflow = false);
+      }
+    }
+
+    function runRiskAssessment() {
+      STATE.grids.forEach(g => {
+        const rain  = latestValue(STATE.timeseries.rainfall[g.id]);
+        const water = latestValue(STATE.timeseries.waterLevel[g.id]);
+        let risk = 'blue';
+        if (rain >= ALERT_THRESHOLDS.rainfallRed || water >= ALERT_THRESHOLDS.waterLevelRed) risk = 'red';
+        else if (rain >= ALERT_THRESHOLDS.rainfallOrange || water >= ALERT_THRESHOLDS.waterLevelOrange) risk = 'orange';
+        else if (rain >= ALERT_THRESHOLDS.rainfallYellow || water >= ALERT_THRESHOLDS.waterLevelYellow) risk = 'yellow';
+        g.risk = risk;
+      });
+      const redCnt  = STATE.grids.filter(g => g.risk === 'red').length;
+      const oranCnt = STATE.grids.filter(g => g.risk === 'orange').length;
+      if (redCnt >= 2) STATE.meta.responseLevel = 'Ⅰ';
+      else if (redCnt >= 1 || oranCnt >= 3) STATE.meta.responseLevel = 'Ⅱ';
+      else if (oranCnt >= 1 || STATE.grids.some(g=>g.risk==='yellow')) STATE.meta.responseLevel = 'Ⅲ';
+      else STATE.meta.responseLevel = 'Ⅳ';
+    }
+
+    function generateSuggestions() {
+      const out = [];
+      STATE.grids.filter(g => g.risk === 'red' || g.risk === 'orange').forEach(g => {
+        const pump = STATE.pumps.find(p => p.gridId === g.id);
+        if (pump && pump.running < pump.units) {
+          out.push({ id:'SG_'+g.id+'_P', title:`启 ${pump.name} +1 机组`,
+                     actions:[{ type:'startPump', pumpId:pump.id }] });
+        }
+      });
+      if (STATE.outlets.some(o => o.backflow)) {
+        STATE.gates.forEach(gt => {
+          if (gt.opening > 0.2) {
+            out.push({ id:'SG_'+gt.id+'_G', title:`关 ${gt.name} 至 20% 开度`,
+                       actions:[{ type:'setGate', gateId:gt.id, opening:0.2 }] });
+          }
+        });
+      }
+      const redCount = STATE.grids.filter(g => g.risk === 'red').length;
+      if (redCount >= 1 && STATE.meta.responseLevel !== 'Ⅰ' && STATE.meta.responseLevel !== 'Ⅱ') {
+        out.push({ id:'SG_RESP', title:`升级应急响应至 Ⅱ 级`, actions:[{ type:'setResponseLevel', level:'Ⅱ' }] });
+      }
+      return out;
+    }
+
+    // ==================== SECTION 6: Realtime data generator ====================
+    const _rtPulseAt = {};
+    function generateRealtimeTimeseries(t) {
+      STATE.grids.forEach(g => {
+        const r = STATE.timeseries.rainfall[g.id] || (STATE.timeseries.rainfall[g.id] = []);
+        let last = r.length ? r[r.length-1].v : 0;
+        let delta = (Math.random() - 0.5) * 2;
+        if ((t - (_rtPulseAt[g.id] || 0)) > 300 && Math.random() < 0.12) {
+          delta += 12 + Math.random() * 18;
+          _rtPulseAt[g.id] = t;
+        }
+        let rain = last * 0.96 + delta;
+        rain = Math.max(0, Math.min(65, rain));
+        r.push({ t, v: +rain.toFixed(1) });
+        if (r.length > 120) r.shift();
+
+        const w = STATE.timeseries.waterLevel[g.id] || (STATE.timeseries.waterLevel[g.id] = []);
+        let lastW = w.length ? w[w.length-1].v : 0.5;
+        const pumpDrain = STATE.pumps.filter(p => p.gridId === g.id)
+          .reduce((s,p) => s + p.running * 0.05, 0);
+        const nextW = Math.max(0.3, Math.min(3.5, lastW + rain * 0.003 - pumpDrain));
+        w.push({ t, v: +nextW.toFixed(2) });
+        if (w.length > 120) w.shift();
+      });
+      const tide = 1.5 + 1.3 * Math.sin(t / 1800);
+      STATE.timeseries.tide.push({ t, v:+tide.toFixed(2), stormSurge:0 });
+      if (STATE.timeseries.tide.length > 120) STATE.timeseries.tide.shift();
+    }
+
+    // ==================== SECTION 4: Clock engine ====================
+    class Clock {
+      constructor() {
+        this.t = 0; this.speed = 1; this.running = false;
+        this.mode = 'realtime'; this.scenario = null; this._timer = null;
+      }
+      start() { if (this.running) return; this.running = true; this._loop(); notify('clock:start'); }
+      pause() { this.running = false; if (this._timer) clearTimeout(this._timer); notify('clock:pause'); }
+      stop()  {
+        this.pause(); this.t = 0;
+        if (this.mode === 'drill') {
+          STATE.drill.active = false; STATE.drill.clock = 0;
+          STATE.drill.ops = []; STATE.drill.score = 0;
+          if (this.scenario) this.scenario.script.forEach(e => { e._fired = false; e._matched = false; });
+        }
+        notify('clock:stop');
+      }
+      seek(t) { this.t = t; notify('clock:seek'); }
+      setSpeed(s) { this.speed = s; notify('clock:speed'); }
+
+      loadScenario(scn) {
+        this.pause();
+        this.mode = 'drill';
+        this.scenario = scn;
+        this.t = 0;
+        STATE.alerts = []; STATE.tasks = []; STATE.commands = [];
+        STATE.timeseries = { rainfall:{}, waterLevel:{}, tide:[] };
+        STATE.grids.forEach(g => g.risk = 'blue');
+        STATE.pumps.forEach(p => { p.running = 0; p.status = 'normal'; });
+        STATE.gates.forEach(g => { g.opening = 0; g.status = 'normal'; });
+        STATE.outlets.forEach(o => { o.backflow = false; });
+        STATE.meta.responseLevel = 'Ⅳ';
+        scn.script.forEach(e => { e._fired = false; e._matched = false; });
+        STATE.drill = {
+          active:true, scenarioId:scn.id, clock:0, speed:this.speed,
+          script:scn.script, ops:[], score:0,
+          passLine:scn.passLine, excellentLine:scn.excellentLine || 90
+        };
+        notify('clock:scenario');
+      }
+
+      _loop() {
+        if (!this.running) return;
+        this.t += this.speed * 60;
+        this.advance();
+        notify('clock:tick');
+        this._timer = setTimeout(() => this._loop(), 500);
+      }
+
+      advance() {
+        if (this.mode === 'realtime') {
+          generateRealtimeTimeseries(this.t);
+        } else {
+          runScriptEvents(this.scenario, this.t);
+          STATE.drill.clock = this.t;
+        }
+        runAlertRules(this.t);
+        runRiskAssessment();
+      }
+
+      recordOp(action, params) {
+        if (!this.scenario) return;
+        const delta = scoreOp(this.scenario, this.t, action, params);
+        STATE.drill.ops.push({ t:this.t, action, params, ...delta });
+        STATE.drill.score += delta.delta;
+      }
+    }
+    const clock = new Clock();
+    window.clock = clock;
+
+    // ==================== SECTION 5 (续): 操作入口 ====================
+    function cmd(target, targetId, action, params, source='manual') {
+      const id = 'C' + String(STATE.commands.length + 1).padStart(4,'0');
+      const traceId = 'T' + Math.random().toString(36).slice(2,10);
+      const operatorId = STATE.meta.currentStaffId || 'S10';
+      STATE.commands.unshift({ id, target, targetId, action, params, operatorId, source, t: clock.t, traceId });
+      if (STATE.commands.length > 200) STATE.commands.length = 200;
+      return { id, traceId };
+    }
+
+    function startPump(pumpId) {
+      const p = STATE.pumps.find(x => x.id === pumpId); if (!p || p.running >= p.units) return;
+      p.running += 1; cmd('pump', pumpId, 'start', { units: p.running });
+      if (clock.mode === 'drill') clock.recordOp('startPump', { pumpId });
+      notify('op');
+    }
+    function stopPump(pumpId) {
+      const p = STATE.pumps.find(x => x.id === pumpId); if (!p || p.running <= 0) return;
+      p.running -= 1; cmd('pump', pumpId, 'stop', { units: p.running });
+      if (clock.mode === 'drill') clock.recordOp('stopPump', { pumpId });
+      notify('op');
+    }
+    function setGate(gateId, opening) {
+      const g = STATE.gates.find(x => x.id === gateId); if (!g) return;
+      g.opening = Math.max(0, Math.min(1, opening));
+      cmd('gate', gateId, 'setOpening', { opening: g.opening });
+      if (clock.mode === 'drill') clock.recordOp('setGate', { gateId, opening: g.opening });
+      notify('op');
+    }
+    function dispatchTask(gridId, type, assigneeId, priority='mid') {
+      const id = 'TK' + String(STATE.tasks.length + 1).padStart(3,'0');
+      STATE.tasks.unshift({
+        id, type, gridId, assigneeId, status:'pending', priority,
+        createdAt: clock.t, slaMin: priority==='high'?15:30, closedAt:null
+      });
+      cmd('staff', assigneeId, 'assignTask', { taskId:id, type, gridId });
+      if (clock.mode === 'drill') clock.recordOp('dispatchTask', { gridId, type, taskType: type });
+      notify('op');
+    }
+    function ackAlert(alertId) {
+      const a = STATE.alerts.find(x => x.id === alertId); if (!a) return;
+      a.ack = true; a.ackAt = clock.t; a.ackBy = STATE.meta.currentStaffId;
+      cmd('alert', alertId, 'ack', {});
+      notify('op');
+    }
+    function acceptSuggestion(sug) {
+      sug.actions.forEach(act => {
+        if (act.type === 'startPump')       startPump(act.pumpId);
+        else if (act.type === 'setGate')    setGate(act.gateId, act.opening);
+        else if (act.type === 'setResponseLevel') setResponseLevel(act.level);
+      });
+    }
+    function setResponseLevel(level) {
+      STATE.meta.responseLevel = level;
+      cmd('meta', 'responseLevel', 'set', { level });
+      if (clock.mode === 'drill') clock.recordOp('setResponseLevel', { level });
+      notify('op');
+    }
+
+    function scoreOp(scenario, t, action, params) {
+      if (!scenario) return { delta:0, matched:false, note:'非演练' };
+      const expects = (scenario.script || []).filter(e => e.type === 'expectedOp' && !e._matched);
+      const hit = expects.find(e => {
+        if (e.payload.action !== action) return false;
+        if (e.payload.pumpId  && e.payload.pumpId  !== params.pumpId)  return false;
+        if (e.payload.gateId  && e.payload.gateId  !== params.gateId)  return false;
+        if (e.payload.taskType&& e.payload.taskType!== params.taskType) return false;
+        if (e.payload.level   && e.payload.level   !== params.level)   return false;
+        return t >= e.t - 60;
+      });
+      if (hit) {
+        hit._matched = true;
+        const late = t > hit.t + 60;
+        return { delta: late ? 5 : 10, matched:true, note: late ? `超时执行（期望 ${fmtClock(hit.t)}）` : `按时执行（期望 ${fmtClock(hit.t)}）` };
+      }
+      const blacklist = (scenario.blacklistOps || []).find(b => b.action === action);
+      if (blacklist) return { delta: -8, matched:false, note: blacklist.reason };
+      return { delta: 3, matched:false, note:'额外预置动作' };
+    }
+
+    // ==================== SECTION 7: ECharts adapter + 离线降级 ====================
+    const charts = {};
+    function getChart(id) {
+      if (!window.__ECHARTS_OK) return null;
+      if (!charts[id]) {
+        const dom = document.getElementById(id);
+        if (!dom || dom.clientWidth === 0) return null;
+        try { charts[id] = echarts.init(dom); } catch(e) { console.warn('echarts init fail', id, e); return null; }
+      }
+      return charts[id];
+    }
+    function svgLineFallback(hostId, series) {
+      const host = document.getElementById(hostId); if (!host) return;
+      const w = host.clientWidth || 300, h = host.clientHeight || 120;
+      const pad = { l:35, r:10, t:20, b:20 };
+      const allVals = series.flatMap(s => s.data.map(p => p.v));
+      if (allVals.length === 0) { host.innerHTML = '<div style="color:#8B93A7;font-size:11px;padding:8px">无数据</div>'; return; }
+      const vMax = Math.max(1, ...allVals), vMin = Math.min(0, ...allVals);
+      const allTs = series.flatMap(s => s.data.map(p => p.t));
+      const tMin = Math.min(...allTs, 0), tMax = Math.max(...allTs, 1);
+      const X = t => pad.l + (t - tMin) / (tMax - tMin || 1) * (w - pad.l - pad.r);
+      const Y = v => h - pad.b - (v - vMin) / (vMax - vMin || 1) * (h - pad.t - pad.b);
+      const paths = series.map(s => {
+        const d = s.data.map((p,j) => `${j?'L':'M'}${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join('');
+        return `<path d="${d}" stroke="${s.color}" fill="none" stroke-width="1.5"/>`;
+      }).join('');
+      host.innerHTML = `<svg width="${w}" height="${h}">
+        <line x1="${pad.l}" y1="${h-pad.b}" x2="${w-pad.r}" y2="${h-pad.b}" stroke="#22304F"/>
+        <line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${h-pad.b}" stroke="#22304F"/>
+        <text x="${pad.l-4}" y="${pad.t+8}" fill="#8B93A7" font-size="10" text-anchor="end">${vMax.toFixed(0)}</text>
+        <text x="${pad.l-4}" y="${h-pad.b+2}" fill="#8B93A7" font-size="10" text-anchor="end">${vMin.toFixed(0)}</text>
+        ${paths}
+        ${series.map((s,i) => `<text x="${pad.l+i*70+4}" y="${pad.t+10}" fill="${s.color}" font-size="10">${s.name}</text>`).join('')}
+      </svg>`;
+    }
+
+    function fmtClock(t) {
+      const h = Math.floor(t / 3600) % 24, m = Math.floor(t / 60) % 60, s = Math.floor(t) % 60;
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    // ==================== SECTION 8: View 1 · Dashboard renderer ====================
+    function renderDashboardHeader() {
+      const badge = document.getElementById('d-resp-badge');
+      if (!badge) return;
+      const level = STATE.meta.responseLevel;
+      badge.dataset.level = level;
+      badge.textContent = level + ' 级响应';
+      document.getElementById('d-clock').textContent = fmtClock(clock.t);
+      const commander = STATE.staff.find(s => s.id === STATE.meta.shift.commanderId);
+      document.getElementById('d-commander').textContent = commander ? commander.name : '—';
+      document.getElementById('d-alert-count').textContent = STATE.alerts.filter(a => !a.ack).length + ' 未确认';
+      document.getElementById('d-task-count').textContent = STATE.tasks.filter(t => t.status !== 'done').length + ' 进行中';
+    }
+
+    function renderDashboardMap() {
+      const host = document.getElementById('d-map');
+      if (!host) return;
+      const svg = `
+        <svg viewBox="0 0 ${GRID_VIEWBOX.w} ${GRID_VIEWBOX.h}" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <pattern id="river" patternUnits="userSpaceOnUse" width="20" height="8">
+              <path d="M 0 4 Q 5 0 10 4 T 20 4" stroke="#2D4673" fill="none" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="800" height="95" fill="url(#river)"/>
+          <text x="400" y="60" fill="#4D6BA8" font-size="20" text-anchor="middle" opacity="0.6" letter-spacing="8">长 江</text>
+
+          ${STATE.grids.map(g => `
+            <polygon class="grid-poly" data-id="${g.id}" data-risk="${g.risk}"
+                     points="${g.polygon.map(p=>p.join(',')).join(' ')}"
+                     onclick="openGridDrawer('${g.id}')"></polygon>
+            <text class="grid-label" x="${g.center[0]}" y="${g.center[1]}">${g.name}</text>
+          `).join('')}
+
+          ${STATE.pumps.map(p => `
+            <g class="facility-icon" onclick="openFacilityDrawer('pump','${p.id}')">
+              <rect x="${p.x - 10}" y="${p.y - 10}" width="20" height="20" fill="#1F8FFF" stroke="#fff" stroke-width="1.5" rx="2"/>
+              <text x="${p.x}" y="${p.y + 4}" fill="#fff" font-size="11" text-anchor="middle" font-weight="bold">P</text>
+            </g>
+          `).join('')}
+
+          ${STATE.gates.map(g => `
+            <g class="facility-icon" onclick="openFacilityDrawer('gate','${g.id}')">
+              <rect x="${g.x - 10}" y="${g.y - 10}" width="20" height="20" fill="#F59E0B" stroke="#fff" stroke-width="1.5" rx="2"/>
+              <text x="${g.x}" y="${g.y + 4}" fill="#fff" font-size="11" text-anchor="middle" font-weight="bold">G</text>
+            </g>
+          `).join('')}
+
+          ${STATE.outlets.map(o => `
+            <circle class="facility-icon ${o.backflow ? 'outlet-backflow' : ''}"
+                    cx="${o.x}" cy="${o.y}" r="5"
+                    fill="${o.backflow ? '#EF4444' : '#10B981'}"
+                    stroke="#fff" stroke-width="1.5"
+                    onclick="openFacilityDrawer('outlet','${o.id}')"></circle>
+          `).join('')}
+        </svg>
+        <div class="map-legend">
+          <span><span class="marker pump" style="width:10px;height:10px;font-size:8px">P</span>泵站</span>
+          <span><span class="marker gate" style="width:10px;height:10px;font-size:8px">G</span>闸门</span>
+          <span><span class="dot green"></span>排口</span>
+          <span><span class="dot red"></span>倒灌</span>
+        </div>`;
+      host.innerHTML = svg;
+    }
+
+    window.openGridDrawer = function(gridId) {
+      const g = STATE.grids.find(x => x.id === gridId); if (!g) return;
+      const rain  = latestValue(STATE.timeseries.rainfall[gridId]);
+      const water = latestValue(STATE.timeseries.waterLevel[gridId]);
+      const pumps = STATE.pumps.filter(p => p.gridId === gridId);
+      const outlets = STATE.outlets.filter(o => o.gridId === gridId);
+      const inspector = STATE.staff.find(s => s.role === 'inspector' && s.gridId === gridId) || STATE.staff.find(s => s.role === 'inspector');
+      const recentAlerts = STATE.alerts.filter(a => a.gridId === gridId).slice(0, 3);
+
+      document.getElementById('d-drawer-body').innerHTML = `
+        <h2>
+          <span class="dot ${g.risk}"></span>
+          网格 ${g.id} · ${g.name}
+          <span style="font-size:12px;color:var(--c-text-dim);font-weight:normal;margin-left:4px">${g.type === 'riverside' ? '沿江' : '城区'}</span>
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div><small style="color:var(--c-text-dim)">面积</small><div style="font-size:16px">${g.area} km²</div></div>
+          <div><small style="color:var(--c-text-dim)">人口</small><div style="font-size:16px">${g.population} 万</div></div>
+          <div><small style="color:var(--c-text-dim)">当前雨强</small><div style="font-size:16px">${rain.toFixed(1)} <small>mm/h</small></div></div>
+          <div><small style="color:var(--c-text-dim)">当前水位</small><div style="font-size:16px">${water.toFixed(2)} <small>m</small></div></div>
+          <div><small style="color:var(--c-text-dim)">风险等级</small><div style="font-size:16px;color:${RISK_COLORS[g.risk]}">${RISK_LEVEL_CN[g.risk]}</div></div>
+          <div><small style="color:var(--c-text-dim)">责任人</small><div style="font-size:16px">${inspector ? inspector.name : '—'}</div></div>
+        </div>
+        <h3 style="font-size:12px;margin-bottom:8px;color:var(--c-text-dim);font-weight:500">泵站 (${pumps.length})</h3>
+        ${pumps.map(p => `<div style="padding:8px;background:rgba(255,255,255,0.04);border-radius:3px;margin-bottom:6px;font-size:13px;display:flex;align-items:center;gap:8px"><span class="marker pump">P</span>${p.name} — ${p.running}/${p.units} 机组运行</div>`).join('') || '<div style="color:var(--c-text-dim);font-size:12px">—</div>'}
+        <h3 style="font-size:12px;margin:12px 0 8px;color:var(--c-text-dim);font-weight:500">排口 (${outlets.length})</h3>
+        ${outlets.map(o => `<div style="padding:8px;background:rgba(255,255,255,0.04);border-radius:3px;margin-bottom:6px;font-size:13px;display:flex;align-items:center;gap:8px"><span class="marker outlet ${o.backflow?'backflow':''}"></span>${o.name} ${o.backflow ? '<span style="color:var(--c-red);margin-left:auto;font-weight:600">⚠ 倒灌</span>' : '<span style="color:var(--c-green);margin-left:auto">● 正常</span>'}</div>`).join('') || '<div style="color:var(--c-text-dim);font-size:12px">—</div>'}
+        <h3 style="font-size:12px;margin:12px 0 8px;color:var(--c-text-dim);font-weight:500">近期告警</h3>
+        ${recentAlerts.map(a => `<div style="padding:8px;background:rgba(255,255,255,0.04);border-radius:3px;margin-bottom:6px;font-size:12px;display:flex;align-items:center;gap:6px"><span class="dot ${a.level}"></span>${a.title}</div>`).join('') || '<div style="color:var(--c-text-dim);font-size:12px">—</div>'}
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <button onclick="dispatchTask('${g.id}','inspect','${inspector ? inspector.id : 'S01'}','high');document.getElementById('d-drawer').classList.remove('open')"
+                  style="flex:1;padding:10px;background:var(--c-primary);color:#fff;border:0;border-radius:3px;cursor:pointer;font-size:13px;font-weight:500">
+            派发巡检 · 高优
+          </button>
+        </div>
+      `;
+      document.getElementById('d-drawer').classList.add('open');
+    };
+
+    window.openFacilityDrawer = function(type, id) {
+      let html = '';
+      if (type === 'pump') {
+        const p = STATE.pumps.find(x => x.id === id); if (!p) return;
+        html = `<h2><span class="marker pump">P</span>${p.name}</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+            <div><small style="color:var(--c-text-dim)">能力</small><div style="font-size:16px">${p.capacity} t/h</div></div>
+            <div><small style="color:var(--c-text-dim)">机组</small><div style="font-size:16px">${p.running} / ${p.units}</div></div>
+            <div><small style="color:var(--c-text-dim)">所属网格</small><div style="font-size:16px">${p.gridId}</div></div>
+            <div><small style="color:var(--c-text-dim)">状态</small><div style="font-size:16px;color:var(--c-green)">● ${p.status}</div></div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="startPump('${p.id}');openFacilityDrawer('pump','${p.id}')" style="flex:1;padding:10px;background:var(--c-green);color:#fff;border:0;border-radius:3px;cursor:pointer;font-size:13px">启动 +1 机组</button>
+            <button onclick="stopPump('${p.id}');openFacilityDrawer('pump','${p.id}')" style="flex:1;padding:10px;background:var(--c-orange);color:#fff;border:0;border-radius:3px;cursor:pointer;font-size:13px">停 -1 机组</button>
+          </div>`;
+      } else if (type === 'gate') {
+        const g = STATE.gates.find(x => x.id === id); if (!g) return;
+        html = `<h2><span class="marker gate">G</span>${g.name}</h2>
+          <div style="margin-bottom:16px">
+            <small style="color:var(--c-text-dim)">当前开度</small>
+            <div style="font-size:24px;color:var(--c-orange);font-family:'JetBrains Mono',Consolas,monospace">${(g.opening * 100).toFixed(0)}%</div>
+          </div>
+          <div style="margin-top:16px">
+            <input type="range" min="0" max="100" value="${g.opening * 100}" style="width:100%"
+                   oninput="setGate('${g.id}', this.value/100); this.nextElementSibling.textContent = this.value + '%'">
+            <div style="text-align:center;margin-top:4px;color:var(--c-text-dim);font-family:'JetBrains Mono',Consolas,monospace">${(g.opening * 100).toFixed(0)}%</div>
+          </div>`;
+      } else if (type === 'outlet') {
+        const o = STATE.outlets.find(x => x.id === id); if (!o) return;
+        html = `<h2><span class="marker outlet ${o.backflow?'backflow':''}"></span>${o.name}</h2>
+          <div style="margin-bottom:12px">所属网格: <b>${o.gridId}</b></div>
+          <div style="margin-bottom:12px">状态: ${o.backflow ? '<span style="color:var(--c-red);font-weight:600">⚠ 倒灌中</span>' : '<span style="color:var(--c-green)">● 正常</span>'}</div>
+          <div style="margin-bottom:12px">水质: <b>${o.waterQuality}</b></div>
+          ${o.backflow ? '<div style="padding:12px;background:rgba(239,68,68,0.1);border:1px solid var(--c-red);border-radius:3px;font-size:12px;color:var(--c-red)">⚠ 外河潮位顶托，建议关闭相关闸门或启动泵站强排</div>' : ''}`;
+      }
+      document.getElementById('d-drawer-body').innerHTML = html;
+      document.getElementById('d-drawer').classList.add('open');
+    };
+
+    function renderAlerts() {
+      const host = document.getElementById('d-alerts'); if (!host) return;
+      const list = STATE.alerts.slice(0, 14);
+      host.innerHTML = list.length === 0
+        ? '<div style="color:var(--c-text-dim);font-size:12px;padding:8px">暂无告警</div>'
+        : list.map(a => `
+          <div class="alert-item ${a.ack ? 'ack' : ''}" data-level="${a.level}" onclick="ackAlert('${a.id}')">
+            <span class="dot"></span>
+            <span class="title">${a.title}</span>
+            <span class="t">${fmtClock(a.t)}</span>
+          </div>
+        `).join('');
+    }
+
+    function renderFacilities() {
+      const host = document.getElementById('d-facilities'); if (!host) return;
+      const backflowOutlets = STATE.outlets.filter(o => o.backflow);
+      host.innerHTML = [
+        ...STATE.pumps.map(p => `
+          <div class="fac-card">
+            <div class="line">
+              <span class="name"><span class="marker pump">P</span>${p.name}</span>
+              <span class="status-dot ${p.status}"></span>
+            </div>
+            <div style="font-size:11px;color:var(--c-text-dim)">机组 ${p.running}/${p.units} · ${p.capacity} t/h</div>
+            <div class="meter"><i style="width:${p.running / p.units * 100}%"></i></div>
+            <div class="actions">
+              <button onclick="startPump('${p.id}')">启 +1</button>
+              <button onclick="stopPump('${p.id}')">停 -1</button>
+            </div>
+          </div>
+        `),
+        ...STATE.gates.map(g => `
+          <div class="fac-card">
+            <div class="line">
+              <span class="name"><span class="marker gate">G</span>${g.name}</span>
+              <span class="status-dot ${g.status}"></span>
+            </div>
+            <div style="font-size:11px;color:var(--c-text-dim)">开度 ${(g.opening * 100).toFixed(0)}%</div>
+            <div class="meter"><i style="width:${g.opening * 100}%;background:var(--c-orange)"></i></div>
+            <div class="actions">
+              <button onclick="setGate('${g.id}', Math.max(0,${g.opening}-0.2))">关 20%</button>
+              <button onclick="setGate('${g.id}', Math.min(1,${g.opening}+0.2))">开 20%</button>
+            </div>
+          </div>
+        `),
+        ...backflowOutlets.map(o => `
+          <div class="fac-card alarm">
+            <div class="line">
+              <span class="name"><span class="marker outlet backflow"></span>${o.name}</span>
+              <span style="color:var(--c-red);font-size:11px;font-weight:600">⚠ 倒灌中</span>
+            </div>
+          </div>
+        `)
+      ].join('');
+    }
+
+    function renderTasks() {
+      const host = document.getElementById('d-tasks'); if (!host) return;
+      const list = STATE.tasks.slice(0, 10);
+      host.innerHTML = list.length === 0
+        ? '<div style="color:var(--c-text-dim);font-size:12px;padding:8px">暂无工单</div>'
+        : list.map(task => {
+          const assignee = STATE.staff.find(s => s.id === task.assigneeId);
+          const grid = STATE.grids.find(g => g.id === task.gridId);
+          const typeCn = task.type === 'inspect' ? '巡检' : task.type === 'repair' ? '抢修' : '应急';
+          return `<div class="task-item" data-priority="${task.priority}">
+            <div class="line1">
+              <b>${typeCn}</b>
+              <span class="id">#${task.id}</span>
+            </div>
+            <div class="line2">${grid ? grid.name : '—'} → ${assignee ? assignee.name : '—'} · SLA ${task.slaMin}分</div>
+          </div>`;
+        }).join('');
+    }
+
+    function renderRainChart() {
+      const top = [...STATE.grids].sort((a,b) =>
+        latestValue(STATE.timeseries.rainfall[b.id]) - latestValue(STATE.timeseries.rainfall[a.id])
+      ).slice(0, 3);
+      const series = top.map((g,i) => ({
+        name: g.name,
+        color: ['#EF4444','#F59E0B','#3B82F6'][i],
+        data: (STATE.timeseries.rainfall[g.id] || []).slice(-60)
+      }));
+      if (series.every(s => s.data.length === 0)) {
+        const h = document.getElementById('d-rain-chart');
+        if (h) h.innerHTML = '<div style="color:#8B93A7;font-size:11px;padding:20px;text-align:center">等待数据...</div>';
+        return;
+      }
+      const chart = getChart('d-rain-chart');
+      if (!chart) return svgLineFallback('d-rain-chart', series);
+      chart.setOption({
+        backgroundColor:'transparent',
+        grid:{ left:40, right:10, top:30, bottom:25 },
+        legend:{ data:series.map(s => s.name), textStyle:{ color:'#8B93A7' }, top:0, right:5, itemWidth:10, itemHeight:8 },
+        xAxis:{ type:'value', axisLabel:{ show:false }, axisLine:{ lineStyle:{ color:'#22304F' } }, splitLine:{ show:false } },
+        yAxis:{ type:'value', axisLabel:{ color:'#8B93A7', fontSize:10 }, axisLine:{ lineStyle:{ color:'#22304F' } },
+                splitLine:{ lineStyle:{ color:'#22304F', type:'dashed' } },
+                name:'mm/h', nameTextStyle:{ color:'#8B93A7', fontSize:10 } },
+        series: series.map(s => ({
+          name:s.name, type:'line', smooth:true, symbol:'none',
+          data: s.data.map(p => [p.t, p.v]),
+          lineStyle:{ color:s.color, width:1.5 },
+          itemStyle:{ color:s.color }
+        }))
+      });
+    }
+
+    function renderRiskChart() {
+      const levels = ['red','orange','yellow','blue'];
+      const counts = levels.map(l => STATE.grids.filter(g => g.risk === l).length);
+      const chart = getChart('d-risk-chart');
+      if (!chart) {
+        const host = document.getElementById('d-risk-chart'); if (!host) return;
+        const w = host.clientWidth || 300, h = host.clientHeight || 60;
+        const total = counts.reduce((s,v) => s+v, 0) || 1;
+        let x = 0;
+        host.innerHTML = `<svg width="${w}" height="${h}">
+          ${counts.map((c,i) => {
+            const bw = c/total * w;
+            const rect = `<rect x="${x}" y="${h/2 - 15}" width="${bw}" height="30" fill="${RISK_COLORS[levels[i]]}"/>
+              <text x="${x + bw/2}" y="${h/2 + 5}" fill="#fff" font-size="12" text-anchor="middle" font-weight="bold">${c}</text>`;
+            x += bw;
+            return rect;
+          }).join('')}
+        </svg>
+        <div style="text-align:center;font-size:11px;color:#8B93A7;margin-top:4px">红 ${counts[0]} · 橙 ${counts[1]} · 黄 ${counts[2]} · 蓝 ${counts[3]}</div>`;
+        return;
+      }
+      chart.setOption({
+        backgroundColor:'transparent',
+        grid:{ left:0, right:0, top:20, bottom:20, containLabel:false },
+        tooltip:{ trigger:'item' },
+        xAxis:{ type:'value', show:false, max: STATE.grids.length },
+        yAxis:{ type:'category', data:[''], show:false },
+        series: levels.map((lv,i) => ({
+          name: RISK_LEVEL_CN[lv], type:'bar', stack:'total',
+          data:[counts[i]], itemStyle:{ color: RISK_COLORS[lv] },
+          label:{ show: counts[i] > 0, position:'inside', color:'#fff', fontWeight:600, formatter: counts[i] + '格' }
+        }))
+      });
+    }
+
+    function renderSuggestions() {
+      const host = document.getElementById('d-suggestions'); if (!host) return;
+      const sugs = generateSuggestions().slice(0, 5);
+      if (sugs.length === 0) {
+        host.innerHTML = '<div style="color:var(--c-text-dim);font-size:12px;padding:8px">目前风险可控，暂无建议</div>';
+        return;
+      }
+      host.innerHTML = '';
+      sugs.forEach(sug => {
+        const el = document.createElement('span');
+        el.className = 'sug-item';
+        el.innerHTML = `${sug.title}`;
+        el.onclick = () => acceptSuggestion(sug);
+        host.appendChild(el);
+      });
+    }
+
+    function renderDashboardAll() {
+      renderDashboardHeader();
+      renderDashboardMap();
+      renderRainChart();
+      renderRiskChart();
+      renderAlerts();
+      renderFacilities();
+      renderTasks();
+      renderSuggestions();
+    }
+
+    // ==================== SECTION 9: View 2 · Mobile renderer ====================
+    function getCurrentMobileStaff() {
+      const role = STATE.meta.currentRole;
+      return STATE.staff.find(s => s.role === role);
+    }
+
+    window.mobileQuickAction = function(kind) {
+      const map = { report:'隐患已上报', cmd:'当前指令列表已打开', call:'已呼叫值班长 郑刚', sos:'紧急按钮已触发，值班长已收到' };
+      cmd('mobile', STATE.meta.currentStaffId, kind, {});
+      alert(map[kind] || '操作已记录');
+      notify('op');
+    };
+
+    function renderMobile() {
+      const staff = getCurrentMobileStaff(); if (!staff) return;
+      STATE.meta.currentStaffId = staff.id;
+
+      const nameEl = document.getElementById('m-staff-name');
+      if (!nameEl) return;
+      const avatarEl = document.getElementById('m-avatar');
+      const respBadge = document.getElementById('m-resp-badge');
+      const timeEl = document.getElementById('m-time');
+      const subEl = document.getElementById('m-staff-sub');
+
+      nameEl.textContent = staff.name;
+      avatarEl.textContent = staff.name[0];
+      respBadge.textContent = STATE.meta.responseLevel + ' 级响应';
+      timeEl.textContent = fmtClock(clock.t).slice(0, 5);
+      const grid = STATE.grids.find(g => g.id === staff.gridId);
+      subEl.textContent = `${ROLE_CN[staff.role]} · ${grid ? grid.name : '—'} · KPI ${staff.kpi.score}`;
+
+      const main = document.getElementById('m-main');
+
+      if (staff.role === 'inspector') {
+        let myTasks = STATE.tasks.filter(t => t.assigneeId === staff.id && t.status !== 'done').slice(0, 4);
+        if (myTasks.length === 0) {
+          myTasks = [
+            { id:'TK-D1', type:'inspect', gridId:staff.gridId, priority:'high', slaMin:15, _demo:true },
+            { id:'TK-D2', type:'inspect', gridId:staff.gridId, priority:'mid',  slaMin:30, _demo:true }
+          ];
+        }
+        main.innerHTML = `
+          <div class="m-section-title">待办任务 · ${myTasks.length} 项</div>
+          ${myTasks.map(t => {
+            const g = STATE.grids.find(x => x.id === t.gridId);
+            const dist = Math.floor(Math.random()*400 + 80);
+            return `<div class="m-task">
+              <div class="line1">
+                <div class="title">${t.type === 'inspect' ? '巡检' : '抢修'} · ${g ? g.name : '—'}</div>
+                <div class="prio-badge prio-${t.priority}">${t.priority === 'high' ? '高' : t.priority === 'mid' ? '中' : '低'}</div>
+              </div>
+              <div class="meta">${dist}m · SLA ${t.slaMin}分 · 工单 ${t.id}</div>
+              <div class="actions">
+                <button class="sec" onclick="alert('导航启动（模拟）')">导航</button>
+                <button onclick="mobileCheckIn('${t.id}')">签到</button>
+                <button onclick="mobileQuickAction('report')">上报</button>
+              </div>
+            </div>`;
+          }).join('')}
+          <div class="m-section-title">今日数据</div>
+          <div class="m-kpi-row">
+            <div class="m-kpi-cell"><div class="val">${staff.kpi.todayHandled}</div><div class="lbl">处置</div></div>
+            <div class="m-kpi-cell"><div class="val">${staff.kpi.avgResponse}<small>分</small></div><div class="lbl">响应</div></div>
+            <div class="m-kpi-cell"><div class="val">${staff.kpi.score}</div><div class="lbl">评分</div></div>
+          </div>
+        `;
+      } else if (staff.role === 'pump') {
+        const myPump = STATE.pumps.find(p => p.gridId === staff.gridId) || STATE.pumps[0];
+        const myCmds = STATE.commands.filter(c => c.target === 'pump' && c.targetId === myPump.id).slice(0, 5);
+        main.innerHTML = `
+          <div class="m-section-title">我的泵站 · ${myPump.name}</div>
+          <div class="m-pump-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end">
+              <div>
+                <div class="big">${myPump.running}<small style="color:#6B7280">/${myPump.units}</small></div>
+                <div style="color:#6B7280;font-size:11px;margin-top:2px">机组运行</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:16px;font-weight:600">${myPump.capacity}</div>
+                <div style="color:#6B7280;font-size:11px">t/h 总能力</div>
+              </div>
+            </div>
+            <div class="m-pump-gauge">${Array(myPump.units).fill(0).map((_,i) => `<i class="${i < myPump.running ? 'on' : ''}"></i>`).join('')}</div>
+            <div style="display:flex;gap:8px">
+              <button onclick="startPump('${myPump.id}')" style="flex:1;background:var(--c-green);color:#fff;border:0;padding:10px;border-radius:4px;cursor:pointer;font-weight:500">▶ 启动 +1</button>
+              <button onclick="stopPump('${myPump.id}')" style="flex:1;background:var(--c-orange);color:#fff;border:0;padding:10px;border-radius:4px;cursor:pointer;font-weight:500">⏸ 停机 -1</button>
+            </div>
+          </div>
+          <div class="m-section-title">近期指令 · ${myCmds.length} 条</div>
+          ${myCmds.map(c => `
+            <div class="m-task" style="padding:10px 12px">
+              <div style="font-size:13px;font-weight:500">${c.action === 'start' ? '▶ 启动机组' : '⏸ 停止机组'} · ${fmtClock(c.t)}</div>
+              <div style="font-size:11px;color:#6B7280;margin-top:2px;font-family:'JetBrains Mono',Consolas,monospace">操作人 ${c.operatorId} · trace ${c.traceId.slice(0,6)}</div>
+            </div>`).join('') || '<div style="color:#6B7280;font-size:12px;padding:8px">暂无指令</div>'}
+        `;
+      } else if (staff.role === 'emergency') {
+        const emergTeam = STATE.staff.filter(s => s.role === 'emergency');
+        const redGrids = STATE.grids.filter(g => g.risk === 'red' || g.risk === 'orange');
+        main.innerHTML = `
+          <div class="m-section-title">抢险队伍 · ${emergTeam.length} 人</div>
+          <div class="m-emerg-slot">
+            ${emergTeam.map(s => {
+              const sg = STATE.grids.find(g => g.id === s.gridId);
+              return `<div class="row">
+                <span>${s.name} · ${sg ? sg.name : '—'}</span>
+                <span style="color:${s.status === 'online' ? 'var(--c-green)' : 'var(--c-orange)'};font-weight:500">${s.status === 'online' ? '● 在岗' : '● 任务中'}</span>
+              </div>`;
+            }).join('')}
+          </div>
+          <div class="m-section-title">需抢险网格 · ${redGrids.length} 格</div>
+          ${redGrids.length === 0 ? '<div style="color:#6B7280;font-size:12px;padding:8px">当前无抢险需求</div>' :
+            redGrids.map(g => `<div class="m-task">
+              <div class="line1">
+                <div class="title">${g.name}</div>
+                <div class="prio-badge prio-${g.risk === 'red' ? 'high' : 'mid'}">${RISK_LEVEL_CN[g.risk]}</div>
+              </div>
+              <div class="meta">人口 ${g.population}万 · 面积 ${g.area}km²</div>
+              <div class="actions">
+                <button onclick="dispatchTask('${g.id}','emergency','${staff.id}','high')">派发抢险</button>
+              </div>
+            </div>`).join('')}
+          <div class="m-section-title">视频接入</div>
+          <div class="m-emerg-slot">
+            <div class="row"><span>要塞路 · 积水监控</span><span style="color:var(--c-green)">● 在线</span></div>
+            <div class="row"><span>澄江闸 · 水位监控</span><span style="color:var(--c-green)">● 在线</span></div>
+            <div class="row"><span>沿江中排口</span><span style="color:var(--c-orange)">● 弱信号</span></div>
+          </div>
+        `;
+      }
+    }
+
+    window.mobileCheckIn = function(taskId) {
+      const task = STATE.tasks.find(t => t.id === taskId);
+      if (task) {
+        task.status = 'ongoing';
+        cmd('task', taskId, 'checkin', {});
+        notify('op');
+      }
+      alert('✓ 已签到');
+    };
+
+    // ==================== SECTION 11: Scenarios ====================
+    const SCENARIOS = [
+      {
+        id: 'typical-rain',
+        name: '典型暴雨 (2h)',
+        description: '雨强 15→25 mm/h，城区告警，启 2 泵派巡检即可过关',
+        duration: 7200,
+        passLine: 70,
+        excellentLine: 90,
+        blacklistOps: [{ action:'stopPump', reason:'暴雨期间停泵会加剧积水' }],
+        script: [
+          { t:0,    type:'weather',    payload:{ forceRain:{ G03:8, G04:6 } },  label:'降雨开始 8 mm/h' },
+          { t:900,  type:'weather',    payload:{ forceRain:{ G03:18, G04:15 } }, label:'雨强升至 18 mm/h' },
+          { t:1200, type:'alert',      payload:{ gridId:'G03', level:'orange', type:'rainfall' }, label:'G03 橙色告警' },
+          { t:1800, type:'expectedOp', payload:{ action:'startPump', pumpId:'P01' }, label:'期望：启要塞泵 P01' },
+          { t:2400, type:'expectedOp', payload:{ action:'dispatchTask', taskType:'inspect' }, label:'期望：派巡检' },
+          { t:3600, type:'weather',    payload:{ forceRain:{ G03:25, G04:22 } }, label:'雨峰 25 mm/h' },
+          { t:4200, type:'expectedOp', payload:{ action:'startPump', pumpId:'P02' }, label:'期望：启澄江泵 P02' },
+          { t:5400, type:'weather',    payload:{ forceRain:{ G03:10, G04:8 } }, label:'雨势回落' },
+          { t:6600, type:'weather',    payload:{ forceRain:{ G03:3, G04:2 } }, label:'雨近尾声' },
+          { t:7200, type:'end', payload:{}, label:'演练结束' }
+        ]
+      },
+      {
+        id: 'compound',
+        name: '暴雨 + 高潮位复合 (3h)',
+        description: '沿江排口倒灌，需同时调泵 + 关闸 + 预置抢险',
+        duration: 10800,
+        passLine: 70,
+        excellentLine: 95,
+        blacklistOps: [{ action:'stopPump', reason:'复合场景停泵严重违规' }],
+        script: [
+          { t:0,    type:'weather', payload:{ forceRain:{ G12:10, G11:8 }, forceTide:2.5 }, label:'降雨 + 潮位起' },
+          { t:1200, type:'weather', payload:{ forceRain:{ G12:25, G11:22 }, forceTide:2.9 }, label:'雨 + 潮位同升' },
+          { t:1500, type:'alert',   payload:{ type:'tide', level:'orange', gridId:null }, label:'高潮位倒灌告警' },
+          { t:1800, type:'expectedOp', payload:{ action:'setGate', gateId:'GT2' }, label:'期望：关沿江东闸' },
+          { t:2400, type:'expectedOp', payload:{ action:'startPump', pumpId:'P04' }, label:'期望：启沿江中泵' },
+          { t:3600, type:'weather', payload:{ forceRain:{ G12:35, G11:30 }, forceTide:3.1 }, label:'复合峰值' },
+          { t:4200, type:'expectedOp', payload:{ action:'dispatchTask', taskType:'emergency' }, label:'期望：派应急抢险' },
+          { t:5400, type:'expectedOp', payload:{ action:'setResponseLevel', level:'Ⅱ' }, label:'期望：升响应 Ⅱ' },
+          { t:7200, type:'weather', payload:{ forceRain:{ G12:15, G11:12 }, forceTide:2.7 }, label:'雨势回落' },
+          { t:9600, type:'weather', payload:{ forceRain:{ G12:5, G11:3 }, forceTide:2.2 }, label:'潮位退' },
+          { t:10800, type:'end', payload:{}, label:'演练结束' }
+        ]
+      },
+      {
+        id: 'flash',
+        name: '局部强降水 (1h)',
+        description: '单网格雨强骤增，考反应速度',
+        duration: 3600,
+        passLine: 80,
+        excellentLine: 95,
+        blacklistOps: [],
+        script: [
+          { t:0,    type:'weather',    payload:{ forceRain:{ G07:5 } }, label:'平静状态' },
+          { t:300,  type:'weather',    payload:{ forceRain:{ G07:50 } }, label:'G07 雨强骤增 50 mm/h' },
+          { t:360,  type:'alert',      payload:{ gridId:'G07', level:'red', type:'rainfall' }, label:'G07 红色告警' },
+          { t:420,  type:'expectedOp', payload:{ action:'setResponseLevel', level:'Ⅱ' }, label:'期望：60 秒内升响应' },
+          { t:480,  type:'expectedOp', payload:{ action:'dispatchTask', taskType:'inspect' }, label:'期望：派巡检 G07' },
+          { t:600,  type:'weather',    payload:{ forceRain:{ G07:60 } }, label:'雨强持续 60 mm/h' },
+          { t:900,  type:'expectedOp', payload:{ action:'dispatchTask', taskType:'emergency' }, label:'期望：派抢险队' },
+          { t:1800, type:'weather',    payload:{ forceRain:{ G07:30 } }, label:'雨强缓退' },
+          { t:2400, type:'weather',    payload:{ forceRain:{ G07:10 } }, label:'雨势基本结束' },
+          { t:3600, type:'end', payload:{}, label:'演练结束' }
+        ]
+      }
+    ];
+
+    function runScriptEvents(scenario, t) {
+      if (!scenario) return;
+      scenario.script.forEach(e => {
+        if (e._fired) return;
+        if (e.t > t) return;
+        e._fired = true;
+        if (e.type === 'weather') {
+          if (e.payload.forceRain) {
+            Object.entries(e.payload.forceRain).forEach(([gridId, v]) => {
+              const arr = STATE.timeseries.rainfall[gridId] || (STATE.timeseries.rainfall[gridId] = []);
+              arr.push({ t, v });
+              if (arr.length > 120) arr.shift();
+            });
+          }
+          if (e.payload.forceTide !== undefined) {
+            STATE.timeseries.tide.push({ t, v: e.payload.forceTide, stormSurge:0 });
+            if (STATE.timeseries.tide.length > 120) STATE.timeseries.tide.shift();
+          }
+        } else if (e.type === 'alert') {
+          _newAlert(e.payload.level, e.payload.gridId, e.payload.type || 'manual',
+                    e.label, e.label, t);
+        } else if (e.type === 'end') {
+          clock.pause();
+          setTimeout(() => showDrillResult(), 100);
+        }
+      });
+      STATE.grids.forEach(g => {
+        const rain = latestValue(STATE.timeseries.rainfall[g.id]);
+        const wArr = STATE.timeseries.waterLevel[g.id] || (STATE.timeseries.waterLevel[g.id] = []);
+        const lastW = wArr.length ? wArr[wArr.length-1].v : 0.5;
+        const pumpDrain = STATE.pumps.filter(p => p.gridId === g.id).reduce((s,p) => s + p.running * 0.05, 0);
+        const nextW = Math.max(0.3, lastW + rain * 0.003 - pumpDrain);
+        wArr.push({ t, v:+nextW.toFixed(2) });
+        if (wArr.length > 120) wArr.shift();
+      });
+    }
+
+    // ==================== SECTION 10: View 3 · Drill renderer ====================
+    function renderDrillScenarioOptions() {
+      const sel = document.getElementById('drill-scenario');
+      if (!sel) return;
+      if (sel.options.length > 1) return;
+      sel.innerHTML = '<option value="">-- 选择一个演练场景 --</option>' +
+        SCENARIOS.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+    }
+
+    function renderDrillScript() {
+      const host = document.getElementById('drill-script'); if (!host) return;
+      if (!clock.scenario) {
+        host.innerHTML = '<div style="color:#8B93A7;font-size:12px">未选择场景</div>';
+        return;
+      }
+      const events = clock.scenario.script.filter(e => e.type !== 'weather' || e.label);
+      host.innerHTML = events.map(e => {
+        const fired = e.t <= clock.t;
+        const current = Math.abs(e.t - clock.t) < 90;
+        const future = e.t > clock.t + 90;
+        const cls = current ? 'current' : (fired ? 'fired' : (future ? 'future' : ''));
+        const tagCls = e.type === 'alert' ? 'alt' : e.type === 'expectedOp' ? 'exp' : e.type === 'end' ? 'end' : 'wx';
+        const tagText = e.type === 'alert' ? '告警' : e.type === 'expectedOp' ? '期望' : e.type === 'end' ? '结束' : '雨情';
+        return `<div class="script-line ${cls}">
+          <span class="t">${fmtClock(e.t)}</span>
+          <span><span class="tag ${tagCls}">${tagText}</span>${e.label || e.type}</span>
+        </div>`;
+      }).join('');
+    }
+
+    function renderDrillProgress() {
+      const clockEl = document.getElementById('drill-clock');
+      const progEl = document.getElementById('drill-progress');
+      if (!clockEl || !progEl) return;
+      clockEl.textContent = fmtClock(clock.t);
+      if (!clock.scenario) { progEl.style.width = '0%'; return; }
+      const pct = Math.min(100, clock.t / clock.scenario.duration * 100);
+      progEl.style.width = pct + '%';
+    }
+
+    function renderDrillScore() {
+      const el = document.getElementById('drill-score');
+      const lines = document.getElementById('drill-score-lines');
+      if (!el || !lines) return;
+      if (!clock.scenario) {
+        el.textContent = '—';
+        lines.textContent = '选中场景后开始';
+        return;
+      }
+      el.textContent = STATE.drill.score;
+      lines.textContent = `通过 ${STATE.drill.passLine} · 优秀 ${STATE.drill.excellentLine}`;
+      el.style.color = STATE.drill.score >= STATE.drill.excellentLine ? 'var(--c-green)'
+                     : STATE.drill.score >= STATE.drill.passLine ? 'var(--c-primary)'
+                     : STATE.drill.score < 0 ? 'var(--c-red)' : 'var(--c-orange)';
+    }
+
+    function renderDrillOpsPalette() {
+      const host = document.getElementById('drill-ops-palette'); if (!host) return;
+      if (!clock.scenario) {
+        host.innerHTML = '<div style="color:#8B93A7;font-size:11px">选场景后显示</div>';
+        return;
+      }
+      const ops = [
+        ...STATE.pumps.slice(0, 4).map(p => ({
+          label:`启动 ${p.name} +1`,
+          desc:`当前 ${p.running}/${p.units} 机组`,
+          action: () => startPump(p.id)
+        })),
+        ...STATE.gates.map(g => ({
+          label:`关 ${g.name} 至 20%`,
+          desc:`当前开度 ${(g.opening*100).toFixed(0)}%`,
+          action: () => setGate(g.id, 0.2)
+        })),
+        { label:'派巡检到高风险网格', desc:'自动选择红/橙网格',
+          action: () => {
+            const g = STATE.grids.find(x => x.risk === 'red') || STATE.grids.find(x => x.risk === 'orange');
+            if (g) {
+              const ins = STATE.staff.find(s => s.role === 'inspector' && s.gridId === g.id)
+                       || STATE.staff.find(s => s.role === 'inspector');
+              dispatchTask(g.id, 'inspect', ins.id, 'high');
+            } else alert('当前无高风险网格');
+          }},
+        { label:'派抢险队到红色网格', desc:'自动选择最红网格',
+          action: () => {
+            const g = STATE.grids.find(x => x.risk === 'red') || STATE.grids.find(x => x.risk === 'orange');
+            if (g) {
+              const emerg = STATE.staff.find(s => s.role === 'emergency');
+              dispatchTask(g.id, 'emergency', emerg.id, 'high');
+            } else alert('当前无高风险网格');
+          }},
+        { label:'升响应至 Ⅱ 级', desc:'当前 ' + STATE.meta.responseLevel,
+          action: () => setResponseLevel('Ⅱ') },
+        { label:'升响应至 Ⅰ 级 · 最高', desc:'启动最高级应急响应',
+          action: () => setResponseLevel('Ⅰ') }
+      ];
+      host.innerHTML = '';
+      ops.forEach(op => {
+        const card = document.createElement('div');
+        card.className = 'op-card';
+        card.innerHTML = `<div class="title">${op.label}</div><div class="desc">${op.desc}</div>`;
+        card.onclick = () => { op.action(); renderDrillOpsPalette(); renderDrillOpsHistory(); renderDrillScore(); };
+        host.appendChild(card);
+      });
+    }
+
+    function renderDrillOpsHistory() {
+      const host = document.getElementById('drill-ops-history'); if (!host) return;
+      if (!clock.scenario || !STATE.drill.ops.length) {
+        host.innerHTML = '<div style="color:#8B93A7;font-size:11px">暂无操作</div>';
+        return;
+      }
+      const tagMap = {
+        startPump: { cls:'pump', text:'启泵' },
+        stopPump:  { cls:'pump', text:'停泵' },
+        setGate:   { cls:'gate', text:'闸门' },
+        dispatchTask: { cls:'task', text:'派工' },
+        setResponseLevel: { cls:'resp', text:'响应' }
+      };
+      host.innerHTML = STATE.drill.ops.slice().reverse().slice(0, 20).map(o => {
+        const pos = o.delta > 0;
+        const neg = o.delta < 0;
+        const tag = tagMap[o.action] || { cls:'', text:'OP' };
+        return `<div class="op-history-item ${pos?'pos':neg?'neg':''}">
+          <span class="tag ${tag.cls}">${tag.text}</span>
+          <span style="color:#8B93A7;font-size:11px;font-family:'JetBrains Mono',Consolas,monospace">${fmtClock(o.t)}</span>
+          <span class="delta">${o.delta > 0 ? '+' : ''}${o.delta}</span>
+          <div style="font-size:11px;color:#8B93A7;margin-top:2px;padding-right:28px">${o.note || ''}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderDrillMiniDashboard() {
+      const host = document.getElementById('drill-mini-dashboard'); if (!host) return;
+      const redCount  = STATE.grids.filter(g => g.risk === 'red').length;
+      const oranCount = STATE.grids.filter(g => g.risk === 'orange').length;
+      const yellowCount = STATE.grids.filter(g => g.risk === 'yellow').length;
+      const totalRun   = STATE.pumps.reduce((s,p) => s + p.running, 0);
+      const totalUnits = STATE.pumps.reduce((s,p) => s + p.units, 0);
+      const backflowCount = STATE.outlets.filter(o => o.backflow).length;
+
+      host.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 170px;gap:8px;color:#E5E7EB;font-size:11px;height:100%">
+          <div style="display:flex;flex-direction:column;min-height:0">
+            <div style="color:#8B93A7;margin-bottom:4px">江阴网格风险分布</div>
+            <div style="flex:1;min-height:0">
+              <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;background:#0F1626;border-radius:3px">
+                <rect x="0" y="0" width="800" height="95" fill="#1B2744" opacity="0.4"/>
+                ${STATE.grids.map(g => `<polygon points="${g.polygon.map(p => p.join(',')).join(' ')}"
+                   fill="${RISK_COLORS[g.risk] || RISK_COLORS.blue}" opacity="0.75" stroke="#22304F" stroke-width="1"/>`).join('')}
+                ${STATE.pumps.map(p => `<rect x="${p.x-6}" y="${p.y-6}" width="12" height="12" fill="${p.running > 0 ? '#10B981' : '#1F8FFF'}" stroke="#fff" stroke-width="1" rx="1"/>`).join('')}
+                ${STATE.outlets.filter(o => o.backflow).map(o => `<circle cx="${o.x}" cy="${o.y}" r="7" fill="#EF4444" stroke="#fff" stroke-width="1" opacity="0.85"/>`).join('')}
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="background:#1A2440;padding:6px 8px;border-radius:3px;display:flex;justify-content:space-between">
+              <span>响应等级</span><b style="color:${STATE.meta.responseLevel==='Ⅰ'?'var(--c-red)':STATE.meta.responseLevel==='Ⅱ'?'var(--c-orange)':'var(--c-text)'}">${STATE.meta.responseLevel}</b>
+            </div>
+            <div style="background:#1A2440;padding:6px 8px;border-radius:3px">
+              <span class="dot red"></span> ${redCount} · <span class="dot orange"></span> ${oranCount} · <span class="dot yellow"></span> ${yellowCount}
+            </div>
+            <div style="background:#1A2440;padding:6px 8px;border-radius:3px">泵机组 <b style="font-family:'JetBrains Mono',Consolas,monospace">${totalRun}/${totalUnits}</b></div>
+            ${backflowCount > 0 ? `<div style="background:rgba(239,68,68,0.2);padding:6px 8px;border-radius:3px;color:#FCA5A5">⚠ ${backflowCount} 排口倒灌</div>` : ''}
+            <div style="background:#1A2440;padding:6px 8px;border-radius:3px;flex:1;overflow:auto;min-height:0">
+              <div style="color:#8B93A7;margin-bottom:2px">告警 TOP3</div>
+              ${STATE.alerts.slice(0,3).map(a => `<div style="font-size:10px;margin-bottom:2px;display:flex;align-items:center;gap:4px"><span class="dot ${a.level}"></span><span style="color:${RISK_COLORS[a.level]}">${a.title}</span></div>`).join('') || '<div style="color:#8B93A7;font-size:10px">—</div>'}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDrillMiniMobile() {
+      const host = document.getElementById('drill-mini-mobile'); if (!host) return;
+      const inspector = STATE.staff.find(s => s.role === 'inspector');
+      const g = STATE.grids.find(x => x.id === inspector.gridId);
+      const myTasks = STATE.tasks.filter(t => t.assigneeId === inspector.id).length;
+      host.innerHTML = `
+        <div style="display:flex;gap:8px;color:#1A1D23;align-items:center">
+          <div style="width:40px;height:40px;background:var(--c-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex-shrink:0">${inspector.name[0]}</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600">${inspector.name} · 巡检员</div>
+            <div style="font-size:11px;color:#6B7280">${g ? g.name : '—'} · 我的待办 ${myTasks} 项</div>
+          </div>
+          <div style="font-size:10px;color:#6B7280">移动端同步</div>
+        </div>
+      `;
+    }
+
+    function renderDrillAll() {
+      renderDrillScript();
+      renderDrillProgress();
+      renderDrillScore();
+      renderDrillOpsPalette();
+      renderDrillOpsHistory();
+      renderDrillMiniDashboard();
+      renderDrillMiniMobile();
+    }
+
+    function showDrillResult() {
+      if (!clock.scenario) return;
+      const score = STATE.drill.score;
+      const pass = STATE.drill.passLine, exc = STATE.drill.excellentLine;
+      const level = score >= exc ? '优秀' : score >= pass ? '及格' : '未通过';
+      const icon  = score >= exc ? '★' : score >= pass ? '✓' : '✗';
+      const color = score >= exc ? '#10B981' : score >= pass ? '#1F8FFF' : '#EF4444';
+
+      const expected = (clock.scenario.script || []).filter(e => e.type === 'expectedOp');
+      const hit = expected.filter(e => e._matched).length;
+      const matchedOps = STATE.drill.ops.filter(o => o.matched).length;
+      const mistakeOps = STATE.drill.ops.filter(o => o.delta < 0).length;
+      const extraOps   = STATE.drill.ops.filter(o => o.delta === 3).length;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'modal-overlay';
+      wrap.onclick = e => { if (e.target === wrap) wrap.remove(); };
+      wrap.innerHTML = `
+        <div style="background:#252932;border-radius:6px;padding:28px;min-width:480px;max-width:560px;color:#E5E7EB;border:1px solid #3B4152">
+          <h2 style="margin-bottom:8px">演练结束</h2>
+          <div style="color:#8B93A7;font-size:12px;margin-bottom:16px">${clock.scenario.name}</div>
+          <div style="text-align:center;padding:20px;background:#1A1D23;border-radius:4px;margin-bottom:16px">
+            <div style="font-size:52px;font-weight:700;color:${color};line-height:1;font-family:'JetBrains Mono',Consolas,monospace">${score}</div>
+            <div style="margin-top:6px;font-size:16px;color:${color};font-weight:600">${icon} ${level}</div>
+            <div style="margin-top:4px;font-size:12px;color:#8B93A7;font-family:'JetBrains Mono',Consolas,monospace">通过线 ${pass} · 优秀线 ${exc}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="background:#1A1D23;padding:12px;border-radius:4px">
+              <div style="font-size:11px;color:#8B93A7">命中关键动作</div>
+              <div style="font-size:24px;font-weight:600;color:#10B981;font-family:'JetBrains Mono',Consolas,monospace">${hit}<small style="color:#8B93A7;font-size:14px">/${expected.length}</small></div>
+            </div>
+            <div style="background:#1A1D23;padding:12px;border-radius:4px">
+              <div style="font-size:11px;color:#8B93A7">错误操作</div>
+              <div style="font-size:24px;font-weight:600;color:${mistakeOps > 0 ? '#EF4444' : '#8B93A7'};font-family:'JetBrains Mono',Consolas,monospace">${mistakeOps}</div>
+            </div>
+            <div style="background:#1A1D23;padding:12px;border-radius:4px">
+              <div style="font-size:11px;color:#8B93A7">及时执行</div>
+              <div style="font-size:24px;font-weight:600;color:#1F8FFF;font-family:'JetBrains Mono',Consolas,monospace">${matchedOps}</div>
+            </div>
+            <div style="background:#1A1D23;padding:12px;border-radius:4px">
+              <div style="font-size:11px;color:#8B93A7">额外预置</div>
+              <div style="font-size:24px;font-weight:600;color:#3B82F6;font-family:'JetBrains Mono',Consolas,monospace">${extraOps}</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:#8B93A7;margin-bottom:8px;font-weight:500">未命中的剧本动作：</div>
+          <div style="max-height:160px;overflow:auto;font-size:12px;background:#1A1D23;padding:8px;border-radius:3px">
+            ${expected.filter(e => !e._matched).map(e => `<div style="padding:4px 0;color:#EF4444">✗ ${fmtClock(e.t)} ${e.label}</div>`).join('') || '<div style="color:#10B981">✓ 全部命中</div>'}
+          </div>
+          <div style="margin-top:20px;text-align:right">
+            <button onclick="this.closest('.modal-overlay').remove()" style="padding:8px 24px;background:var(--c-primary);color:#fff;border:0;border-radius:3px;cursor:pointer;font-weight:500">关闭</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(wrap);
+    }
+
+    // ==================== SECTION 12: Router + Bootstrap ====================
+    document.querySelectorAll('nav.top .tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('nav.top .tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('view-' + tab.dataset.view).classList.add('active');
+        if (tab.dataset.view === 'dashboard') { setTimeout(() => renderDashboardAll(), 50); }
+        if (tab.dataset.view === 'mobile')    { setTimeout(() => renderMobile(), 50); }
+        if (tab.dataset.view === 'drill')     { setTimeout(() => { renderDrillScenarioOptions(); renderDrillAll(); }, 50); }
+      });
+    });
+
+    document.getElementById('help-btn').onclick = () => document.getElementById('help-overlay').classList.add('open');
+    document.getElementById('help-overlay').addEventListener('click', e => {
+      if (e.target.id === 'help-overlay') e.currentTarget.classList.remove('open');
+    });
+
+    document.getElementById('drill-scenario').addEventListener('change', e => {
+      const scn = SCENARIOS.find(s => s.id === e.target.value);
+      if (scn) {
+        clock.loadScenario(scn);
+        renderDrillAll();
+        renderDashboardAll();
+      }
+    });
+    document.getElementById('drill-play').onclick = () => {
+      if (!clock.scenario) { alert('请先选择演练场景'); return; }
+      clock.start();
+    };
+    document.getElementById('drill-pause').onclick = () => clock.pause();
+    document.getElementById('drill-stop').onclick = () => {
+      clock.stop();
+      renderDrillAll();
+      renderDashboardAll();
+    };
+    document.querySelectorAll('#drill-speed button').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('#drill-speed button').forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        clock.setSpeed(+btn.dataset.s);
+      };
+    });
+
+    document.getElementById('m-role-select').addEventListener('change', e => {
+      STATE.meta.currentRole = e.target.value;
+      renderMobile();
+    });
+
+    subscribe(() => {
+      if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboardAll();
+      if (document.getElementById('view-mobile').classList.contains('active'))    renderMobile();
+      if (document.getElementById('view-drill').classList.contains('active'))     renderDrillAll();
+    });
+
+    window.addEventListener('resize', () => {
+      Object.values(charts).forEach(c => { try { c && c.resize(); } catch(e) {} });
+    });
+
+    renderDrillScenarioOptions();
+    renderDashboardAll();
+    clock.start();
+
+    console.log('%c江南水务调度 Demo 已就绪', 'color:#1F8FFF;font-size:14px;font-weight:bold');
+    console.log('调试入口：STATE / clock / startPump("P01") / stopPump("P01") / SCENARIOS');
+  </script>
+</body>
+</html>
