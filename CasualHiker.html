@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a2f2a">
+<title>江南徒步路书 · 苏锡常 · 皖南 · 浙西</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a2420;
+  --ink-soft: #2d3a34;
+  --paper: #f4ede0;
+  --paper-warm: #ede4d3;
+  --paper-deep: #e6dcc6;
+  --moss: #4a5d44;
+  --moss-deep: #2f3e2c;
+  --moss-light: #738566;
+  --vermilion: #b8453a;
+  --vermilion-deep: #8a2f28;
+  --gold: #a87f3d;
+  --stone: #8a8578;
+  --line: rgba(26, 36, 32, 0.15);
+  --line-strong: rgba(26, 36, 32, 0.35);
+  --shadow: 0 1px 0 rgba(26, 36, 32, 0.08), 0 4px 16px rgba(26, 36, 32, 0.06);
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* 纸纹理背景 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at top, rgba(168, 127, 61, 0.05), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(74, 93, 68, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(26, 36, 32, 0.008) 2px, rgba(26, 36, 32, 0.008) 3px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+main { position: relative; z-index: 1; max-width: 100%; }
+
+/* === 封面 === */
+.cover {
+  position: relative;
+  min-height: 100vh;
+  padding: 56px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-strong);
+  overflow: hidden;
+}
+
+.cover-mark {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+  text-transform: uppercase;
+}
+
+.cover-mark::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--stone);
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.seal {
+  position: absolute;
+  top: 60px;
+  left: 24px;
+  width: 52px;
+  height: 52px;
+  background: var(--vermilion);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-align: center;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 8px rgba(184, 69, 58, 0.3);
+  border-radius: 2px;
+}
+
+.cover-title {
+  margin-top: 140px;
+}
+
+.cover-title .vertical {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1.05;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cover-title .vertical span:nth-child(2) { color: var(--vermilion); }
+
+.cover-subtitle {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--moss-deep);
+  margin-top: 24px;
+  letter-spacing: 0.01em;
+}
+
+.cover-subtitle::before {
+  content: '— ';
+  color: var(--gold);
+}
+
+.cover-meta {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.cover-meta-item .label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cover-meta-item .value {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.mountain-illust {
+  margin: 32px 0 8px;
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  align-self: center;
+}
+
+.cover-foot {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* === 通用容器 === */
+section {
+  padding: 56px 24px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.section-title .accent {
+  color: var(--vermilion);
+}
+
+.section-lede {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--moss-deep);
+  margin: 12px 0 32px;
+  line-height: 1.5;
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 32px 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.section-divider span {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--stone);
+}
+
+/* === 速查表 === */
+.quick-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+
+.quick-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+  text-transform: uppercase;
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--line-strong);
+  font-weight: 500;
+}
+
+.quick-table td {
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.quick-table td:first-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.diff {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.diff-1 { color: var(--moss-light); }
+.diff-2 { color: var(--moss); }
+.diff-3 { color: var(--gold); }
+.diff-4 { color: var(--vermilion); }
+.diff-5 { color: var(--vermilion-deep); }
+
+/* === 季节 === */
+.season-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.season-card {
+  padding: 18px 16px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.season-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.season-card.spring::before { background: linear-gradient(90deg, #8fb069, #c9d4a8); }
+.season-card.summer::before { background: linear-gradient(90deg, #4a5d44, #738566); }
+.season-card.autumn::before { background: linear-gradient(90deg, #b8453a, #d6964a); }
+.season-card.winter::before { background: linear-gradient(90deg, #6b7a85, #a8b5bf); }
+
+.season-card .cn {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.season-card .en {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--stone);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.season-card .desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.season-card .pick {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--moss-deep);
+  letter-spacing: 0.05em;
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.season-card .pick strong {
+  color: var(--vermilion);
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* === 路线卡片 === */
+.route-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--line-strong);
+  margin-bottom: 24px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.route-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 4px;
+  background: var(--moss);
+}
+
+.route-card.tier-easy::before { background: var(--moss-light); }
+.route-card.tier-mid::before { background: var(--moss); }
+.route-card.tier-hard::before { background: var(--gold); }
+.route-card.tier-expert::before { background: var(--vermilion); }
+
+.route-header {
+  padding: 20px 18px 14px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.route-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.route-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.route-name .alt {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--stone);
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+
+.route-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--moss-deep);
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.route-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.route-stats > div {
+  padding: 12px 8px;
+  text-align: center;
+  border-right: 1px solid var(--line);
+}
+
+.route-stats > div:last-child { border-right: 0; }
+
+.route-stats .label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.route-stats .value {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.route-stats .value.small {
+  font-size: 13px;
+}
+
+.route-body {
+  padding: 16px 18px 18px;
+}
+
+.route-body h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--vermilion);
+  text-transform: uppercase;
+  margin: 14px 0 6px;
+  font-weight: 500;
+}
+
+.route-body h4:first-child { margin-top: 0; }
+
+.route-body p {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.route-trail {
+  font-family: var(--serif);
+  font-size: 13px;
+  background: var(--paper);
+  padding: 10px 12px;
+  border-left: 2px solid var(--moss);
+  margin: 6px 0 10px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.route-trail strong {
+  color: var(--vermilion);
+  font-weight: 600;
+}
+
+.kv-list {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 6px 10px;
+  font-size: 12.5px;
+  margin: 6px 0 4px;
+}
+
+.kv-list dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+.kv-list dd {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.kv-list dd strong { color: var(--ink); }
+
+.route-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.route-actions .full {
+  grid-column: 1 / -1;
+}
+
+.btn-map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--ink);
+  transition: all 0.2s;
+  border-radius: 1px;
+}
+
+.btn-map:active { transform: scale(0.98); }
+
+.btn-map.outline {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-map.baidu {
+  background: var(--vermilion);
+  border-color: var(--vermilion);
+  color: var(--paper);
+}
+
+.btn-map.gpx {
+  background: var(--moss-deep);
+  border-color: var(--moss-deep);
+  color: var(--paper);
+}
+
+.btn-map svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.btn-mini {
+  font-size: 11px;
+  padding: 9px 6px;
+  letter-spacing: 0;
+}
+
+/* 双语 logo 文字 */
+.btn-map .label-cn {
+  font-weight: 600;
+}
+.btn-map .label-en {
+  font-family: var(--mono);
+  font-size: 9px;
+  opacity: 0.7;
+  margin-left: 2px;
+  letter-spacing: 0.05em;
+}
+
+/* === 专题板块 === */
+.topic-card {
+  background: var(--ink);
+  color: var(--paper-warm);
+  padding: 28px 22px;
+  margin: 28px 0 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card.parent {
+  background: linear-gradient(135deg, #4a5d44 0%, #2f3e2c 100%);
+}
+
+.topic-card.night {
+  background: linear-gradient(180deg, #1a2438 0%, #0f1825 100%);
+  color: #e8e4d4;
+}
+
+.topic-card::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 80px;
+  opacity: 0.06;
+  font-family: var(--serif);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.topic-card.parent::before { content: '亲'; }
+.topic-card.night::before { content: '夜'; }
+
+.topic-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.topic-card.night .topic-tag { color: #d4a574; }
+
+.topic-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.topic-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  border-left: 2px solid var(--gold);
+  padding-left: 12px;
+}
+
+.topic-card.night .topic-quote { border-color: #d4a574; }
+
+.topic-pick {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(244, 237, 224, 0.2);
+}
+
+.topic-pick h5 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+
+.topic-card.night .topic-pick h5 { color: #d4a574; }
+
+.topic-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(244, 237, 224, 0.1);
+  font-size: 13px;
+  line-height: 1.6;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.topic-list li:last-child { border-bottom: 0; }
+
+.topic-list .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.topic-card.night .topic-list .num { color: #d4a574; }
+
+.topic-list .name {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.topic-list .desc {
+  display: block;
+  font-size: 11.5px;
+  opacity: 0.75;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.topic-list .meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.topic-tips {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: rgba(244, 237, 224, 0.06);
+  border-left: 2px solid var(--gold);
+  font-size: 12px;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+.topic-card.night .topic-tips { border-color: #d4a574; }
+
+.topic-tips strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.topic-card.night .topic-tips strong { color: #d4a574; }
+
+/* === 城市分组 === */
+.city-header {
+  position: relative;
+  padding: 40px 24px 24px;
+  background: linear-gradient(180deg, var(--paper-deep), var(--paper));
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.city-header .city-en {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--vermilion);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.city-header .city-cn {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 1;
+  color: var(--ink);
+  display: block;
+  letter-spacing: 0.04em;
+}
+
+.city-header .city-cn .small {
+  font-size: 28px;
+  font-weight: 400;
+  margin-left: 6px;
+  color: var(--moss-deep);
+}
+
+.city-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 14px;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+.city-tally {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.city-tally span strong {
+  color: var(--vermilion);
+  font-family: var(--serif);
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+/* === 装备清单 === */
+.gear-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.gear-card {
+  padding: 16px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--moss);
+}
+
+.gear-card.essential { border-left-color: var(--vermilion); }
+.gear-card.optional { border-left-color: var(--gold); }
+
+.gear-card h4 {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gear-card h4 .badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  background: var(--vermilion);
+  color: var(--paper);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.gear-card.optional h4 .badge { background: var(--gold); }
+.gear-card:not(.essential):not(.optional) h4 .badge { background: var(--moss); }
+
+.gear-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.gear-card ul li::marker {
+  color: var(--moss);
+  font-size: 10px;
+}
+
+/* === 注意事项 === */
+.warn-box {
+  background: linear-gradient(180deg, rgba(184, 69, 58, 0.05), transparent);
+  border: 1px solid rgba(184, 69, 58, 0.25);
+  padding: 18px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.warn-box::before {
+  content: '※';
+  position: absolute;
+  top: -1px;
+  left: 14px;
+  background: var(--paper);
+  padding: 0 6px;
+  color: var(--vermilion);
+  font-size: 16px;
+  font-weight: 700;
+  transform: translateY(-50%);
+}
+
+.warn-box h4 {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vermilion-deep);
+  margin: 0 0 10px;
+  letter-spacing: 0.05em;
+}
+
+.warn-box ol {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.warn-box ol li {
+  padding-left: 4px;
+  margin-bottom: 4px;
+}
+
+.warn-box ol li::marker {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--vermilion);
+}
+
+/* === 难度图例 === */
+.difficulty-legend {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin: 16px 0 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-align: center;
+}
+
+.difficulty-legend > div {
+  padding: 6px 4px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  letter-spacing: 0.05em;
+}
+
+.difficulty-legend > div .num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.difficulty-legend .l1 { color: var(--moss-light); }
+.difficulty-legend .l2 { color: var(--moss); }
+.difficulty-legend .l3 { color: var(--gold); }
+.difficulty-legend .l4 { color: var(--vermilion); }
+.difficulty-legend .l5 { color: var(--vermilion-deep); font-weight: 700; }
+
+/* 内容内分隔 */
+.subhead {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 24px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subhead::before {
+  content: '';
+  width: 16px;
+  height: 2px;
+  background: var(--vermilion);
+}
+
+/* === 页脚 === */
+footer {
+  padding: 40px 24px 60px;
+  background: var(--ink);
+  color: var(--paper-warm);
+}
+
+footer .foot-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+}
+
+footer .foot-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(244, 237, 224, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+footer p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(244, 237, 224, 0.75);
+  margin: 0 0 10px;
+}
+
+footer .source {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(244, 237, 224, 0.15);
+  font-size: 11px;
+  color: rgba(244, 237, 224, 0.5);
+  line-height: 1.7;
+}
+
+footer .seal-foot {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: var(--vermilion);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-top: 16px;
+  transform: rotate(2deg);
+}
+
+/* 月份图示 */
+.month-strip {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  margin: 16px 0 8px;
+}
+
+.month-strip > div {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 6px 2px;
+  background: var(--paper-warm);
+  color: var(--stone);
+  position: relative;
+}
+
+.month-strip > div.peak {
+  background: var(--vermilion);
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.month-strip > div.good {
+  background: var(--moss);
+  color: var(--paper);
+}
+
+.month-strip > div.avoid {
+  background: var(--paper-deep);
+  color: var(--stone);
+  text-decoration: line-through;
+}
+
+.month-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--stone);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.month-legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.month-legend .dot-peak { background: var(--vermilion); }
+.month-legend .dot-good { background: var(--moss); }
+.month-legend .dot-avoid { background: var(--paper-deep); border: 1px solid var(--line); }
+
+/* TOC */
+.toc {
+  margin-top: 32px;
+  padding: 20px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+}
+
+.toc-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--vermilion);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.toc ol li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.toc ol li:last-child { border-bottom: 0; }
+
+.toc ol li a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  flex: 1;
+}
+
+.toc ol li .num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+}
+
+.toc ol li .pages {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--stone);
+}
+
+/* 滚动平滑 */
+html { scroll-behavior: smooth; }
+
+/* 选择高亮 */
+::selection {
+  background: var(--vermilion);
+  color: var(--paper);
+}
+
+/* 大屏适配 - 仍以单栏阅读为主 */
+@media (min-width: 600px) {
+  body { font-size: 16px; }
+  .cover { padding: 72px 40px 48px; }
+  section { padding: 64px 40px; }
+  .cover-title .vertical { font-size: 76px; }
+  .city-header { padding: 48px 40px 28px; }
+  footer { padding: 48px 40px 64px; }
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<!-- ============== 封面 ============== -->
+<section class="cover">
+  <div class="seal">江南<br>山行</div>
+  <div class="cover-mark">FIELD GUIDE · v.2026.04</div>
+
+  <div class="cover-title">
+    <span class="vertical">
+      <span>江</span><span>南</span><span>山</span><span>行</span>
+    </span>
+    <span style="font-family: var(--serif); font-weight: 500; font-size: 19px; letter-spacing: 0.25em; color: var(--ink-soft);">苏 锡 常 · 皖 南 · 浙 西</span>
+    <div class="cover-subtitle">A Pocket Guide for the Casual Hiker · 业余爬山者的口袋指南</div>
+  </div>
+
+  <!-- 山形插画 -->
+  <svg class="mountain-illust" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mtn" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#4a5d44" stop-opacity="0.9"/>
+        <stop offset="1" stop-color="#2f3e2c" stop-opacity="0.6"/>
+      </linearGradient>
+    </defs>
+    <!-- 远山 -->
+    <path d="M0,80 Q40,55 70,65 Q100,40 130,55 Q160,30 190,50 Q220,35 250,55 Q280,40 320,60 L320,100 L0,100 Z" fill="#a8b5a0" opacity="0.4"/>
+    <!-- 中山 -->
+    <path d="M0,90 Q30,70 55,78 Q85,55 115,72 Q145,50 175,68 Q205,55 235,72 Q265,60 320,78 L320,100 L0,100 Z" fill="#738566" opacity="0.6"/>
+    <!-- 近山 -->
+    <path d="M0,95 Q40,82 80,88 Q120,75 160,85 Q200,75 240,88 Q280,80 320,90 L320,100 L0,100 Z" fill="url(#mtn)"/>
+    <!-- 飞鸟 -->
+    <path d="M50,25 q4,-3 8,0 q4,-3 8,0" stroke="#1a2420" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <path d="M70,18 q3,-2 6,0 q3,-2 6,0" stroke="#1a2420" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+    <!-- 太阳/月 -->
+    <circle cx="240" cy="20" r="8" fill="#b8453a" opacity="0.85"/>
+  </svg>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="label">Region</span>
+      <span class="value">长三角 · 5 大徒步圈</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="label">Routes</span>
+      <span class="value">19 条精选路线</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="label">Audience</span>
+      <span class="value">业余 / 周末徒步者</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="label">Maps</span>
+      <span class="value">Google · 百度 · GPX</span>
+    </div>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <div class="toc-title">目 录 · Contents</div>
+    <ol>
+      <li><a href="#how-to-use"><span class="num">01</span> &nbsp;使用说明 & 难度系统</a></li>
+      <li><a href="#season"><span class="num">02</span> &nbsp;季节地图与时机</a></li>
+      <li><a href="#suzhou"><span class="num">03</span> &nbsp;苏州 · 七山</a></li>
+      <li><a href="#wuxi"><span class="num">04</span> &nbsp;无锡 · 惠山系</a></li>
+      <li><a href="#changzhou"><span class="num">05</span> &nbsp;常州常熟 · 茅山溧阳</a></li>
+      <li><a href="#wannan"><span class="num">06</span> &nbsp;皖南 · 古道与道山</a></li>
+      <li><a href="#zhexi"><span class="num">07</span> &nbsp;浙西 · 莫干临安</a></li>
+      <li><a href="#topic-family"><span class="num">08</span> &nbsp;专题 · 亲子徒步</a></li>
+      <li><a href="#topic-night"><span class="num">09</span> &nbsp;专题 · 夜爬指南</a></li>
+      <li><a href="#gear"><span class="num">10</span> &nbsp;装备 & 出行清单</a></li>
+      <li><a href="#caution"><span class="num">11</span> &nbsp;安全须知</a></li>
+    </ol>
+  </div>
+
+  <div class="cover-foot" style="margin-top: 40px;">江南 AI 工作小组 编 · 2026.04 · v.2026</div>
+</section>
+
+
+<!-- ============== 01 使用说明 ============== -->
+<section id="how-to-use">
+  <div class="section-num">01 · HOW TO USE</div>
+  <h2 class="section-title">使用<span class="accent">说明</span></h2>
+  <p class="section-lede">山不在高，有水则灵。本路书面向无专业训练的业余爱好者，所有线路均可一日往返，免装备攀爬。</p>
+
+  <h3 class="subhead">关于本路书</h3>
+  <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.7;">本路书覆盖长三角五大徒步圈：苏州、无锡、常州（含常熟）、皖南（黄山周边古道与道教名山）、浙西（莫干山与临安群山）共 <strong>19 条</strong>精选线路，分为入门、休闲、进阶、挑战四个梯度。每条路线均标注海拔、里程、用时、难度、最佳季节、抵达方式，并附三种地图链接：</p>
+
+  <ul style="margin: 8px 0 16px; padding-left: 18px; font-size: 13px; line-height: 1.8; color: var(--ink-soft);">
+    <li><strong>Google 地图</strong>：海外版地图，定位与境外用户分享</li>
+    <li><strong>百度地图</strong>：国内主流，公交班次与实时路况最准</li>
+    <li><strong>两步路 GPX</strong>：户外圈最常用的轨迹平台，可下载实测 GPX 用于离线导航</li>
+  </ul>
+
+  <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.7;">书末附 <strong>亲子徒步</strong> 与 <strong>夜爬</strong> 两个专题，针对特殊场景给出具体推荐。</p>
+
+  <h3 class="subhead">难度评级（5 级制）</h3>
+  <p style="font-size: 13px; color: var(--ink-soft);">综合考虑里程、累计爬升、路况、人流密集度。1 级老少皆宜，5 级需有徒步经验。</p>
+
+  <div class="difficulty-legend">
+    <div class="l1"><span class="num">★</span>极易</div>
+    <div class="l2"><span class="num">★★</span>休闲</div>
+    <div class="l3"><span class="num">★★★</span>进阶</div>
+    <div class="l4"><span class="num">★★★★</span>挑战</div>
+    <div class="l5"><span class="num">★★★★★</span>越野</div>
+  </div>
+
+  <h3 class="subhead">速查 · 19 条路线一览</h3>
+  <table class="quick-table">
+    <thead>
+      <tr><th>路线</th><th>距离</th><th>用时</th><th>难度</th></tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="background:var(--paper-deep); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--vermilion); padding:6px 6px;">— 苏州 —</td></tr>
+      <tr><td>天平山赏枫</td><td>3 km</td><td>2 h</td><td><span class="diff diff-1">★</span></td></tr>
+      <tr><td>灵岩山往返</td><td>4 km</td><td>2 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td>穹窿山主峰</td><td>6 km</td><td>3 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td>天池花山</td><td>12.4 km</td><td>5 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>灵白线</td><td>10 km</td><td>4 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>东山莫厘峰</td><td>10 km</td><td>5 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>缥缈峰</td><td>8 km</td><td>4 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td colspan="4" style="background:var(--paper-deep); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--vermilion); padding:6px 6px;">— 无锡 —</td></tr>
+      <tr><td>惠山一号线</td><td>3 km</td><td>1.5 h</td><td><span class="diff diff-1">★</span></td></tr>
+      <tr><td>惠山三茅峰</td><td>8 km</td><td>3 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td>军嶂古道 A</td><td>17 km</td><td>6 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td colspan="4" style="background:var(--paper-deep); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--vermilion); padding:6px 6px;">— 常州 / 常熟 —</td></tr>
+      <tr><td>虞山兴福剑门</td><td>3.5 km</td><td>2 h</td><td><span class="diff diff-1">★</span></td></tr>
+      <tr><td>虞山雄鹰线</td><td>12 km</td><td>5 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>金坛茅山</td><td>5 km</td><td>3 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td>南山竹海</td><td>4 km</td><td>2.5 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td colspan="4" style="background:var(--paper-deep); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--vermilion); padding:6px 6px;">— 皖南 —</td></tr>
+      <tr><td>徽杭古道（一日）</td><td>15 km</td><td>6—7 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>齐云山九里十三亭</td><td>4.5 km</td><td>3 h</td><td><span class="diff diff-2">★★</span></td></tr>
+      <tr><td colspan="4" style="background:var(--paper-deep); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--vermilion); padding:6px 6px;">— 浙西 —</td></tr>
+      <tr><td>莫干山·剑池芦花荡</td><td>6 km</td><td>3 h</td><td><span class="diff diff-1">★</span></td></tr>
+      <tr><td>临安大明山龙门峡</td><td>7 km</td><td>4 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+      <tr><td>吴越古道（浙皖穿越）</td><td>16 km</td><td>6 h</td><td><span class="diff diff-3">★★★</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ============== 02 季节 ============== -->
+<section id="season">
+  <div class="section-num">02 · WHEN TO GO</div>
+  <h2 class="section-title">四时<span class="accent">山色</span></h2>
+  <p class="section-lede">江南山低水秀，四季皆可徒步。然各有时令——春樱秋枫，夏宜密林，冬看雪松。</p>
+
+  <h3 class="subhead">月份强度图</h3>
+  <div class="month-legend">
+    <span><span class="dot dot-peak"></span>最佳</span>
+    <span><span class="dot dot-good"></span>适宜</span>
+    <span><span class="dot dot-avoid"></span>慎行</span>
+  </div>
+  <div class="month-strip">
+    <div class="good">1月</div>
+    <div class="good">2月</div>
+    <div class="peak">3月</div>
+    <div class="peak">4月</div>
+    <div class="good">5月</div>
+    <div class="avoid">6月</div>
+    <div class="avoid">7月</div>
+    <div class="avoid">8月</div>
+    <div class="good">9月</div>
+    <div class="peak">10月</div>
+    <div class="peak">11月</div>
+    <div class="good">12月</div>
+  </div>
+  <p style="font-size: 12px; color: var(--stone); margin-top: 8px;">江南六七月梅雨，七八月酷暑，山路湿滑、蚊虫蛇蚁多。如非清晨夜爬，一般不推荐。</p>
+
+  <div class="season-grid">
+    <div class="season-card spring">
+      <span class="cn">春</span>
+      <span class="en">SPRING · 3—5月</span>
+      <p class="desc">樱花、梨花、杜鹃次第开放。气温 12—22°C，雨水稍多但不密集，是江南徒步最佳时段。</p>
+      <div class="pick"><strong>首选</strong>：金坛茅山樱花、光福香雪海、树山梨花</div>
+    </div>
+    <div class="season-card summer">
+      <span class="cn">夏</span>
+      <span class="en">SUMMER · 6—8月</span>
+      <p class="desc">高温 30—38°C，湿度大。仅推荐密林遮蔽线路（穹窿山、南山竹海），且需清晨 7 点前出发。</p>
+      <div class="pick"><strong>首选</strong>：穹窿山负氧森林、南山竹海、缥缈峰夜爬</div>
+    </div>
+    <div class="season-card autumn">
+      <span class="cn">秋</span>
+      <span class="en">AUTUMN · 9—11月</span>
+      <p class="desc">天高云淡，10—22°C。11 月中下旬天平山红枫达最盛。秋季也是江南徒步黄金季。</p>
+      <div class="pick"><strong>首选</strong>：天平山红枫、虞山雄鹰线、灵白穿越</div>
+    </div>
+    <div class="season-card winter">
+      <span class="cn">冬</span>
+      <span class="en">WINTER · 12—2月</span>
+      <p class="desc">5—15°C，干燥少雨，视野通透，可登高远眺。雪后山景最佳，但需注意石阶结冰。</p>
+      <div class="pick"><strong>首选</strong>：邓尉探梅、惠山日出、东山碧螺春茶园</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== 03 苏州 ============== -->
+<div class="city-header" id="suzhou">
+  <span class="city-en">SU · ZHOU</span>
+  <span class="city-cn">苏州<span class="small">姑苏</span></span>
+  <p class="city-desc">姑苏多山低水阔，环绕太湖东岸群山，最高峰穹窿山箬帽峰海拔 341.7 米。山虽不高，但路网密集、人文厚重，从灵岩到穹窿，适合各级徒步者。</p>
+  <div class="city-tally">
+    <span><strong>7</strong>条路线</span>
+    <span><strong>3.4</strong>千米最高</span>
+    <span><strong>★—★★★★</strong> 难度跨度</span>
+  </div>
+</div>
+
+<section style="padding-top: 32px;">
+
+<!-- 路线 1 - 天平山 -->
+<div class="route-card tier-easy">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 入门 · 红枫</span>
+    <h3 class="route-name">天平山 <span class="alt">Tianping Hill</span></h3>
+    <p class="route-quote">江南赏枫第一山，范仲淹先祖埋葬地</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">201 m</span></div>
+    <div><span class="label">距离</span><span class="value">3 km</span></div>
+    <div><span class="label">用时</span><span class="value">2 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-1">★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">山门 → 范文正公祠 → <strong>古枫林</strong> → 白云古刹 → 莲花洞 → 卓笔峰 → 山顶 → 原路返</div>
+
+    <h4>看点</h4>
+    <p>山脚是范氏祠堂群，山间有 400 余年古枫，11 月中下旬至 12 月初为最盛。山顶花岗岩裸石，可俯瞰太湖与木渎古镇。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>地铁</dt><dd>1 号线木渎站，转 4 路或 662 路至天平山站</dd>
+      <dt>自驾</dt><dd>导航"天平山景区"，山脚有正规停车场</dd>
+      <dt>门票</dt><dd>淡季 30 元，红枫节（11 月）75 元</dd>
+      <dt>最佳</dt><dd><strong>11 月中—12 月初</strong>红枫盛期，需早晨 8 点前入园避高峰</dd>
+      <dt>注意</dt><dd>山虽不高但岩石路较多，雨后湿滑；红枫节期间人流极大</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E5%B9%B3%E5%B1%B1%E6%99%AF%E5%8C%BA%20%E8%8B%8F%E5%B7%9E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%A4%A9%E5%B9%B3%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%A4%A9%E5%B9%B3%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 2 - 灵岩山 -->
+<div class="route-card tier-easy">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 入门 · 古寺</span>
+    <h3 class="route-name">灵岩山 <span class="alt">Lingyan Hill</span></h3>
+    <p class="route-quote">灵岩奇绝胜天台，秀绝冠江南</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">182 m</span></div>
+    <div><span class="label">距离</span><span class="value">4 km</span></div>
+    <div><span class="label">用时</span><span class="value">2 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">灵岩山牌坊 → 御道（石阶）→ <strong>灵岩山寺</strong> → 灵岩塔 → 玩花池 / 西施洞 → 原路返 或 续走灵白线</div>
+
+    <h4>看点</h4>
+    <p>春秋时期吴王为西施所建馆娃宫旧址。山多奇石（灵芝石、印石、卧牛石），山顶灵岩山寺以素面闻名。是苏州当地老人晨练首选，台阶整齐易走。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>地铁</dt><dd>5 号线灵岩山站，步行约 1 km 至山门</dd>
+      <dt>公交</dt><dd>43 / 64 / 65 / 312 路灵岩山站</dd>
+      <dt>门票</dt><dd>免费</dd>
+      <dt>最佳</dt><dd>四季皆宜。秋日傍晚登塔可看夕阳</dd>
+      <dt>素面</dt><dd>寺内素面 8 元一碗，11:00—13:00 供应</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E7%81%B5%E5%B2%A9%E5%B1%B1%E6%99%AF%E5%8C%BA%20%E8%8B%8F%E5%B7%9E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E7%81%B5%E5%B2%A9%E5%B1%B1%E6%9C%A8%E6%B8%8E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E7%81%B5%E5%B2%A9%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 3 - 穹窿山 -->
+<div class="route-card tier-mid">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 休闲 · 森林</span>
+    <h3 class="route-name">穹窿山 <span class="alt">Qionglong Mountain</span></h3>
+    <p class="route-quote">吴中之巅，孙武隐居处，太湖东岸群山之冠</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">341 m</span></div>
+    <div><span class="label">距离</span><span class="value">6 km</span></div>
+    <div><span class="label">用时</span><span class="value">3 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">景区南门 → 铁竹亭 → 洞天 → <strong>上真观</strong> → 望湖园 → 孙武苑 → 主峰箬帽峰 → 原路或盘山公路返</div>
+
+    <h4>看点</h4>
+    <p>苏州市最高峰，森林覆盖率极高，号称"天然氧吧"，林间负氧离子含量是普通空间的 400—500 倍。沿乾隆古御道而上，串联多处道观与历史遗迹。山顶可远眺三万六千顷太湖。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>公交</dt><dd>木渎公交换乘枢纽乘 64 路至穹窿山景区</dd>
+      <dt>自驾</dt><dd>导航"穹窿山风景区"，景区有大型停车场</dd>
+      <dt>门票</dt><dd>68 元；70 岁以上、1.4 米以下儿童免票</dd>
+      <dt>最佳</dt><dd><strong>夏季首选</strong>，密林遮日；春秋亦佳</dd>
+      <dt>注意</dt><dd>盘山公路可直达山顶（适合家人同行）；徒步走御道更佳</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E7%A9%B9%E7%AA%BF%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA%20%E8%8B%8F%E5%B7%9E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E7%A9%B9%E7%AA%BF%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E7%A9%B9%E7%AA%BF%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 4 - 灵白线 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 进阶 · 经典穿越</span>
+    <h3 class="route-name">灵白线 <span class="alt">Lingyan—Baima Trail</span></h3>
+    <p class="route-quote">苏州最出圈的徒步线，灵岩山至白马涧</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">爬升</span><span class="value">~ 400 m</span></div>
+    <div><span class="label">距离</span><span class="value">10 km</span></div>
+    <div><span class="label">用时</span><span class="value">4 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">灵岩山景区入口 → 灵岩塔 → <strong>大焦山</strong>（魔鬼线小段）→ 羊肠岭 → 五峰道院 → 白马涧龙池景区</div>
+
+    <h4>看点</h4>
+    <p>苏州驴友圈最经典入门进阶线路，串联灵岩山、大焦山、白马涧三大景区，多为原生态山路。上升下降反复，对体力有一定要求。终点白马涧有古龙泉与竹林，可洗去一身疲惫。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>起点</dt><dd>地铁 5 号线灵岩山站</dd>
+      <dt>终点</dt><dd>白马涧龙池景区，乘 663 路返地铁站</dd>
+      <dt>门票</dt><dd>灵岩山免费 / 白马涧 30 元</dd>
+      <dt>最佳</dt><dd>3—4 月、10—11 月，避开梅雨与酷暑</dd>
+      <dt>建议</dt><dd>结伴而行；带轨迹（两步路 App "灵白线"）；山中岔路较多</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E7%81%B5%E5%B2%A9%E5%B1%B1%E6%99%AF%E5%8C%BA%20%E8%8B%8F%E5%B7%9E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E7%81%B5%E5%B2%A9%E5%B1%B1%E6%9C%A8%E6%B8%8E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E7%81%B5%E7%99%BD%E7%BA%BF" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 5 - 天池花山 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 进阶 · 江南小黄山</span>
+    <h3 class="route-name">天池花山 <span class="alt">Tianchi—Hua Trail</span></h3>
+    <p class="route-quote">峰奇石秀，泉流丰美，登莲花峰可远眺苏州城</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">170 m</span></div>
+    <div><span class="label">距离</span><span class="value">12.4 km</span></div>
+    <div><span class="label">用时</span><span class="value">5 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">花山停车场 → 桃花涧 → <strong>天池</strong> → 寂鉴寺 → 莲花峰 → 翠岩寺 → 翠岩寺停车场</div>
+
+    <h4>看点</h4>
+    <p>正式列入吴中区"森林步道"，全长 12.4 公里。沿线有半山天池（清澈倒映蓝天）、寂鉴寺元代石屋、莲花峰登高远眺整个苏州古城。素有"江南小黄山"之誉。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>自驾</dt><dd>导航"花山景区"或"天池山景区"，停车场在两端</dd>
+      <dt>公交</dt><dd>苏州站乘 64 路或游 4 至木渎，转 312 路至天池山停车场</dd>
+      <dt>门票</dt><dd>天池山 35 元 / 花山 30 元（联票优惠）</dd>
+      <dt>最佳</dt><dd>3—5 月桃花、10—11 月秋色</dd>
+      <dt>注意</dt><dd>下山可顺道至藏书镇吃藏书羊肉</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E6%B1%A0%E5%B1%B1%E6%99%AF%E5%8C%BA%20%E8%8B%8F%E5%B7%9E" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%A4%A9%E6%B1%A0%E5%B1%B1%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%A4%A9%E6%B1%A0%E8%8A%B1%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 6 - 东山莫厘峰 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 进阶 · 太湖半岛</span>
+    <h3 class="route-name">东山莫厘峰 <span class="alt">Moli Peak</span></h3>
+    <p class="route-quote">太湖半岛上观湖徒步，碧螺春茶园与古村</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">293 m</span></div>
+    <div><span class="label">距离</span><span class="value">10 km</span></div>
+    <div><span class="label">用时</span><span class="value">5 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">东山始末站 → 古雪居 → <strong>莫厘峰</strong>（主峰）→ 二十四弯 → 眠佛池 → 三官堂 → 陆巷古村</div>
+
+    <h4>看点</h4>
+    <p>典型的观光徒步线，强度不大，以沿途观赏太湖风光为特色。陆巷古村为明代王鏊故里，古建保存完整。沿途有海眼泉、碧螺峰、玉笋峰、保安寺、四季果园（杨梅、橘子、枇杷）。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>公交</dt><dd>苏州站乘 502 路至东山站；自驾约 1.5 h</dd>
+      <dt>门票</dt><dd>陆巷古村 60 元，景区其他段免费</dd>
+      <dt>最佳</dt><dd><strong>3—4 月碧螺春</strong>采摘期、9—10 月果熟季</dd>
+      <dt>美食</dt><dd>东山特色：太湖三白、白玉枇杷、碧螺春炒虾仁</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%9C%E5%B1%B1%E8%8E%AB%E5%8E%98%E5%B3%B0" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E8%8E%AB%E5%8E%98%E5%B3%B0%E8%8B%8F%E5%B7%9E%E4%B8%9C%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E8%8E%AB%E5%8E%98%E5%B3%B0" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 7 - 缥缈峰 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">SUZHOU · 进阶 · 太湖之首</span>
+    <h3 class="route-name">缥缈峰 <span class="alt">Piaomiao Peak</span></h3>
+    <p class="route-quote">太湖 72 峰之首，常年云雾如仙境</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">336 m</span></div>
+    <div><span class="label">距离</span><span class="value">8 km</span></div>
+    <div><span class="label">用时</span><span class="value">4 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">景区南门 → 林荫盘山道 → <strong>缥缈峰主峰</strong> → 平龙山 → 古村古码头 → 禹王庙 → 终点</div>
+
+    <h4>看点</h4>
+    <p>位于西山岛（金庭镇），太湖第一高峰。上半程穿山过林，后半程主要是丛林穿越以及古村落古码头。山顶云雾缭绕，可俯瞰整个太湖与诸岛。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>自驾</dt><dd>过太湖大桥进入西山岛，导航"缥缈峰景区"</dd>
+      <dt>公交</dt><dd>木渎枢纽 691 路至西山，转 695 路</dd>
+      <dt>门票</dt><dd>缥缈峰 50 元（联票含林屋洞 80 元）</dd>
+      <dt>最佳</dt><dd>3—5 月、9—11 月。<strong>清晨日出登顶最美</strong></dd>
+      <dt>住宿</dt><dd>建议岛上民宿，体验太湖晨昏</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E7%BC%A5%E7%BC%88%E5%B3%B0%E6%99%AF%E5%8C%BA%20%E8%A5%BF%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E7%BC%A5%E7%BC%88%E5%B3%B0%E6%99%AF%E5%8C%BA%E8%A5%BF%E5%B1%B1%E5%B2%9B" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E7%BC%A5%E7%BC%88%E5%B3%B0" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ============== 04 无锡 ============== -->
+<div class="city-header" id="wuxi">
+  <span class="city-en">WU · XI</span>
+  <span class="city-cn">无锡<span class="small">梁溪</span></span>
+  <p class="city-desc">无锡群山以惠山为脊，三茅峰为最高，329 米。北有惠山九峰横亘市区，南有军嶂古道穿行太湖之滨，徒步入城出湖皆宜。</p>
+  <div class="city-tally">
+    <span><strong>3</strong>条路线</span>
+    <span><strong>329</strong>米最高</span>
+    <span><strong>★—★★★</strong> 难度跨度</span>
+  </div>
+</div>
+
+<section style="padding-top: 32px;">
+
+<!-- 路线 8 - 惠山1号线 -->
+<div class="route-card tier-easy">
+  <div class="route-header">
+    <span class="route-tag">WUXI · 入门 · 城市山林</span>
+    <h3 class="route-name">惠山一号线 <span class="alt">Huishan Route #1</span></h3>
+    <p class="route-quote">锡惠公园起步，黄公涧古道，老人晨练首选</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">169 m</span></div>
+    <div><span class="label">距离</span><span class="value">3 km</span></div>
+    <div><span class="label">用时</span><span class="value">1.5 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-1">★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">锡惠公园登山口 → <strong>黄公涧</strong> → 春申涧（中线）/ 缆车下经过（左线）→ 头茅峰</div>
+
+    <h4>看点</h4>
+    <p>惠山官方 8 条线路中最经典的一条。石阶为主，分中、左、右三支，30—45 分钟登顶头茅峰。当年陆羽、苏东坡等都多次来此品天下第二泉。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>地铁</dt><dd>1 号线西漳站或惠山古镇站</dd>
+      <dt>公交</dt><dd>4 / 15 / 43 / 83 路惠山站</dd>
+      <dt>门票</dt><dd>锡惠公园 70 元（含登山口入园）；或从青山公园逃票（详见 9 号线）</dd>
+      <dt>最佳</dt><dd>四季皆宜；<strong>4 月杜鹃</strong>、6 月杨梅季</dd>
+      <dt>组合</dt><dd>下山可一并游惠山古镇 + 寄畅园 + 二泉</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E9%94%A1%E6%83%A0%E5%85%AC%E5%9B%AD%20%E6%97%A0%E9%94%A1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E9%94%A1%E6%83%A0%E5%85%AC%E5%9B%AD" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E6%83%A0%E5%B1%B1%E4%B8%80%E5%8F%B7%E7%BA%BF" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 9 - 惠山三茅峰 -->
+<div class="route-card tier-mid">
+  <div class="route-header">
+    <span class="route-tag">WUXI · 休闲 · 主峰登顶</span>
+    <h3 class="route-name">惠山三茅峰 <span class="alt">Sanmao Peak Trail</span></h3>
+    <p class="route-quote">无锡最高峰，森林公园全线穿越</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">329 m</span></div>
+    <div><span class="label">距离</span><span class="value">5—8 km</span></div>
+    <div><span class="label">用时</span><span class="value">3 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">惠山森林公园西入口（钱荣路 115 号）→ 环山公路 → <strong>三茅峰</strong>（最高）→ 二茅峰（电视塔）→ 头茅峰 → 锡惠公园下山</div>
+
+    <h4>看点</h4>
+    <p>从北麓登山，可避开锡惠公园门票。沿途经过秦观墓，可俯瞰整个无锡市与太湖。森林公园 24 小时开放（环山公路），近年新增驿站、卫生间、自动贩卖机，配套完善。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>自驾</dt><dd>导航"惠山森林公园钱荣路入口"，过动物园后红绿灯调头</dd>
+      <dt>公交</dt><dd>4 / 15 / 43 / 126 路至惠泉花园北门</dd>
+      <dt>门票</dt><dd>惠山森林公园免费</dd>
+      <dt>最佳</dt><dd>四季皆宜；<strong>夏夜爬山</strong>看无锡夜景为本地传统</dd>
+      <dt>提示</dt><dd>从青山公园 1700 级台阶上山是无锡知名"虐线"，省门票但耗体力</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E6%83%A0%E5%B1%B1%E5%9B%BD%E5%AE%B6%E6%A3%AE%E6%9E%97%E5%85%AC%E5%9B%AD%20%E6%97%A0%E9%94%A1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E6%83%A0%E5%B1%B1%E5%9B%BD%E5%AE%B6%E6%A3%AE%E6%9E%97%E5%85%AC%E5%9B%AD" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E4%B8%89%E8%8C%85%E5%B3%B0" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 10 - 军嶂古道 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">WUXI · 进阶 · 太湖古道</span>
+    <h3 class="route-name">军嶂古道 A 线 <span class="alt">Junzhang Ancient Trail</span></h3>
+    <p class="route-quote">无锡户外穿越经典，太湖之滨百年古道</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">爬升</span><span class="value">~ 600 m</span></div>
+    <div><span class="label">距离</span><span class="value">17 km</span></div>
+    <div><span class="label">用时</span><span class="value">6 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">宝界山林公园（起）→ 段一（缓坡）→ 段二（密林）→ 段三（视野开阔）→ <strong>军嶂村终点</strong>（9 / 82 路公交终点站）</div>
+
+    <h4>看点</h4>
+    <p>北揽人杰地灵的无锡，南望烟波浩渺的太湖，方圆 20 平方公里的军嶂丘陵中一条地貌多样、景色旖旎的古道。A 线最为温和，分六段，全程难度均不大，各年龄段可参与。沿途古驿、茶园、村落、湖光交融。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>起点</dt><dd>宝界山林公园（地铁 4 号线宝界山林公园站）</dd>
+      <dt>终点</dt><dd>军嶂村，9 / 82 路返市区</dd>
+      <dt>门票</dt><dd>免费</dd>
+      <dt>最佳</dt><dd>3—5 月、10—11 月。<strong>避暑、避梅雨</strong></dd>
+      <dt>升级</dt><dd>体力强者可挑战 D 线（22 km 龙寺生态园环线）或 E 线（25 km 军嶂社区环线）</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%AE%9D%E7%95%8C%E5%B1%B1%E6%9E%97%E5%85%AC%E5%9B%AD%20%E6%97%A0%E9%94%A1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%AE%9D%E7%95%8C%E5%B1%B1%E6%9E%97%E5%85%AC%E5%9B%AD" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%86%9B%E5%B6%82%E5%8F%A4%E9%81%93" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ============== 05 常州 ============== -->
+<div class="city-header" id="changzhou">
+  <span class="city-en">CHANG · ZHOU</span>
+  <span class="city-cn">常州<span class="small">含常熟</span></span>
+  <p class="city-desc">常州无苏锡山脉之密集，但有道教名山金坛茅山、5A 景区天目湖、南山竹海等独特资源。常熟虽行政属苏州，但虞山在地理与徒步圈中常与本组合并讨论，故并入此节。</p>
+  <div class="city-tally">
+    <span><strong>4</strong>条路线</span>
+    <span><strong>372</strong>米最高</span>
+    <span><strong>★—★★★</strong> 难度跨度</span>
+  </div>
+</div>
+
+<section style="padding-top: 32px;">
+
+<!-- 路线 11 - 虞山兴福剑门 -->
+<div class="route-card tier-easy">
+  <div class="route-header">
+    <span class="route-tag">CHANGSHU · 入门 · 文化古道</span>
+    <h3 class="route-name">虞山·兴福剑门 <span class="alt">Yu Mountain · Beginner</span></h3>
+    <p class="route-quote">竹径通幽处，禅房花木深</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">261 m</span></div>
+    <div><span class="label">距离</span><span class="value">3.5 km</span></div>
+    <div><span class="label">用时</span><span class="value">2 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-1">★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">兴福禅寺 → 虞山桂香园 → <strong>剑门景区</strong> → 宝岩禅寺 → 引星滩 → 虞山森林公园南门</div>
+
+    <h4>看点</h4>
+    <p>从唐诗中走来的兴福寺起步，可先吃一碗特色蕈油面再开始徒步。剑门为虞山最高处的奇石景观，"绝壁云扶将堕石"。整个景区步行线路约 3.5 公里，轻松休闲，适宜亲子出行和徒步小白。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>上海虹桥—常熟站约 50 分钟，转网约车至兴福寺</dd>
+      <dt>公交</dt><dd>常熟市内乘游 1 路至虞山脚下各站点</dd>
+      <dt>门票</dt><dd>兴福寺免费，剑门 30 元，宝岩 30 元（联票省）</dd>
+      <dt>最佳</dt><dd>3—5 月、9—11 月；秋日桂花飘香</dd>
+      <dt>美食</dt><dd>兴福寺蕈油面是江苏非遗，10—11 月最佳</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%85%B4%E7%A6%8F%E7%A6%85%E5%AF%BA%20%E5%B8%B8%E7%86%9F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%85%B4%E7%A6%8F%E7%A6%85%E5%AF%BA%E5%B8%B8%E7%86%9F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E8%99%9E%E5%B1%B1%E5%85%B4%E7%A6%8F%E5%89%91%E9%97%A8" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 12 - 虞山雄鹰线 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">CHANGSHU · 进阶 · 12K 环线</span>
+    <h3 class="route-name">虞山雄鹰线 <span class="alt">Eagle Loop 12K</span></h3>
+    <p class="route-quote">尽揽虞山美景，四上四下，户外人首选</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">爬升</span><span class="value">~ 800 m</span></div>
+    <div><span class="label">距离</span><span class="value">12 km</span></div>
+    <div><span class="label">用时</span><span class="value">5 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">项家坞 → 龙潭水库观景台 → <strong>网红石</strong> → 望湖亭 → 剑阁 → 联珠洞 → 藏海寺 → 宝华禅寺 → 兴福寺步道（绝望坡）→ 项家坞</div>
+
+    <h4>看点</h4>
+    <p>新手可走的进阶环线，单次爬升不高（150—250 米），但累计爬升近 800 米。网红石（巨石探出俯瞰尚湖）、联珠洞（夏季水帘）、剑阁、藏海寺红墙——出片极佳。"绝望坡"约 500 米土路是全程最难处。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>起点</dt><dd>导航"项家坞"或"虞山东入口"</dd>
+      <dt>门票</dt><dd>分段进入景区免费段较多；剑门 30 元</dd>
+      <dt>最佳</dt><dd>3—4 月（玉兰、樱花、二月蓝）、10—11 月</dd>
+      <dt>注意</dt><dd>网红石周末排队拍照；下坡碎石多坡度大，<strong>建议带登山杖</strong></dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E9%A1%B9%E5%AE%B6%E5%9D%9E%20%E5%B8%B8%E7%86%9F%E8%99%9E%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E9%A1%B9%E5%AE%B6%E5%9D%9E%E8%99%9E%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E8%99%9E%E5%B1%B1%E9%9B%84%E9%B9%B0%E7%BA%BF" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 13 - 茅山 -->
+<div class="route-card tier-mid">
+  <div class="route-header">
+    <span class="route-tag">CHANGZHOU · 休闲 · 道教名山</span>
+    <h3 class="route-name">金坛茅山 <span class="alt">Mao Mountain</span></h3>
+    <p class="route-quote">第一福地，第八洞天，道教上清派发源地</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">372 m</span></div>
+    <div><span class="label">距离</span><span class="value">5 km</span></div>
+    <div><span class="label">用时</span><span class="value">3 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">乾元观 → 三茅峰 → 二茅峰 → <strong>印宫（老子像）</strong> → 华阳洞 → 大茅顶（顶宫）→ 三清观</div>
+
+    <h4>看点</h4>
+    <p>跨常州金坛与镇江句容两地的道教第一山。常州一侧有乾元观、元阳观、崇寿观三大道观，山上有 33 米高老子神像。茅山雀舌为本地名茶，山麓有茶田帐篷酒店与温泉。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>金坛站，转汽车约 30 分钟至景区</dd>
+      <dt>自驾</dt><dd>导航"茅山万福宫"或"乾元观"</dd>
+      <dt>门票</dt><dd>淡季 90 元，旺季 120 元</dd>
+      <dt>开放</dt><dd>3—11 月 7:00—17:30，12—2 月 8:00—17:00</dd>
+      <dt>最佳</dt><dd><strong>4 月樱花</strong>（中日友好樱花林）、9—11 月</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E9%87%91%E5%9D%9B%E8%8C%85%E5%B1%B1%E6%97%85%E6%B8%B8%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E9%87%91%E5%9D%9B%E8%8C%85%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E9%87%91%E5%9D%9B%E8%8C%85%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 14 - 南山竹海 -->
+<div class="route-card tier-mid">
+  <div class="route-header">
+    <span class="route-tag">CHANGZHOU · 休闲 · 万亩竹林</span>
+    <h3 class="route-name">南山竹海 <span class="alt">Bamboo Sea</span></h3>
+    <p class="route-quote">天堂南山，梦幻竹海，江南竹林徒步典范</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">508 m</span></div>
+    <div><span class="label">距离</span><span class="value">4 km</span></div>
+    <div><span class="label">用时</span><span class="value">2.5 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">南大门 → 静湖 → <strong>竹林海</strong> → 寿星广场 → 鸡鸣村 → 吴越弟一峰索道 → 山顶 → 索道下山</div>
+
+    <h4>看点</h4>
+    <p>位于溧阳戴埠镇，是苏锡常地区为数不多的"真山林"体验地。徒步可穿越万亩竹海，深绿如翠玉，夏日凉意盎然。山顶吴越第一峰可俯瞰浙皖苏交界群山。可与天目湖联游 2 天。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>溧阳站，转 105 路或网约车 40 分钟</dd>
+      <dt>自驾</dt><dd>导航"南山竹海景区"，沪蓉高速戴埠出口</dd>
+      <dt>门票</dt><dd>100 元；含小火车 145 元；索道单程 70 元</dd>
+      <dt>最佳</dt><dd><strong>夏季避暑首选</strong>；4 月新笋季可订农家笋宴</dd>
+      <dt>住宿</dt><dd>建议岭上民宿或景区酒店，可同行御水温泉</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%97%E5%B1%B1%E7%AB%B9%E6%B5%B7%20%E6%BA%A7%E9%98%B3" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%8D%97%E5%B1%B1%E7%AB%B9%E6%B5%B7%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%8D%97%E5%B1%B1%E7%AB%B9%E6%B5%B7" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ============== 06 皖南 ============== -->
+<div class="city-header" id="wannan">
+  <span class="city-en">WAN · NAN · ANHUI</span>
+  <span class="city-cn">皖南<span class="small">徽州</span></span>
+  <p class="city-desc">"前世不修，生在徽州"。皖南为黄山山脉腹地，山高谷深，古时徽商外出经商凿出条条石板古道。今日的徒步圣地——徽杭古道、齐云山九里十三亭，皆是承载千年人文的活化石，从苏锡常自驾约 4 小时可达。</p>
+  <div class="city-tally">
+    <span><strong>2</strong>条路线</span>
+    <span><strong>1100</strong>米最高</span>
+    <span><strong>★★—★★★</strong> 难度跨度</span>
+  </div>
+</div>
+
+<section style="padding-top: 32px;">
+
+<!-- 路线 15 - 徽杭古道 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">WANNAN · 进阶 · 千年古道</span>
+    <h3 class="route-name">徽杭古道 <span class="alt">Hui—Hang Ancient Trail</span></h3>
+    <p class="route-quote">华东第一精品徒步线路，徽商入浙的必经要道</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">爬升</span><span class="value">~ 700 m</span></div>
+    <div><span class="label">距离</span><span class="value">15 km</span></div>
+    <div><span class="label">用时</span><span class="value">6—7 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线（一日正穿）</h4>
+    <div class="route-trail">绩溪伏岭 → <strong>江南第一关</strong>（4A）→ 施茶亭 → 黄茅培村 → 下雪堂 → <strong>蓝天凹</strong>（垭口，一脚踩两省）→ 永来村 → 浙基田</div>
+
+    <h4>看点</h4>
+    <p>始建于唐代，号称"中国十大徒步古道"之一。江南第一关是悬崖石板栈道精华段，蓝天凹海拔约 1100 米为最高点。沿途古村、古关、古茶亭、古碑刻保存完好。古道上多石阶水泥台阶，对驴友难度不高，但 15 公里的距离对业余者仍有挑战。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>苏州 / 无锡 / 常州 → 黄山北或绩溪北（约 3 h），转农村班车至江南村起点</dd>
+      <dt>自驾</dt><dd>导航"徽杭古道江南第一关"，江南村有大型停车场</dd>
+      <dt>门票</dt><dd>江南第一关 65 元（包含全段保护费）</dd>
+      <dt>最佳</dt><dd><strong>4 月油菜花</strong>、10—11 月秋枫；雨季（6—7 月）路滑慎行</dd>
+      <dt>住宿</dt><dd>体力一般者建议两日，宿下雪堂或蓝天凹农家</dd>
+      <dt>注意</dt><dd>正穿（绩溪→临安）为传统方向，下坡多省力；终点浙基田有班车至杭州或黄山</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%BE%BD%E6%9D%AD%E5%8F%A4%E9%81%93%E6%B1%9F%E5%8D%97%E7%AC%AC%E4%B8%80%E5%85%B3" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%BE%BD%E6%9D%AD%E5%8F%A4%E9%81%93%E6%B1%9F%E5%8D%97%E7%AC%AC%E4%B8%80%E5%85%B3" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%BE%BD%E6%9D%AD%E5%8F%A4%E9%81%93" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 16 - 齐云山 -->
+<div class="route-card tier-mid">
+  <div class="route-header">
+    <span class="route-tag">WANNAN · 休闲 · 道教名山</span>
+    <h3 class="route-name">齐云山·九里十三亭 <span class="alt">Qiyun · 13 Pavilions</span></h3>
+    <p class="route-quote">天下无双胜景，江南第一名山</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">585 m</span></div>
+    <div><span class="label">距离</span><span class="value">4.5 km</span></div>
+    <div><span class="label">用时</span><span class="value">3 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-2">★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线（霞客古道）</h4>
+    <div class="route-trail">登封桥 → <strong>九里十三亭石阶古道</strong> → 望仙亭 → 天门 → 月华街（道教古镇）→ 太素宫 → 真仙洞府 → 索道下山</div>
+
+    <h4>看点</h4>
+    <p>中国道教四大名山之一，与武当山、龙虎山、青城山并称。明代徐霞客两次登临，故石阶古道又称"霞客古道"。沿途有 13 座风格各异的亭子，号称"齐云山山上走一走，延年益寿九十九"。山顶月华街为半山道教村落，可同游摩崖石刻、丹霞地貌。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>黄山北站 → 公交至齐云山路口（每小时 1 班）</dd>
+      <dt>自驾</dt><dd>导航"齐云山游客中心"</dd>
+      <dt>门票</dt><dd>75 元；索道 35 元（单程）</dd>
+      <dt>最佳</dt><dd>春秋皆宜，<strong>春日油菜花</strong>从缆车上看南坑村八卦田最美</dd>
+      <dt>组合</dt><dd>建议与黄山或牯牛降组成 3 日行程；山下齐云小镇可住宿</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E9%BD%90%E4%BA%91%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E9%BD%90%E4%BA%91%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA%E4%BC%91%E5%AE%81" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E9%BD%90%E4%BA%91%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ============== 07 浙西 ============== -->
+<div class="city-header" id="zhexi">
+  <span class="city-en">ZHE · XI · ZHEJIANG</span>
+  <span class="city-cn">浙西<span class="small">湖州临安</span></span>
+  <p class="city-desc">浙西多高山深谷，黄山山脉余脉延伸于此。莫干山为江南"四大避暑胜地"，临安清凉峰为浙江第二高峰。从苏州、上海自驾 2—3 小时可达，是江南徒步圈最易触达的"真山林"区域。</p>
+  <div class="city-tally">
+    <span><strong>3</strong>条路线</span>
+    <span><strong>1483</strong>米最高</span>
+    <span><strong>★—★★★</strong> 难度跨度</span>
+  </div>
+</div>
+
+<section style="padding-top: 32px;">
+
+<!-- 路线 17 - 莫干山 -->
+<div class="route-card tier-easy">
+  <div class="route-header">
+    <span class="route-tag">ZHEXI · 入门 · 清凉避暑</span>
+    <h3 class="route-name">莫干山·剑池芦花荡 <span class="alt">Mogan · Classic Loop</span></h3>
+    <p class="route-quote">江南第一山，民国别墅博物馆，竹海避暑圣地</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">719 m</span></div>
+    <div><span class="label">距离</span><span class="value">6 km</span></div>
+    <div><span class="label">用时</span><span class="value">3 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-1">★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线（经典环线）</h4>
+    <div class="route-trail">毛主席下榻处 → <strong>剑池</strong> → 荫山街（大教堂）→ 旭光台 → 武陵村 → <strong>白云山馆</strong>（芦花荡公园）→ 大坑景区</div>
+
+    <h4>看点</h4>
+    <p>中国四大避暑胜地之一，得名于春秋莫邪、干将夫妇铸剑传说。山中负氧离子达 6000 个/立方厘米，盛夏最高 31°C，比山下低 6—8°C。山上分布数百座民国别墅、教堂、城堡（含 1984 莫干山会议旧址），整座山是露天的近代建筑博物馆。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>德清站 → K588 路或 Y6 路至莫干山镇</dd>
+      <dt>自驾</dt><dd>导航"莫干山风景区西门"，沪蓉高速莫干山出口</dd>
+      <dt>门票</dt><dd>80 元（淡季 60 元）</dd>
+      <dt>最佳</dt><dd><strong>夏季首选</strong>避暑；12 月红枫节</dd>
+      <dt>住宿</dt><dd>裸心堡、郡安里、各色民宿；庾村民国风情街值得逛</dd>
+      <dt>提示</dt><dd>难度低，适合亲子；芦花荡公园 1 小时即可走完</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E8%8E%AB%E5%B9%B2%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E8%8E%AB%E5%B9%B2%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA%E5%BE%B7%E6%B8%85" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E8%8E%AB%E5%B9%B2%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 18 - 大明山 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">ZHEXI · 进阶 · 浙西小黄山</span>
+    <h3 class="route-name">临安大明山 <span class="alt">Daming Mountain</span></h3>
+    <p class="route-quote">不是黄山胜似黄山，朱元璋屯兵起兵处</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">海拔</span><span class="value">1483 m</span></div>
+    <div><span class="label">距离</span><span class="value">7 km</span></div>
+    <div><span class="label">用时</span><span class="value">4 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">门楼接待区 → 景区车 → 龙门峡口 → <strong>龙门飞瀑</strong> → 千亩田观景台 → <strong>悬空栈道</strong>（或万米岩洞）→ 大明湖 → 原路返</div>
+
+    <h4>看点</h4>
+    <p>素称"浙西小黄山"，景区拥有 32 峰、13 涧、8 瀑布。明峰七峰如屏，龙门峡谷为登山起点，元末朱元璋曾在此屯兵起义，故得名"大明山"。盛夏最高 31°C，山顶神秘隧洞常年 17°C。山顶有华东最大露天滑雪场，10—11 月红叶节最美。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>高铁</dt><dd>临安站 → 临安西站 → 顺溪 / 白果方向班车至白果大明山路口</dd>
+      <dt>自驾</dt><dd>沪杭高速→杭州绕城→留下出口→02 省道→临安→昌化→龙岗</dd>
+      <dt>门票</dt><dd>140 元（含景区车）；索道单程 60 元</dd>
+      <dt>最佳</dt><dd><strong>10 月中—11 月中红叶节</strong>；夏季避暑次之</dd>
+      <dt>注意</dt><dd>悬空栈道仅适合不恐高者；千亩田暂不对游客开放</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%B4%E5%AE%89%E5%A4%A7%E6%98%8E%E5%B1%B1%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E5%A4%A7%E6%98%8E%E5%B1%B1%E6%99%AF%E5%8C%BA%E4%B8%B4%E5%AE%89" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%A4%A7%E6%98%8E%E5%B1%B1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 路线 19 - 吴越古道 -->
+<div class="route-card tier-hard">
+  <div class="route-header">
+    <span class="route-tag">ZHEXI · 进阶 · 千年古道</span>
+    <h3 class="route-name">吴越古道 <span class="alt">Wu—Yue Ancient Trail</span></h3>
+    <p class="route-quote">浙皖穿越，浙西天池畔的千年商道</p>
+  </div>
+  <div class="route-stats">
+    <div><span class="label">爬升</span><span class="value">~ 800 m</span></div>
+    <div><span class="label">距离</span><span class="value">16 km</span></div>
+    <div><span class="label">用时</span><span class="value">6 h</span></div>
+    <div><span class="label">难度</span><span class="value small diff diff-3">★★★</span></div>
+  </div>
+  <div class="route-body">
+    <h4>路线</h4>
+    <div class="route-trail">临安龙井桥（起）→ 古关隘 → 岩顶观日台 → 会师亭 → <strong>浙西天池</strong>（垭口）→ 万亩樱花园 → 安徽宁国万家乡（终）</div>
+
+    <h4>看点</h4>
+    <p>1100 年前五代十国吴越国（杭州临安）与南唐（宣城宁国）的主要通道。原全长 35 公里，现存 8 公里完好。沿途经过浙西天池——侏罗纪火山喷发形成的高山湖泊，海拔 1100 米的"千顷塘"。古关隘、知青点、古树铭佛、万亩樱花园次第展开，是江南罕见的高山徒步体验。</p>
+
+    <h4>抵达 · 季节 · 注意</h4>
+    <dl class="kv-list">
+      <dt>自驾</dt><dd>临安方向：导航"浙西天池龙井桥"；宁国方向：万家乡</dd>
+      <dt>建议</dt><dd>从临安一侧入山为传统正穿；终点万家乡需联系包车返回</dd>
+      <dt>门票</dt><dd>浙西天池目前暂停售票，可从大门旁徒步进入</dd>
+      <dt>最佳</dt><dd><strong>4 月樱花</strong>盛开时为全年最美；10—11 月秋高气爽</dd>
+      <dt>住宿</dt><dd>建议两日，宿古道中段或天池畔民宿</dd>
+      <dt>注意</dt><dd>清凉峰国家级自然保护区内，<strong>禁止野营生火</strong>；信号弱要带卫星定位</dd>
+    </dl>
+
+    <div class="route-actions">
+      <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=%E6%B5%99%E8%A5%BF%E5%A4%A9%E6%B1%A0%E5%90%B4%E8%B6%8A%E5%8F%A4%E9%81%93" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">Google</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map baidu" href="https://map.baidu.com/search/%E6%B5%99%E8%A5%BF%E5%A4%A9%E6%B1%A0%E5%90%B4%E8%B6%8A%E5%8F%A4%E9%81%93" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+        <span class="label-cn">百度</span><span class="label-en">MAP</span>
+      </a>
+      <a class="btn-map gpx full" href="https://www.2bulu.com/track/track_search.htm?keyword=%E5%90%B4%E8%B6%8A%E5%8F%A4%E9%81%93" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg>
+        <span class="label-cn">两步路 GPX 轨迹</span><span class="label-en">DOWNLOAD</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ============== 08 亲子专题 ============== -->
+<section id="topic-family">
+  <div class="section-num">08 · TOPIC · FAMILY</div>
+  <h2 class="section-title">亲子<span class="accent">徒步</span></h2>
+  <p class="section-lede">带娃登山的本质不是登顶，而是让孩子与自然产生链接。挑路线就要避开陡石阶、注意上厕所与补给。</p>
+
+  <div class="topic-card parent">
+    <span class="topic-tag">FAMILY · 5 选 · 6—12 岁</span>
+    <h3 class="topic-title">带娃可走的 5 条线</h3>
+    <p class="topic-quote">原则：单程不超 3 km、爬升不超 200 米、有遮荫、有补给、有故事。</p>
+
+    <div class="topic-pick">
+      <h5>推荐路线</h5>
+      <ul class="topic-list">
+        <li>
+          <span class="num">01</span>
+          <span>
+            <span class="name">天平山·古枫亲子线</span>
+            <span class="desc">山脚漫步即可看 400 年古枫，11 月最美。山上有十景塘、放生池等定点科普牌</span>
+          </span>
+          <span class="meta">★ · 2 km</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span>
+            <span class="name">穹窿山·盘山公路 + 孙武苑</span>
+            <span class="desc">可坐景区车上山，仅徒步山顶 1.5 km。讲孙子兵法故事；负氧离子很高</span>
+          </span>
+          <span class="meta">★ · 1.5 km</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span>
+            <span class="name">惠山一号线</span>
+            <span class="desc">石阶整齐、缆车保底（往返 65 元）。下山可吃古镇小吃、看寄畅园</span>
+          </span>
+          <span class="meta">★ · 3 km</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span>
+            <span class="name">虞山·兴福剑门</span>
+            <span class="desc">从兴福寺蕈油面起步，沿平缓石阶至剑门，全程鸟语花香</span>
+          </span>
+          <span class="meta">★ · 3.5 km</span>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <span>
+            <span class="name">莫干山·芦花荡 + 民国别墅</span>
+            <span class="desc">竹林环抱平缓游步道，建筑可讲历史故事，住宿选择丰富</span>
+          </span>
+          <span class="meta">★ · 2 km</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="topic-tips">
+      <strong>带娃 8 项实用提醒</strong>：① 出发前一晚让娃早睡，徒步当日须有早餐；② 给孩子专属小背包（500 ml 水 + 零食 + 一件外套，500 g 以内）；③ 防晒帽、儿童墨镜、长袖防蚊虫；④ 鞋子换软底徒步鞋而非凉鞋；⑤ 节奏由孩子定，每 30 分钟坐下休息；⑥ 准备"自然小任务"——找 3 种树叶、听 5 种鸟声、捡 1 颗特别的石头；⑦ <strong>10 岁以下不走 5 km 以上</strong>路线；⑧ 山中失联时让孩子原地待命，不擅自行动。
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== 09 夜爬专题 ============== -->
+<section id="topic-night">
+  <div class="section-num">09 · TOPIC · NIGHT</div>
+  <h2 class="section-title">夜爬<span class="accent">指南</span></h2>
+  <p class="section-lede">夏夜上山看城市灯火，看日出，是江南徒步独有的浪漫。但夜爬的危险系数是日间的 3—5 倍，须做足准备。</p>
+
+  <div class="topic-card night">
+    <span class="topic-tag">NIGHT · 6 选 · 看日出 / 看夜景</span>
+    <h3 class="topic-title">江南夜爬六选</h3>
+    <p class="topic-quote">山的另一面，是黑暗中只有手电光与同伴呼吸的世界。</p>
+
+    <div class="topic-pick">
+      <h5>推荐路线</h5>
+      <ul class="topic-list">
+        <li>
+          <span class="num">01</span>
+          <span>
+            <span class="name">惠山三茅峰·城市夜景</span>
+            <span class="desc">环山公路 24 小时开放，夜爬看无锡灯火与太湖剪影；本地驴友夏季夜爬传统</span>
+          </span>
+          <span class="meta">★★ · 看夜景</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span>
+            <span class="name">虞山·望湖亭看日出</span>
+            <span class="desc">维摩山庄望海楼或望湖亭看日出极佳；4 点出发，5 点抵达</span>
+          </span>
+          <span class="meta">★★ · 看日出</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span>
+            <span class="name">缥缈峰·云海日出</span>
+            <span class="desc">太湖第一峰，凌晨上岛山顶帐篷或民宿包夜，可看云海日出叠加</span>
+          </span>
+          <span class="meta">★★★ · 看日出</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span>
+            <span class="name">穹窿山·夏夜避暑爬</span>
+            <span class="desc">大密林吸热慢，凌晨上山闷度低、负氧离子高；不看日出也舒适</span>
+          </span>
+          <span class="meta">★★ · 避暑</span>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <span>
+            <span class="name">莫干山·星空露营</span>
+            <span class="desc">山顶视野开阔，可看星空与日出连看；多家专业露营基地配套</span>
+          </span>
+          <span class="meta">★ · 星空</span>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <span>
+            <span class="name">大明山·云海日出</span>
+            <span class="desc">海拔 1483 米，云海概率最高；山顶住宿为佳，避免黑夜长距离上山</span>
+          </span>
+          <span class="meta">★★★ · 看日出</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="topic-tips">
+      <strong>夜爬 10 项铁律</strong>：① <strong>绝不一人独行</strong>，至少 3 人组队；② 头灯必备（比手电更解放双手），充满电 + 备用电池；③ 鲜艳衣服 / 反光条；④ 出发前在导航 App 下载离线地图与他人 GPX 轨迹；⑤ 每人记下结伴者手机和应急联系人；⑥ 山中无 4G 信号区段提前查清；⑦ <strong>避开陡石阶野线</strong>夜爬，选环山公路或主道路；⑧ 蛇活跃于 6—9 月夜间，登山杖打草惊蛇；⑨ 雨夜雾夜<strong>立即放弃</strong>；⑩ 看完日出尽快下山，不在山顶久留。
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== 10 装备 ============== -->
+<section id="gear">
+  <div class="section-num">10 · GEAR</div>
+  <h2 class="section-title">装备<span class="accent">清单</span></h2>
+  <p class="section-lede">江南山势温和，装备从简。但徒步永远是看似简单实则有风险的运动，不可大意。</p>
+
+  <div class="gear-grid">
+    <div class="gear-card essential">
+      <h4>必带 <span class="badge">ESSENTIAL</span></h4>
+      <ul>
+        <li>登山鞋或越野跑鞋（抓地防滑，<strong>非普通运动鞋</strong>）</li>
+        <li>15—25L 登山包，背负贴合</li>
+        <li>水：男 2L / 女 1.5L 起（夏季加倍）</li>
+        <li>行动粮：压缩饼干、士力架、香蕉、能量胶</li>
+        <li>手机充满电 + 充电宝（山中信号弱者多）</li>
+        <li>身份证、医保卡、急救创可贴 / 弹性绷带</li>
+      </ul>
+    </div>
+
+    <div class="gear-card">
+      <h4>建议 <span class="badge">RECOMMENDED</span></h4>
+      <ul>
+        <li>登山杖一对（下坡省膝盖至关重要）</li>
+        <li>护膝（10 km 以上必备）</li>
+        <li>速干衣裤、备换 T 恤</li>
+        <li>防晒：渔夫帽、墨镜、SPF50 防晒霜</li>
+        <li>手套（攀岩石路段防擦伤）</li>
+        <li>头灯（冬季日落早或夜爬）</li>
+      </ul>
+    </div>
+
+    <div class="gear-card optional">
+      <h4>季节性 <span class="badge">SEASONAL</span></h4>
+      <ul>
+        <li><strong>春</strong>：薄外套、雨衣（雨水多）</li>
+        <li><strong>夏</strong>：盐丸、藿香正气水、花露水（蚊虫多）；<strong>避开 11 — 14 时</strong></li>
+        <li><strong>秋</strong>：抓绒、保温杯</li>
+        <li><strong>冬</strong>：防风帽、手套、保暖内衣；山顶气温比山下低 5—8°C</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="subhead">推荐 App 与轨迹工具</h3>
+  <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.7;">
+    <strong>两步路户外助手</strong>：苏锡常本地驴友几乎都用这个，搜索"灵白线"、"虞山雄鹰线"、"军嶂古道"可下载实测轨迹。<br>
+    <strong>Google Maps</strong>：本路书所有按钮直接跳转，可获得自驾导航与公交方案。<br>
+    <strong>奥维互动地图</strong>：可叠加等高线、卫星图，野线穿越必备。<br>
+    <strong>风云天气</strong>：山区天气与市区差异大，出发前查 24 h 降水概率。
+  </p>
+</section>
+
+
+<!-- ============== 07 注意事项 ============== -->
+<section id="caution">
+  <div class="section-num">11 · CAUTION</div>
+  <h2 class="section-title">安全<span class="accent">须知</span></h2>
+  <p class="section-lede">山永远在那里。逞强一次，可能就再没有下次。这一节请认真读完。</p>
+
+  <div class="warn-box">
+    <h4>十条铁律 · 业余徒步者必读</h4>
+    <ol>
+      <li><strong>不一人独行野线</strong>。灵白线、虞山雄鹰线、军嶂古道 B/C/D 线均建议 2 人以上结伴。</li>
+      <li><strong>下午 3 点不再上山</strong>。江南秋冬日落早（17:00 前），山中昏暗后路况骤增风险。</li>
+      <li><strong>下雨当日不上山</strong>。江南山岩苔藓密布，雨后湿滑跌落是事故第一原因。</li>
+      <li><strong>循序渐进</strong>。先走天平山、灵岩山级别（★），再尝试灵白、虞山雄鹰（★★★）。</li>
+      <li><strong>带轨迹</strong>。手机 App 提前下载离线地图与他人 GPX 轨迹。</li>
+      <li><strong>留地址</strong>。出发前告诉家人/朋友：去哪、几点回、最迟报平安时间。</li>
+      <li><strong>夏季防中暑</strong>。带盐丸、藿香正气水；上午 11 点—下午 2 点尽量在树荫下。</li>
+      <li><strong>识蛇虫</strong>。江南山区夏季蝮蛇、竹叶青出没；走草丛先打草惊蛇；被咬立即拨 120。</li>
+      <li><strong>遇险拨 110 / 119</strong>。报清山名、最近景区入口、轨迹中最近驿站编号。</li>
+      <li><strong>离开不留痕</strong>。垃圾全部带下山。山火季节（10 月—次年 4 月）严禁明火。</li>
+    </ol>
+  </div>
+
+  <h3 class="subhead">膝关节保护小贴士</h3>
+  <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.7;">下山是膝伤高发期，而非上山。下山时<strong>步幅减小、屈膝缓冲</strong>，使用登山杖分担 30% 体重，"之"字形横切而非直下。下山后冰敷膝盖 10 分钟可显著减少炎症。10 km 以上线路务必带护膝。</p>
+
+  <h3 class="subhead">本路书数据来源说明</h3>
+  <p style="font-size: 12px; color: var(--stone); line-height: 1.65;">本路书各路线数据综合自苏州市文广旅游局、苏州/无锡/常州/杭州本地宝、惠山森林公园官方公众号、徽杭古道游客中心、莫干山国家登山健身步道（NTS）、两步路户外社区等公开资料，并参照本地驴友实测轨迹。门票、班次、开放时段以景区当日公告为准；自然条件如台风、暴雨、林区防火封闭等可能临时改变线路通行性，<strong>出发前请二次核实</strong>。</p>
+
+  <p style="font-size: 12px; color: var(--stone); line-height: 1.65; margin-top: 12px;"><strong>关于地图链接</strong>：百度地图链接在境内打开效果最佳；Google 地图建议境外用户使用；两步路 GPX 轨迹链接为搜索结果页，可下载多条实测轨迹（建议挑选近两年内、点赞数较多的版本）。</p>
+</section>
+
+
+<!-- ============== 页脚 ============== -->
+<footer>
+  <div class="foot-title">— 山行有路 · 山外无书 —</div>
+  <div class="foot-meta">编于 二〇二六年四月 · v.2026.04</div>
+
+  <p>本路书面向业余徒步爱好者，内容为公开资料整理与实地验证综合产出，<strong>非商业用途可自由分享与打印</strong>。</p>
+
+  <p>每条路线均提供 <strong>三种地图链接</strong>：Google 地图（境外用户友好）、百度地图（国内主流，公交班次最准）、两步路 GPX（户外圈最权威的轨迹平台，可下载实测 GPX 离线导航）。点击按钮即可在对应 App 或网页中跳转打开。</p>
+
+  <div class="source">
+    <strong>主要参考来源</strong>：苏州本地宝（suzhou.bendibao.com）、无锡本地宝（wx.bendibao.com）、常州本地宝（cz.bendibao.com）、杭州本地宝（hz.bendibao.com）、名城苏州、两步路户外社区（2bulu.com）、知乎驴友实测攻略、苏州市林业局《35 条山地森林步道》公示、惠山国家森林公园官方公众号、徽杭古道游客中心、莫干山国家登山健身步道（NTS）、临安大明山滑雪场官网、携程攻略社区。
+  </div>
+
+  <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(244, 237, 224, 0.2); text-align: center;">
+    <div style="font-family: var(--display); font-style: italic; font-size: 13px; color: rgba(244, 237, 224, 0.6); margin-bottom: 8px; letter-spacing: 0.05em;">© Copyright</div>
+    <div style="font-family: var(--serif); font-weight: 700; font-size: 16px; color: var(--paper); letter-spacing: 0.1em; margin-bottom: 4px;">江南 AI 工作小组</div>
+    <div style="font-family: var(--mono); font-size: 11px; color: rgba(244, 237, 224, 0.55); letter-spacing: 0.2em;">JIANGNAN · AI · STUDIO &nbsp;|&nbsp; 2026.04</div>
+    <span class="seal-foot" style="margin-top: 18px;">江南<br>AI</span>
+  </div>
+</footer>
+
+</main>
+
+</body>
+</html>
