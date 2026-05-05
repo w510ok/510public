@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f4ead0">
+<title>重走霞客路·江南致敬版 — 5·19 中国旅游日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f4ead0;
+  --paper-warm: #ede0bf;
+  --paper-deep: #e3d5ad;
+  --ink: #2a2418;
+  --ink-soft: #4a4030;
+  --ink-mute: #7a6e58;
+  --vermilion: #b8443a;
+  --vermilion-deep: #8a2e25;
+  --stone: #b3a585;
+  --moss: #5c6b3f;
+  --moss-deep: #3a4628;
+  --indigo: #2c4a5e;
+  --gold: #a87f3d;
+  --line: rgba(42,36,24,0.18);
+  --line-strong: rgba(42,36,24,0.35);
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:15px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+html{scroll-behavior:smooth}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(184,68,58,0.04), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(168,127,61,0.05), transparent 60%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+main{position:relative;z-index:1}
+::selection{background:var(--vermilion);color:var(--paper)}
+
+/* 浮动导航 */
+.fnav{
+position:fixed;right:10px;bottom:14px;z-index:100;
+display:flex;flex-direction:column;
+background:var(–ink);border-radius:3px;
+box-shadow:0 4px 16px rgba(42,36,24,0.3);
+font-family:var(–mono);font-size:9px;
+letter-spacing:.1em;opacity:.88;overflow:hidden;
+}
+.fnav a{
+color:var(–paper);text-decoration:none;
+padding:6px 10px;text-align:center;
+border-bottom:1px solid rgba(244,234,208,0.15);
+font-weight:600;display:block;
+}
+.fnav a:last-child{border-bottom:0}
+.fnav a:active{background:var(–vermilion)}
+.fnav .top{
+background:var(–vermilion);color:var(–paper);
+font-family:var(–serif);font-size:14px;
+padding:8px 10px;font-weight:900;
+}
+
+/* ============== 封面 ============== */
+.cover{
+position:relative;
+min-height:100vh;
+padding:60px 22px 40px;
+display:flex;flex-direction:column;
+border-bottom:2px solid var(–vermilion);
+overflow:hidden;
+}
+.cover-stamp{
+position:absolute;top:24px;right:22px;
+font-family:var(–mono);font-size:10px;
+letter-spacing:.2em;color:var(–ink-mute);
+text-transform:uppercase;
+}
+.cover-stamp::before{
+content:’’;display:inline-block;width:24px;height:1px;
+background:var(–ink-mute);vertical-align:middle;margin-right:8px;
+}
+.date-tag{
+position:absolute;top:60px;left:22px;
+background:var(–vermilion);color:var(–paper);
+padding:6px 12px;
+font-family:var(–mono);font-size:11px;
+font-weight:700;letter-spacing:.18em;
+border-radius:1px;transform:rotate(-2deg);
+}
+.cover-title{margin-top:140px;margin-bottom:30px}
+.cover-title .label{
+font-family:var(–mono);font-size:11px;
+letter-spacing:.3em;color:var(–vermilion);
+text-transform:uppercase;margin-bottom:14px;
+}
+.cover-title h1{
+font-family:var(–serif);font-weight:900;
+font-size:54px;line-height:1.05;
+letter-spacing:.04em;color:var(–ink);
+margin:0;
+}
+.cover-title h1 em{
+font-style:normal;color:var(–vermilion);
+display:block;font-size:36px;margin-top:6px;
+}
+.cover-title .sub{
+font-family:var(–display);font-size:22px;font-style:italic;
+letter-spacing:.1em;color:var(–ink-soft);
+margin-top:18px;line-height:1.3;
+}
+.cover-quote{
+font-family:var(–serif);font-size:14px;font-style:italic;
+color:var(–ink-soft);margin-top:24px;line-height:1.7;
+border-left:2px solid var(–vermilion);padding-left:14px;
+}
+.cover-quote cite{
+display:block;font-size:11px;font-style:normal;
+color:var(–ink-mute);margin-top:6px;
+font-family:var(–mono);letter-spacing:.05em;
+}
+
+/* 印章 */
+.seal{
+display:inline-block;width:54px;height:54px;
+background:var(–vermilion);color:var(–paper);
+display:flex;align-items:center;justify-content:center;
+flex-direction:column;
+font-size:11px;font-weight:900;letter-spacing:.05em;
+margin:24px auto 0;transform:rotate(2deg);
+font-family:var(–serif);line-height:1.1;
+box-shadow:1px 2px 0 rgba(138,46,37,0.3);
+}
+
+/* 山水插画 */
+.cover-svg{
+width:100%;max-width:380px;margin:32px auto;
+display:block;
+}
+
+.cover-meta{
+display:grid;grid-template-columns:1fr 1fr;
+gap:18px 12px;margin-top:auto;
+padding-top:24px;border-top:1px dashed var(–line-strong);
+}
+.cover-meta div{font-size:12px}
+.cover-meta .lab{
+font-family:var(–mono);font-size:9px;
+letter-spacing:.18em;color:var(–ink-mute);
+text-transform:uppercase;display:block;margin-bottom:4px;
+}
+.cover-meta .val{color:var(–ink);font-weight:500;font-size:13.5px}
+.cover-meta .val em{font-style:normal;color:var(–vermilion);font-weight:700}
+.cover-foot{
+font-family:var(–mono);font-size:10px;
+letter-spacing:.2em;color:var(–ink-mute);
+text-align:center;margin-top:32px;
+text-transform:uppercase;
+}
+
+/* ============== 关键事实模块 ============== */
+.bluf{
+margin:24px 0;padding:18px 16px;
+background:linear-gradient(135deg, rgba(184,68,58,0.08), rgba(168,127,61,0.04));
+border:1px solid rgba(184,68,58,0.25);
+border-left:3px solid var(–vermilion);
+}
+.bluf .tag{
+display:inline-block;font-family:var(–mono);font-size:9px;
+letter-spacing:.25em;color:var(–vermilion);
+text-transform:uppercase;margin-bottom:8px;font-weight:700;
+}
+.bluf h3{
+font-family:var(–serif);font-weight:700;
+font-size:17px;margin:0 0 8px;color:var(–ink);
+}
+.bluf p{
+font-size:13px;color:var(–ink-soft);line-height:1.7;margin:6px 0;
+}
+.bluf strong{color:var(–vermilion-deep);font-weight:700}
+
+/* ============== 目录 ============== */
+.toc{
+margin-top:32px;padding:18px 16px;
+background:var(–paper-warm);border:1px solid var(–line);
+}
+.toc-title{
+font-family:var(–mono);font-size:10px;letter-spacing:.25em;
+color:var(–vermilion);text-transform:uppercase;margin-bottom:12px;
+}
+.toc ol{list-style:none;font-size:13px}
+.toc li{
+padding:8px 0;border-bottom:1px dashed var(–line);
+display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+}
+.toc li:last-child{border-bottom:0}
+.toc a{color:var(–ink);text-decoration:none;font-weight:500;flex:1}
+.toc a:active{color:var(–vermilion)}
+.toc .num{font-family:var(–mono);font-size:10px;color:var(–ink-mute);letter-spacing:.1em}
+
+/* ============== 章节 ============== */
+section{
+padding:52px 22px;
+border-bottom:1px solid var(–line);position:relative;
+}
+.s-num{font-family:var(–mono);font-size:10px;letter-spacing:.25em;color:var(–ink-mute);margin-bottom:8px}
+.s-title{
+font-family:var(–serif);font-weight:900;
+font-size:30px;line-height:1.1;letter-spacing:.02em;margin:0 0 8px;
+}
+.s-title em{font-style:normal;color:var(–vermilion)}
+.s-lede{
+font-family:var(–serif);font-style:italic;
+font-size:15px;color:var(–ink-soft);
+margin:14px 0 28px;line-height:1.5;
+border-left:2px solid var(–gold);padding-left:14px;
+}
+.subhead{
+font-family:var(–serif);font-size:16px;font-weight:700;
+margin:24px 0 12px;display:flex;align-items:center;gap:10px;color:var(–ink);
+}
+.subhead::before{content:’’;width:18px;height:2px;background:var(–vermilion)}
+
+/* 速查表 */
+.qt{width:100%;border-collapse:collapse;font-size:12.5px;margin:14px 0}
+.qt th{
+text-align:left;font-family:var(–mono);font-size:9px;
+letter-spacing:.15em;color:var(–ink-mute);
+text-transform:uppercase;padding:8px 4px;
+border-bottom:1px solid var(–line-strong);font-weight:500;
+}
+.qt td{padding:9px 4px;border-bottom:1px solid var(–line);vertical-align:top}
+.qt td a{color:var(–ink);text-decoration:none;font-weight:600;border-bottom:1px dashed var(–stone);}
+.qt td a:active{color:var(–vermilion)}
+.qt .km{font-family:var(–mono);color:var(–ink-soft);font-size:11px}
+.qt .ref{color:var(–vermilion);font-family:var(–mono);font-weight:700;font-size:10px}
+
+/* ============== 路线卡 ============== */
+.route{
+background:var(–paper-warm);
+border:1px solid var(–line);
+margin-bottom:22px;position:relative;overflow:hidden;
+}
+.route::before{
+content:’’;position:absolute;top:0;left:0;right:0;height:3px;
+background:var(–vermilion);
+}
+.route.warn::before{background:linear-gradient(90deg, var(–gold), var(–vermilion))}
+
+.r-head{padding:18px 16px 14px;border-bottom:1px solid var(–line)}
+.r-tag{
+display:flex;justify-content:space-between;align-items:center;
+margin-bottom:8px;font-family:var(–mono);font-size:9px;
+letter-spacing:.2em;text-transform:uppercase;
+}
+.r-tag .left{color:var(–ink-mute)}
+.r-tag .badge{
+color:var(–paper);background:var(–vermilion);
+padding:2px 8px;border-radius:1px;font-weight:700;
+}
+.r-tag .badge.warn{background:var(–gold);color:var(–ink)}
+
+.r-name{
+font-family:var(–serif);font-weight:900;
+font-size:22px;color:var(–ink);line-height:1.2;
+margin:0 0 4px;letter-spacing:.02em;
+}
+.r-alias{font-family:var(–mono);font-size:10px;color:var(–vermilion);letter-spacing:.15em}
+.r-quote{
+font-family:var(–serif);font-style:italic;
+font-size:13px;color:var(–ink-soft);
+margin-top:8px;line-height:1.55;
+}
+
+.r-body{padding:16px}
+.r-body h4{
+font-family:var(–mono);font-size:9.5px;
+letter-spacing:.2em;color:var(–vermilion);
+text-transform:uppercase;margin:14px 0 6px;font-weight:700;
+}
+.r-body h4:first-child{margin-top:0}
+.r-body p{font-size:13.5px;line-height:1.7;color:var(–ink-soft);margin:0 0 8px}
+.r-body p strong{color:var(–ink)}
+
+/* 古文引用块 */
+.classic{
+font-family:var(–serif);font-size:14px;
+background:var(–paper-deep);
+padding:12px 14px;border-left:3px solid var(–vermilion);
+margin:8px 0 12px;line-height:1.75;color:var(–ink);
+position:relative;
+}
+.classic::before{
+content:’「’;position:absolute;top:-4px;left:6px;
+font-size:24px;color:var(–vermilion);opacity:.4;font-family:var(–serif);
+}
+.classic-trans{
+font-size:11.5px;color:var(–ink-mute);font-style:italic;
+margin-top:6px;padding-top:6px;
+border-top:1px dashed var(–line);
+}
+
+.kv{
+display:grid;grid-template-columns:74px 1fr;
+gap:6px 10px;font-size:12.5px;margin:6px 0;
+}
+.kv dt{
+font-family:var(–mono);font-size:9.5px;
+letter-spacing:.1em;color:var(–ink-mute);
+text-transform:uppercase;padding-top:2px;
+}
+.kv dd{margin:0;color:var(–ink-soft);line-height:1.6}
+.kv dd strong{color:var(–ink)}
+
+/* 古今对照表 */
+.compare{
+width:100%;font-size:12px;border-collapse:collapse;
+margin:8px 0;background:var(–paper);
+}
+.compare th{
+background:var(–paper-deep);font-family:var(–mono);
+font-size:9px;letter-spacing:.1em;color:var(–ink-mute);
+padding:6px 8px;text-align:left;border-bottom:1px solid var(–line);
+text-transform:uppercase;font-weight:600;
+}
+.compare td{padding:6px 8px;border-bottom:1px solid var(–line);vertical-align:top}
+.compare td:first-child{font-family:var(–serif);color:var(–vermilion);font-weight:600}
+.compare td:nth-child(2){color:var(–ink)}
+
+/* 警示框 */
+.warn-box{
+margin:14px 0;padding:12px 14px;
+background:rgba(184,68,58,0.06);
+border:1px solid rgba(184,68,58,0.25);
+border-left:3px solid var(–vermilion);
+}
+.warn-box h5{
+font-family:var(–mono);font-size:10px;letter-spacing:.2em;
+color:var(–vermilion-deep);text-transform:uppercase;
+margin:0 0 6px;font-weight:700;
+}
+.warn-box p{font-size:12px;color:var(–ink-soft);line-height:1.6;margin:0}
+
+/* 按钮组 */
+.r-actions{
+display:grid;grid-template-columns:1fr 1fr;gap:6px;
+margin-top:16px;padding-top:14px;
+border-top:1px dashed var(–line-strong);
+}
+.r-actions .full{grid-column:1/-1}
+.btn{
+display:flex;align-items:center;justify-content:center;
+gap:6px;padding:10px 8px;text-decoration:none;
+font-family:var(–serif);font-size:12px;font-weight:600;
+letter-spacing:.03em;border-radius:1px;
+transition:all .15s;cursor:pointer;border:1px solid;
+-webkit-appearance:none;
+}
+.btn:active{transform:scale(.98)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.btn .en{font-family:var(–mono);font-size:9px;opacity:.65;margin-left:2px;letter-spacing:.05em}
+.btn.gmap{background:var(–ink);color:var(–paper);border-color:var(–ink)}
+.btn.bmap{background:var(–vermilion);color:var(–paper);border-color:var(–vermilion)}
+.btn.gpx{background:var(–moss);color:var(–paper);border-color:var(–moss)}
+.btn.cp{background:transparent;color:var(–moss-deep);border:1px dashed var(–moss-deep)}
+.btn.cp.copied{background:var(–moss);color:var(–paper);border-style:solid;border-color:var(–moss)}
+.btn.cp.copied .cn::before{content:’✓ 已复制 · ’}
+
+/* ============== Footer ============== */
+footer{
+padding:40px 22px 56px;
+background:var(–ink);color:var(–paper);
+border-top:3px solid var(–vermilion);
+}
+footer .ft{font-family:var(–serif);font-weight:900;font-size:18px;color:var(–paper);margin-bottom:8px;letter-spacing:.05em}
+footer .fm{font-family:var(–mono);font-size:10px;letter-spacing:.18em;color:var(–stone);text-transform:uppercase;margin-bottom:24px}
+footer p{font-size:12px;line-height:1.7;color:rgba(244,234,208,0.85);margin:0 0 10px}
+footer .src{
+margin-top:20px;padding-top:16px;
+border-top:1px solid rgba(244,234,208,0.15);
+font-size:11px;color:var(–stone);line-height:1.7;
+}
+footer .copy{margin-top:28px;padding-top:20px;border-top:1px solid rgba(244,234,208,0.15);text-align:center}
+footer .copy .label{font-family:var(–mono);font-size:11px;letter-spacing:.2em;color:var(–stone);margin-bottom:6px}
+footer .copy .name{font-family:var(–serif);font-weight:900;font-size:16px;color:var(–paper);letter-spacing:.1em}
+footer .copy .ver{font-family:var(–mono);font-size:10px;color:var(–stone);letter-spacing:.2em;margin-top:4px}
+
+@media (min-width:600px){
+body{font-size:16px}
+.cover{padding:72px 36px 48px}
+section{padding:64px 36px}
+.cover-title h1{font-size:64px}
+.cover-title h1 em{font-size:42px}
+footer{padding:48px 36px 64px}
+}
+</style>
+
+</head>
+<body>
+
+<main>
+
+<!-- 浮动导航 -->
+
+<nav class="fnav" aria-label="快捷跳转">
+  <a href="#" class="top">↑</a>
+  <a href="#bluf">提要</a>
+  <a href="#tools">速查</a>
+  <a href="#routes">路线</a>
+  <a href="#warn">警示</a>
+  <a href="#plan">行动</a>
+</nav>
+
+<!-- ============== 封面 ============== -->
+
+<section class="cover">
+  <div class="date-tag">5·19 中国旅游日</div>
+  <div class="cover-stamp">FIELD GUIDE · TRIBUTE EDITION</div>
+
+  <div class="cover-title">
+    <div class="label">江南山行 · 第三卷 上</div>
+    <h1>重走<em>霞客路</em></h1>
+    <div class="sub">癸丑之三月晦，自宁海出西门<br>—— 1613.5.19</div>
+    <div class="cover-quote">
+      "云散日朗，人意山光，俱有喜态。"
+      <cite>— 徐霞客《游天台山日记》开篇</cite>
+    </div>
+  </div>
+
+  <!-- 山水印 -->
+
+  <svg class="cover-svg" viewBox="0 0 380 140" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dots" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="0.4" fill="#7a6e58"/>
+      </pattern>
+    </defs>
+    <!-- 远山三层 -->
+    <path d="M0,80 L40,55 L70,72 L100,45 L140,65 L180,40 L210,58 L250,38 L290,60 L320,48 L360,65 L380,55 L380,140 L0,140 Z"
+          fill="#b3a585" opacity="0.4"/>
+    <path d="M0,95 L30,72 L60,85 L95,62 L130,80 L165,55 L200,75 L240,52 L275,72 L310,58 L345,80 L380,68 L380,140 L0,140 Z"
+          fill="#7a6e58" opacity="0.55"/>
+    <path d="M0,115 L25,92 L50,108 L80,82 L115,100 L150,72 L185,90 L220,68 L255,88 L290,72 L325,90 L360,80 L380,84 L380,140 L0,140 Z"
+          fill="#4a4030" opacity="0.75"/>
+    <!-- 红色印章 -->
+    <rect x="320" y="14" width="40" height="40" fill="#b8443a"/>
+    <text x="340" y="29" fill="#f4ead0" font-family="Noto Serif SC" font-size="9" font-weight="900" text-anchor="middle">霞</text>
+    <text x="340" y="40" fill="#f4ead0" font-family="Noto Serif SC" font-size="9" font-weight="900" text-anchor="middle">客</text>
+    <text x="340" y="51" fill="#f4ead0" font-family="Noto Serif SC" font-size="9" font-weight="900" text-anchor="middle">路</text>
+    <!-- 小舟 -->
+    <path d="M150,118 Q160,116 170,118 L168,121 L152,121 Z" fill="#2a2418"/>
+    <line x1="160" y1="118" x2="160" y2="108" stroke="#2a2418" stroke-width="1"/>
+  </svg>
+
+  <!-- BLUF -->
+
+  <div class="bluf" id="bluf">
+    <span class="tag">BLUF · 关键决断</span>
+    <h3>5·19 当日首选：宁海西门—天台华顶—石梁飞瀑</h3>
+    <p>2025 年 <strong>5·19 中国旅游日全国主会场回归宁海</strong>，与霞客古道形成"天时地利"。<strong>霞客古道于 2023 年 12 月 27 日获浙江省一级古道认定</strong>，总长 63 873 m（宁海段 3 724 m + 天台段 41 216 m + 新昌段 18 933 m），是江南唯一拥有省级法定身份的"重走霞客路"古道。</p>
+  </div>
+
+  <div class="cover-meta">
+    <div><span class="lab">Region</span><span class="val">江南 · 皖浙闽赣</span></div>
+    <div><span class="lab">Routes</span><span class="val"><em>6</em> 条可重走 + <em>2</em> 学术警示</span></div>
+    <div><span class="lab">Source</span><span class="val">中华书局朱惠荣本 2015</span></div>
+    <div><span class="lab">Date</span><span class="val">5·19 · 2026</span></div>
+  </div>
+
+  <!-- 目录 -->
+
+  <div class="toc">
+    <div class="toc-title">目 录 · CONTENTS</div>
+    <ol>
+      <li><a href="#bluf"><span class="num">·</span> 关键决断</a></li>
+      <li><a href="#background"><span class="num">01</span> 5·19 由来与版本谱系</a></li>
+      <li><a href="#tools"><span class="num">02</span> 八条目的地速查</a></li>
+      <li><a href="#routes"><span class="num">03</span> 六条可重走路线</a></li>
+      <li><a href="#warn"><span class="num">04</span> 两处学术警示</a></li>
+      <li><a href="#plan"><span class="num">05</span> 5·19 当日双线方案</a></li>
+    </ol>
+  </div>
+
+  <div class="cover-foot">江南 AI 工作小组 · 2026.04 · v.III·壹</div>
+</section>
+
+<!-- ============== 01 由来与版本 ============== -->
+
+<section id="background">
+  <div class="s-num">01 · ORIGIN</div>
+  <h2 class="s-title">5·19 <em>由来</em>与版本谱系</h2>
+  <p class="s-lede">癸丑之三月晦，徐霞客自宁海出西门，写下《徐霞客游记》开篇日。四百年后，这一天成为"中国旅游日"。</p>
+
+  <h3 class="subhead">官方文件链条</h3>
+  <p>2001 年 5 月 19 日，宁海徐霞客旅游俱乐部首倡 → 2007–2008 年浙、皖、闽、赣、湘、桂、滇 7 省 12 市发表《"徐霞客旅游带"旅游合作宣言》→ 2009 年 12 月 1 日国务院《关于加快发展旅游业的意见》→ 2011 年 3 月 30 日国务院常务会议正式通过 → <strong>国函〔2011〕42 号</strong>批复，自 2011 年起，每年 5 月 19 日为"中国旅游日"。</p>
+  <p><strong>2025 年 5·19 全国主会场</strong>由文化和旅游部、浙江省人民政府在宁波市宁海县联合举办——这是宁海县继 2011 年首届主会场后第二次承办。主题"<strong>锦绣山河，美好旅程</strong>"。</p>
+
+  <h3 class="subhead">开篇文本</h3>
+  <div class="classic">
+    癸丑之三月晦，自宁海出西门。云散日朗，人意山光，俱有喜态。三十里，至梁隍山。
+    <div class="classic-trans">癸丑年三月最后一天（公历 1613 年 5 月 19 日），从宁海县城西门启程。云散日出，行人和山光，都有欢喜的样子。走了三十里，到达梁皇山。</div>
+  </div>
+
+  <h3 class="subhead">版本权威</h3>
+  <p><strong>朱惠荣校注《徐霞客游记校注》</strong>（云南人民出版社 1985 初版，中华书局 2015 全四册再版本，ISBN 978-7-101-10764-7，2884 页）+ <strong>褚绍唐、吴应寿整理本</strong>（上海古籍出版社 1980）+ <strong>褚绍唐《徐霞客旅行路线考察图集》</strong>（中国地图出版社 1991）——这是中科院地理所认定的最完善版本组合。本卷一律以此互校。</p>
+</section>
+
+<!-- ============== 02 八条目的地速查 ============== -->
+
+<section id="tools">
+  <div class="s-num">02 · QUICK INDEX</div>
+  <h2 class="s-title">八条<em>目的地</em>速查</h2>
+  <p class="s-lede">用户清单 8 处目的地的完整状态盘点。其中 6 条可完整重走，2 条为学术警示（游记散佚）。</p>
+
+  <table class="qt">
+    <thead>
+      <tr><th>目的地</th><th>篇目</th><th>年份</th><th>状态</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="#r-tiantai">天台山</a></td><td class="km">游天台山日记</td><td class="km">1613</td><td class="ref">★开篇</td></tr>
+      <tr><td><a href="#r-yandang">雁荡山</a></td><td class="km">游雁宕山日记</td><td class="km">1613</td><td class="ref">可重走</td></tr>
+      <tr><td><a href="#r-huangshan">黄山</a></td><td class="km">游黄山日记前后</td><td class="km">1616/18</td><td class="ref">可重走</td></tr>
+      <tr><td><a href="#r-qiyun">齐云山</a></td><td class="km">游白岳山日记</td><td class="km">1616</td><td class="ref">可重走</td></tr>
+      <tr><td><a href="#r-wuyi">武夷山</a></td><td class="km">游武彝山日记</td><td class="km">1616</td><td class="ref">可重走</td></tr>
+      <tr><td><a href="#r-lushan">庐山</a></td><td class="km">游庐山日记</td><td class="km">1618</td><td class="ref">可重走</td></tr>
+      <tr><td><a href="#warn-jiuhua">九华山</a></td><td class="km">⚠ 散佚</td><td class="km">1618</td><td class="ref" style="color:var(--gold)">学术警示</td></tr>
+      <tr><td><a href="#warn-taihu">太湖洞庭山</a></td><td class="km">⚠ 散佚</td><td class="km">1607/32</td><td class="ref" style="color:var(--gold)">学术警示</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:11.5px;color:var(--ink-mute);font-style:italic;margin-top:14px;line-height:1.6">
+  状态判定基于《徐霞客游记》朱惠荣本 + 褚绍唐本 + 陈函辉《徐霞客墓志铭》交叉核对。
+  </p>
+</section>
+
+<!-- ============== 03 六条路线 ============== -->
+
+<section id="routes">
+  <div class="s-num">03 · 6 ROUTES</div>
+  <h2 class="s-title">六条<em>可重走</em>路线</h2>
+  <p class="s-lede">每条路线均给出原文、古今地名对照、可重走段落、抵达方式与门票现状（2024–2025）。</p>
+
+<!-- 路线 1: 天台山 -->
+
+<div class="route" id="r-tiantai">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">浙东 · 宁海/天台</span><span class="badge">★ 5·19 首选</span></div>
+    <h3 class="r-name">天台山</h3>
+    <div class="r-alias">TIAN-TAI · 1138 m · 霞客古道开篇地</div>
+    <p class="r-quote">癸丑之三月晦，自宁海出西门。云散日朗，人意山光，俱有喜态。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处</h4>
+<p><strong>《游天台山日记》</strong>（1613 年 5 月 19—28 日，万历四十一年三月晦至四月初九，共 9 天）+《游天台山日记后》（1632 年）。中华书局朱惠荣本第一册首篇。</p>
+
+<div class="classic">
+  停足仙筏桥，观石梁卧虹、飞瀑喷雪，几不欲卧。
+  <div class="classic-trans">停在仙筏桥上，看着石梁如卧虹横跨、飞瀑如雪喷涌，几乎不想离开去睡觉。</div>
+</div>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>宁海西门</td><td>宁海县城西门城楼遗址</td></tr>
+    <tr><td>梁隍山</td><td>梁皇山（前童镇）</td></tr>
+    <tr><td>松门岭</td><td>松门岭古道入口</td></tr>
+    <tr><td>筋竹岭</td><td>金竹岭（宁海/天台界）</td></tr>
+    <tr><td>石梁飞瀑</td><td>石梁景区（"徐霞客观瀑处"立标）</td></tr>
+    <tr><td>华顶庵</td><td>华顶国家森林公园</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>霞客古道天台段 41.2 km，"花麦地—国清寺—智者塔院—天封寺遗址—华顶寺"为天台县官方"重走霞客路"千人徒步赛事路线，约 18 km，累计爬升约 800 m。<strong>难度 ★★★（中等）</strong>。最佳季节 5 月华顶云锦杜鹃花期，与原游历完全吻合。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>苏锡常 → 台州站 / 天台山站（杭台高铁，约 3.5 h）</dd>
+  <dt>门票</dt><dd>国清寺<strong>免费</strong>（实名预约）；石梁飞瀑 60 元；华顶森林公园 50 元；琼台仙谷 65 元；赤城山 15 元</dd>
+  <dt>5·19</dt><dd>历年免票/半价</dd>
+</dl>
+
+<h4>古人之言（领队朗读）</h4>
+<div class="classic">
+  泉声山色，往复创变，翠丛中山鹃映发，令人攀历忘苦。
+  <div class="classic-trans">泉水声和山色不断变化，杜鹃花在翠丛中绽放，让人攀爬辛苦也忘了。</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E5%AE%81%E6%B5%B7%E5%BE%90%E9%9C%9E%E5%AE%A2%E5%A4%A7%E9%81%93" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E5%AE%81%E6%B5%B7%E5%BE%90%E9%9C%9E%E5%AE%A2%E5%A4%A7%E9%81%93&region=%E5%AE%81%E6%B3%A2&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%9C%9E%E5%AE%A2%E5%8F%A4%E9%81%93%E5%A4%A9%E5%8F%B0.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'霞客古道天台华顶石梁')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- 路线 2: 雁荡山 -->
+
+<div class="route" id="r-yandang">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">浙东 · 乐清</span><span class="badge">三游否旧说</span></div>
+    <h3 class="r-name">雁荡山</h3>
+    <div class="r-alias">YAN-DANG · 1108 m · 三游订正《大明一统志》</div>
+    <p class="r-quote">芙蓉插天，片片扑人眉宇。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处</h4>
+<p><strong>《游雁宕山日记》</strong>（1613 年 5 月 30 日—6 月 3 日）+《游雁宕山日记后》（1632 年 6 月 17—27 日）。徐霞客两次实地登雁湖岗，<strong>否定"宕在山顶，龙湫之水即自宕来"的旧说</strong>，证明大龙湫之水非源出雁湖。</p>
+
+<div class="classic">
+  龙湫之瀑，轰然下捣潭中。岩势开张峭削，水无所着，腾空飘荡，颇令心目眩怖。
+  <div class="classic-trans">大龙湫的瀑布轰然下泻潭中。岩石开阔陡峭，水无所凭依，腾空飘荡，使人心目眩晕。</div>
+</div>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>盘山岭</td><td>乐清盘山公路</td></tr>
+    <tr><td>大荆驿</td><td>大荆镇</td></tr>
+    <tr><td>灵峰寺、灵峰洞</td><td>灵峰景区（洞清代后改名观音洞）</td></tr>
+    <tr><td>大龙湫</td><td>大龙湫景区（瀑布原文石刻引文之祖）</td></tr>
+    <tr><td>雁湖岗</td><td>雁湖景区（深度徒步段）</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>景区开发完善。"灵峰—灵岩—大龙湫"是徒步路线，每个景区 2–3 km、平路为主。<strong>难度 ★★（轻松）</strong>。雁湖段约 12 km，累计爬升 600 m。最佳季节 5 月（霞客原游季节）、10–11 月（雨水充沛大龙湫水势最佳）。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>雁荡山站（D/G 字头）→ 景区免费旅游公交</dd>
+  <dt>联票</dt><dd>A 线（4 景区）170 元；B 线（6 景区）200 元；3–5 日有效</dd>
+  <dt>5·19</dt><dd>向全国游客免费开放</dd>
+</dl>
+
+<h4>古人之言</h4>
+<div class="classic">
+  锐峰叠嶂，左右环向，奇巧百出，真天下奇观！
+  <div class="classic-trans">峰锐重重叠嶂，左右环抱相向，奇巧百出，真是天下奇观！</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%9B%81%E8%8D%A1%E5%B1%B1%E5%A4%A7%E9%BE%99%E6%B9%AB" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%9B%81%E8%8D%A1%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E6%B8%A9%E5%B7%9E&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%9B%81%E8%8D%A1%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'雁荡山大龙湫灵峰灵岩')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- 路线 3: 黄山 -->
+
+<div class="route" id="r-huangshan">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">皖南 · 黄山</span><span class="badge">两游差异</span></div>
+    <h3 class="r-name">黄山</h3>
+    <div class="r-alias">HUANG-SHAN · 1864 m · 1616 雪封 / 1618 登顶</div>
+    <p class="r-quote">薄海内外，无如徽之黄山，登黄山天下无山，观止矣。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处与两游差异</h4>
+<p><strong>《游黄山日记》</strong>（1616 年丙辰二月初三—十一）：冬日积雪登顶；<strong>《游黄山日记后》</strong>（1618 年戊午九月初四—初六）：独登天都峰、莲花峰，并由目测确认"独莲花与抗耳"——莲花峰最高（现代实测：莲花峰 1864 m，光明顶 1860 m，天都峰 1810 m）。</p>
+
+<div class="classic">
+  其巅廓然，四望空碧，即天都亦俯首矣。盖是峰居黄山之中，独出诸峰上。
+  <div class="classic-trans">峰顶宽阔豁然，四望天空碧蓝，连天都峰都低头臣服。这峰位居黄山之中，独自高出诸峰之上。</div>
+</div>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>汤口</td><td>汤口镇（南大门）</td></tr>
+    <tr><td>祥符寺</td><td>1740 年毁于山洪 → 黄山宾馆</td></tr>
+    <tr><td>慈光寺/朱砂庵</td><td>慈光阁（玉屏索道下站）</td></tr>
+    <tr><td>文殊院</td><td>1952 年毁 → 玉屏楼宾馆</td></tr>
+    <tr><td>狮子林</td><td>狮林大酒店</td></tr>
+    <tr><td>丞相原</td><td>云谷寺</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>南线（汤口—温泉—玉屏—天海）为今经典前山步道。<strong>难度 ★★★★</strong>。<strong>当前状态</strong>：天都峰 2024 年 5 月恢复开放，<strong>莲花峰仍轮休中</strong>（自 2023 年 12 月，5 年期）。重走 1618 年完整原路须等莲花峰下次开放（预计 2026 末–2028）。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>黄山北站（约 3.5 h）</dd>
+  <dt>门票</dt><dd>平旺季 190 元（半票 95），冬游 150 元；玉屏索道 90、云谷/太平索道 80、西海大峡谷观光缆车 100 元</dd>
+  <dt>有效</dt><dd>一票三日内多次入园</dd>
+</dl>
+
+<h4>古人之言</h4>
+<div class="classic">
+  山顶诸静室，径为雪封者两月。今早遣人送粮，山半雪没腰而返。
+  <div class="classic-trans">山顶各静室，路被雪封了两个月。今早派人送粮食，到山腰雪深及腰只能折返。</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%BB%84%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%BB%84%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E9%BB%84%E5%B1%B1&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%BB%84%E5%B1%B1%E5%89%8D%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'黄山霞客路前山玉屏天都')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- 路线 4: 齐云山 -->
+
+<div class="route" id="r-qiyun">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">皖南 · 休宁</span><span class="badge">冒雪七日</span></div>
+    <h3 class="r-name">齐云山（白岳）</h3>
+    <div class="r-alias">QI-YUN · 585 m · 道教四大名山</div>
+    <p class="r-quote">起视满山冰花玉树，迷漫一色。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处</h4>
+<p><strong>《游白岳山日记》</strong>（1616 年丙辰正月二十六日—二月初一，与浔阳叔翁同行 6 天）。是徐霞客<strong>唯一一次冬季游</strong>，留下"满山冰花玉树"奇景记录。</p>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>休宁西门</td><td>黄山市休宁县西门（出城溯横江）</td></tr>
+    <tr><td>登封桥</td><td>始建明万历十五年（1587），桥仍存</td></tr>
+    <tr><td>九里十三亭古道</td><td>"霞客古道"齐云山段</td></tr>
+    <tr><td>太素宫、文昌阁</td><td>道教宫观，今开放</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>登封桥—古道—天门 164 阶 → 月华街道院群（太素宫、香炉峰、文昌阁）→ 西天门—石桥岩。<strong>难度 ★★（轻松–中等）</strong>。5 月已无积雪，可读"行巉石乱流间，返照映深木，一往幽丽"等夏秋可对应段。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>黄山北站（与黄山同站）→ 包车 30 km</dd>
+  <dt>门票</dt><dd>齐云山 60–68 元；月华索道往返 60 元</dd>
+  <dt>福利</dt><dd>2025 年 3—12 月安徽各市公民凭身份证可在指定月份免费</dd>
+</dl>
+
+<h4>古人之言</h4>
+<div class="classic">
+  行巉石乱流间，返照映深木，一往幽丽。
+  <div class="classic-trans">行走在险石与乱流之间，夕阳余照映在深林上，一路幽美壮丽。</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%BD%90%E4%BA%91%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%BD%90%E4%BA%91%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E9%BB%84%E5%B1%B1&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%BD%90%E4%BA%91%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'齐云山霞客古道九里十三亭')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- 路线 5: 武夷山 -->
+
+<div class="route" id="r-wuyi">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">闽北 · 武夷山市</span><span class="badge">逆流九曲</span></div>
+    <h3 class="r-name">武夷山</h3>
+    <div class="r-alias">WU-YI · 三日游 · 商周船棺</div>
+    <p class="r-quote">是峰处九曲之中，不临溪而能尽九溪之胜，此峰固应第一也。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处</h4>
+<p><strong>《游武彝山日记》</strong>（1616 年丙辰二月二十一日—二十三日，3 天）。徐霞客<strong>记录"架壑舟"</strong>（武夷崖墓船棺），现代考古碳十四测定其为商末至西周中晚期（距今 3 445±150 年）。</p>
+
+<div class="classic">
+  大藏壁立千仞，崖端穴数孔，乱插木板如机杼。一小舟斜架穴口木末，号曰"架壑舟"。
+  <div class="classic-trans">大藏峰壁立千仞，崖顶有几个洞穴，杂乱地插着木板像织布机的梭。一只小船斜架在洞口的木头末梢上，称为"架壑舟"。</div>
+</div>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>崇安南门</td><td>武夷山市（1989 年崇安改武夷山市）</td></tr>
+    <tr><td>九曲（一—九曲）</td><td>九曲溪，朱熹《九曲棹歌》以来 800 余年稳定</td></tr>
+    <tr><td>架壑舟</td><td>武夷崖墓船棺（世界双遗产关键文化要素）</td></tr>
+    <tr><td>天游峰</td><td>清代摩崖石刻"第一山"</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>九曲溪竹筏漂流（顺流，徐霞客是逆流"舟子跣行溪间以挽舟"）+ 天游峰陆路登顶 1.5 h。<strong>难度 ★★（轻松）</strong>。<strong>距苏锡常 800+ km，建议 3 天 2 晚专门成行</strong>。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>武夷山东站（约 5 h）</dd>
+  <dt>门票</dt><dd>1 日 140 / 2 日 150 / 3 日 160 元；竹筏漂流 130 元</dd>
+  <dt>大优惠</dt><dd><strong>2025 年 1 月 1 日—6 月 30 日全国游客免主景区门票</strong>（不含车筏）</dd>
+</dl>
+
+<h4>古人之言</h4>
+<div class="classic">
+  曲曲备幽奇，别具山水理。
+  <div class="classic-trans">每一曲都齐备幽奇，自有一番山水之理。</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E5%A4%B7%E5%B1%B1%E4%B9%9D%E6%9B%B2%E6%BA%AA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E6%AD%A6%E5%A4%B7%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E5%8D%97%E5%B9%B3&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E6%AD%A6%E5%A4%B7%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'武夷山九曲溪天游峰')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- 路线 6: 庐山 -->
+
+<div class="route" id="r-lushan">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">赣北 · 九江</span><span class="badge">五日横贯</span></div>
+    <h3 class="r-name">庐山</h3>
+    <div class="r-alias">LU-SHAN · 1474 m · 三叠泉首记者</div>
+    <p class="r-quote">峰峰各奇不少让，真雄旷之极观也。</p>
+  </div>
+  <div class="r-body">
+
+```
+<h4>原文出处</h4>
+<p><strong>《游庐山日记》</strong>（1618 年戊午八月十八—二十三日，6 天）。徐霞客是<strong>详细描述三叠泉真实落差与梯级结构的第一人</strong>。其对庐山"冰劫洼地"的观察与 1933 年李四光"庐山第四纪冰川说"形成跨时代呼应。</p>
+
+<div class="classic">
+  潭有峭壁乱耸，回互逼立，下瞰无底，但闻轰雷倒峡之声，心怖目眩，泉不知从何坠去也。
+  <div class="classic-trans">潭边峭壁参差耸立，互相回环逼立，俯视深不见底，只听到轰雷倒峡的声音，让人心惊目眩，连泉水从哪里坠落都看不清。</div>
+</div>
+
+<h4>古今地名对照</h4>
+<table class="compare">
+  <thead><tr><th>游记古名</th><th>今地名</th></tr></thead>
+  <tbody>
+    <tr><td>东林寺</td><td>东林寺（净土宗祖庭）</td></tr>
+    <tr><td>石门涧</td><td>石门涧景区</td></tr>
+    <tr><td>大林寺</td><td>白居易"山寺桃花"诗所在地，原址今如意湖</td></tr>
+    <tr><td>三叠泉</td><td>三叠泉景区</td></tr>
+    <tr><td>白鹿洞</td><td>白鹿洞书院</td></tr>
+    <tr><td>开先寺/秀峰瀑布</td><td>秀峰景区（"飞流直下三千尺"）</td></tr>
+  </tbody>
+</table>
+
+<h4>重走可行性</h4>
+<p>横跨"山北—山西—山顶—山南"全境，按景区分段须 4–5 日。<strong>难度 ★★★★</strong>。徐霞客描述"从涧中乱石行，圆者滑足，尖者刺履"今日完全适用，已修栈道但仍有自然石路。</p>
+
+<h4>抵达 · 门票（2025）</h4>
+<dl class="kv">
+  <dt>高铁</dt><dd>九江站（约 4 h）</dd>
+  <dt>门票</dt><dd>大门票 160（旺）/ 105（淡），含多个景点 7 日多次入园；三叠泉 64、白鹿洞 40 元</dd>
+  <dt>大优惠</dt><dd>每年 <strong>3 月免票月</strong>（核心景区+三叠泉+白鹿洞书院）</dd>
+</dl>
+
+<h4>古人之言</h4>
+<div class="classic">
+  二十一日，别灯，从龛后小径直跻汉阳峰。攀茅拉棘，二里，至峰顶。南瞰鄱湖，水天浩荡。
+  <div class="classic-trans">二十一日，告别灯禅师，从佛龛后的小路直登汉阳峰。抓着茅草拉着荆棘，走两里到峰顶。向南俯瞰鄱阳湖，水天浩荡无边。</div>
+</div>
+
+<div class="r-actions">
+  <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E5%BA%90%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+  <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E5%BA%90%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E4%B9%9D%E6%B1%9F&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+  <a class="btn gpx" href="https://www.2bulu.com/track/search-%E5%BA%90%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+  <button class="btn cp" onclick="copyKw(this,'庐山三叠泉五老峰汉阳峰')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+</div>
+```
+
+  </div>
+</div>
+
+</section>
+
+<!-- ============== 04 学术警示 ============== -->
+
+<section id="warn">
+  <div class="s-num">04 · ACADEMIC CAVEATS</div>
+  <h2 class="s-title">两处<em>学术警示</em></h2>
+  <p class="s-lede">用户原始清单的九华山、太湖洞庭山——徐霞客确实游历过，<strong>但游记已散佚不存</strong>。本卷不冠以"重走原文"之名，作为"江南 AI 工作小组"学术诚信的最佳示范。</p>
+
+<div class="route warn" id="warn-jiuhua">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">皖南 · 池州青阳</span><span class="badge warn">⚠ 游记散佚</span></div>
+    <h3 class="r-name">九华山</h3>
+    <div class="r-alias">JIU-HUA · 唯七字旁证</div>
+  </div>
+  <div class="r-body">
+
+```
+<h4>考据依据</h4>
+<p><strong>《徐霞客游记》传世 17 篇名山游记中并无《游九华山日记》。</strong>朱惠荣校注本、褚绍唐吴应寿整理本目录均确认。</p>
+<p>徐霞客 1618 年戊午曾"登九华而望五老"，<strong>唯一文献依据为陈函辉《徐霞客墓志铭》</strong>转录的徐霞客自叙：</p>
+
+<div class="classic">
+  丁巳家居，亦入善权、张公诸洞。登九华而望五老，则戊午也。
+  <div class="classic-trans">丁巳年（1617）家居，曾游善权洞、张公洞。登九华山远望（庐山）五老峰，是戊午年（1618）的事。</div>
+</div>
+
+<div class="warn-box">
+  <h5>处理方式</h5>
+  <p>本卷不安排九华山为独立"重走"路线。可作为延伸阅读章节，明确说明"徐霞客 1618 年戊午秋经九华山转赴庐山，但未留下日记，故路线不在重走之列"。</p>
+</div>
+```
+
+  </div>
+</div>
+
+<div class="route warn" id="warn-taihu">
+  <div class="r-head">
+    <div class="r-tag"><span class="left">江南 · 苏州东西山</span><span class="badge warn">⚠ 有诗无记</span></div>
+    <h3 class="r-name">太湖洞庭山</h3>
+    <div class="r-alias">TAIHU · 1607 / 1632 两次游</div>
+  </div>
+  <div class="r-body">
+
+```
+<h4>考据依据</h4>
+<p><strong>《徐霞客游记》中并无《游太湖东山记》《游太湖西山记》两篇</strong>（用户清单引用为后世讹传）。徐霞客与太湖的关系仅有两次确切记载：</p>
+
+<p><strong>① 1607 年</strong>（万历三十五年丁未，22 岁首游）：泛舟太湖，登东、西洞庭两山，访灵威丈人遗迹（陈函辉《徐霞客墓志铭》转录的自叙）；游记原稿散佚不存。</p>
+
+<p><strong>② 1632 年</strong>（崇祯五年壬申，47 岁，<strong>非用户清单写的 1633 年</strong>）：与黄道周、郑鄤三人于十月在常州相聚后泛舟苏州太湖，"以'孤云独往返'为韵"分韵唱和，徐霞客先成《赋得孤云独往还》五言律诗五首；黄道周和韵作《和徐振之孤云独往还原韵五首》——<strong>有诗无记</strong>。</p>
+
+<div class="warn-box">
+  <h5>处理方式</h5>
+  <p>太湖洞庭路线<strong>不宜冠以"重走霞客游记原文"之名</strong>。可以做"霞客足迹寻访"——以东山陆巷古村+紫金庵+西山林屋洞（"灵威丈人遗迹"）+ 缥缈峰为路径，路书中如实标注"游记散佚，凭墓志铭+诗作旁证"。</p>
+</div>
+
+<h4>抵达</h4>
+<p>苏州地铁 4 号线南延线至苏州湾东，或自驾至吴中区东山镇/西山金庭镇。东山套票 80–120 元；西山套票 100 元上下。</p>
+```
+
+  </div>
+</div>
+
+</section>
+
+<!-- ============== 05 5·19 当日方案 ============== -->
+
+<section id="plan">
+  <div class="s-num">05 · 5·19 ACTION</div>
+  <h2 class="s-title">5·19 当日<em>双线方案</em></h2>
+  <p class="s-lede">考虑 5 月 19 日时令、苏锡常出发的距离与江南 AI 工作小组的人文徒步定位，分双线发动。</p>
+
+  <h3 class="subhead">线 1 — 重型徒步线（限 12 人，难度 ★★★）</h3>
+  <p><strong>"苏州（高铁）→ 宁波/台州 → 宁海"</strong>。当日清晨 6:00 苏州站集合 → 8:30 抵宁海西门城楼举行简短开游仪式（朗读《游天台山日记》开篇 24 字）→ 9:00 出发徒步霞客古道松门岭古道段 + 王爱山岗段（经梁皇山—筋竹岭，约 15 km，5 h）→ 16:00 包车转天台华顶 → 18:00 石梁飞瀑"徐霞客观瀑处"诵读"停足仙筏桥……几不欲卧"作日终仪式 → 当晚天台县城住宿。次日游石梁/国清/赤城返苏。</p>
+
+  <h3 class="subhead">线 2 — 人文致敬线（老少咸宜）</h3>
+  <p><strong>"苏锡常本地"。</strong>上午<strong>江阴徐霞客镇南旸岐村徐霞客故居 + 晴山堂石刻 + 仰圣园 + 徐霞客墓</strong>（5 月 19 日免门票），队员手持《徐霞客游记》中华书局 2015 朱惠荣译注四册本拓晴山堂碑文一拓 → 下午苏州东山陆巷古村—紫金庵—雕花楼，傍晚太湖游船至西山林屋洞，朗读 1632 年《赋得孤云独往还》。</p>
+
+  <h3 class="subhead">全年延伸（按时令）</h3>
+  <table class="qt">
+    <thead><tr><th>月</th><th>目的地</th><th>原游季节</th><th>备注</th></tr></thead>
+    <tbody>
+      <tr><td>5 月</td><td><a href="#r-tiantai">天台山霞客古道</a></td><td>★★★★★</td><td>杜鹃花期</td></tr>
+      <tr><td>6 月</td><td><a href="#r-yandang">雁荡山</a></td><td>★★★</td><td>暑前避雨</td></tr>
+      <tr><td>9–10</td><td><a href="#r-huangshan">黄山（1618 年线）</a></td><td>★★★★★</td><td>等莲花峰开放</td></tr>
+      <tr><td>10 月</td><td><a href="#r-lushan">庐山</a></td><td>★★★★★</td><td>枫松相间</td></tr>
+      <tr><td>1–2</td><td><a href="#r-qiyun">齐云山</a></td><td>★★★★</td><td>冬雪奇观</td></tr>
+      <tr><td>春秋</td><td><a href="#r-wuyi">武夷山</a></td><td>★★★</td><td>距离远，单独成行</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subhead">必备文献</h3>
+  <p><strong>朱惠荣《徐霞客游记校注》</strong>（云南人民出版社 1985 / 中华书局 2015 全四册全本全注全译，ISBN 978-7-101-10764-7）<br>
+  <strong>褚绍唐《徐霞客旅行路线图集》</strong>（中国地图出版社 1991）</p>
+
+  <h3 class="subhead">官方对接</h3>
+  <p>宁海徐霞客旅游俱乐部（首倡机构，麻绍勤创办）；浙江省徐霞客研究会；徐霞客故居（江阴）官方微信。</p>
+</section>
+
+<!-- ============== Footer ============== -->
+
+<footer>
+  <div class="ft">— 万里写入胸怀间 —</div>
+  <div class="fm">编于 二〇二六年四月 · TRIBUTE EDITION</div>
+
+  <p>本卷为致敬徐霞客的"江南致敬版"路书。所有原文出处、地名古今对照、门票数据均经多源核对。两处学术警示是江南 AI 工作小组的"学术招牌"——史实未能成文者，绝不冠以"重走原文"之名。</p>
+
+  <p>2025 年 5·19 中国旅游日全国主会场<strong>回归宁海</strong>，是时隔 14 年的"一头一尾历史合龙"。"霞客古道"于 2023 年 12 月 27 日获浙江省一级古道认定，总长 63 873 m，是江南唯一拥有省级法定身份的"重走霞客路"古道。</p>
+
+  <div class="src">
+    <strong>主要参考来源</strong>：朱惠荣《徐霞客游记校注》中华书局 2015 全四册本；褚绍唐《徐霞客旅行路线图集》中国地图出版社 1991；陈函辉《徐霞客墓志铭》；浙江省林业局《浙江省一级古道名录》（lyj.zj.gov.cn 2024.1）；文化和旅游部 2025.4.21 新闻发布会；宁海县文旅局公示；古诗文网《徐霞客游记》原文系列。
+  </div>
+
+  <div class="copy">
+    <div class="label">© COPYRIGHT</div>
+    <div class="name">江南 AI 工作小组</div>
+    <div class="ver">JIANGNAN · AI · STUDIO &nbsp;|&nbsp; 2026.04 · v.III · 壹</div>
+    <div class="seal">致敬<br>霞客</div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+function copyKw(btn, kw){
+  function ok(){
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.classList.remove('copied'); }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(kw).then(ok).catch(function(){
+      var ta = document.createElement('textarea');
+      ta.value = kw; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(e){}
+      document.body.removeChild(ta);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = kw; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); ok(); } catch(e){ alert('请手动复制：' + kw); }
+    document.body.removeChild(ta);
+  }
+}
+</script>
+
+</body>
+</html>
