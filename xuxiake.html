@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d0e10">
+<title>江南山行·徐霞客游记 — 第三卷深度致敬路书</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0e10;
+  --bg-soft: #16181c;
+  --bg-card: #1a1d22;
+  --bg-elev: #22262d;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.18);
+  --text: #e8e6e0;
+  --text-soft: #a8a59c;
+  --text-mute: #6b6960;
+  --orange: #d97847;
+  --orange-deep: #b85a2c;
+  --blood: #c2362a;
+  --blood-deep: #8a2418;
+  --gold: #d4a574;
+  --moss: #6b8068;
+  --warn: #e8b14a;
+  --serif: 'Noto Serif SC', 'Songti SC', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --display: 'Bebas Neue', 'Noto Serif SC', sans-serif;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--serif);
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+html{scroll-behavior:smooth}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    radial-gradient(ellipse at 30% 10%, rgba(217,120,71,0.08), transparent 60%),
+    radial-gradient(ellipse at 70% 90%, rgba(194,54,42,0.05), transparent 60%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+
+main{position:relative;z-index:1}
+
+::selection{background:var(--blood);color:#fff}
+
+/* ============== COVER ============== */
+.cover{
+  position:relative;
+  min-height:100vh;
+  padding:60px 22px 40px;
+  display:flex;flex-direction:column;
+  border-bottom:1px solid var(--line-strong);
+  overflow:hidden;
+}
+.cover-stamp{
+  position:absolute;top:24px;right:22px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;color:var(--text-mute);
+  text-transform:uppercase;
+}
+.cover-stamp::before{content:'';display:inline-block;width:24px;height:1px;background:var(--text-mute);vertical-align:middle;margin-right:8px}
+
+.warn-tag{
+  position:absolute;top:60px;left:22px;
+  background:var(--blood);color:#fff;
+  padding:6px 12px;
+  font-family:var(--mono);font-size:10px;
+  font-weight:700;letter-spacing:.18em;
+  border-radius:1px;
+  transform:rotate(-2deg);
+}
+
+.cover-title{margin-top:160px;margin-bottom:auto}
+.cover-title .label{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:.3em;color:var(--orange);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.cover-title h1{
+  font-family:var(--serif);font-weight:900;
+  font-size:56px;line-height:1.1;
+  letter-spacing:.04em;color:var(--text);
+  margin:0;
+}
+.cover-title h1 em{font-style:normal;color:var(--blood);font-weight:900}
+
+.cover-title .sub{
+  font-family:var(--display);font-size:24px;
+  letter-spacing:.18em;color:var(--orange);
+  margin-top:18px;line-height:1;
+}
+
+.cover-quote{
+  font-family:var(--serif);font-size:14px;
+  font-style:italic;color:var(--text-soft);
+  margin-top:24px;line-height:1.7;
+  border-left:2px solid var(--blood);
+  padding-left:14px;
+}
+
+/* 山线 SVG */
+.cover-svg{
+  width:100%;max-width:380px;margin:36px 0 24px;
+  display:block;align-self:center;
+}
+
+.cover-meta{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px 12px;margin-top:auto;
+  padding-top:24px;border-top:1px solid var(--line);
+}
+.cover-meta div{font-size:12px}
+.cover-meta .lab{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.18em;color:var(--text-mute);
+  text-transform:uppercase;display:block;margin-bottom:4px;
+}
+.cover-meta .val{color:var(--text);font-weight:500;font-size:13.5px}
+.cover-meta .val em{font-style:normal;color:var(--orange);font-weight:700}
+
+.cover-foot{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;color:var(--text-mute);
+  text-align:center;margin-top:32px;
+  text-transform:uppercase;
+}
+
+/* ============== TODAY ============== */
+.today-pick{
+  margin:24px 0 0;
+  padding:18px 16px;
+  background:linear-gradient(135deg, rgba(217,120,71,0.12), rgba(194,54,42,0.06));
+  border:1px solid rgba(217,120,71,0.3);
+  border-left:3px solid var(--orange);
+  position:relative;
+}
+.today-pick .tag{
+  display:inline-block;
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.25em;color:var(--orange);
+  text-transform:uppercase;margin-bottom:8px;
+}
+.today-pick h3{
+  font-family:var(--serif);font-weight:700;
+  font-size:18px;margin:0 0 6px;color:var(--text);
+}
+.today-pick .when{
+  font-family:var(--mono);font-size:10px;
+  color:var(--text-mute);letter-spacing:.1em;
+  margin-bottom:10px;
+}
+.today-pick p{font-size:13px;color:var(--text-soft);line-height:1.6;margin:6px 0 0}
+.today-pick a{
+  display:inline-block;
+  margin-top:12px;
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:.15em;color:var(--orange);
+  text-decoration:none;border-bottom:1px solid var(--orange);
+  padding-bottom:2px;
+}
+
+/* ============== TOC ============== */
+.toc{
+  margin-top:32px;padding:18px 16px;
+  background:var(--bg-card);
+  border:1px solid var(--line);
+}
+.toc-title{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.25em;color:var(--orange);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.toc ol{list-style:none;font-size:13px}
+.toc li{
+  padding:8px 0;border-bottom:1px dashed var(--line);
+  display:flex;justify-content:space-between;
+  align-items:baseline;gap:8px;
+}
+.toc li:last-child{border-bottom:0}
+.toc a{color:var(--text);text-decoration:none;font-weight:500;flex:1}
+.toc a:active{color:var(--orange)}
+.toc .num{font-family:var(--mono);font-size:10px;color:var(--text-mute);letter-spacing:.1em}
+
+/* ============== SECTIONS ============== */
+section{
+  padding:52px 22px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+
+.s-num{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--text-mute);margin-bottom:8px}
+.s-title{
+  font-family:var(--serif);font-weight:900;
+  font-size:30px;line-height:1.1;
+  letter-spacing:.02em;margin:0 0 8px;
+}
+.s-title em{font-style:normal;color:var(--blood)}
+.s-lede{
+  font-family:var(--serif);font-style:italic;
+  font-size:15px;color:var(--text-soft);
+  margin:14px 0 28px;line-height:1.5;
+  border-left:2px solid var(--orange);padding-left:14px;
+}
+
+.subhead{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  margin:24px 0 12px;display:flex;align-items:center;gap:10px;
+}
+.subhead::before{content:'';width:18px;height:2px;background:var(--orange)}
+
+/* ============== DIFFICULTY MATRIX ============== */
+.diff-matrix{
+  margin:20px 0;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+}
+.diff-matrix>div{
+  padding:10px 6px;
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  text-align:center;
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.05em;color:var(--text-mute);
+}
+.diff-matrix>div .n{
+  display:block;font-family:var(--serif);
+  font-weight:900;font-size:18px;margin-bottom:2px;
+}
+.diff-matrix>div.l1{opacity:.4}
+.diff-matrix>div.l2{background:rgba(217,120,71,0.05);border-color:rgba(217,120,71,0.5);color:var(--text)}
+.diff-matrix>div.l3{background:rgba(217,120,71,0.08);border-color:rgba(217,120,71,0.8);color:var(--text)}
+.diff-matrix>div.l4{
+  background:rgba(217,120,71,0.12);border-color:var(--orange);color:var(--orange);
+}
+.diff-matrix>div.l4 .n{color:var(--orange)}
+.diff-matrix>div.l5{
+  background:rgba(194,54,42,0.15);border-color:var(--blood);color:#ec5e51;
+}
+.diff-matrix>div.l5 .n{color:var(--blood)}
+
+/* ============== QUICK TABLE ============== */
+.qt{width:100%;border-collapse:collapse;font-size:12.5px;margin:14px 0}
+.qt th{
+  text-align:left;font-family:var(--mono);font-size:9px;
+  letter-spacing:.15em;color:var(--text-mute);
+  text-transform:uppercase;padding:8px 4px;
+  border-bottom:1px solid var(--line-strong);font-weight:500;
+}
+.qt td{padding:9px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.qt td a{color:var(--text);text-decoration:none;font-weight:600;border-bottom:1px dashed var(--text-mute)}
+.qt td a:active{color:var(--orange)}
+.qt .km{font-family:var(--mono);color:var(--text-soft);font-size:11px}
+.qt .lvl2{color:var(--text);font-family:var(--mono);font-weight:700;font-size:11px}
+.qt .lvl3{color:var(--text);font-family:var(--mono);font-weight:700;font-size:11px}
+.qt .lvl4{color:var(--orange);font-family:var(--mono);font-weight:700;font-size:11px}
+
+/* ============== ROUTE CARDS ============== */
+.route{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  margin-bottom:22px;
+  position:relative;
+  overflow:hidden;
+}
+.route::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+}
+.route.t2::before{background:var(--text-soft)}
+.route.t3::before{background:var(--gold)}
+.route.t4::before{background:var(--orange)}
+.route.tfatal::before{background:linear-gradient(90deg,var(--blood),var(--blood-deep))}
+
+.r-head{padding:18px 16px 14px;border-bottom:1px solid var(--line)}
+.r-tag{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:8px;
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.2em;text-transform:uppercase;
+}
+.r-tag .left{color:var(--text-mute)}
+.r-tag .level{
+  color:#111;background:var(--text-soft);
+  padding:2px 8px;border-radius:1px;font-weight:700;
+}
+.r-tag .level.l3{background:var(--gold)}
+.r-tag .level.l4{background:var(--orange);color:#fff}
+.r-tag .level.lfatal{background:var(--blood);color:#fff}
+
+.r-name{
+  font-family:var(--serif);font-weight:900;
+  font-size:22px;color:var(--text);line-height:1.2;
+  margin:0 0 4px;letter-spacing:.02em;
+}
+.r-alias{
+  font-family:var(--mono);font-size:10px;
+  color:var(--orange);letter-spacing:.15em;
+}
+.r-quote{
+  font-family:var(--serif);font-style:italic;
+  font-size:13px;color:var(--text-soft);
+  margin-top:8px;line-height:1.5;
+}
+
+.r-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--line);
+}
+.r-stats>div{
+  padding:14px 6px;text-align:center;
+  border-right:1px solid var(--line);
+}
+.r-stats>div:last-child{border-right:0}
+.r-stats .lab{
+  font-family:var(--mono);font-size:8.5px;
+  letter-spacing:.15em;color:var(--text-mute);
+  text-transform:uppercase;display:block;margin-bottom:4px;
+}
+.r-stats .val{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  color:var(--text);line-height:1;
+}
+.r-stats .val.warn{color:var(--orange)}
+.r-stats .val.crit{color:#ec5e51}
+.r-stats .val.small{font-size:12px}
+
+.r-tech{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--bg-soft);
+  font-size:11px;
+}
+.r-tech>div{
+  padding:10px 6px;text-align:center;
+  border-right:1px solid var(--line);
+  font-family:var(--mono);
+}
+.r-tech>div:last-child{border-right:0}
+.r-tech .lab{
+  display:block;font-size:8px;
+  letter-spacing:.15em;color:var(--text-mute);
+  text-transform:uppercase;margin-bottom:3px;
+}
+.r-tech .val{color:var(--text);font-weight:500}
+
+.r-body{padding:16px}
+.r-body h4{
+  font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.2em;color:var(--orange);
+  text-transform:uppercase;margin:14px 0 6px;font-weight:700;
+}
+.r-body h4:first-child{margin-top:0}
+.r-body p{font-size:13.5px;line-height:1.65;color:var(--text-soft);margin:0 0 8px}
+
+.trail{
+  font-family:var(--serif);font-size:13px;
+  background:var(--bg-soft);
+  padding:10px 12px;border-left:2px solid var(--orange);
+  margin:6px 0 10px;line-height:1.6;color:var(--text);
+}
+.trail strong{color:var(--blood);font-weight:700}
+
+.kv{
+  display:grid;grid-template-columns:74px 1fr;
+  gap:6px 10px;font-size:12.5px;margin:6px 0 4px;
+}
+.kv dt{
+  font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.1em;color:var(--text-mute);
+  text-transform:uppercase;padding-top:2px;
+}
+.kv dd{margin:0;color:var(--text-soft);line-height:1.55}
+.kv dd strong{color:var(--text)}
+
+.r-risk{
+  margin:14px 0 0;padding:12px;
+  background:rgba(194,54,42,0.08);
+  border:1px solid rgba(194,54,42,0.3);
+  border-left:3px solid var(--blood);
+}
+.r-risk h5{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;color:#ec5e51;
+  text-transform:uppercase;margin:0 0 6px;font-weight:700;
+}
+.r-risk p{font-size:12px;color:var(--text-soft);line-height:1.6;margin:0}
+
+/* ============== ACTION BUTTONS (NEW) ============== */
+.r-actions{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6px;margin-top:16px;padding-top:14px;
+  border-top:1px dashed var(--line-strong);
+}
+.r-actions .full{grid-column:1/-1}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;padding:10px 8px;text-decoration:none;
+  font-family:var(--serif);font-size:12px;font-weight:600;
+  letter-spacing:.03em;border-radius:1px;
+  transition:all .15s;cursor:pointer;border:1px solid;
+  -webkit-appearance:none;
+}
+.btn:active{transform:scale(.98)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.btn .en{font-family:var(--mono);font-size:9px;opacity:.65;margin-left:2px;letter-spacing:.05em}
+
+.btn.gmap{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn.bmap{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn.gpx{background:var(--bg-elev);color:var(--text);border-color:var(--line-strong)}
+.btn.cp{background:transparent;color:var(--orange);border:1px dashed var(--orange)}
+.btn.cp.copied{background:var(--moss);color:#fff;border-style:solid;border-color:var(--moss)}
+.btn.cp.copied .cn::before{content:'✓ 已复制 · '}
+
+/* ============== HERO STATS BLOCK ============== */
+.hero-stats{
+  margin:28px 0 32px;
+  padding:22px 18px;
+  background:linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+  border:1px solid var(--line-strong);
+  border-top:3px solid var(--blood);
+}
+.hero-stats .label{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;color:var(--blood);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.hero-stats .grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.hero-stats .item .num{
+  font-family:var(--display);font-size:32px;
+  color:var(--orange);line-height:1;letter-spacing:.04em;
+}
+.hero-stats .item .num em{font-style:normal;font-size:14px;color:var(--text-mute);margin-left:4px}
+.hero-stats .item .lab{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.15em;color:var(--text-mute);
+  text-transform:uppercase;margin-top:4px;
+}
+
+/* ============== FLOAT NAV ============== */
+.fnav{
+  position:fixed;right:10px;bottom:14px;z-index:100;
+  display:flex;flex-direction:column;
+  background:var(--blood);
+  border-radius:3px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:.1em;opacity:.9;overflow:hidden;
+}
+.fnav a{
+  color:#fff;text-decoration:none;
+  padding:6px 10px;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.15);
+  font-weight:600;display:block;
+}
+.fnav a:last-child{border-bottom:0}
+.fnav a:active{background:#000}
+.fnav .top{
+  background:#000;color:var(--orange);
+  font-family:var(--serif);font-size:14px;
+  padding:8px 10px;font-weight:900;
+}
+
+/* ============== FOOTER ============== */
+footer{
+  padding:40px 22px 56px;
+  background:#000;
+  color:var(--text-soft);
+  border-top:2px solid var(--blood);
+}
+footer .ft{
+  font-family:var(--serif);font-weight:900;
+  font-size:18px;color:var(--text);margin-bottom:8px;letter-spacing:.05em;
+}
+footer .fm{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.18em;color:var(--text-mute);
+  text-transform:uppercase;margin-bottom:24px;
+}
+footer p{font-size:12px;line-height:1.7;color:var(--text-soft);margin:0 0 10px}
+footer .src{
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-size:11px;color:var(--text-mute);line-height:1.7;
+}
+footer .copy{
+  margin-top:28px;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  text-align:center;
+}
+footer .copy .label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--text-mute);margin-bottom:6px}
+footer .copy .name{font-family:var(--serif);font-weight:900;font-size:16px;color:var(--text);letter-spacing:.1em}
+footer .copy .ver{font-family:var(--mono);font-size:10px;color:var(--text-mute);letter-spacing:.2em;margin-top:4px}
+footer .seal{
+  display:inline-block;width:42px;height:42px;
+  background:var(--blood);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;letter-spacing:.05em;
+  margin:14px auto 0;transform:rotate(2deg);
+}
+
+@media (min-width:600px){
+  body{font-size:16px}
+  .cover{padding:72px 36px 48px}
+  section{padding:64px 36px}
+  .cover-title h1{font-size:68px}
+  footer{padding:48px 36px 64px}
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<nav class="fnav" aria-label="快捷跳转">
+  <a href="#" class="top">↑</a>
+  <a href="#tldr">核心</a>
+  <a href="#routes">名山</a>
+  <a href="#caveats">学术</a>
+</nav>
+
+<!-- ============== 封面 ============== -->
+<section class="cover">
+  <div class="warn-tag">致敬 · 考据 · 实操</div>
+  <div class="cover-stamp">FIELD GUIDE · XU XIAKE EDITION</div>
+
+  <div class="cover-title">
+    <div class="label">江南 AI 工作小组</div>
+    <h1>徐霞客游记<em>·</em>第三卷</h1>
+    <div class="sub">深度致敬路书</div>
+    <div class="cover-quote">"云散日朗，人意山光，俱有喜态。"<br>——《游天台山日记》</div>
+  </div>
+
+  <svg class="cover-svg" viewBox="0 0 380 120" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mt5" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#d97847" stop-opacity="0.8"/>
+        <stop offset="1" stop-color="#c2362a" stop-opacity="0.4"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,90 L30,70 L55,82 L85,55 L110,70 L140,40 L170,60 L200,35 L230,55 L260,30 L290,55 L320,42 L350,60 L380,50 L380,120 L0,120 Z" fill="#22262d" opacity="0.7"/>
+    <path d="M0,100 L25,82 L55,92 L80,72 L105,86 L135,60 L165,75 L195,55 L225,72 L255,52 L285,70 L315,60 L345,75 L380,65 L380,120 L0,120 Z" fill="#3a3530" opacity="0.85"/>
+    <path d="M0,115 L20,98 L40,108 L60,88 L80,102 L105,75 L130,90 L155,68 L180,82 L205,58 L230,72 L260,50 L285,68 L315,55 L345,70 L380,62 L380,120 L0,120 Z" fill="url(#mt5)"/>
+    <line x1="205" y1="58" x2="205" y2="42" stroke="#c2362a" stroke-width="0.8"/>
+    <circle cx="205" cy="40" r="2.5" fill="#c2362a"/>
+    <text x="210" y="44" fill="#d97847" font-family="JetBrains Mono" font-size="7" letter-spacing="0.15em">XU XIAKE</text>
+  </svg>
+
+  <div class="today-pick" id="today">
+    <span class="tag">5·19 行动首选</span>
+    <h3 id="today-name">宁海西门—天台山（霞客古道）</h3>
+    <div class="when" id="today-when">《游天台山日记》开篇实地重走</div>
+    <p id="today-reason">1613 年 5 月 19 日，徐霞客正是由此出发。2025 年 5·19 全国主会场已确定回到宁海，天时地利人和。</p>
+    <a id="today-link" href="#r-tiantai">▸ 跳转线路详情</a>
+  </div>
+
+  <div class="cover-meta">
+    <div><span class="lab">Region</span><span class="val">长三角 · 皖浙赣</span></div>
+    <div><span class="lab">Core Routes</span><span class="val"><em>6</em> 条考据路线</span></div>
+    <div><span class="lab">Warning</span><span class="val"><em>2</em> 处游记散佚</span></div>
+    <div><span class="lab">Date</span><span class="val">May 19 / 中国旅游日</span></div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">目 录 · CONTENTS</div>
+    <ol>
+      <li><a href="#tldr"><span class="num">01</span> TL;DR 三点决断与速查</a></li>
+      <li><a href="#routes"><span class="num">02</span> 核心游历名山重走</a></li>
+      <li><a href="#caveats"><span class="num">03</span> 学术诚实警示 (九华/太湖)</a></li>
+    </ol>
+  </div>
+
+  <div class="cover-foot">江南 AI 工作小组 · 2026.05 · v.III</div>
+</section>
+
+<!-- ============== 01 TL;DR ============== -->
+<section id="tldr">
+  <div class="s-num">01 · TL;DR</div>
+  <h2 class="s-title">核心决断 · <em>速查</em></h2>
+  <p class="s-lede">今日仍能“按游记原文逐段重走”且学术-实操两全的核心路线只有 6 条。九华山、太湖洞庭山游记已散佚不存。</p>
+
+  <h3 class="subhead">难度评级（基于 8264 户外社区共识）</h3>
+  <div class="diff-matrix">
+    <div class="l2"><span class="n">★★</span>休闲</div>
+    <div class="l3"><span class="n">★★★</span>进阶</div>
+    <div class="l4"><span class="n">★★★★</span>挑战</div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="label">⊙ 用户清单目的地考据概览</div>
+    <div class="grid">
+      <div class="item">
+        <div class="num">6<em>条</em></div>
+        <div class="lab">原文对应路线</div>
+      </div>
+      <div class="item">
+        <div class="num">2<em>处</em></div>
+        <div class="lab">学术散佚警示</div>
+      </div>
+      <div class="item">
+        <div class="num">63.8<em>km</em></div>
+        <div class="lab">霞客古道总长</div>
+      </div>
+      <div class="item">
+        <div class="num">1613<em>年</em></div>
+        <div class="lab">宁海开篇纪年</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subhead">速查 · 用户目的地</h3>
+  <table class="qt">
+    <thead>
+      <tr><th>目的地</th><th>年份</th><th>路线可行性</th><th>级</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="#r-tiantai">天台山（开篇地）</a></td>
+        <td class="km">1613/1632</td>
+        <td class="km">霞客古道天台段 41.2 km</td>
+        <td class="lvl3">★★★</td>
+      </tr>
+      <tr>
+        <td><a href="#r-yandang">雁荡山（三游）</a></td>
+        <td class="km">1613/1632</td>
+        <td class="km">成熟景区，对应“雁荡三绝”</td>
+        <td class="lvl2">★★</td>
+      </tr>
+      <tr>
+        <td><a href="#r-huangshan">黄山（两上）</a></td>
+        <td class="km">1616/1618</td>
+        <td class="km">中等偏上（含天都、莲花陡阶）</td>
+        <td class="lvl4">★★★★</td>
+      </tr>
+      <tr>
+        <td><a href="#r-qiyun">齐云山（白岳）</a></td>
+        <td class="km">1616</td>
+        <td class="km">成熟景区，唯一冬季冰雪游</td>
+        <td class="lvl2">★★</td>
+      </tr>
+      <tr>
+        <td><a href="#r-wuyi">武夷山</a></td>
+        <td class="km">1616</td>
+        <td class="km">九曲溪漂流+天游峰登顶</td>
+        <td class="lvl2">★★</td>
+      </tr>
+      <tr>
+        <td><a href="#r-lushan">庐山</a></td>
+        <td class="km">1618</td>
+        <td class="km">山北-山西-山顶-山南全境</td>
+        <td class="lvl4">★★★★</td>
+      </tr>
+      <tr>
+        <td><a href="#c-jiuhua">九华山</a></td>
+        <td class="km">1618 (旁证)</td>
+        <td class="km" style="color:var(--blood)">游记散佚，仅墓志铭转录</td>
+        <td class="lvl4">N/A</td>
+      </tr>
+      <tr>
+        <td><a href="#c-taihu">太湖洞庭山</a></td>
+        <td class="km">1607/1632</td>
+        <td class="km" style="color:var(--blood)">游记缺失，1632年有诗无记</td>
+        <td class="lvl4">N/A</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============== 02 路线 ============== -->
+<section id="routes">
+  <div class="s-num">02 · ROUTES</div>
+  <h2 class="s-title">核心游历<em>名山</em></h2>
+  <p class="s-lede">从《游天台山日记》的开篇之始，到“观止矣”的黄山绝顶。这是有据可考的徐霞客江南足迹。</p>
+
+  <!-- ==================== 天台山 ==================== -->
+  <div class="route t3" id="r-tiantai">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">浙江 · 台州/宁海</span>
+        <span class="level l3">LV.3</span>
+      </div>
+      <h3 class="r-name">天台山（霞客古道）</h3>
+      <div class="r-alias">TIAN-TAI · 最完整、名正言顺重走路线</div>
+      <p class="r-quote">“泉声山色，往复创变，翠丛中山鹃映发，令人攀历忘苦。”</p>
+    </div>
+    <div class="r-stats">
+      <div><span class="lab">出游年</span><span class="val small">1613/1632</span></div>
+      <div><span class="lab">距离</span><span class="val">~18 km</span></div>
+      <div><span class="lab">爬升</span><span class="val">~800 m</span></div>
+      <div><span class="lab">用时</span><span class="val">1 日版</span></div>
+    </div>
+    <div class="r-body">
+      <h4>古今对照路书</h4>
+      <div class="trail">
+        <strong>宁海西门</strong> → 松门岭古道 → 筋竹岭 → 华顶寺 → <strong>石梁飞瀑</strong>（今景区核心，立有“徐霞客观瀑处”标识）
+      </div>
+      <p>霞客古道天台段中，“花麦地—国清寺...—华顶寺”为天台县千人徒步赛事路线，约 18 km，路面包含泥土与石阶古道。</p>
+      
+      <h4>关键提示</h4>
+      <dl class="kv">
+        <dt>最佳时令</dt><dd>5 月中下旬（华顶云锦杜鹃花期）</dd>
+        <dt>门票现行</dt><dd>国清寺免费、石梁 60 元、华顶 50 元</dd>
+        <dt>撤退点</dt><dd>松门岭岔路、华顶寺（公路可达）</dd>
+      </dl>
+
+      <!-- 导航操作按钮 -->
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E5%8F%B0%E5%B1%B1%E5%8D%8E%E9%A1%B6" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E5%A4%A9%E5%8F%B0%E5%B1%B1%E5%8D%8E%E9%A1%B6&region=%E5%8F%B0%E5%B7%9E&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%9C%9E%E5%AE%A2%E5%8F%A4%E9%81%93%E5%A4%A9%E5%8F%B0.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'霞客古道天台段')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 雁荡山 ==================== -->
+  <div class="route t2" id="r-yandang">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">浙江 · 乐清</span>
+        <span class="level l2">LV.2</span>
+      </div>
+      <h3 class="r-name">雁荡山（三游）</h3>
+      <div class="r-alias">YAN-DANG · 灵峰—灵岩—大龙湫</div>
+      <p class="r-quote">“锐峰叠嶂，左右环向，奇巧百出，真天下奇观！”</p>
+    </div>
+    <div class="r-stats">
+      <div><span class="lab">出游年</span><span class="val small">1613/1632</span></div>
+      <div><span class="lab">距离</span><span class="val small">各区2-3km</span></div>
+      <div><span class="lab">路况</span><span class="val small">平路为主</span></div>
+      <div><span class="lab">用时</span><span class="val">轻松游</span></div>
+    </div>
+    <div class="r-body">
+      <p>1613年初游、1632年再游两次。日记三大景区与今日开放景区完全对应。大龙湫入口石刻引文即出自《游雁宕山日记》。</p>
+      <dl class="kv">
+        <dt>交通</dt><dd>高铁至雁荡山站，免费旅游公交</dd>
+        <dt>票务</dt><dd>A线联票 170 元（3日有效）。5·19 通常免票</dd>
+      </dl>
+
+      <!-- 导航操作按钮 -->
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%9B%81%E8%8D%A1%E5%B1%B1%E5%A4%A7%E9%BE%99%E6%B7%BE" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%9B%81%E8%8D%A1%E5%B1%B1&region=%E6%B8A9%E5%B7%9E&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%9B%81%E8%8D%A1%E5%B1%B1%E5%BE%92%E6%AD%A5.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'雁荡山大龙湫徒步')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 黄山 ==================== -->
+  <div class="route t4" id="r-huangshan">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">安徽 · 黄山区</span>
+        <span class="level l4">LV.4</span>
+      </div>
+      <h3 class="r-name">黄山（重游差异样本）</h3>
+      <div class="r-alias">HUANG-SHAN · 1616(未登顶) / 1618(独登天都莲花)</div>
+      <p class="r-quote">“薄海内外，无如徽之黄山，登黄山天下无山，观止矣”</p>
+    </div>
+    <div class="r-stats">
+      <div><span class="lab">出游年</span><span class="val small">1616/1618</span></div>
+      <div><span class="lab">难度</span><span class="val warn">中等偏上</span></div>
+      <div><span class="lab">天都峰</span><span class="val">已开放</span></div>
+      <div><span class="lab">莲花峰</span><span class="val crit">仍轮休</span></div>
+    </div>
+    <div class="r-body">
+      <h4>古今对照与现状</h4>
+      <p>徐霞客两次皆由南线（汤口）上山。1616 年因冬日雪封未登顶天都、莲花两峰。1618 年二游时独登此两峰。</p>
+      
+      <div class="r-risk">
+        <h5>⚠ 轮休机制注意</h5>
+        <p>截至 2026 年 5 月现状：天都峰已于 2024 年恢复开放；<strong>莲花峰仍处于封闭轮休期</strong>（自 2023 年 12 月起轮休 3-5 年），若要完全重走 1618 年原路，需等莲花峰下次开放。</p>
+      </div>
+
+      <!-- 导航操作按钮 -->
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%BB%84%E5%B1%B1%E5%A4%A9%E9%83%BD%E5%B3%B0" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%BB%84%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E9%BB%84%E5%B1%B1&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%BB%84%E5%B1%B1%E5%89%8D%E5%B1%B1.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'黄山南线天都峰徒步')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 齐云山 ==================== -->
+  <div class="route t2" id="r-qiyun">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">安徽 · 休宁</span>
+        <span class="level l2">LV.2</span>
+      </div>
+      <h3 class="r-name">齐云山（白岳）</h3>
+      <div class="r-alias">QI-YUN · 霞客唯一冬季冰雪游</div>
+    </div>
+    <div class="r-body">
+      <p>1616 年正月游记，展现了“起视满山冰花玉树，迷漫一色”的冬日绝景。今日仍可由登封桥走“霞客古道”九里十三亭至天门。</p>
+      
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E9%BD%90%E4%BA%91%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E9%BD%90%E4%BA%91%E5%B1%B1&region=%E9%BB%84%E5%B1%B1&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E9%BD%90%E4%BA%91%E5%B1%B1%E5%BE%92%E6%AD%A5.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'齐云山古道徒步')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 武夷山 ==================== -->
+  <div class="route t2" id="r-wuyi">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">福建 · 武夷山市</span>
+        <span class="level l2">LV.2</span>
+      </div>
+      <h3 class="r-name">武夷山</h3>
+      <div class="r-alias">WU-YI · 九曲溪漂流+天游峰</div>
+    </div>
+    <div class="r-body">
+      <p>1616 年二月游记记载。九曲地名与今日游览完全对应，徐霞客更将天游峰称赞为“第一山”。由于距离苏锡常较远，建议作为三日连线。</p>
+      
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E5%A4%B7%E5%B1%B1%E5%A4%A9%E6%B8%B8%E5%B3%B0" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E6%AD%A6%E5%A4%B7%E5%B1%B1&region=%E5%8D%97%E5%B9%B3&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E6%AD%A6%E5%A4%B7%E5%B1%B1%E5%A4%A9%E6%B8%B8%E5%B3%B0.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'武夷山天游峰')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 庐山 ==================== -->
+  <div class="route t4" id="r-lushan">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">江西 · 九江</span>
+        <span class="level l4">LV.4</span>
+      </div>
+      <h3 class="r-name">庐山</h3>
+      <div class="r-alias">LU-SHAN · 四星级硬核山峰横穿</div>
+    </div>
+    <div class="r-body">
+      <p>1618 年八月游记。徐霞客 6 天行程横跨山北—山西—山顶—山南全境。其在三叠泉“乱石行，尖者刺履”的艰辛，在今天的户外野线中依然适用。</p>
+      
+      <div class="r-actions">
+        <a class="btn gmap" href="https://www.google.com/maps/search/?api=1&query=%E5%BA%90%E5%B1%B1%E4%B8%89%E5%8F%A0%E6%B3%89" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">Google</span><span class="en">MAP</span></a>
+        <a class="btn bmap" href="https://api.map.baidu.com/place/search?query=%E5%BA%90%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA&region=%E4%B9%9D%E6%B1%9F&output=html&src=webapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span class="cn">百度</span><span class="en">MAP</span></a>
+        <a class="btn gpx" href="https://www.2bulu.com/track/search-%E5%BA%90%E5%B1%B1%E4%BA%94%E8%80%81%E5%B3%B0.htm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.5l4.5-4.5 7 7-1.5 1.5-5.5-5.5-3 3L4 7.5 5.5 6l3.5 5.5zM3 18h18v2H3z"/></svg><span class="cn">两步路轨迹</span><span class="en">2BULU</span></a>
+        <button class="btn cp" onclick="copyKw(this,'庐山五老峰三叠泉徒步')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg><span class="cn">复制·App 内搜</span><span class="en">2BULU APP</span></button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============== 03 学术诚实警示 ============== -->
+<section id="caveats">
+  <div class="s-num">03 · ACADEMIC WARNINGS</div>
+  <h2 class="s-title">学术<em>诚实警示</em></h2>
+  <p class="s-lede">基于学术严谨性，必须告知用户的考据盲区。</p>
+
+  <div class="route tfatal" id="c-jiuhua">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">⚠️ 游记散佚</span>
+        <span class="level lfatal">无原文路书</span>
+      </div>
+      <h3 class="r-name">九华山</h3>
+    </div>
+    <div class="r-body">
+      <p>《徐霞客游记》传世 17 篇名山游记中并无《游九华山日记》。唯一依据是陈函辉《徐霞客墓志铭》转录其自叙“登九华而望五老，则戊午也”旁证 1618 年游历。<strong>无具体路线、日期记载，故不列入原文重走线路</strong>。</p>
+    </div>
+  </div>
+
+  <div class="route tfatal" id="c-taihu">
+    <div class="r-head">
+      <div class="r-tag">
+        <span class="left">⚠️ 游记缺失</span>
+        <span class="level lfatal">有诗无记</span>
+      </div>
+      <h3 class="r-name">太湖洞庭山</h3>
+    </div>
+    <div class="r-body">
+      <p>传闻的《游太湖东山记》《游太湖西山记》均为后世讹传，游记中不存在这两篇。徐霞客 1607 年首游太湖游记散佚，1632 年（原误为1633年）与黄道周泛舟太湖，仅留《赋得孤云独往还》五言律诗，<strong>有诗无记</strong>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="ft">— 江南 AI 工作小组 —</div>
+  <div class="fm">编于 二〇二六年五月 · 致敬版</div>
+
+  <p>本路书深度结合了朱惠荣校注《徐霞客游记校注》及褚绍唐《徐霞客旅行路线图集》等权威版本。门票与路况数据以 2024-2026 年最新公告为准。</p>
+
+  <div class="copy">
+    <div class="label">© COPYRIGHT</div>
+    <div class="name">江南 AI 工作小组</div>
+    <div class="ver">2026.05 · v.III</div>
+    <div class="seal">霞客<br>2026</div>
+  </div>
+</footer>
+
+<script>
+// ========== 复制关键字 ==========
+function copyKw(btn, kw){
+  function ok(){
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.classList.remove('copied'); }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(kw).then(ok).catch(function(){
+      var ta = document.createElement('textarea');
+      ta.value = kw; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(e){}
+      document.body.removeChild(ta);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = kw; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); ok(); } catch(e){ alert('请手动复制：' + kw); }
+    document.body.removeChild(ta);
+  }
+}
+</script>
+
+</main>
+</body>
+</html>
