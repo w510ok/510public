@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>新《供水条例》二十讲/问｜岗位培训移动版</title>
+<style>
+:root {
+  --bg:#f6f8fb; --card:#ffffff; --ink:#172033; --muted:#667085; --line:#e4e7ec;
+  --brand:#0b63ce; --brand2:#0f9f86; --warn:#c05621; --ok:#0b7a45; --danger:#b42318;
+  --shadow:0 10px 25px rgba(16,24,40,.09); --radius:18px;
+}
+[data-theme="dark"] { --bg:#0f172a; --card:#172036; --ink:#eef2ff; --muted:#b6c2d9; --line:#2a3550; --brand:#65a4ff; --brand2:#5ee0c2; --shadow:0 10px 25px rgba(0,0,0,.25); }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.65; padding-bottom:88px; }
+a { color:var(--brand); }
+.hero { padding:22px 16px 16px; background:linear-gradient(135deg,#0b63ce,#0f9f86); color:white; border-bottom-left-radius:24px; border-bottom-right-radius:24px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,.12); right:-90px; top:-60px; }
+.kicker { font-size:13px; opacity:.86; letter-spacing:.04em; }
+h1 { margin:8px 0 8px; font-size:25px; line-height:1.25; }
+.subtitle { font-size:14px; opacity:.95; max-width:820px; }
+.top-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.btn { appearance:none; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:9px 12px; font-weight:650; font-size:13px; box-shadow:0 2px 8px rgba(16,24,40,.05); cursor:pointer; }
+.btn.primary { background:var(--brand); color:#fff; border-color:transparent; }
+.btn.ghost { background:rgba(255,255,255,.16); color:white; border-color:rgba(255,255,255,.3); }
+.wrap { max-width:920px; margin:0 auto; padding:14px; }
+.panel { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px; margin:12px 0; box-shadow:var(--shadow); }
+.panel h2 { font-size:18px; margin:0 0 10px; }
+.muted { color:var(--muted); font-size:13px; }
+.searchbar { display:flex; gap:8px; position:sticky; top:0; z-index:8; background:var(--bg); padding:10px 0 8px; }
+.searchbar input { flex:1; min-width:0; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:11px 14px; font-size:15px; }
+.role-pills { display:flex; gap:8px; overflow:auto; padding:4px 0 8px; scrollbar-width:none; }
+.role-pills::-webkit-scrollbar { display:none; }
+.pill { flex:0 0 auto; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card); color:var(--ink); font-size:13px; cursor:pointer; }
+.pill.active { background:var(--brand); color:white; border-color:var(--brand); }
+.progress-box { display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; }
+progress { width:100%; height:12px; border-radius:999px; overflow:hidden; }
+progress::-webkit-progress-bar { background:#e6eefc; }
+progress::-webkit-progress-value { background:linear-gradient(90deg,var(--brand),var(--brand2)); }
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+.stat { background:linear-gradient(180deg,rgba(11,99,206,.08),rgba(15,159,134,.08)); border:1px solid var(--line); border-radius:14px; padding:10px; text-align:center; }
+.stat b { font-size:18px; display:block; }
+.lecture { background:var(--card); border:1px solid var(--line); border-radius:20px; margin:14px 0; box-shadow:var(--shadow); overflow:hidden; }
+.lecture-head { padding:14px; display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; }
+.num { width:38px; height:38px; border-radius:13px; background:linear-gradient(135deg,var(--brand),var(--brand2)); color:white; display:grid; place-items:center; font-weight:800; }
+.lecture h3 { margin:0; font-size:17px; line-height:1.35; }
+.tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:7px; }
+.tag { font-size:11px; color:var(--brand); background:rgba(11,99,206,.09); border:1px solid rgba(11,99,206,.18); padding:3px 7px; border-radius:999px; }
+.lecture-body { padding:0 14px 14px; }
+details.section { border-top:1px solid var(--line); padding:9px 0; }
+details.section summary { cursor:pointer; font-weight:760; color:var(--ink); list-style:none; display:flex; justify-content:space-between; align-items:center; }
+details.section summary::after { content:"展开"; color:var(--muted); font-size:12px; font-weight:500; }
+details[open].section summary::after { content:"收起"; }
+.section p { margin:8px 0 0; font-size:14px; color:var(--ink); }
+.lecture-actions { display:flex; gap:8px; flex-wrap:wrap; padding:10px 14px 14px; border-top:1px solid var(--line); }
+.complete { background:rgba(15,159,134,.12); color:var(--ok); border-color:rgba(15,159,134,.25); }
+.complete.done { background:var(--ok); color:#fff; }
+.quiz-card { border:1px dashed var(--line); border-radius:16px; padding:12px; margin-top:10px; background:rgba(11,99,206,.04); }
+.option { display:block; width:100%; text-align:left; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:12px; margin:7px 0; padding:9px 10px; cursor:pointer; }
+.option.correct { border-color:rgba(11,122,69,.7); background:rgba(11,122,69,.1); }
+.option.wrong { border-color:rgba(180,35,24,.7); background:rgba(180,35,24,.1); }
+.scenario { border-left:4px solid var(--brand2); padding:12px; border-radius:12px; background:rgba(15,159,134,.08); margin:10px 0; }
+.tool-list li { margin-bottom:8px; }
+.footer-space { height:14px; }
+.bottom-nav { position:fixed; left:10px; right:10px; bottom:10px; z-index:40; background:rgba(255,255,255,.88); backdrop-filter:blur(14px); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:22px; display:grid; grid-template-columns:repeat(5,1fr); gap:4px; padding:6px; max-width:640px; margin:0 auto; }
+[data-theme="dark"] .bottom-nav { background:rgba(23,32,54,.88); }
+.bottom-nav a { text-decoration:none; color:var(--muted); text-align:center; font-size:11px; padding:6px 2px; border-radius:15px; }
+.bottom-nav a strong { display:block; font-size:18px; line-height:1; }
+.bottom-nav a.active { color:white; background:var(--brand); }
+.toast { position:fixed; left:50%; bottom:84px; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:.25s; z-index:50; }
+.toast.show { opacity:1; }
+@media (min-width:760px) { h1 { font-size:32px; } .wrap { padding:22px; } .lecture-head { grid-template-columns:52px 1fr; } .num { width:46px; height:46px; } .lecture h3 { font-size:20px; } .section p { font-size:15px; } .cards2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; } }
+@media print { .bottom-nav,.searchbar,.top-actions,.role-pills,.lecture-actions,.quiz-card { display:none!important; } body { padding-bottom:0; background:white; } .panel,.lecture { box-shadow:none; break-inside:avoid; } details.section { display:block; } details.section > * { display:block; } }
+</style>
+</head>
+<body data-theme="light">
+<header class="hero" id="top">
+  <div class="kicker">E20 行业开讲｜岗位培训移动版</div>
+  <h1>新《供水条例》二十讲/问</h1>
+  <div class="subtitle">七段式统一结构：问题提出、条例依据、行业痛点、企业案例、适用条件、操作建议、工具成果。适合手机学习、班组培训、岗位内训和政企沟通前预习。</div>
+  <div class="top-actions">
+    <button class="btn ghost" onclick="toggleTheme()">🌗 深浅色</button>
+    <button class="btn ghost" onclick="expandAll(true)">全部展开</button>
+    <button class="btn ghost" onclick="expandAll(false)">全部收起</button>
+    <button class="btn ghost" onclick="exportReport()">导出学习记录</button>
+  </div>
+</header>
+<main class="wrap">
+  <section class="panel" id="progress">
+    <h2>学习进度</h2>
+    <div class="progress-box"><progress id="progressBar" value="0" max="20"></progress><b id="progressText">0/20</b></div>
+    <div class="stat-grid">
+      <div class="stat"><b id="doneCount">0</b><span class="muted">已完成</span></div>
+      <div class="stat"><b id="scoreText">0%</b><span class="muted">测验正确率</span></div>
+      <div class="stat"><b>20</b><span class="muted">课程讲次</span></div>
+    </div>
+  </section>
+
+  <section class="panel" id="roles">
+    <h2>按岗位筛选</h2>
+    <p class="muted">选择岗位后，优先显示与该岗位高度相关的讲次。仍可通过“全部”恢复全量课程。</p>
+    <div class="role-pills" id="rolePills"></div>
+    <p class="muted" id="roleHint"></p>
+  </section>
+
+  <div class="searchbar" id="learn"><input id="search" placeholder="搜索：如 二供、水价、政府责任、合同、农村供水…" oninput="renderLectures()" /></div>
+  <section id="lectureList"></section>
+
+  <section class="panel" id="quiz">
+    <h2>综合测验</h2>
+    <p class="muted">每讲一道题。答题结果会自动保存，可用于班组培训自查。</p>
+    <div id="quizList"></div>
+  </section>
+
+  <section class="panel" id="tools">
+    <h2>工具成果索引</h2>
+    <p class="muted">这些工具可直接转化为企业内部台账、SOP、模板和政府沟通材料。</p>
+    <ul class="tool-list" id="toolList"></ul>
+  </section>
+
+  <section class="panel" id="scenario">
+    <h2>岗位场景演练</h2>
+    <p class="muted">用于课堂互动：请学员先说处置步骤，再展开参考答案。</p>
+    <div id="scenarioList"></div>
+  </section>
+
+  <section class="panel" id="refs">
+    <h2>政策依据</h2>
+    <p class="muted">培训稿公开发布前，建议由法务、价格、运营、二供、农村供水、客服和宣传条线共同审校。</p>
+    <div id="refList"></div>
+  </section>
+  <div class="footer-space"></div>
+</main>
+<nav class="bottom-nav">
+  <a href="#top"><strong>🏠</strong>首页</a>
+  <a href="#roles"><strong>🧭</strong>岗位</a>
+  <a href="#learn"><strong>📚</strong>课程</a>
+  <a href="#quiz"><strong>✅</strong>测验</a>
+  <a href="#tools"><strong>🧰</strong>工具</a>
+</nav>
+<div class="toast" id="toast">已保存</div>
+<script>
+const sources = [{"name": "《供水条例》（国务院令第831号）—国家行政法规库", "url": "https://xzfg.moj.gov.cn/mobile/law/detail?LawID=1809", "note": "2026年6月1日起施行；涵盖城市供水和农村规模化供水，确立地方政府主体责任、全链条规范、二供运维、应急管理等制度。"}, {"name": "司法部、住房城乡建设部、水利部负责人就《供水条例》答记者问", "url": "https://www.moj.gov.cn/pub/sfbgw/zcjd/202602/t20260214_531864.html", "note": "官方解读强调城乡统筹、问题导向、系统观念和从水源到水龙头的全链条规范体系。"}, {"name": "《城镇供水价格管理办法》—国家发展改革委", "url": "https://zfxxgk.ndrc.gov.cn/web/iteminfo.jsp?id=18524", "note": "明确城镇供水价格原则上实行政府定价，遵循覆盖成本、合理收益、节约用水、公平负担，按准许成本加合理收益核定准许收入。"}, {"name": "水利部《关于加快推动农村供水高质量发展的指导意见》相关报道", "url": "https://www.gov.cn/lianbo/bumen/202310/content_6909073.htm", "note": "提出到2035年基本实现农村供水现代化，优先推进城乡供水一体化、规模化建设、小型工程规范化和县域统管。"}, {"name": "国务院反垄断反不正当竞争委员会《关于公用事业领域的反垄断指南》", "url": "https://www.hunan.gov.cn/zqt/zcsd/202602/t20260212_33916023.html", "note": "供水属于公用事业领域，强调防止公用事业经营者利用垄断优势排除、限制竞争，强化合规经营。"}];
+const roles = {"全部": "全员学习全部课程", "管理层": "战略、投资、政府沟通、组织变革", "政府事务": "地方配套、责任清单、政策资金、联席机制", "生产运行": "水源、水厂、管网、应急、漏损、调度", "客服计量": "报装、停水告知、投诉、计量、供用水合同", "二供农村": "二供接管、县域统管、农村供水、城乡均等化", "法务财务": "协议、成本、水价、补偿、反垄断、合同风控", "信息宣传": "智慧水务、AI、数据治理、舆情与问答库"};
+const lectures = [{"id": 1, "title": "新《供水条例》改变了什么：为什么说供水治理进入新阶段？", "roles": ["管理层", "政府事务", "法务财务"], "sections": [["问题提出", "这一讲要回答行业最基础的问题：新条例不是原《城市供水条例》的简单扩容，而是供水治理逻辑的重构。供水从偏城市、偏工程、偏事后协调的管理模式，进入城乡统筹、全链条管理、政府负总责、企业专业运营、社会监督参与的新阶段。"], ["条例依据与政策背景", "《供水条例》明确适用于城市供水和农村规模化供水，强调坚持以人为本、城乡统筹、公益属性，持续增强供水安全保障能力，促进供水服务均等化。官方解读强调，条例坚持城乡统筹、问题导向和系统观念，构建从水源到水龙头的全链条规范体系。"], ["行业痛点", "行业长期面临四类压力：老旧管网、二供设施、农村供水等历史欠账集中显现；价格机制和财政补偿不足以完全覆盖公益性责任扩张；用户对水质、停水、收费和服务透明度要求提高；自媒体环境下小问题容易快速演变为舆情事件。"], ["企业案例与实践经验", "不少先行地区已经从单点水厂建设转向区域供水、城乡一体化、主干管网互联、生产服务调度一体化和数字化客服工单管理。共同经验是：先把供水作为区域经济和城乡公共服务的基础设施统筹，再把工程、标准、服务和成本机制逐步做实。"], ["适用条件与边界", "具备财政统筹能力、区域供水基础和城乡一体化积累的地区，可较快推进全域统管；设施基础薄弱、农村点多面广、财政压力大的地区，应先做底数摸排、风险排序和项目库，不能照搬先进地区一步到位。"], ["操作建议", "政府应建立供水安全责任清单、联席机制和项目预算库；企业应同步建立法规差距表、风险事件表、项目与预算表、证据链表；行业组织应形成统一政策解读、地方配套建议和示范文本。"], ["工具成果", "《条例核心变化对照表》《政府—企业—用户责任框架图》《条例落地四张表模板》。"]], "quiz": {"q": "新《供水条例》最核心的行业逻辑变化是什么？", "opts": ["只提高罚款标准", "从城市供水管理转向城乡统筹、全链条治理", "只要求企业提高利润", "取消地方政府责任"], "ans": 1}}, {"id": 2, "title": "为什么地方政府必须负总责：规划、预算、统筹、更新改造、应急五项责任怎么落？", "roles": ["管理层", "政府事务", "法务财务"], "sections": [["问题提出", "地方政府负总责，是条例落地的第一抓手。供水安全不是企业单独能承担的经营事项，而是涉及水源、规划、财政、建设、应急、民生和社会稳定的公共治理事项。"], ["条例依据与政策背景", "条例明确县级以上地方人民政府对本行政区域内供水安全保障承担主体责任，将供水事业发展纳入相关规划，加强组织领导，统筹研究和协调解决重大问题，并将供水工作所需经费列入本级预算。"], ["行业痛点", "现实中，很多地方把供水问题简单推给水司：老旧管网、二供存量、农村供水、调价滞后、临时保供等都由企业单点消化，导致企业账面承压、责任不清、政策难以闭环。"], ["企业案例与实践经验", "部分地区较早建立住建、水利、发改、财政、卫健、生态环境、消防等部门协同机制，对管网更新、二供改造、应急供水、价格调整和财政补助进行统筹，企业则提供专业方案和成本测算。"], ["适用条件与边界", "财政能力较强、管网和二供问题较集中的城市，可由政府统筹专项改造；县域地区应先建联席机制和项目库，把供水安全列入年度民生实事和基础设施更新计划。"], ["操作建议", "政府应承担规划、预算、统筹、更新改造、应急组织五项责任。企业应提供底数、方案、成本、风险和绩效目标，不宜只提笼统诉求。主管部门应形成项目排序和年度督办机制。"], ["工具成果", "《地方政府供水责任清单》《部门协同职责表》《供水安全项目库模板》。"]], "quiz": {"q": "条例落地中，地方政府责任最适合先转化为什么？", "opts": ["口头承诺", "责任清单、联席机制和项目预算库", "企业内部通知", "用户缴费提醒"], "ans": 1}}, {"id": 3, "title": "公益性与经营性如何平衡：供水企业该承担什么、不能背什么、还能拓展什么？", "roles": ["管理层", "法务财务", "政府事务"], "sections": [["问题提出", "供水企业既承担基础公共服务责任，也必须保持可持续经营能力。只讲公益不讲成本，企业难以长期保供；只讲经营不讲公益，又会偏离供水事业属性。"], ["条例依据与政策背景", "条例强调供水事业坚持公益属性，同时明确供水单位应具备设施设备、专业人员、管理能力和水质检测能力，提供安全便利、连续稳定、计量准确、公开透明的供水服务。价格制度则以覆盖成本、合理收益、公平负担和准许成本加合理收益为基础。"], ["行业痛点", "企业普遍面临责任扩张、收入滞后、成本上升的矛盾。二供接管、农村供水、老旧改造、智慧水务、应急保障都要求企业投入，但价格、补偿和政府购买服务机制并不总是同步。"], ["企业案例与实践经验", "一些水司将基础供水、工程建设、二供运维、检测服务、智慧水务、数据服务等进行分类管理，主责业务保底线，协同业务增效率，市场化业务补能力。"], ["适用条件与边界", "这种模式适合具备专业能力、数字化基础和合规管理能力的企业。若地方政府职责、价格机制和成本边界不清，企业不宜盲目扩张承担公益性存量问题。"], ["操作建议", "政府应明确公益性事项和财政兜底边界；企业应建立主责业务、协同业务、市场化业务、禁入事项四类清单。对政策性亏损和历史欠账，应通过预算、补偿、项目资金或协议约定处理。"], ["工具成果", "《供水企业职责边界清单》《公益事项成本台账》《协同业务合规清单》。"]], "quiz": {"q": "供水企业公益性与经营性平衡的核心是什么？", "opts": ["只追求利润", "全部成本由企业自行消化", "公益底线、经营手段、长期可持续", "停止协同业务"], "ans": 2}}, {"id": 4, "title": "如何构建从水源到龙头的安全韧性体系？", "roles": ["生产运行", "管理层", "信息宣传"], "sections": [["问题提出", "供水安全必须从单点安全转向全链条韧性。单一水厂达标不等于系统安全，任何一个环节失守，都可能引发水质、水压、停水或舆情事件。"], ["条例依据与政策背景", "条例从供水水源、工程建设、经营服务、设施保护、应急处置等章节构建制度体系，要求多水源互补、应急水源或备用水源、饮用水水源地水质保障、供水设施运行维护、突发事件应急响应等。"], ["行业痛点", "行业痛点包括：单一水源风险高，水厂工艺对突发污染适应性不足，主干管网互联不够，二供和末梢风险突出，第三方施工破坏频发，极端天气下应急能力不足。"], ["企业案例与实践经验", "成熟地区通常通过水源互备、区域联网、主干环网、在线监测、DMA分区、二供远程监控、应急送水点和联合演练构建韧性体系。"], ["适用条件与边界", "该模式适合有区域统筹基础和数字化调度能力的地区。基础薄弱地区不宜一开始追求大平台，应先锁定水源、水厂、主干管、重点片区、二供高风险点五类关键节点。"], ["操作建议", "政府负责跨区域、跨部门统筹和应急组织；企业负责专业运维、监测预警和快速抢修。应建立六段式风险矩阵：水源、水厂、管网、二供、用户、应急。"], ["工具成果", "《从水源到龙头安全风险矩阵》《供水应急演练计划》《关键设施清单》。"]], "quiz": {"q": "供水安全韧性体系不应只关注哪个单点？", "opts": ["水源—水厂—管网—二供—用户全链条", "只关注水厂出厂水", "区域联调联控", "应急演练"], "ans": 1}}, {"id": 5, "title": "政府与供水企业的法律关系怎么重构：运营服务协议、特许经营、委托运营如何衔接？", "roles": ["法务财务", "政府事务", "管理层"], "sections": [["问题提出", "条例实施后，政府与供水企业之间不能只靠历史授权、会议纪要或惯例运行，而应通过清晰协议明确服务范围、标准、考核、责任、更新改造和退出机制。"], ["条例依据与政策背景", "条例要求供水主管部门通过与供水单位签订运营服务协议等方式，明确供水服务范围、标准、规范、要求以及服务质量评价、退出机制等事项。基础设施和公用事业特许经营制度则从政府与经营者之间的项目关系角度规范权利义务和风险分担。"], ["行业痛点", "现实中，部分地区存在授权来源不清、协议多年未更新、服务边界和价格机制脱节、二供和农村统管没有纳入协议、政府兜底事项未写清等问题。"], ["企业案例与实践经验", "较成熟地区通常采取主协议加附件方式：主协议约定区域、期限、服务和责任，附件约定水质水压、报装服务、停水公告、二供、农村供水、应急、考核和信息公开。"], ["适用条件与边界", "已有特许经营协议的地区，不必简单推翻重签，可通过补充协议和附件更新完成衔接；新建县域统管、二供统管或委托运营项目，应优先采用运营服务协议方式明确边界。"], ["操作建议", "政府应牵头起草示范文本，发改、财政、国资、司法、住建、水利等共同审查。企业应提供服务清单、成本清单、风险清单和项目清单，避免只签原则性协议。"], ["工具成果", "《运营服务协议示范目录》《服务质量考核指标表》《协议附件清单》。"]], "quiz": {"q": "运营服务协议最不应缺少的是哪类内容？", "opts": ["祝贺性表述", "服务范围、标准、考核、退出和更新改造责任", "企业宣传语", "单纯水厂数量"], "ans": 1}}, {"id": 6, "title": "监管趋严下，供水企业如何同时做到降本增效和服务升级？", "roles": ["管理层", "生产运行", "客服计量"], "sections": [["问题提出", "监管趋严不是单纯增加企业负担，也倒逼企业从粗放管理转向标准化、精细化和数字化。降本增效与服务升级并不冲突，关键是把成本、流程和用户体验放在同一个管理闭环里。"], ["条例依据与政策背景", "条例要求供水单位提供安全便利、连续稳定、计量准确、公开透明的供水服务，并公开报装接入流程、服务标准、资费标准、水质检测等信息。价格制度也通过成本监审、漏损约束和准许收益推动企业提高效率。"], ["行业痛点", "行业常见痛点是：服务承诺和内部流程脱节，报装、抢修、停水通知、投诉处理缺乏标准时限；降本只看财务费用，不看漏损、能耗、工单、库存和项目排序。"], ["企业案例与实践经验", "一些水司通过统一热线、工单闭环、移动巡检、DMA分区、压力管理、抢修物资标准化、客服评价和服务评级，实现单位水量成本下降与用户满意度提升。"], ["适用条件与边界", "数字化基础强的企业可推进实时调度和工单智能分派；管理基础弱的企业应先做流程梳理、标准时限和责任人，不宜先上复杂系统。"], ["操作建议", "政府考核应避免只看投诉量和事故数，还应看主动预防、整改闭环、信息公开和服务承诺兑现。企业应建立降本—提效—服务—反馈四维指标体系。"], ["工具成果", "《降本增效与服务升级指标表》《供水服务事项标准时限清单》《工单闭环流程图》。"]], "quiz": {"q": "降本增效最应与什么同步推进？", "opts": ["减少服务投入", "服务升级和用户感知改善", "取消投诉渠道", "降低水质检测频次"], "ans": 1}}, {"id": 7, "title": "政府监管、社会监督、用户感知如何形成闭环？", "roles": ["客服计量", "政府事务", "信息宣传"], "sections": [["问题提出", "供水监管不能只靠行政检查，也不能只靠企业自我承诺。真正有效的监管应由政府考核、信息公开、社会监督、用户反馈和企业整改共同构成。"], ["条例依据与政策背景", "条例强化信息公开、服务质量投诉处理和供水主管部门监督检查，明确供水单位应向社会公开服务、资费、水质检测等信息，并建立投诉处理机制。"], ["行业痛点", "监管指标和用户感知常常脱节：企业可能水质合格但用户仍投诉水黄水浑；政府检查通过但停水公告、复水提醒、工单反馈不到位；公开信息有形式无更新。"], ["企业案例与实践经验", "部分城市通过服务公开平台、微信公众号、热线工单、社区网格、满意度调查、用户代表座谈和水质开放日，把监管从检查企业延伸到让用户看得见。"], ["适用条件与边界", "公众参与机制适合信息公开基础较好的地区。若公开数据口径不统一、客服解释能力不足，过早开放复杂数据反而可能引发误解。"], ["操作建议", "政府应建立监管指标体系和公开目录；企业应将用户反馈进入整改闭环。重点不是展示数据，而是让用户知道问题有人管、进度可查询、结果可验证。"], ["工具成果", "《信息公开目录》《投诉处理闭环表》《用户感知评价表》。"]], "quiz": {"q": "社会监督闭环的关键不是单纯公开数据，而是什么？", "opts": ["用户能查询进度、看到整改结果", "完全不回应用户", "只在内部备案", "仅公布企业简介"], "ans": 0}}, {"id": 8, "title": "数字化为什么总觉得投入高、收效慢？如何从“建系统”转向“真赋能”？", "roles": ["信息宣传", "生产运行", "法务财务"], "sections": [["问题提出", "数字化投入高、收效慢，根源往往不是技术不足，而是场景不清、数据不通、业务不改。供水数字化应从建平台转向解决真实问题。"], ["条例依据与政策背景", "条例鼓励和支持提升供水自动化、数字化、智能化水平，并对供水设施信息系统网络安全提出要求。数字化也服务于水质检测、漏损控制、应急调度、客服工单和证据链管理。"], ["行业痛点", "系统烟囱化是普遍问题：GIS、SCADA、客服、收费、巡检、二供、财务各自运行，数据不能支撑成本核算、风险预警和管理决策。"], ["企业案例与实践经验", "先进企业通常先选高价值场景：漏损治理、压力管理、智慧调度、客户工单、成本归集、停水通知、二供监控，再逐步汇集数据形成管控中心。"], ["适用条件与边界", "数字化成熟度不同，路径应不同。大企业可建设数据中台和AI辅助决策；县域企业可先做统一编码、统一台账、统一工单和关键点在线监测。"], ["操作建议", "政府可把智慧水务纳入项目库和成本监管口径；企业应建立数字化项目收益评估，明确每个系统对应的降本、控险、提效、服务目标。"], ["工具成果", "《数字化项目优先级清单》《AI应用场景清单》《数据治理责任表》。"]], "quiz": {"q": "数字化项目最适合优先服务什么？", "opts": ["炫酷展示大屏", "漏损治理、调度、工单、成本和风险预警", "只做宣传片", "不接入业务数据"], "ans": 1}}, {"id": 9, "title": "二次供水如何平稳接管：新建优先接、存量先改后接，分类推进怎么做？", "roles": ["二供农村", "客服计量", "政府事务"], "sections": [["问题提出", "二供接管是条例实施后最现实、最敏感、最容易卡住的专项。原则上方向明确，但不能一刀切全量接管，必须分类推进。"], ["条例依据与政策背景", "条例规定新建居民住宅共有供水设施以及政府组织改造后的共有供水设施，依法交由供水单位负责运行维护；其他居民住宅共有供水设施，由地方政府组织逐步依法交由供水单位运行维护。"], ["行业痛点", "存量设施产权复杂、建设标准不一、泵房条件差、电源和消防联动缺失、物业配合度不同、用户对费用和停水敏感。"], ["企业案例与实践经验", "成熟做法是新建项目建成即移交，存量项目先评估、先整改、后接管，并按风险划分直接接管类、整改后接管类、先监管后接管类、暂缓接管类。"], ["适用条件与边界", "这种模式适合各地普遍采用，但分类标准必须结合地方实际。历史问题复杂、资金未落实、消防或电源存在重大隐患的项目，不宜强行接管。"], ["操作建议", "政府负责摸底、组织和资金统筹；水司负责专业评估、接管方案和后续运维；物业、业委会、社区负责协同告知和现场配合。"], ["工具成果", "《二供分类接管指引》《接管前五审表》《二供移交清单》。"]], "quiz": {"q": "存量二供项目更稳妥的推进原则是什么？", "opts": ["全部立即接管", "先评估、先整改、分类接管", "由物业永久自行管理", "不做水质检测"], "ans": 1}}, {"id": 10, "title": "二供的钱从哪里来：建设、改造、运维、大修、更新、电费怎么分？", "roles": ["二供农村", "法务财务", "政府事务"], "sections": [["问题提出", "二供问题最终会落到钱。若建设、改造、运维、大修、更新和电费边界不清，接管越多，企业风险越大，用户争议也越大。"], ["条例依据与政策背景", "条例明确共有供水设施依法交由供水单位运行维护，运行维护费用按照国家有关规定执行；非居民建筑配套调压调蓄设施等委托供水单位运维的，费用由委托方承担，不得计入供水成本。"], ["行业痛点", "居民二供运维费、电费、历史改造费、大修更新费、远传监测费是否纳入水价或另行安排，各地口径差异很大，低层用户公平性问题也较突出。"], ["企业案例与实践经验", "部分地区采用政府主导改造、开发商承担新建配套、居民和专项维修资金适度参与、水司负责专业运维；也有地区先行接管后再通过调价和补偿逐步疏导。"], ["适用条件与边界", "财政能力强、价格机制较顺畅的地区可推动运维成本规则化纳入水价；财政紧张、用户敏感地区应先做分账和试点，不宜一次性统一并入。"], ["操作建议", "政府应明确改造资金、运维费用和电费处理口径；企业应建立二供专项成本台账，把居民与非居民、建设与运维、日常与大修分开核算。"], ["工具成果", "《二供成本边界清单》《二供电费处理备选方案》《二供专项成本台账》。"]], "quiz": {"q": "二供费用处理中，哪项最需要地方细化口径？", "opts": ["电费、大修更新和运维成本边界", "员工生日福利", "企业宣传费", "办公绿植"], "ans": 0}}, {"id": 11, "title": "城乡供水均等化怎么推进：同规划、同标准、同保障先行，长期目标如何分步实现？", "roles": ["二供农村", "政府事务", "管理层"], "sections": [["问题提出", "城乡统筹是条例的主线，但均等化不等于一步到位的完全同网、同价、同质、同服务。更稳妥的路径是分阶段、分区域、分项目推进。"], ["条例依据与政策背景", "条例明确坚持城乡统筹，促进供水服务均等化，覆盖城市供水和农村规模化供水。水利部农村供水政策提出推进城乡供水一体化、集中供水规模化、小型工程规范化和县域统管。"], ["行业痛点", "现实阻力包括设施基础差距、人口密度差距、运行成本差距、收费基础差距、财政承受能力差距和运维专业能力差距。"], ["企业案例与实践经验", "先行地区通常先统一规划、统一水源、统一主干管网和统一服务标准，再逐步推进水质提升、一户一表、统一客服、统一收费和统一运维。"], ["适用条件与边界", "经济发达、平原水网、城镇化程度高的地区可更快实现同质同服务；山区、偏远、人口分散地区应优先保障基本安全、连续稳定和水质达标。"], ["操作建议", "政府应把城乡供水均等化纳入规划和项目库；企业应建立城市、农村分账核算和服务标准差距清单，分步推进而不是口号化推进。"], ["工具成果", "《城乡供水均等化三步走路线图》《农村供水差距清单》《县域统管实施框架》。"]], "quiz": {"q": "城乡均等化短期更稳妥的起点是什么？", "opts": ["立即完全同价", "同规划、同标准、同保障先行", "取消农村供水", "只建设城市管网"], "ans": 1}}, {"id": 12, "title": "农村供水如何实现可持续：价格机制、财政补贴、县域统管、产业协同怎么组合？", "roles": ["二供农村", "法务财务", "政府事务"], "sections": [["问题提出", "农村供水可持续不能只靠水费，也不能只靠企业情怀。必须形成价格、财政、统管和协同业务的组合机制。"], ["条例依据与政策背景", "水利部农村供水高质量发展政策提出到2035年基本实现农村供水现代化，优先推进城乡供水一体化，健全长效运行管理体制机制和应急供水保障体系。"], ["行业痛点", "农村供水普遍存在点多线长、用户分散、收费难、水价低、漏损高、维修响应慢、设施小散弱等问题。若没有制度性支持，企业越统管越亏损。"], ["企业案例与实践经验", "一些县域探索将农村供水纳入县域统一平台，财政承担基础设施和公益性补贴，企业负责专业运行，同时探索工程、检测、设备、数字服务等协同业务补充收益。"], ["适用条件与边界", "产业协同适合有平台资源和多元业务条件的地区，不能替代政府责任。对基础薄弱地区，首要任务仍是水质安全、设施规范和县域统管底盘。"], ["操作建议", "政府应明确财政补贴、购买服务、项目资金和水价政策；企业应建立农村供水独立成本账、项目库和服务标准，避免城市供水长期隐性补贴农村供水而无账可查。"], ["工具成果", "《农村供水可持续模式对比表》《县域统管成本台账》《政府购买服务建议模板》。"]], "quiz": {"q": "农村供水可持续最不应依赖什么？", "opts": ["价格+补贴+统管组合", "企业长期无账兜底", "县域统管", "政府购买服务"], "ans": 1}}, {"id": 13, "title": "供用水合同、计量和服务纠纷会不会成为新高发点？企业应如何提前把边界写清楚？", "roles": ["客服计量", "法务财务", "信息宣传"], "sections": [["问题提出", "条例实施后，用户侧争议可能从单纯欠费转向边界型纠纷。供水企业必须提前修合同、建台账、清边界。"], ["条例依据与政策背景", "条例强化信息公开、服务质量、计量准确、停水通知、用户安全用水和禁止违法接水等要求；公用事业反垄断和计量合规规则也对格式合同、收费、计量复核提出更高要求。"], ["行业痛点", "违约金条款过重、停水程序粗放、表计异常举证不足、总表分表责任不清、开发商/物业/二供边界混乱，均可能导致合同和服务纠纷。"], ["企业案例与实践经验", "近年公开纠纷样本显示，供用水合同纠纷已从欠费型走向合同边界、计量边界、总表分表边界、开发商物业二供边界等复杂场景。"], ["适用条件与边界", "居民用户、工业园区、开发项目、物业二供、临时用水等不宜再使用同一套合同。不同用户类型应有不同版本和附件。"], ["操作建议", "企业应在条例实施前完成标准合同修订，建立计量复核流程、异常水量处置流程、总表转供管理规则和二供协同协议。"], ["工具成果", "《供用水合同修订要点清单》《居民版/非居民版合同示范文本》《四类纠纷预警台账》。"]], "quiz": {"q": "供用水纠纷从欠费型转向边界型，主要包括哪些边界？", "opts": ["合同、计量、总表分表、开发商物业二供", "办公座位边界", "采购边界", "车辆使用边界"], "ans": 0}}, {"id": 14, "title": "水价如何真正实现“覆盖成本、合理收益、公平负担”？", "roles": ["法务财务", "管理层", "政府事务"], "sections": [["问题提出", "水价改革不是简单涨价，而是建立供水事业可持续的价格机制。没有真实成本，就没有合理价格；没有公众沟通，就没有调价基础。"], ["条例依据与政策背景", "《供水条例》明确城市供水价格应遵循覆盖成本、合理收益、公平负担原则；《城镇供水价格管理办法》以成本监审为基础，按准许成本加合理收益核定准许收入。"], ["行业痛点", "成本核算粗、公益性成本混、二供和农村供水边界不清、服务成效不可量化、公众对调价敏感、地方调价周期长。"], ["企业案例与实践经验", "成熟水司通常先做全链条、全要素、全周期成本核算，再做服务成效展示和公众沟通，最后配合发改部门完成成本监审和价格调整。"], ["适用条件与边界", "成本基础弱、服务投诉高的企业不宜急于推动调价，应先补管理短板和成本证据；有较好服务基础和清晰账本的地区可适时启动价格机制理顺。"], ["操作建议", "政府应按法定程序推进成本监审、听证、信息公开和价格调整；企业应建立城市供水、农村供水、公益事项三套账，并将服务成效转化为可验证数据。"], ["工具成果", "《三套成本台账模板》《调价前准备清单》《水价沟通问答库》。"]], "quiz": {"q": "水价理顺最稳妥的前置条件是什么？", "opts": ["真实完整的成本台账和服务成效证明", "只发布涨价通知", "只看同行价格", "不做信息公开"], "ans": 0}}, {"id": 15, "title": "企业投入如何形成可见回报：更新、提标、数字化和服务提升如何形成正循环？", "roles": ["管理层", "法务财务", "信息宣传"], "sections": [["问题提出", "供水企业投入越来越多，但如果不能转化为可量化成效和合理回报，就会陷入越投越亏、越改越难解释的困境。"], ["条例依据与政策背景", "价格和成本监审制度强调准许成本、合理收益和成本监管，条例则要求提升供水安全、服务和数字化水平。投入要进入机制，必须有项目依据、成本依据和绩效依据。"], ["行业痛点", "项目立项偏工程化，缺少投资后评价；数字化、二供、应急、管网更新等投入效果难以证明，政府和公众看不到回报。"], ["企业案例与实践经验", "一些企业建立项目全生命周期管理，从立项目标、预算测算、实施过程、投运效果、投诉变化、漏损下降、能耗变化等维度评价投入成效。"], ["适用条件与边界", "大规模投入适合有清晰项目收益和政策支持的地区；基础管理薄弱企业应先做小切口项目，用可见成效争取后续支持。"], ["操作建议", "政府应将重大供水投入纳入项目库和绩效评价；企业应建立投入成效评估指标体系，把每笔投入对应到安全、效率、服务或成本改善。"], ["工具成果", "《投入成效评估表》《项目后评价模板》《服务成效展示清单》。"]], "quiz": {"q": "企业投入形成正循环，需要重点证明什么？", "opts": ["投入成效可量化、可评价、可反馈", "项目越大越好", "只看建设里程", "不做绩效"], "ans": 0}}, {"id": 16, "title": "地方政府怎样履行供水投入责任：预算安排、项目牵头、价格补偿、购买服务如何启动？", "roles": ["政府事务", "法务财务", "管理层"], "sections": [["问题提出", "供水投入责任不能停留在原则上，必须转化为预算、项目、补偿和购买服务等具体机制。"], ["条例依据与政策背景", "条例要求县级以上地方政府将供水工作所需经费列入本级预算；因供水价格调整不到位导致供水单位难以达到准许收入的，城市人民政府应予适当补偿。"], ["行业痛点", "政府重视供水安全，但财政紧张、项目分散、责任部门多，导致很多投入无稳定来源，企业只能先垫资或暂缓实施。"], ["企业案例与实践经验", "一些地方将原水工程、主干管网、老旧小区二供、农村统管、应急保供等列入政府专项工程或民生项目，再由水司承担建设运营或专业配合。"], ["适用条件与边界", "适合政府优先投入的是公共性强、外部性强、收益难以完全由水费覆盖的项目。纯经营性延伸业务不宜以政府资金兜底。"], ["操作建议", "企业要推动政府启动机制，不能只说缺钱，应提供项目库、成本测算、风险后果、绩效目标和资金方案，让政府有依据、有抓手、有轻重缓急。"], ["工具成果", "《政府投入责任与项目分类清单》《财政补偿申请模板》《政府购买服务事项清单》。"]], "quiz": {"q": "推动政府投入机制启动，企业最应提供什么？", "opts": ["项目库、成本测算、风险后果和绩效目标", "口头抱怨", "内部聊天记录", "单张宣传海报"], "ans": 0}}, {"id": 17, "title": "供水行业如何用好政策性资金和融资工具？", "roles": ["法务财务", "政府事务", "管理层"], "sections": [["问题提出", "面对大规模更新改造、二供、农村统管和数字化投入，供水企业需要把政策性资金和市场化融资工具组合起来使用。"], ["条例依据与政策背景", "农村供水、基础设施更新、城市生命线、安全韧性、老旧小区改造等领域可能与中央预算内资金、超长期特别国债、专项债、地方财政资金等政策工具相关；价格制度和特许经营制度也为长期回收提供框架。"], ["行业痛点", "项目包装不专业、收益边界不清、资金工具错配、短债长投、融资后运营收益不足，是供水项目融资中的常见问题。"], ["企业案例与实践经验", "一些地区将二供整区改造、主干管网、应急水源、城乡一体化管网等打包成政策性资金项目，企业负责专业方案、测算和后续运营。"], ["适用条件与边界", "政策性资金适合公益性、基础性、战略性项目；市场化融资适合现金流较清晰、可形成资产或收益回收的项目。两类工具不能混用。"], ["操作建议", "政府应主导政策性项目申报，企业配合提供技术方案和成本收益测算；企业使用融资工具前应做全生命周期财务测算和风险评估。"], ["工具成果", "《项目—资金工具对照表》《融资风险评估清单》《政策性资金项目包装模板》。"]], "quiz": {"q": "政策性资金最适合哪类项目？", "opts": ["公益性、基础性、战略性供水项目", "个人消费", "无边界经营项目", "无法验收的项目"], "ans": 0}}, {"id": 18, "title": "中央到地方如何做好政策标准衔接：谁来补规则、补什么规则？", "roles": ["政府事务", "法务财务", "管理层"], "sections": [["问题提出", "条例是总纲，但真正落地还需要部门规章、技术规范、地方细则、企业制度和行业示范文本共同衔接。"], ["条例依据与政策背景", "条例本身已确立总方向，但价格、二供、农村供水、供用水合同、服务标准、计量、应急、数字化和网络安全等仍需更多配套规则细化。"], ["行业痛点", "各地各做各的，协议文本、接管标准、成本口径、服务承诺、信息公开、二供电费处理差异很大，导致政府和企业沟通成本高。"], ["企业案例与实践经验", "一些行业组织尝试形成示范文本、标准清单、问答口径和工具包，供地方政策制定和企业内部执行参考。"], ["适用条件与边界", "国家层面应完善部门规章和技术标准；地方层面应结合本地实际出实施细则；企业和行业组织应提供专业建议，不宜只被动等待。"], ["操作建议", "行业应建立规则供给意识：把讨论成果沉淀为协议、清单、台账、SOP、问答库和政策建议稿。"], ["工具成果", "《中央—地方—企业—行业规则衔接图》《地方配套文件清单》《行业示范文本目录》。"]], "quiz": {"q": "条例落地需要补齐的是什么？", "opts": ["配套规则、地方细则、企业制度和行业示范文本", "只要口号", "只要宣传海报", "无需任何配套"], "ans": 0}}, {"id": 19, "title": "地方政府在条例实施后第一年应该先做什么？", "roles": ["政府事务", "管理层", "二供农村"], "sections": [["问题提出", "条例实施首年最重要的是打基础，而不是一次性解决所有问题。地方政府应先摸清底数、明确责任、建立机制、形成项目库。"], ["条例依据与政策背景", "条例赋予地方政府规划、预算、统筹、改造和应急职责。实施首年若没有基础台账和联席机制，后续二供、农村、水价、应急都难以推进。"], ["行业痛点", "底数不清是最大痛点：老旧管网有多少、二供泵房状态如何、农村供水缺口在哪、突发风险有哪些、价格缺口多大，很多地方没有一张总表。"], ["企业案例与实践经验", "较可行的做法是先做摸底排查，再建立部门联席机制，明确责任清单和项目库，选择二供、农村统管、老旧管网或应急水源作为示范项目。"], ["适用条件与边界", "财政和管理能力有限的地方不宜一开始铺大摊子，应先选风险高、民生感知强、可复制性强的项目。"], ["操作建议", "政府应牵头制定首年行动清单；企业应提供专业底数和技术方案；行业组织可提供模板和外部专家支持。"], ["工具成果", "《条例实施首年行动清单》《供水底数摸排表》《重点项目排序规则》。"]], "quiz": {"q": "条例实施首年最适合先做什么？", "opts": ["摸底排查、责任分工、联席机制和项目库", "一次性解决所有历史问题", "停止服务公开", "只开宣传会"], "ans": 0}}, {"id": 20, "title": "条例实施后，供水企业如何一边转型发展，一边做好舆情应对与风险防控？", "roles": ["管理层", "信息宣传", "客服计量"], "sections": [["问题提出", "条例实施后，供水企业既要转型，也要防风险。水质、水价、二供、停水、合同、舆情都可能成为热点，企业必须主动构建沟通和风控体系。"], ["条例依据与政策背景", "条例强化信息公开、社会监督和服务质量要求；用户意识增强、自媒体传播加速，行业需要联合宣传、统一口径和标准化问答。"], ["行业痛点", "企业平时做了很多工作，但公众看不到；一旦发生水质、停水或调价争议，缺少统一解释、证据链和政企协同发声机制。"], ["企业案例与实践经验", "一些企业通过开放日、在线水质公示、停水短信、社区沟通、标准问答库和舆情分级处置，提升社会理解和响应速度。"], ["适用条件与边界", "公开传播适合有真实数据和服务底座的企业；如果内部流程不稳、信息不准，过度宣传可能适得其反。"], ["操作建议", "企业应重构战略、组织、人才和业务，同时建立舆情标准问答库、风险事件分级处置机制和政企联合沟通机制。行业组织可牵头形成统一口径。"], ["工具成果", "《标准化问答库》《舆情分级处置SOP》《企业转型任务清单》。"]], "quiz": {"q": "舆情应对的基础是什么？", "opts": ["真实数据、证据链、标准问答和政企协同", "删帖即可", "拒绝公开", "只让客服个人解释"], "ans": 0}}];
+const scenarios = [{"title": "二供泵房接管前发现无合法电源", "role": "二供农村", "task": "先暂停正式接管，列入红线项；组织政府、物业、供电/电气专业方会签，明确资产、费用、风险边界；完成供电规范化和断电恢复演练后再移交。"}, {"title": "计划停水影响学校和养老机构", "role": "客服计量", "task": "提前评估影响范围，按24小时公告、重点用户点对点通知、临时供水点设置、消防告知、复水提醒和复盘留痕执行。"}, {"title": "农村供水长期亏损但必须统管", "role": "政府事务", "task": "建立农村供水单独成本账，形成政府购买服务建议，按城乡一体化、规模化、小型工程规范化和县域统管路径排项目。"}, {"title": "换表后工业用户水量异常翻倍", "role": "客服计量", "task": "立即封存旧表、启动计量复核，调取生产量、电耗、污水排放、夜间流量和现场排查记录，避免直接按异常读数强行催收。"}, {"title": "用户质疑水价调整", "role": "法务财务", "task": "用三套成本台账、服务成效指标、听证程序、补偿缺口和定向减免机制开展解释，避免把水价沟通简化为涨价说明。"}];
+let currentRole = localStorage.getItem('waterTrainingRole') || '全部';
+const doneKey='waterTrainingDoneV1', quizKey='waterTrainingQuizV1';
+function getDone(){ try{return JSON.parse(localStorage.getItem(doneKey)||'{}')}catch(e){return {}} }
+function getQuiz(){ try{return JSON.parse(localStorage.getItem(quizKey)||'{}')}catch(e){return {}} }
+function saveDone(d){ localStorage.setItem(doneKey, JSON.stringify(d)); updateProgress(); }
+function saveQuiz(q){ localStorage.setItem(quizKey, JSON.stringify(q)); updateProgress(); }
+function toast(msg='已保存'){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1400); }
+function toggleTheme(){ const b=document.body; b.dataset.theme=b.dataset.theme==='dark'?'light':'dark'; localStorage.setItem('waterTrainingTheme', b.dataset.theme); }
+function initTheme(){ const t=localStorage.getItem('waterTrainingTheme')||'light'; document.body.dataset.theme=t; }
+function rolePills(){ const box=document.getElementById('rolePills'); box.innerHTML=''; Object.keys(roles).forEach(r=>{ const btn=document.createElement('button'); btn.className='pill '+(r===currentRole?'active':''); btn.textContent=r; btn.onclick=()=>{ currentRole=r; localStorage.setItem('waterTrainingRole',r); rolePills(); renderLectures(); }; box.appendChild(btn); }); document.getElementById('roleHint').textContent=roles[currentRole]; }
+function matchLecture(l, kw){ const txt=[l.title, l.roles.join(' '), ...l.sections.map(s=>s.join(' '))].join(' '); return txt.toLowerCase().includes(kw.toLowerCase()); }
+function renderLectures(){ const list=document.getElementById('lectureList'); const kw=document.getElementById('search').value.trim(); const done=getDone(); list.innerHTML=''; let shown=0; lectures.forEach(l=>{ if(currentRole!=='全部' && !l.roles.includes(currentRole)) return; if(kw && !matchLecture(l,kw)) return; shown++; const art=document.createElement('article'); art.className='lecture'; art.id='lecture-'+l.id; const secHtml=l.sections.map((s,idx)=>`<details class="section" ${idx<1?'open':''}><summary>${s[0]}</summary><p>${s[1]}</p></details>`).join(''); art.innerHTML=`<div class="lecture-head"><div class="num">${l.id}</div><div><h3>${l.title}</h3><div class="tags">${l.roles.map(r=>`<span class="tag">${r}</span>`).join('')}</div></div></div><div class="lecture-body">${secHtml}</div><div class="lecture-actions"><button class="btn complete ${done[l.id]?'done':''}" onclick="toggleDone(${l.id})">${done[l.id]?'已完成':'标记完成'}</button><button class="btn" onclick="jumpQuiz(${l.id})">做本讲题</button><button class="btn" onclick="copyTools(${l.id})">复制工具成果</button></div>`; list.appendChild(art); }); if(!shown) list.innerHTML='<div class="panel"><b>没有匹配课程。</b><p class="muted">请尝试切换岗位或减少搜索关键词。</p></div>'; }
+function toggleDone(id){ const d=getDone(); d[id]=!d[id]; saveDone(d); renderLectures(); toast(d[id]?'已标记完成':'已取消完成'); }
+function expandAll(open){ document.querySelectorAll('details.section').forEach(d=>d.open=open); }
+function jumpQuiz(id){ location.hash='quiz'; setTimeout(()=>document.getElementById('q'+id)?.scrollIntoView({behavior:'smooth',block:'center'}),220); }
+function copyTools(id){ const l=lectures.find(x=>x.id===id); const tools=l.sections.find(s=>s[0]==='工具成果')[1]; navigator.clipboard?.writeText(`${l.title}
+${tools}`); toast('工具成果已复制'); }
+function renderQuiz(){ const box=document.getElementById('quizList'); const saved=getQuiz(); box.innerHTML=''; lectures.forEach(l=>{ const q=l.quiz; const div=document.createElement('div'); div.className='quiz-card'; div.id='q'+l.id; div.innerHTML=`<b>${l.id}. ${q.q}</b>` + q.opts.map((o,i)=>`<button class="option ${saved[l.id]!==undefined ? (i===q.ans?'correct':(i===saved[l.id]?'wrong':'')) : ''}" onclick="answerQuiz(${l.id},${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('') + `<div class="muted">${saved[l.id]!==undefined ? (saved[l.id]===q.ans?'答对了':'已显示正确答案') : '请选择一个答案'}</div>`; box.appendChild(div); }); }
+function answerQuiz(id, ans){ const q=getQuiz(); q[id]=ans; saveQuiz(q); renderQuiz(); toast(ans===lectures.find(l=>l.id===id).quiz.ans?'答对了':'已记录，继续加油'); }
+function updateProgress(){ const d=getDone(); const q=getQuiz(); const doneCount=lectures.filter(l=>d[l.id]).length; const answered=lectures.filter(l=>q[l.id]!==undefined); const correct=answered.filter(l=>q[l.id]===l.quiz.ans).length; document.getElementById('progressBar').value=doneCount; document.getElementById('progressText').textContent=`${doneCount}/20`; document.getElementById('doneCount').textContent=doneCount; document.getElementById('scoreText').textContent=answered.length?Math.round(correct/answered.length*100)+'%':'0%'; }
+function renderTools(){ const ul=document.getElementById('toolList'); ul.innerHTML=''; lectures.forEach(l=>{ const tools=l.sections.find(s=>s[0]==='工具成果')[1]; const li=document.createElement('li'); li.innerHTML=`<b>第${l.id}讲：</b>${tools}`; ul.appendChild(li); }); }
+function renderScenarios(){ const box=document.getElementById('scenarioList'); box.innerHTML=''; scenarios.forEach((s,i)=>{ const div=document.createElement('details'); div.className='scenario'; div.innerHTML=`<summary><b>${i+1}. ${s.title}</b><span class="tag">${s.role}</span></summary><p>${s.task}</p>`; box.appendChild(div); }); }
+function renderRefs(){ const box=document.getElementById('refList'); box.innerHTML=''; sources.forEach((s,i)=>{ const div=document.createElement('div'); div.className='scenario'; div.innerHTML=`<b>${i+1}. ${s.name}</b><p>${s.note}</p><p><a href="${s.url}" target="_blank" rel="noopener">打开来源</a></p>`; box.appendChild(div); }); }
+function exportReport(){ const d=getDone(), q=getQuiz(); const doneCount=lectures.filter(l=>d[l.id]).length; const answered=lectures.filter(l=>q[l.id]!==undefined); const correct=answered.filter(l=>q[l.id]===l.quiz.ans).length; const report=`新《供水条例》二十讲/问学习记录
+岗位：${currentRole}
+完成：${doneCount}/20
+答题：${answered.length}/20
+正确率：${answered.length?Math.round(correct/answered.length*100):0}%
+时间：${new Date().toLocaleString()}`; const blob=new Blob([report],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='新供水条例二十讲学习记录.txt'; a.click(); URL.revokeObjectURL(a.href); }
+window.addEventListener('hashchange',()=>{ document.querySelectorAll('.bottom-nav a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===location.hash)); });
+initTheme(); rolePills(); renderLectures(); renderQuiz(); renderTools(); renderScenarios(); renderRefs(); updateProgress();
+</script>
+</body>
+</html>
