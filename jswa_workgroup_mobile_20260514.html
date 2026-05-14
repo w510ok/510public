@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0f766e" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="JSWA团标" />
+<title>JSWA水协标委会工作组移动端</title>
+<style>
+  :root{
+    --bg:#f5f7fb; --card:#ffffff; --ink:#172033; --muted:#6b7280; --line:#e5e7eb;
+    --teal:#0f766e; --teal2:#14b8a6; --blue:#2563eb; --amber:#d97706; --red:#dc2626; --green:#16a34a; --purple:#7c3aed;
+    --shadow:0 10px 25px rgba(15,23,42,.08); --radius:18px;
+    --safe-bottom:env(safe-area-inset-bottom,0px); --safe-top:env(safe-area-inset-top,0px);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+  button,input,textarea,select{font:inherit} button{border:0;background:none;color:inherit;cursor:pointer} a{color:inherit;text-decoration:none}
+  .app{max-width:460px;margin:0 auto;min-height:100vh;padding-bottom:calc(84px + var(--safe-bottom));}
+  .hero{position:sticky;top:0;z-index:20;padding:calc(12px + var(--safe-top)) 14px 10px;background:linear-gradient(180deg,#0f766e 0%,#0f766e 70%,rgba(15,118,110,0) 100%);color:#fff;}
+  .hero-card{border-radius:24px;padding:16px 16px 14px;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.08));box-shadow:0 12px 28px rgba(2,44,34,.24);backdrop-filter: blur(8px);border:1px solid rgba(255,255,255,.18);}
+  .hero-top{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:14px;background:#fff;color:var(--teal);display:grid;place-items:center;font-weight:900;box-shadow:0 8px 18px rgba(0,0,0,.16)}
+  .title{font-weight:800;font-size:17px;letter-spacing:.2px}.sub{font-size:12px;opacity:.86;margin-top:2px}.hero-actions{margin-left:auto;display:flex;gap:8px}
+  .mini-btn{height:34px;padding:0 10px;border-radius:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px}.mini-btn:active{transform:scale(.98)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.kpi{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:9px 7px;text-align:center}.kpi b{display:block;font-size:18px;line-height:1}.kpi span{font-size:10px;opacity:.85;white-space:nowrap}
+  .content{padding:8px 14px 20px}.section{display:none;animation:fade .18s ease}.section.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin:12px 0}.flat{box-shadow:none}.row{display:flex;align-items:center;gap:10px}.between{display:flex;align-items:center;justify-content:space-between;gap:10px}.grow{flex:1}.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:11px}.bold{font-weight:800}.h2{font-weight:900;font-size:16px;margin:2px 0 10px}.h3{font-weight:800;font-size:14px;margin:0 0 6px}.pill{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;border:1px solid transparent;white-space:nowrap}.pill.green{background:#ecfdf5;color:#047857;border-color:#bbf7d0}.pill.red{background:#fef2f2;color:#b91c1c;border-color:#fecaca}.pill.amber{background:#fffbeb;color:#b45309;border-color:#fde68a}.pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.pill.gray{background:#f3f4f6;color:#4b5563;border-color:#e5e7eb}.pill.purple{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe}.dot{width:8px;height:8px;border-radius:99px;display:inline-block}.dot.green{background:var(--green)}.dot.amber{background:#f59e0b}.dot.red{background:var(--red)}.dot.blue{background:var(--blue)}
+  .search{position:relative;margin:10px 0}.search input{width:100%;height:44px;border:1px solid var(--line);border-radius:16px;padding:0 14px 0 38px;background:#fff;box-shadow:0 6px 18px rgba(15,23,42,.05);outline:none}.search:before{content:'⌕';position:absolute;left:14px;top:9px;color:#94a3b8;font-size:20px;z-index:1}.chips{display:flex;gap:8px;overflow:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch}.chip{flex:0 0 auto;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:800;color:#475569}.chip.active{background:#0f766e;color:#fff;border-color:#0f766e}.progress{height:8px;background:#eef2f7;border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:999px}.bar.amber{background:linear-gradient(90deg,#f59e0b,#fbbf24)}.bar.red{background:linear-gradient(90deg,#ef4444,#f97316)}
+  .project-card{position:relative;overflow:hidden}.project-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal)}.project-card.risk-red:before{background:var(--red)}.project-card.risk-amber:before{background:#f59e0b}.project-title{font-size:15px;font-weight:900;line-height:1.32;margin-bottom:6px}.project-meta{display:flex;flex-wrap:wrap;gap:6px 8px;margin:8px 0;color:#64748b;font-size:11px}.project-meta span{display:inline-flex;align-items:center;gap:3px}.nextbox{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:10px;margin-top:10px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.btn{min-height:40px;border-radius:14px;padding:9px 12px;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid var(--line);background:#fff}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.blue{background:#2563eb;color:#fff;border-color:#2563eb}.btn.amber{background:#f59e0b;color:#fff;border-color:#f59e0b}.btn.ghost{background:#f8fafc}.btn:active{transform:scale(.985)}.btn.block{width:100%}.btn.smallbtn{min-height:32px;padding:6px 9px;border-radius:10px;font-size:12px}.seg{display:flex;gap:6px;background:#eef2f7;padding:4px;border-radius:14px;margin:10px 0}.seg button{flex:1;border-radius:11px;padding:8px 4px;font-size:12px;font-weight:900;color:#64748b}.seg button.active{background:#fff;color:#0f766e;box-shadow:0 2px 8px rgba(15,23,42,.08)}
+  .timeline{padding-left:8px}.stage{position:relative;padding:0 0 14px 24px;border-left:2px solid #e2e8f0}.stage:last-child{border-left-color:transparent}.stage:before{content:'';position:absolute;left:-7px;top:1px;width:12px;height:12px;border-radius:999px;background:#cbd5e1;border:2px solid #fff;box-shadow:0 0 0 2px #e2e8f0}.stage.done:before{background:var(--green);box-shadow:0 0 0 2px #bbf7d0}.stage.now:before{background:#f59e0b;box-shadow:0 0 0 2px #fde68a}.stage.future:before{background:#cbd5e1}.stage-name{font-weight:900;font-size:13px}.stage-tip{font-size:11px;color:#64748b;margin-top:2px}.checklist{display:grid;gap:8px}.check{display:flex;align-items:flex-start;gap:9px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:10px}.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--teal);flex:0 0 auto}.check-title{font-size:13px;font-weight:850}.check-evi{font-size:11px;color:#64748b;margin-top:2px}.check .req{font-size:10px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:999px;padding:1px 5px;margin-left:4px}.rule{border-radius:16px;padding:12px;border:1px solid var(--line);background:#fff;margin:8px 0}.rule.pass{border-color:#bbf7d0;background:#f0fdf4}.rule.warn{border-color:#fde68a;background:#fffbeb}.rule.fail{border-color:#fecaca;background:#fef2f2}.rule-title{font-weight:900;font-size:13px;display:flex;gap:6px;align-items:flex-start}.rule-body{font-size:12px;color:#475569;margin-top:5px}.prompt{border:1px solid var(--line);border-radius:18px;padding:13px;background:#fff;margin:10px 0}.prompt .body{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:10px;font-size:12px;color:#334155;max-height:160px;overflow:auto;margin-top:8px}.perf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.perf{border-radius:16px;border:1px solid var(--line);background:#fff;padding:12px}.perf b{font-size:20px}.toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-bottom));transform:translateX(-50%) translateY(20px);background:#111827;color:#fff;padding:10px 14px;border-radius:999px;font-size:12px;z-index:80;opacity:0;pointer-events:none;transition:.18s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:7px 10px calc(7px + var(--safe-bottom));}.nav-inner{max-width:460px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.nav button{height:56px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:900;color:#64748b}.nav button .ico{font-size:19px;line-height:1}.nav button.active{color:#0f766e;background:#ecfdf5}
+  .modal{position:fixed;inset:0;z-index:70;background:rgba(15,23,42,.45);display:none;align-items:flex-end}.modal.show{display:flex}.sheet{width:100%;max-width:460px;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;max-height:88vh;overflow:auto;padding:14px 14px calc(20px + var(--safe-bottom));box-shadow:0 -16px 36px rgba(15,23,42,.22)}.handle{width:42px;height:5px;border-radius:99px;background:#cbd5e1;margin:0 auto 12px}.textarea{width:100%;min-height:160px;border:1px solid #cbd5e1;border-radius:14px;padding:10px;font-size:13px;resize:vertical;outline:none;background:#f8fafc}.empty{padding:24px;text-align:center;color:#94a3b8;font-size:13px}.divider{height:1px;background:#e5e7eb;margin:10px 0}.danger{color:#b91c1c}.ok{color:#047857}.warn{color:#b45309}.source-note{font-size:10px;color:#64748b;background:#f8fafc;border-radius:12px;padding:8px;margin-top:8px}.role-badge{font-size:10px;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:900}.hide{display:none!important}.footer-note{font-size:11px;color:#94a3b8;text-align:center;padding:12px 8px}.statline{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.stat b{font-size:20px}.stat span{font-size:11px;color:#64748b}.doc-filter{display:flex;gap:6px;overflow:auto;margin:8px 0}.doc-filter button{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;font-size:11px;font-weight:800;color:#64748b}.doc-filter button.active{background:#0f766e;color:#fff;border-color:#0f766e}
+  @media (min-width:700px){body{background:#e2e8f0}.app{box-shadow:0 0 0 1px #d1d5db;background:var(--bg)}}
+  @media (prefers-color-scheme: dark){body.auto-dark{--bg:#0b1220;--card:#111827;--ink:#e5e7eb;--muted:#94a3b8;--line:#243041}.auto-dark .search input,.auto-dark .card,.auto-dark .check,.auto-dark .prompt,.auto-dark .rule,.auto-dark .perf,.auto-dark .stat{background:#111827}.auto-dark .nextbox,.auto-dark .prompt .body,.auto-dark .textarea,.auto-dark .source-note{background:#0f172a;border-color:#243041}.auto-dark .nav{background:rgba(17,24,39,.92)}.auto-dark .sheet{background:#111827}.auto-dark .chip{background:#111827}.auto-dark .seg{background:#0f172a}.auto-dark .seg button.active{background:#111827}.auto-dark .hero{background:linear-gradient(180deg,#0f766e 0%,#0f766e 70%,rgba(15,118,110,0) 100%)}}
+</style>
+</head>
+<body class="auto-dark">
+<div class="app" id="app">
+  <header class="hero">
+    <div class="hero-card">
+      <div class="hero-top">
+        <div class="logo">水</div>
+        <div class="grow">
+          <div class="title">JSWA 团标工作组移动端</div>
+          <div class="sub">项目跟踪 · 规则校验 · AI赋能 · 绩效佐证</div>
+        </div>
+        <div class="hero-actions">
+          <button class="mini-btn" onclick="openSheet('help')">说明</button>
+          <button class="mini-btn" onclick="exportSnapshot()">导出</button>
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b id="kpiProjects">8</b><span>在建项目</span></div>
+        <div class="kpi"><b id="kpiTodo">0</b><span>待办</span></div>
+        <div class="kpi"><b id="kpiRisk">0</b><span>风险</span></div>
+        <div class="kpi"><b id="kpiProgress">0%</b><span>材料率</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section id="sec-dashboard" class="section active">
+      <div class="card flat">
+        <div class="between"><div class="h2">今日工作台</div><span class="pill blue" id="todayText">2026-05-14</span></div>
+        <div class="statline">
+          <div class="stat"><b id="dashDueSoon">0</b><span>14天内节点</span></div>
+          <div class="stat"><b id="dashMissing">0</b><span>关键缺项</span></div>
+          <div class="stat"><b id="dashRed">0</b><span>红色风险</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="between"><div class="h2">优先提醒</div><button class="btn smallbtn ghost" onclick="copyDailyBrief()">复制日报</button></div>
+        <div id="priorityList"></div>
+      </div>
+      <div class="card">
+        <div class="h2">快捷动作</div>
+        <div class="actions">
+          <button class="btn primary" onclick="setTab('projects')">查看项目</button>
+          <button class="btn blue" onclick="openSheet('remind')">生成催办</button>
+          <button class="btn ghost" onclick="setTab('rules')">规则体检</button>
+          <button class="btn ghost" onclick="setTab('prompts')">AI提示词</button>
+        </div>
+        <div class="source-note">定位：辅助工作组成员组织编制单位和起草人，不替代协会正式审批、专家审查和制度流程。</div>
+      </div>
+    </section>
+
+    <section id="sec-projects" class="section">
+      <div class="search"><input id="projectSearch" placeholder="搜索项目、单位、负责人、类别…" oninput="renderProjects()" /></div>
+      <div class="chips" id="projectChips"></div>
+      <div id="projectList"></div>
+    </section>
+
+    <section id="sec-detail" class="section">
+      <div id="detailRoot"></div>
+    </section>
+
+    <section id="sec-rules" class="section">
+      <div class="card">
+        <div class="between"><div><div class="h2">规则引擎体检</div><div class="small muted">按当前选中项目自动判断“已满足 / 待补充 / 风险”。</div></div><button class="btn smallbtn primary" onclick="openSheet('remind')">生成提醒</button></div>
+        <div class="divider"></div>
+        <div id="rulesProjectMini"></div>
+      </div>
+      <div id="ruleList"></div>
+    </section>
+
+    <section id="sec-prompts" class="section">
+      <div class="card">
+        <div class="h2">AI提示词库</div>
+        <div class="small muted">点击复制后，可直接粘贴到 ChatGPT / Codex / 本地大模型。提示词会自动带入当前项目。</div>
+        <div class="doc-filter" id="promptFilters"></div>
+      </div>
+      <div id="promptList"></div>
+    </section>
+
+    <section id="sec-performance" class="section">
+      <div class="card">
+        <div class="between"><div><div class="h2">绩效佐证驾驶舱</div><div class="small muted">把年度考评证据前置到项目全过程。</div></div><button class="btn smallbtn ghost" onclick="copyEvidenceBrief()">复制清单</button></div>
+      </div>
+      <div class="perf-grid" id="perfGrid"></div>
+      <div class="card">
+        <div class="h3">证据闭环建议</div>
+        <div id="evidenceAdvice" class="small"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button id="nav-dashboard" class="active" onclick="setTab('dashboard')"><span class="ico">◎</span><span>待办</span></button>
+    <button id="nav-projects" onclick="setTab('projects')"><span class="ico">▣</span><span>项目</span></button>
+    <button id="nav-rules" onclick="setTab('rules')"><span class="ico">⚙</span><span>规则</span></button>
+    <button id="nav-prompts" onclick="setTab('prompts')"><span class="ico">AI</span><span>提示词</span></button>
+    <button id="nav-performance" onclick="setTab('performance')"><span class="ico">◇</span><span>绩效</span></button>
+  </div>
+</nav>
+
+<div class="modal" id="modal" onclick="closeSheetOnBackdrop(event)">
+  <div class="sheet" id="sheet">
+    <div class="handle"></div>
+    <div id="sheetContent"></div>
+  </div>
+</div>
+<div class="toast" id="toast">已复制</div>
+
+<script>
+const PROJECTS_INIT = [
+  {
+    "id": "P003",
+    "title": "11种嗅味物质的测定 固相微萃取气相色谱质谱法",
+    "category": "水质安全",
+    "leadOrg": "苏州市供排水管理处",
+    "lead": "李素芳",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-05-28",
+    "nextAction": "补齐方法验证记录、标准草案v0.8和编制说明",
+    "facilitator": "益心虹",
+    "facilitatorRole": "水质检测辅导",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：李素芳（高级工程师）；领域：供水水质检测",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P004",
+    "title": "供水管网多级计量分区管理技术规程",
+    "category": "管网运营",
+    "leadOrg": "常州通用自来水有限公司",
+    "lead": "周韧",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-05-30",
+    "nextAction": "形成DMA案例样本、指标口径表和应用证明",
+    "facilitator": "李慧",
+    "facilitatorRole": "管网计量辅导",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：周韧（高级工程师）；领域：供水管网管理",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P005",
+    "title": "城镇供水系统多级补氯技术规程",
+    "category": "水质安全",
+    "leadOrg": "小洖科技（苏州）有限公司",
+    "lead": "程志强",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-06-03",
+    "nextAction": "补充多级投加场景、在线余氯阈值和安全边界",
+    "facilitator": "益心虹",
+    "facilitatorRole": "水质保障辅导",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：程志强（高级工程师）；领域：供水水质保障",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P015",
+    "title": "水泵房减振降噪技术规范",
+    "category": "设施设备",
+    "leadOrg": "常熟市苏衡声环保科技有限公司",
+    "lead": "徐秋玲",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-05-24",
+    "nextAction": "完成征求意见汇总处理表和送审稿",
+    "facilitator": "李慧",
+    "facilitatorRole": "设施设备辅导",
+    "trackOwner": "标委会工作组",
+    "notes": "",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02",
+      "E03"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P007",
+    "title": "海绵城市建设评估指南",
+    "category": "海绵城市",
+    "leadOrg": "中规院（北京）规划设计有限公司",
+    "lead": "戴忱",
+    "stage": "consultation",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-05-23",
+    "nextAction": "完成征求意见稿评审材料和征求对象清单",
+    "facilitator": "王皓坦 / 杨阳",
+    "facilitatorRole": "海绵联盟协同",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：戴忱（正高级工程师（正高级城乡规划师））；领域：海绵城市",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "D01",
+      "D02",
+      "D03"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P008",
+    "title": "海绵城市设施施工与验收规程",
+    "category": "海绵城市",
+    "leadOrg": "悉地（苏州）勘察设计顾问有限公司",
+    "lead": "曹倩男",
+    "stage": "consultation",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-05-25",
+    "nextAction": "完成施工验收关键表单和专家预审意见处理",
+    "facilitator": "王皓坦 / 李慧",
+    "facilitatorRole": "施工验收协同",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：曹倩男（高级工程师）；领域：海绵城市",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "D01",
+      "D02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P009",
+    "title": "居住区海绵设施植物配置技术指南",
+    "category": "海绵城市",
+    "leadOrg": "苏州园科生态建设集团有限公司",
+    "lead": "龚希博",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-06-01",
+    "nextAction": "补齐植物配置分区、养护验收和应用场景",
+    "facilitator": "戴忱 / 李慧",
+    "facilitatorRole": "植物配置协同",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：龚希博（高级工程师）；领域：海绵城市",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  },
+  {
+    "id": "P010",
+    "title": "老旧小区改造海绵城市设计指南",
+    "category": "海绵城市",
+    "leadOrg": "中规院（北京）规划设计有限公司",
+    "lead": "杨新德",
+    "stage": "drafting",
+    "statusText": "起草完善",
+    "applyDate": "2025-08-08",
+    "approvedDate": "2025-08-08",
+    "deadline": "2026-08-08",
+    "nextDue": "2026-06-05",
+    "nextAction": "补充老旧小区改造边界、风险清单和案例图表",
+    "facilitator": "杨新德 / 李慧",
+    "facilitatorRole": "老旧小区协同",
+    "trackOwner": "标委会工作组",
+    "notes": "主编人：杨新德（高级工程师）；领域：海绵城市",
+    "docsDone": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "B01",
+      "B02",
+      "B03",
+      "C01",
+      "C02"
+    ],
+    "focus": "质量、合规、应用、绩效四线并行推进"
+  }
+];
+const STAGES = [
+  {
+    "key": "proposal",
+    "name": "立项提案",
+    "short": "立项",
+    "tip": "申请书、大纲、查新查重、应用证明、专利披露"
+  },
+  {
+    "key": "team",
+    "name": "编制组组建",
+    "short": "组建",
+    "tip": "成员名单、工作计划、任务分工、利益相关方均衡"
+  },
+  {
+    "key": "drafting",
+    "name": "起草完善",
+    "short": "起草",
+    "tip": "标准草案、编制说明、调研验证、对标分析"
+  },
+  {
+    "key": "consultation",
+    "name": "征求意见",
+    "short": "征意",
+    "tip": "公开征求、定向函询、期限不少于30日、意见表回收"
+  },
+  {
+    "key": "comment_review",
+    "name": "意见处理",
+    "short": "处理",
+    "tip": "逐条汇总、采纳说明、重大分歧论证、形成送审稿"
+  },
+  {
+    "key": "tech_review",
+    "name": "技术审查",
+    "short": "审查",
+    "tip": "专家组、回避声明、会议纪要、表决结论"
+  },
+  {
+    "key": "approval",
+    "name": "报批发布",
+    "short": "发布",
+    "tip": "报批函、签署表、最终稿、编号发布、平台公开"
+  },
+  {
+    "key": "implementation",
+    "name": "宣贯实施",
+    "short": "实施",
+    "tip": "培训宣贯、应用证明、实施反馈、复审计划"
+  }
+];
+const DOCS = [
+  {
+    "id": "A01",
+    "stage": "proposal",
+    "name": "团体标准制修订项目申请书",
+    "required": true,
+    "evidence": "正式申请书、盖章PDF、版本号"
+  },
+  {
+    "id": "A02",
+    "stage": "proposal",
+    "name": "标准大纲或草案框架",
+    "required": true,
+    "evidence": "章节目录、关键技术内容、适用范围"
+  },
+  {
+    "id": "A03",
+    "stage": "proposal",
+    "name": "查新查重记录 / 现行标准比对表",
+    "required": true,
+    "evidence": "全国标准、行业标准、地方标准、团标检索记录"
+  },
+  {
+    "id": "A04",
+    "stage": "proposal",
+    "name": "3家以上应用证明或实践基础说明",
+    "required": true,
+    "evidence": "应用单位证明、试点项目说明、典型数据"
+  },
+  {
+    "id": "A05",
+    "stage": "proposal",
+    "name": "专利披露与知识产权声明",
+    "required": true,
+    "evidence": "是否涉及专利、处置方式、声明文件"
+  },
+  {
+    "id": "B01",
+    "stage": "team",
+    "name": "编制组成员名单及工作计划",
+    "required": true,
+    "evidence": "主编、参编、起草人、阶段里程碑"
+  },
+  {
+    "id": "B02",
+    "stage": "team",
+    "name": "任务分工表 / RACI责任矩阵",
+    "required": true,
+    "evidence": "工作组、主编单位、专家、办公室分工"
+  },
+  {
+    "id": "B03",
+    "stage": "team",
+    "name": "第一次工作会议纪要",
+    "required": false,
+    "evidence": "会议通知、签到、纪要、任务清单"
+  },
+  {
+    "id": "C01",
+    "stage": "drafting",
+    "name": "标准草案文本",
+    "required": true,
+    "evidence": "按GB/T 1.1结构，含范围、术语、技术要求"
+  },
+  {
+    "id": "C02",
+    "stage": "drafting",
+    "name": "编制说明",
+    "required": true,
+    "evidence": "背景、必要性、依据、技术来源、分歧处理"
+  },
+  {
+    "id": "C03",
+    "stage": "drafting",
+    "name": "调研验证 / 试验验证 / 案例数据",
+    "required": true,
+    "evidence": "实地调研记录、验证数据、案例照片或报告"
+  },
+  {
+    "id": "C04",
+    "stage": "drafting",
+    "name": "标准条文自查表",
+    "required": false,
+    "evidence": "强制性标准、法律法规、产业政策一致性"
+  },
+  {
+    "id": "D01",
+    "stage": "consultation",
+    "name": "征求意见稿（对外发布版）",
+    "required": true,
+    "evidence": "PDF/Word定稿、版本号、发布日期"
+  },
+  {
+    "id": "D02",
+    "stage": "consultation",
+    "name": "征求意见通知与对象清单",
+    "required": true,
+    "evidence": "公开+定向，单位/专家清单，发送记录"
+  },
+  {
+    "id": "D03",
+    "stage": "consultation",
+    "name": "全国团体标准信息平台或协会网站截图",
+    "required": true,
+    "evidence": "公开征求记录、起止日期、链接截图"
+  },
+  {
+    "id": "D04",
+    "stage": "consultation",
+    "name": "征求意见表回收记录",
+    "required": true,
+    "evidence": "收到意见、无意见复函、逾期说明"
+  },
+  {
+    "id": "E01",
+    "stage": "comment_review",
+    "name": "征求意见汇总处理表",
+    "required": true,
+    "evidence": "逐条意见、采纳/不采纳、理由、处理人"
+  },
+  {
+    "id": "E02",
+    "stage": "comment_review",
+    "name": "重大分歧专题论证记录",
+    "required": false,
+    "evidence": "分歧事项、论证依据、专家意见、处理结论"
+  },
+  {
+    "id": "E03",
+    "stage": "comment_review",
+    "name": "送审稿及修订说明",
+    "required": true,
+    "evidence": "修订痕迹、版本说明、提交日期"
+  },
+  {
+    "id": "F01",
+    "stage": "tech_review",
+    "name": "专家组成员信息表",
+    "required": true,
+    "evidence": "专家专业、单位、职称、是否回避"
+  },
+  {
+    "id": "F02",
+    "stage": "tech_review",
+    "name": "专家回避与保密声明",
+    "required": true,
+    "evidence": "签字扫描件、利益关系声明"
+  },
+  {
+    "id": "F03",
+    "stage": "tech_review",
+    "name": "技术审查会议议程和主持词",
+    "required": false,
+    "evidence": "会议议程、发言顺序、审查要点"
+  },
+  {
+    "id": "F04",
+    "stage": "tech_review",
+    "name": "审查会议纪要及表决结果",
+    "required": true,
+    "evidence": "签到、意见、表决、结论、整改要求"
+  },
+  {
+    "id": "G01",
+    "stage": "approval",
+    "name": "报批函与报批材料清单",
+    "required": true,
+    "evidence": "主编单位报批函、全套材料目录"
+  },
+  {
+    "id": "G02",
+    "stage": "approval",
+    "name": "报批稿（最终文本）",
+    "required": true,
+    "evidence": "最终文本、编制说明、签署页"
+  },
+  {
+    "id": "G03",
+    "stage": "approval",
+    "name": "标准发布文件与编号记录",
+    "required": true,
+    "evidence": "发布公告、编号、发布日期、实施日期"
+  },
+  {
+    "id": "G04",
+    "stage": "approval",
+    "name": "全国团体标准信息平台公开记录",
+    "required": true,
+    "evidence": "公开信息截图、标准名称、编号、专利信息"
+  },
+  {
+    "id": "H01",
+    "stage": "implementation",
+    "name": "宣贯培训材料与签到记录",
+    "required": true,
+    "evidence": "课件、签到、照片、培训纪要"
+  },
+  {
+    "id": "H02",
+    "stage": "implementation",
+    "name": "实施反馈记录和应用案例",
+    "required": true,
+    "evidence": "应用单位、场景、效果、问题与改进"
+  },
+  {
+    "id": "H03",
+    "stage": "implementation",
+    "name": "绩效佐证清单与复审提醒",
+    "required": true,
+    "evidence": "采信、获奖、咨询服务、复审计划"
+  }
+];
+const RULES = [
+  {
+    "id": "SR-01",
+    "stage": "team",
+    "name": "立项后30日内完成编制组组建",
+    "checkDocs": [
+      "B01",
+      "B02"
+    ],
+    "severity": "黄",
+    "basis": "全过程管理细则：立项后尽快明确工作组和计划"
+  },
+  {
+    "id": "SR-02",
+    "stage": "drafting",
+    "name": "起草材料必须形成正文+编制说明+验证依据",
+    "checkDocs": [
+      "C01",
+      "C02",
+      "C03"
+    ],
+    "severity": "黄",
+    "basis": "团标质量控制：技术内容来源可追溯"
+  },
+  {
+    "id": "SR-03",
+    "stage": "consultation",
+    "name": "征求意见应公开+定向并留存起止日期",
+    "checkDocs": [
+      "D01",
+      "D02",
+      "D03"
+    ],
+    "severity": "红",
+    "basis": "公开透明、代表性和可追溯要求"
+  },
+  {
+    "id": "SR-04",
+    "stage": "comment_review",
+    "name": "意见处理须逐条闭环后方可送审",
+    "checkDocs": [
+      "E01",
+      "E03"
+    ],
+    "severity": "红",
+    "basis": "每条意见有采纳状态、理由和修订结果"
+  },
+  {
+    "id": "SR-05",
+    "stage": "tech_review",
+    "name": "专家审查须具备专家信息、回避声明、纪要和表决",
+    "checkDocs": [
+      "F01",
+      "F02",
+      "F04"
+    ],
+    "severity": "红",
+    "basis": "审查独立性和结论有效性要求"
+  },
+  {
+    "id": "SR-06",
+    "stage": "approval",
+    "name": "报批发布应形成最终稿、发布文件和平台公开记录",
+    "checkDocs": [
+      "G01",
+      "G02",
+      "G03",
+      "G04"
+    ],
+    "severity": "红",
+    "basis": "发布、编号、公开、专利信息留痕"
+  },
+  {
+    "id": "PE-01",
+    "stage": "implementation",
+    "name": "绩效评价应沉淀宣贯、应用、反馈和复审证据",
+    "checkDocs": [
+      "H01",
+      "H02",
+      "H03"
+    ],
+    "severity": "黄",
+    "basis": "年度考核、社会组织评估、成果推广"
+  }
+];
+const PROMPTS = [
+  {
+    "id": "PR01",
+    "role": "工作组成员",
+    "title": "生成项目催办提醒",
+    "stage": "全阶段",
+    "body": "你是江苏省城镇供水排水协会标委会工作组项目跟踪负责人。请根据以下项目情况，生成一段专业、克制、可执行的微信/企业微信催办提醒：\n项目名称：{{title}}\n牵头单位：{{leadOrg}}\n主编人：{{lead}}\n当前阶段：{{stageName}}\n下一节点：{{nextDue}}，{{nextAction}}\n要求：1. 不强硬但有节点压力；2. 明确需补材料；3. 提醒材料用于专家审查、绩效考评和过程留痕；4. 150字以内。"
+  },
+  {
+    "id": "PR02",
+    "role": "主编单位",
+    "title": "完善编制说明",
+    "stage": "起草完善",
+    "body": "你是供排水行业团体标准编制专家。请帮助主编单位完善《{{title}}》编制说明，重点补强：制定背景、行业痛点、现行标准差异、技术路线、应用基础、试验验证或案例支撑、重大分歧处理、预期成效。要求语言正式，能用于征求意见稿和专家审查。"
+  },
+  {
+    "id": "PR03",
+    "role": "专家组",
+    "title": "生成专家预审关注点",
+    "stage": "技术审查",
+    "body": "你是团体标准技术审查专家。请围绕《{{title}}》形成专家预审关注点清单，至少包括：适用范围边界、术语定义、强制性标准符合性、技术指标可测量性、条文可执行性、应用证明充分性、与现行标准协调性、知识产权风险、后续宣贯实施建议。"
+  },
+  {
+    "id": "PR04",
+    "role": "办公室",
+    "title": "生成会议议程和主持词",
+    "stage": "征求意见/审查",
+    "body": "你是标委会办公室秘书。请为《{{title}}》生成一次团体标准阶段评审会议议程和主持词，包含：会议目的、参会人员、材料清单、主编汇报、专家质询、意见归纳、表决或结论、下一步任务分解和时限。要求可直接用于会议通知和纪要整理。"
+  },
+  {
+    "id": "PR05",
+    "role": "主编单位",
+    "title": "意见汇总处理表审校",
+    "stage": "意见处理",
+    "body": "请审校《{{title}}》征求意见汇总处理表。重点检查：意见是否逐条编号；采纳/部分采纳/不采纳理由是否充分；重大分歧是否有论证；文本修订位置是否明确；是否形成可供专家审查的送审稿。请输出问题清单和修改建议。"
+  },
+  {
+    "id": "PR06",
+    "role": "绩效评价",
+    "title": "生成绩效佐证说明",
+    "stage": "宣贯实施",
+    "body": "请根据团体标准全过程建设要求，为《{{title}}》生成绩效佐证材料说明。结构包括：组织管理证据、过程规范证据、技术质量证据、应用推广证据、行业影响证据、可复制经验。要求用于年度绩效考评和社会组织评估材料。"
+  },
+  {
+    "id": "PR07",
+    "role": "规则引擎",
+    "title": "项目风险体检",
+    "stage": "全阶段",
+    "body": "你是JSWA团体标准全过程管理规则引擎。请对《{{title}}》进行风险体检：当前阶段{{stageName}}，下一节点{{nextDue}}，已知下一动作{{nextAction}}。请按红黄绿列出：材料缺项、程序风险、技术质量风险、绩效佐证风险、需要工作组升级协调事项。"
+  },
+  {
+    "id": "PR08",
+    "role": "工作组成员",
+    "title": "生成项目周报",
+    "stage": "全阶段",
+    "body": "请为标委会工作组生成《{{title}}》项目周报，格式为：本周进展、材料完成情况、存在问题、需协调事项、下周计划、风险等级。要求专业务实，适合报送协会秘书处和标委会领导。"
+  }
+];
+const TODAY = new Date('2026-05-14T00:00:00');
+const STORAGE_KEY = 'jswa_mobile_workgroup_v1';
+let state = loadState();
+let activeTab = 'dashboard';
+let activeProjectId = state.activeProjectId || PROJECTS_INIT[0].id;
+let activeFilter = '全部';
+let docStageFilter = '全部';
+let promptRoleFilter = '全部';
+
+function loadState(){
+  const fresh = {projects: PROJECTS_INIT, activeProjectId: PROJECTS_INIT[0].id, updatedAt: new Date().toISOString()};
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return fresh;
+    const saved = JSON.parse(raw);
+    // merge latest demo data with user's checkbox state
+    const byId = Object.fromEntries((saved.projects||[]).map(p=>[p.id,p]));
+    fresh.projects = PROJECTS_INIT.map(p => ({...p, docsDone: byId[p.id]?.docsDone || p.docsDone, userNotes: byId[p.id]?.userNotes || ''}));
+    fresh.activeProjectId = byId[saved.activeProjectId] ? saved.activeProjectId : fresh.activeProjectId;
+    return fresh;
+  }catch(e){ return fresh; }
+}
+function saveState(){
+  state.activeProjectId = activeProjectId;
+  state.updatedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function $(id){return document.getElementById(id)}
+function project(){return state.projects.find(p=>p.id===activeProjectId) || state.projects[0]}
+function stageIndex(key){return STAGES.findIndex(s=>s.key===key)}
+function stageName(key){return STAGES.find(s=>s.key===key)?.name || key}
+function daysUntil(dateStr){const d=new Date(dateStr+'T00:00:00'); return Math.ceil((d-TODAY)/86400000)}
+function esc(s){return String(s??'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function docById(id){return DOCS.find(d=>d.id===id)}
+function docsForProject(p){return DOCS.map(d => ({...d, done:(p.docsDone||[]).includes(d.id)}))}
+function materialProgress(p){const req=DOCS.filter(d=>d.required); const done=req.filter(d=>(p.docsDone||[]).includes(d.id)); return Math.round(done.length/req.length*100)}
+function missingRequired(p){return DOCS.filter(d=>d.required && !(p.docsDone||[]).includes(d.id))}
+function criticalMissing(p){const idx=stageIndex(p.stage); return missingRequired(p).filter(d=>stageIndex(d.stage)<=idx).length}
+function riskLevel(p){const days=daysUntil(p.nextDue); const crit=criticalMissing(p); if(days<0 || crit>=3) return 'red'; if(days<=14 || crit>0) return 'amber'; return 'green'}
+function riskText(p){const r=riskLevel(p); return r==='red'?'红色':r==='amber'?'黄色':'绿色'}
+function riskPill(p){const r=riskLevel(p); return `<span class="pill ${r==='red'?'red':r==='amber'?'amber':'green'}"><span class="dot ${r==='red'?'red':r==='amber'?'amber':'green'}"></span>${riskText(p)}风险</span>`}
+function progressClass(p){const r=riskLevel(p); return r==='red'?'red':r==='amber'?'amber':''}
+function setTab(tab){
+  activeTab = tab;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const sec = $('sec-'+tab);
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  const nav = $('nav-'+tab); if(nav) nav.classList.add('active');
+  if(tab==='projects') renderProjects();
+  if(tab==='detail') renderDetail();
+  if(tab==='rules') renderRules();
+  if(tab==='prompts') renderPrompts();
+  if(tab==='performance') renderPerformance();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function selectProject(id, goto='detail'){
+  activeProjectId=id; saveState(); renderAll(); setTab(goto);
+}
+function calcStats(){
+  const total=state.projects.length;
+  const dueSoon=state.projects.filter(p=>daysUntil(p.nextDue)<=14).length;
+  const red=state.projects.filter(p=>riskLevel(p)==='red').length;
+  const risk=state.projects.filter(p=>riskLevel(p)!=='green').length;
+  const avg=Math.round(state.projects.reduce((a,p)=>a+materialProgress(p),0)/total);
+  const missing=state.projects.reduce((a,p)=>a+criticalMissing(p),0);
+  return {total,dueSoon,red,risk,avg,missing};
+}
+function renderHeader(){
+  const s=calcStats();
+  $('kpiProjects').textContent=s.total; $('kpiTodo').textContent=s.dueSoon; $('kpiRisk').textContent=s.risk; $('kpiProgress').textContent=s.avg+'%';
+  $('todayText').textContent='2026-05-14'; $('dashDueSoon').textContent=s.dueSoon; $('dashMissing').textContent=s.missing; $('dashRed').textContent=s.red;
+}
+function renderDashboard(){
+  const list = [...state.projects].sort((a,b)=>{
+    const rr={red:0,amber:1,green:2}; const x=rr[riskLevel(a)]-rr[riskLevel(b)]; if(x) return x; return daysUntil(a.nextDue)-daysUntil(b.nextDue);
+  }).slice(0,5);
+  $('priorityList').innerHTML = list.map(p=>{
+    const d=daysUntil(p.nextDue); const miss=criticalMissing(p);
+    return `<div class="card flat project-card risk-${riskLevel(p)}" style="margin:9px 0;padding:11px 11px 11px 15px" onclick="selectProject('${p.id}')">
+      <div class="between"><div class="project-title">${esc(p.title)}</div>${riskPill(p)}</div>
+      <div class="small muted">${esc(p.leadOrg)} · ${esc(p.lead)} · ${stageName(p.stage)}</div>
+      <div class="nextbox"><div class="between"><b class="small">下一节点：${esc(p.nextDue)}</b><span class="pill ${d<0?'red':d<=7?'amber':'blue'}">${d<0?'已逾期 '+Math.abs(d)+'天':'剩余 '+d+'天'}</span></div><div class="small muted" style="margin-top:4px">${esc(p.nextAction)}</div>${miss?`<div class="tiny danger" style="margin-top:4px">当前阶段关键材料缺项 ${miss} 项</div>`:''}</div>
+    </div>`
+  }).join('') || '<div class="empty">暂无待办</div>';
+}
+function filterOptions(){
+  return ['全部','水质安全','管网运营','设施设备','海绵城市','红黄风险'];
+}
+function renderChips(){
+  $('projectChips').innerHTML=filterOptions().map(f=>`<button class="chip ${activeFilter===f?'active':''}" onclick="activeFilter='${f}';renderProjects()">${f}</button>`).join('');
+}
+function renderProjects(){
+  renderChips();
+  const q=($('projectSearch')?.value||'').trim().toLowerCase();
+  let arr=state.projects.filter(p=>{
+    const text=[p.title,p.category,p.leadOrg,p.lead,p.facilitator,p.stage,p.nextAction].join(' ').toLowerCase();
+    const okq=!q||text.includes(q);
+    const okf=activeFilter==='全部'||(activeFilter==='红黄风险'?riskLevel(p)!=='green':p.category===activeFilter);
+    return okq&&okf;
+  });
+  $('projectList').innerHTML=arr.map(p=>projectCardHTML(p)).join('') || '<div class="empty">没有匹配项目</div>';
+}
+function projectCardHTML(p){
+  const pct=materialProgress(p); const d=daysUntil(p.nextDue); const miss=criticalMissing(p);
+  return `<article class="card project-card risk-${riskLevel(p)}">
+    <div class="between"><span class="pill gray">${esc(p.category)}</span>${riskPill(p)}</div>
+    <div class="project-title" style="margin-top:8px">${esc(p.title)}</div>
+    <div class="project-meta"><span>牵头：${esc(p.leadOrg)}</span><span>主编：${esc(p.lead)}</span><span>辅导：${esc(p.facilitator)}</span></div>
+    <div class="between small"><span class="bold">${stageName(p.stage)}</span><span class="muted">材料完成 ${pct}%</span></div>
+    <div class="progress"><div class="bar ${progressClass(p)}" style="width:${pct}%"></div></div>
+    <div class="nextbox">
+      <div class="between"><b class="small">${esc(p.nextDue)}</b><span class="pill ${d<0?'red':d<=14?'amber':'blue'}">${d<0?'逾期'+Math.abs(d)+'天':'剩余'+d+'天'}</span></div>
+      <div class="small muted" style="margin-top:4px">${esc(p.nextAction)}</div>
+      ${miss?`<div class="tiny danger" style="margin-top:4px">当前阶段关键材料缺项：${miss}项</div>`:`<div class="tiny ok" style="margin-top:4px">当前阶段关键材料基本齐备</div>`}
+    </div>
+    <div class="actions"><button class="btn primary" onclick="selectProject('${p.id}')">打开详情</button><button class="btn ghost" onclick="selectProject('${p.id}','prompts')">AI辅助</button></div>
+  </article>`;
+}
+function renderDetail(){
+  const p=project();
+  $('detailRoot').innerHTML=`
+    <div class="card">
+      <button class="btn smallbtn ghost" onclick="setTab('projects')">← 返回项目</button>
+      <div class="between" style="margin-top:10px"><span class="pill gray">${esc(p.category)}</span>${riskPill(p)}</div>
+      <div class="project-title" style="font-size:17px;margin-top:9px">${esc(p.title)}</div>
+      <div class="small muted">${esc(p.leadOrg)} · 主编 ${esc(p.lead)} · 辅导 ${esc(p.facilitator)}（${esc(p.facilitatorRole)}）</div>
+      <div class="nextbox"><b class="small">下一动作</b><div class="small muted" style="margin-top:4px">${esc(p.nextDue)}｜${esc(p.nextAction)}</div></div>
+      <div class="seg"><button id="det-overview" class="active" onclick="renderDetailTab('overview')">概览</button><button id="det-nodes" onclick="renderDetailTab('nodes')">节点</button><button id="det-docs" onclick="renderDetailTab('docs')">材料</button><button id="det-ai" onclick="renderDetailTab('ai')">AI</button></div>
+      <div id="detailTab"></div>
+    </div>`;
+  renderDetailTab('overview');
+}
+function renderDetailTab(tab){
+  const p=project();
+  document.querySelectorAll('[id^="det-"]').forEach(b=>b.classList.remove('active'));
+  const b=$('det-'+tab); if(b) b.classList.add('active');
+  if(tab==='overview'){
+    const pct=materialProgress(p), miss=missingRequired(p).length;
+    $('detailTab').innerHTML=`<div class="statline"><div class="stat"><b>${pct}%</b><span>材料完成率</span></div><div class="stat"><b>${criticalMissing(p)}</b><span>阶段缺项</span></div><div class="stat"><b>${daysUntil(p.nextDue)}</b><span>节点剩余天</span></div></div>
+    <div class="divider"></div>
+    <div class="small"><b>管理建议：</b>${adviceForProject(p)}</div>
+    <div class="actions"><button class="btn primary" onclick="openSheet('remind')">生成催办</button><button class="btn ghost" onclick="exportProjectText('${p.id}')">导出项目卡</button></div>`;
+  }
+  if(tab==='nodes'){
+    $('detailTab').innerHTML=`<div class="timeline">${STAGES.map(s=>{
+      const idx=stageIndex(s.key), cur=stageIndex(p.stage); const cls=idx<cur?'done':idx===cur?'now':'future';
+      return `<div class="stage ${cls}"><div class="stage-name">${s.name}</div><div class="stage-tip">${s.tip}</div>${idx===cur?`<div class="tiny warn" style="margin-top:5px">当前节点：${esc(p.nextAction)}</div>`:''}</div>`
+    }).join('')}</div>`;
+  }
+  if(tab==='docs'){
+    renderDocFilters();
+    renderDocs();
+  }
+  if(tab==='ai'){
+    $('detailTab').innerHTML=`<div class="small muted">围绕当前项目快速复制提示词。</div>${PROMPTS.slice(0,4).map(pr=>promptHTML(pr,p,true)).join('')}`;
+  }
+}
+function renderDocFilters(){
+  const filters=['全部',...STAGES.map(s=>s.short)];
+  const map=Object.fromEntries(STAGES.map(s=>[s.short,s.key]));
+  $('detailTab').innerHTML=`<div class="doc-filter" id="docFilters">${filters.map(f=>`<button class="${docStageFilter===f?'active':''}" onclick="docStageFilter='${f}';renderDetailTab('docs')">${f}</button>`).join('')}</div><div id="docList"></div>`;
+}
+function renderDocs(){
+  const p=project();
+  const shortMap=Object.fromEntries(STAGES.map(s=>[s.short,s.key]));
+  const stageKey=shortMap[docStageFilter];
+  const docs=docsForProject(p).filter(d=>!stageKey||d.stage===stageKey);
+  $('docList').innerHTML=`<div class="checklist">${docs.map(d=>`<label class="check"><input type="checkbox" ${d.done?'checked':''} onchange="toggleDoc('${p.id}','${d.id}',this.checked)"><div class="grow"><div class="check-title">${esc(d.name)} ${d.required?'<span class="req">必备</span>':''}</div><div class="check-evi">${stageName(d.stage)}｜${esc(d.evidence)}</div></div></label>`).join('')}</div>`;
+}
+function toggleDoc(pid, did, checked){
+  const p=state.projects.find(x=>x.id===pid); if(!p)return;
+  const set=new Set(p.docsDone||[]); checked?set.add(did):set.delete(did); p.docsDone=[...set]; saveState(); renderAll(false);
+  if(activeTab==='detail') renderDetailTab('docs');
+}
+function adviceForProject(p){
+  const r=riskLevel(p); const miss=criticalMissing(p); const pct=materialProgress(p);
+  if(r==='red') return `建议由工作组发起升级协调，优先补齐当前阶段 ${miss} 项关键材料，并同步形成书面催办和风险记录。`;
+  if(r==='amber') return `建议本周完成“${p.nextAction}”，同时补齐缺项材料，避免进入专家审查前集中返工。`;
+  if(pct<70) return `建议按材料清单做一次全量体检，把应用证明、查新查重、会议纪要和意见处理表提前归档。`;
+  return `项目推进状态较好，可准备进入下一阶段，同时同步沉淀绩效佐证和宣贯应用证据。`;
+}
+function evaluateRule(p, rule){
+  const cur=stageIndex(p.stage), rStage=stageIndex(rule.stage);
+  const missing=rule.checkDocs.filter(id=>!(p.docsDone||[]).includes(id));
+  if(cur<rStage) return {state:'wait', label:'未到阶段', missing};
+  if(missing.length===0) return {state:'pass', label:'已满足', missing};
+  return {state:rule.severity==='红'?'fail':'warn', label:rule.severity==='红'?'风险':'待补充', missing};
+}
+function renderRules(){
+  const p=project();
+  $('rulesProjectMini').innerHTML=`<div class="project-title">${esc(p.title)}</div><div class="small muted">${stageName(p.stage)} · ${esc(p.leadOrg)} · ${riskText(p)}风险</div>`;
+  $('ruleList').innerHTML=RULES.map(rule=>{
+    const ev=evaluateRule(p,rule); const cls=ev.state==='pass'?'pass':ev.state==='fail'?'fail':ev.state==='warn'?'warn':'';
+    const missNames=ev.missing.map(id=>docById(id)?.name || id).join('；');
+    return `<div class="rule ${cls}"><div class="rule-title"><span class="pill ${ev.state==='pass'?'green':ev.state==='fail'?'red':ev.state==='warn'?'amber':'gray'}">${ev.label}</span><span>${rule.id} ${esc(rule.name)}</span></div><div class="rule-body">依据：${esc(rule.basis)}</div>${ev.missing.length?`<div class="rule-body danger">缺项：${esc(missNames)}</div>`:''}</div>`
+  }).join('');
+}
+function renderPromptFilters(){
+  const roles=['全部',...Array.from(new Set(PROMPTS.map(p=>p.role)))];
+  $('promptFilters').innerHTML=roles.map(r=>`<button class="${promptRoleFilter===r?'active':''}" onclick="promptRoleFilter='${r}';renderPrompts()">${r}</button>`).join('');
+}
+function fillPrompt(tpl,p){
+  return tpl.replace(/{{title}}/g,p.title).replace(/{{leadOrg}}/g,p.leadOrg).replace(/{{lead}}/g,p.lead).replace(/{{stageName}}/g,stageName(p.stage)).replace(/{{nextDue}}/g,p.nextDue).replace(/{{nextAction}}/g,p.nextAction);
+}
+function promptHTML(pr,p,compact=false){
+  const body=fillPrompt(pr.body,p);
+  return `<div class="prompt"><div class="between"><div><div class="h3">${esc(pr.title)}</div><span class="role-badge">${esc(pr.role)}｜${esc(pr.stage)}</span></div><button class="btn smallbtn primary" onclick="copyText(${JSON.stringify(body)})">复制</button></div>${compact?'':`<div class="body">${esc(body)}</div>`}</div>`;
+}
+function renderPrompts(){
+  renderPromptFilters(); const p=project();
+  const arr=PROMPTS.filter(pr=>promptRoleFilter==='全部'||pr.role===promptRoleFilter);
+  $('promptList').innerHTML=`<div class="card flat"><div class="small muted">当前项目：<b>${esc(p.title)}</b></div></div>`+arr.map(pr=>promptHTML(pr,p)).join('');
+}
+function performanceMetrics(p){
+  const cats=[
+    {name:'组织管理', docs:['A01','B01','B02','B03']},
+    {name:'过程规范', docs:['A03','D02','D03','E01','F02','F04','G04']},
+    {name:'技术质量', docs:['C01','C02','C03','C04','E03','F01']},
+    {name:'应用推广', docs:['A04','H01','H02','H03']},
+  ];
+  return cats.map(c=>{const done=c.docs.filter(id=>(p.docsDone||[]).includes(id)).length; return {...c, done,total:c.docs.length,pct:Math.round(done/c.docs.length*100)}});
+}
+function renderPerformance(){
+  const p=project(); const metrics=performanceMetrics(p);
+  $('perfGrid').innerHTML=metrics.map(m=>`<div class="perf"><div class="between"><span class="h3">${m.name}</span><b>${m.pct}%</b></div><div class="progress"><div class="bar ${m.pct<50?'red':m.pct<75?'amber':''}" style="width:${m.pct}%"></div></div><div class="tiny muted" style="margin-top:6px">完成 ${m.done}/${m.total} 项证据</div></div>`).join('');
+  const weak=metrics.sort((a,b)=>a.pct-b.pct)[0];
+  $('evidenceAdvice').innerHTML=`当前项目：<b>${esc(p.title)}</b><br>最需补强：<b class="warn">${weak.name}</b>。建议围绕“${esc(p.nextAction)}”同步归档会议纪要、应用证明、平台截图和实施反馈，避免年底绩效自评时补证据。`;
+}
+function openSheet(type){
+  const p=project(); const modal=$('modal'); const c=$('sheetContent');
+  if(type==='help'){
+    c.innerHTML=`<div class="h2">使用说明</div><div class="small muted">这是一个手机端单文件HTML样机，可离线打开。适合先在iPhone Safari、企业微信或微信文件中演示。</div><div class="divider"></div><div class="small"><b>核心功能：</b><br>1. 在建项目跟踪与风险提醒；<br>2. 全过程材料清单勾选；<br>3. 规则引擎自动体检；<br>4. AI提示词一键复制；<br>5. 绩效佐证前置沉淀；<br>6. 导出项目快照，便于后续接入真实后台。</div><div class="source-note">样机数据来自您上传的JSWA测试包并做了手机端打样处理；人员联系方式未展示，便于演示流转。</div><div class="actions"><button class="btn primary block" onclick="closeSheet()">知道了</button></div>`;
+  }
+  if(type==='remind'){
+    const msg=reminderText(p);
+    c.innerHTML=`<div class="h2">生成工作组催办提醒</div><div class="small muted">可复制到微信、企业微信或邮件。</div><textarea class="textarea" id="remindText">${esc(msg)}</textarea><div class="actions"><button class="btn primary" onclick="copyText($('remindText').value)">复制提醒</button><button class="btn ghost" onclick="closeSheet()">关闭</button></div>`;
+  }
+  modal.classList.add('show');
+}
+function closeSheet(){ $('modal').classList.remove('show') }
+function closeSheetOnBackdrop(e){ if(e.target.id==='modal') closeSheet() }
+function reminderText(p){
+  const miss=missingRequired(p).filter(d=>stageIndex(d.stage)<=stageIndex(p.stage)).map(d=>d.name).slice(0,5);
+  return `【JSWA团标项目提醒】\n${p.leadOrg}${p.lead?` ${p.lead}老师`:''}您好，${p.title}当前处于“${stageName(p.stage)}”阶段，下一节点为${p.nextDue}：${p.nextAction}。\n请本周重点补齐${miss.length?`以下材料：${miss.join('、')}`:'阶段性材料、会议记录和过程证据'}。相关材料将用于专家审查、全过程留痕和年度绩效佐证。标委会工作组可同步提供规则校验、材料清单和AI辅助文本支持。`;
+}
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); toast('已复制'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('已复制'); }
+}
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
+function dailyBriefText(){
+  const top=[...state.projects].sort((a,b)=>daysUntil(a.nextDue)-daysUntil(b.nextDue)).slice(0,5);
+  return `JSWA团标工作组今日待办（2026-05-14）\n`+top.map((p,i)=>`${i+1}. ${p.title}\n   阶段：${stageName(p.stage)}｜风险：${riskText(p)}｜节点：${p.nextDue}\n   动作：${p.nextAction}`).join('\n');
+}
+function copyDailyBrief(){copyText(dailyBriefText())}
+function copyEvidenceBrief(){
+  const p=project(); const m=performanceMetrics(p);
+  const text=`${p.title} 绩效佐证清单\n`+m.map(x=>`${x.name}：${x.done}/${x.total}，完成率${x.pct}%`).join('\n')+`\n建议：${adviceForProject(p)}`;
+  copyText(text);
+}
+function exportProjectText(pid){
+  const p=state.projects.find(x=>x.id===pid)||project();
+  const text=`项目名称：${p.title}\n牵头单位：${p.leadOrg}\n主编人：${p.lead}\n当前阶段：${stageName(p.stage)}\n风险等级：${riskText(p)}\n下一节点：${p.nextDue}\n下一动作：${p.nextAction}\n材料完成率：${materialProgress(p)}%\n关键缺项：${missingRequired(p).filter(d=>stageIndex(d.stage)<=stageIndex(p.stage)).map(d=>d.name).join('、')||'暂无'}`;
+  downloadFile(`${p.id}_项目卡.txt`, text, 'text/plain;charset=utf-8');
+}
+function exportSnapshot(){
+  const payload={app:'JSWA团标工作组移动端HTML版', date:'2026-05-14', activeProjectId, projects:state.projects.map(p=>({...p, progress:materialProgress(p), risk:riskText(p), missing:missingRequired(p).map(d=>d.name)}))};
+  downloadFile('JSWA_团标工作组移动端_项目快照.json', JSON.stringify(payload,null,2), 'application/json;charset=utf-8');
+}
+function downloadFile(name, content, type){
+  const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),500); toast('已生成下载文件');
+}
+function resetDemo(){ localStorage.removeItem(STORAGE_KEY); state=loadState(); activeProjectId=state.activeProjectId; renderAll(); toast('已重置') }
+function renderAll(includeDetail=true){renderHeader();renderDashboard(); if($('projectList')) renderProjects(); if(includeDetail && activeTab==='detail') renderDetail(); if(activeTab==='rules') renderRules(); if(activeTab==='prompts') renderPrompts(); if(activeTab==='performance') renderPerformance();}
+window.addEventListener('load',()=>{renderAll();});
+</script>
+</body>
+</html>
