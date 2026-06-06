@@ -1,0 +1,14 @@
+{
+  "name": "金庸三书人生处世智慧",
+  "short_name": "金庸三书",
+  "description": "《笑傲江湖》《侠客行》《连城诀》人生处世智慧互动研究 PWA",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff7e8",
+  "theme_color": "#2d1f17",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
