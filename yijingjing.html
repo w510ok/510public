@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>易筋洗髓：深度研究与系统实践指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#F9F6F0',
+                        'ink': '#2C2B29',
+                        'cinnabar': '#8B3A3A',
+                        'bamboo': '#5C6B5D',
+                        'jade': '#829A84',
+                        'gold': '#B89B72'
+                    },
+                    fontFamily: {
+                        'sans': ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                        'serif': ['"Noto Serif SC"', '"Songti SC"', 'SimSun', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F6F0;
+            color: #2C2B29;
+            font-family: 'system-ui', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, .font-serif {
+            font-family: '"Noto Serif SC"', '"Songti SC"', SimSun, serif;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 280px;
+            }
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.45rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #8B3A3A;
+            border-radius: 50%;
+            border: 3px solid #F9F6F0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            bottom: -1rem;
+            width: 2px;
+            background-color: #E5E0D8;
+        }
+    </style>
+</head>
+<body class="bg-paper text-ink leading-relaxed">
+
+    <!-- Chosen Palette: Warm Paper (#F9F6F0), Ink Black (#2C2B29), Cinnabar Red (#8B3A3A), Bamboo Green (#5C6B5D), Jade (#829A84) -->
+    <!-- Application Structure Plan: The SPA is structured as a "Research & Practice Dashboard" to fulfill the user's request for a systematic, professional, and deep study approach. It's divided into four main sections navigated via tabs: 1. 典籍导读 (Literature Context) provides the historical/theoretical baseline. 2. 系统框架 (Systematic Framework) breaks down the physical/mental progression. 3. 核心心法 (Core Philosophy) interactive text analysis for deep research. 4. 实践量化 (Quantitative Practice) uses charts to guide time/focus allocation. This structure transitions the user from theory to practical planning. -->
+    <!-- Visualization & Content Choices: 
+         - Literature Context -> Text blocks & timeline -> Establishes authority (Zhou Shuguan, Modern versions).
+         - Practice Framework -> Accordion List -> Organizes complex routines (12 Stances, Abdomen rubbing) into consumable steps. No SVG used, pure HTML/Tailwind.
+         - Core Philosophy -> Interactive quote blocks -> Allows deep dive into abstract text ("理与气", "四大假合篇").
+         - Practice Planning (Time) -> Bar Chart (Chart.js) -> Visualizes how to allocate a 60-min session (Warmup, Yijin, Xisui, Meditation).
+         - Practice Focus -> Radar Chart (Chart.js) -> Compares the shift in focus (Body, Breath, Mind) across different training stages.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-gold/30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2 text-cinnabar">☯</span>
+                    <span class="font-serif text-xl font-bold tracking-widest text-ink">易筋洗髓研究</span>
+                </div>
+                <div class="hidden sm:flex sm:space-x-8 items-center" id="nav-tabs">
+                    <button data-target="section-literature" class="nav-btn px-3 py-2 text-sm font-medium text-cinnabar border-b-2 border-cinnabar">典籍导读</button>
+                    <button data-target="section-framework" class="nav-btn px-3 py-2 text-sm font-medium text-gray-500 hover:text-ink transition-colors">系统框架</button>
+                    <button data-target="section-philosophy" class="nav-btn px-3 py-2 text-sm font-medium text-gray-500 hover:text-ink transition-colors">核心心法</button>
+                    <button data-target="section-practice" class="nav-btn px-3 py-2 text-sm font-medium text-gray-500 hover:text-ink transition-colors">实践量化</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="sm:hidden flex overflow-x-auto bg-white border-b border-gold/30 p-2 space-x-4" id="nav-tabs-mobile">
+        <button data-target="section-literature" class="nav-btn whitespace-nowrap px-3 py-1 rounded-full bg-cinnabar text-white text-sm">典籍导读</button>
+        <button data-target="section-framework" class="nav-btn whitespace-nowrap px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-sm">系统框架</button>
+        <button data-target="section-philosophy" class="nav-btn whitespace-nowrap px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-sm">核心心法</button>
+        <button data-target="section-practice" class="nav-btn whitespace-nowrap px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-sm">实践量化</button>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Header Section -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-ink mb-4">如何有计划地进行<br><span class="text-cinnabar">易筋洗髓</span>深度研究</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6">
+                从古本经典到现代整理，融合《增演易筋洗髓内功图说》与少林嫡传功法。本平台旨在为您构建一个结构化、专业化、务实的修炼与学术研究框架。
+            </p>
+        </header>
+
+        <!-- SECTION 1: 典籍导读 -->
+        <section id="section-literature" class="tab-content active">
+            <div class="mb-10">
+                <h2 class="text-3xl font-serif text-ink border-l-4 border-cinnabar pl-4 mb-4">典籍溯源与文献基础</h2>
+                <p class="text-gray-700">深度研究的第一步是厘清文献脉络。本研究体系主要基于三大核心文献源进行交叉比对与提取，确保理论与实践的严谨性。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg border border-gold/20 card-hover">
+                    <div class="text-4xl mb-4 text-bamboo">📜</div>
+                    <h3 class="text-xl font-serif font-bold mb-3">《易筋经洗髓经》原典</h3>
+                    <p class="text-sm text-gray-600 mb-4">相传由达摩大师所创，包含“四大假合篇”、“凡圣同归篇”等核心理论。探讨“理与气”、“体与用”的深层关系，是功法的哲学基础。</p>
+                    <div class="bg-paper p-3 rounded text-sm italic border-l-2 border-bamboo">"理以气为用，气以理为体。即体以显用，就用以求体。"</div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gold/20 card-hover">
+                    <div class="text-4xl mb-4 text-jade">📚</div>
+                    <h3 class="text-xl font-serif font-bold mb-3">清·周述官《增演图说》</h3>
+                    <p class="text-sm text-gray-600 mb-4">光绪二十一年(1895年)编撰，共十八卷。系统整理了揉腹法、采日月精华法，并详细阐述了动静互根、元精元气、通关等核心内功机制。</p>
+                    <div class="bg-paper p-3 rounded text-sm italic border-l-2 border-jade">"此祖师真谛，非十八家支流可比... 增演妙谛，以广慈航。"</div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gold/20 card-hover">
+                    <div class="text-4xl mb-4 text-cinnabar">📘</div>
+                    <h3 class="text-xl font-serif font-bold mb-3">现代整理版 (空悟嫡传)</h3>
+                    <p class="text-sm text-gray-600 mb-4">项扬惠等人编撰的科学技术文献。将古法转化为现代可操作的步骤。包含十二大劲、韦驮十二劲、立八段锦、坐十二段锦等具体操法。</p>
+                    <div class="bg-paper p-3 rounded text-sm italic border-l-2 border-cinnabar">"图文并茂，附图321幅，供现代气功理论研究者及修炼者使用。"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 系统框架 -->
+        <section id="section-framework" class="tab-content">
+            <div class="mb-10">
+                <h2 class="text-3xl font-serif text-ink border-l-4 border-cinnabar pl-4 mb-4">系统化练习框架</h2>
+                <p class="text-gray-700">将庞杂的古典功法，按照“筑基、易筋、洗髓、通关”的逻辑重新解构，为您提供一条清晰、递进、务实的练习路径。</p>
+            </div>
+
+            <div class="relative pl-6 md:pl-8 max-w-4xl mx-auto">
+                <div class="timeline-line"></div>
+                
+                <!-- Stage 1 -->
+                <div class="relative timeline-item mb-12">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center cursor-pointer accordion-trigger" onclick="toggleAccordion('stage1')">
+                            <h3 class="text-xl font-serif font-bold text-cinnabar">第一阶段：固本培元 (筑基功)</h3>
+                            <span class="text-2xl text-gray-400 select-none transition-transform duration-300" id="icon-stage1">＋</span>
+                        </div>
+                        <div id="stage1" class="hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                            <p class="mb-3">依据《增演易筋洗髓内功图说》前两卷。万丈高楼平地起，此阶段侧重于激活脏腑机能，为后续高强度练习储备能量。</p>
+                            <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>操腹九冲图 / 揉腹法：</strong> 调理脾胃中气，疏通任脉。</li>
+                                <li><strong>正身/侧身静桩：</strong> 寻找身体中正安舒的状态，培养初步的气感。</li>
+                                <li><strong>呼吸调息：</strong> 练习自然腹式呼吸，做到深、长、细、匀。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="relative timeline-item mb-12">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center cursor-pointer accordion-trigger" onclick="toggleAccordion('stage2')">
+                            <h3 class="text-xl font-serif font-bold text-bamboo">第二阶段：拔骨易筋 (动功体系)</h3>
+                            <span class="text-2xl text-gray-400 select-none transition-transform duration-300" id="icon-stage2">＋</span>
+                        </div>
+                        <div id="stage2" class="hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                            <p class="mb-3">依据《现代整理版》。通过特定姿势和暗劲，改变筋骨结构，达到“内壮”效果。强调“意气形”的统一。</p>
+                            <div class="bg-paper p-4 rounded mb-3">
+                                <h4 class="font-bold text-ink mb-2">核心内容：韦驮十二劲 & 十二大劲</h4>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-center">
+                                    <div class="p-2 bg-white rounded border border-gray-200">韦驮献杵一/二/三势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">摘星换斗势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">倒拽九牛尾势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">出爪亮翅势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">九鬼拔马刀势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">三盘落地势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">青龙探爪势</div>
+                                    <div class="p-2 bg-white rounded border border-gray-200">卧虎扑食势等...</div>
+                                </div>
+                            </div>
+                            <p class="text-sm">重点：体会“生处伏杀机，杀中有生意”的阴阳转换。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="relative timeline-item">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center cursor-pointer accordion-trigger" onclick="toggleAccordion('stage3')">
+                            <h3 class="text-xl font-serif font-bold text-jade">第三阶段：静坐洗髓 (内丹/静功)</h3>
+                            <span class="text-2xl text-gray-400 select-none transition-transform duration-300" id="icon-stage3">＋</span>
+                        </div>
+                        <div id="stage3" class="hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                            <p class="mb-3">结合《易筋经洗髓经》原典心法与周述官之“定功通关”、“运功通关”。深入骨髓，净化精神与气血。</p>
+                            <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>采日月精华法：</strong> 高阶吐纳，与自然能量交换。</li>
+                                <li><strong>坐十二段锦：</strong> 引导气血深度运行。</li>
+                                <li><strong>四大假合观：</strong> "四大假合形，谁能分别此"，通过冥想消解身体的执念，达到精神超脱。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 核心心法 -->
+        <section id="section-philosophy" class="tab-content">
+            <div class="mb-10">
+                <h2 class="text-3xl font-serif text-ink border-l-4 border-cinnabar pl-4 mb-4">核心心法与文理剖析</h2>
+                <p class="text-gray-700">深度研究不可脱离经典原文。在此提取原典核心段落，点击以揭开隐喻背后的实修指导意义。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Quote 1 -->
+                <div class="bg-white rounded-lg border border-gold/30 p-6 relative overflow-hidden group cursor-pointer" onclick="toggleQuote('q1')">
+                    <div class="text-6xl text-gold/20 absolute -top-4 -left-2 font-serif font-bold">"</div>
+                    <h3 class="text-lg font-bold text-ink mb-2">理与气论</h3>
+                    <p class="text-gray-600 font-serif italic mb-4 relative z-10">
+                        "理以气为用，气以理为体。即体以显用，就用以求体。非体亦非用，体用两不立。"
+                    </p>
+                    <div id="q1-analysis" class="hidden text-sm bg-paper p-4 rounded text-gray-700 mt-4 border-t border-gold/30">
+                        <strong>实修解析：</strong> “理”是法则与心神，“气”是能量与呼吸。只练气不修心（理），则盲目；只谈理不练气，则空洞。在练习十二大劲时，动作（用）要符合人体力学（理），而内在的劲力（气）则是动作的支撑（体）。
+                    </div>
+                    <div class="text-xs text-cinnabar text-right mt-2 group-hover:underline">点击查看解析 ▾</div>
+                </div>
+
+                <!-- Quote 2 -->
+                <div class="bg-white rounded-lg border border-gold/30 p-6 relative overflow-hidden group cursor-pointer" onclick="toggleQuote('q2')">
+                    <div class="text-6xl text-gold/20 absolute -top-4 -left-2 font-serif font-bold">"</div>
+                    <h3 class="text-lg font-bold text-ink mb-2">水火升降</h3>
+                    <p class="text-gray-600 font-serif italic mb-4 relative z-10">
+                        "静坐生暖气，水中有火具，湿热乃蒸腾，为雨又为露... 生人又生物，利益满人世。"
+                    </p>
+                    <div id="q2-analysis" class="hidden text-sm bg-paper p-4 rounded text-gray-700 mt-4 border-t border-gold/30">
+                        <strong>实修解析：</strong> 此为《洗髓经》中的内丹景象。通过极度的静定（静坐），下丹田（水）中产生真阳之气（火）。这种能量像水蒸气一样沿督脉上升，化为甘露下降任脉（为雨又为露），滋养全身脏腑。
+                    </div>
+                    <div class="text-xs text-cinnabar text-right mt-2 group-hover:underline">点击查看解析 ▾</div>
+                </div>
+
+                <!-- Quote 3 -->
+                <div class="bg-white rounded-lg border border-gold/30 p-6 relative overflow-hidden group cursor-pointer" onclick="toggleQuote('q3')">
+                    <div class="text-6xl text-gold/20 absolute -top-4 -left-2 font-serif font-bold">"</div>
+                    <h3 class="text-lg font-bold text-ink mb-2">四大假合 (生死观)</h3>
+                    <p class="text-gray-600 font-serif italic mb-4 relative z-10">
+                        "具此幻化质，总是气之余。本来非我有，解散还太虚。生亦未曾生，死亦未曾死。"
+                    </p>
+                    <div id="q3-analysis" class="hidden text-sm bg-paper p-4 rounded text-gray-700 mt-4 border-t border-gold/30">
+                        <strong>实修解析：</strong> 破除对肉体的绝对执念（四大指地水火风）。在高级洗髓阶段，要求练习者放下对身体疼痛、感官的执着，以旁观者的心态观察气的运行。这是达到精神超脱的必经心理建设。
+                    </div>
+                    <div class="text-xs text-cinnabar text-right mt-2 group-hover:underline">点击查看解析 ▾</div>
+                </div>
+
+                <!-- Quote 4 -->
+                <div class="bg-white rounded-lg border border-gold/30 p-6 relative overflow-hidden group cursor-pointer" onclick="toggleQuote('q4')">
+                    <div class="text-6xl text-gold/20 absolute -top-4 -left-2 font-serif font-bold">"</div>
+                    <h3 class="text-lg font-bold text-ink mb-2">日常警醒</h3>
+                    <p class="text-gray-600 font-serif italic mb-4 relative z-10">
+                        "碌碌一身事，不暇计生死。总被名利牵，一朝神气散。油尽而灯灭，身尸埋圹野。"
+                    </p>
+                    <div id="q4-analysis" class="hidden text-sm bg-paper p-4 rounded text-gray-700 mt-4 border-t border-gold/30">
+                        <strong>实修解析：</strong> 强调务实练习的迫切性。现代人常因工作名利耗散精气（一朝神气散）。易筋洗髓不仅是锻炼，更是为了“添油接命”，要求练习者必须有计划、有恒心地投入时间，切勿拖延。
+                    </div>
+                    <div class="text-xs text-cinnabar text-right mt-2 group-hover:underline">点击查看解析 ▾</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: 实践量化 -->
+        <section id="section-practice" class="tab-content">
+            <div class="mb-10">
+                <h2 class="text-3xl font-serif text-ink border-l-4 border-cinnabar pl-4 mb-4">实践量化与指标模型</h2>
+                <p class="text-gray-700">专业务实的标志是将模糊的感觉转化为可执行、可评估的数据模型。以下图表为您提供科学的时间分配与训练侧重点指导。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Bar Chart: Time Allocation -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gold/20">
+                    <h3 class="text-lg font-bold text-ink mb-2 text-center">标准单次练习时间规划 (60分钟)</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">遵循《图说》从松入紧、由动入静的规律</p>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 flex flex-wrap justify-center gap-2">
+                        <span class="px-2 py-1 bg-gray-100 rounded">💡 建议: 每日清晨或亥时(晚9-11点)练习</span>
+                    </div>
+                </div>
+
+                <!-- Radar Chart: Focus Shift -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gold/20">
+                    <h3 class="text-lg font-bold text-ink mb-2 text-center">不同阶段“调身·调息·调心”比重</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">从形体锻炼向内在精气神转化的量化雷达</p>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <p class="text-center">阶段越高，对外在形体的要求逐渐淡化，转为对呼吸（气息）和意念（神）的精微控制。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Study Planner -->
+            <div class="mt-12 bg-bamboo/10 p-6 md:p-8 rounded-lg border border-bamboo/30">
+                <h3 class="text-2xl font-serif text-ink mb-4">制定你的专项研究与练习计划</h3>
+                <div class="flex flex-col md:flex-row gap-4 items-end">
+                    <div class="flex-1 w-full">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">当前修炼阶段</label>
+                        <select id="userStage" class="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-bamboo focus:border-bamboo">
+                            <option value="basic">筑基 (揉腹/静桩)</option>
+                            <option value="yijin">易筋 (十二大劲)</option>
+                            <option value="xisui">洗髓 (定功/静坐)</option>
+                        </select>
+                    </div>
+                    <div class="flex-1 w-full">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">每周计划投入时长 (小时)</label>
+                        <input type="number" id="userHours" min="1" max="20" value="5" class="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-bamboo focus:border-bamboo">
+                    </div>
+                    <button onclick="generatePlan()" class="w-full md:w-auto px-6 py-2 bg-bamboo text-white font-medium rounded shadow hover:bg-jade transition-colors">生成专属指南</button>
+                </div>
+                
+                <!-- Dynamic Plan Output -->
+                <div id="planOutput" class="hidden mt-6 bg-white p-6 rounded shadow-inner border border-gray-200">
+                    <h4 class="font-bold text-lg text-cinnabar mb-3" id="planTitle">评估报告...</h4>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700" id="planDetails">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-ink text-paper/80 py-8 text-center text-sm mt-12">
+        <p>基于《易筋经洗髓经》、《易经洗髓现代整理版》及《增演易筋洗髓内功图说》重构。</p>
+        <p class="mt-2 text-gold">@江南ai工作小组 · 2026.06. </p>
+    </footer>
+
+    <script>
+        // --- 1. Navigation Logic ---
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active states
+                navButtons.forEach(b => {
+                    b.classList.remove('text-cinnabar', 'border-b-2', 'border-cinnabar', 'bg-cinnabar', 'text-white');
+                    if(b.parentElement.id === 'nav-tabs') {
+                        b.classList.add('text-gray-500');
+                    } else {
+                        b.classList.add('bg-gray-100', 'text-gray-600');
+                    }
+                });
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active state to clicked
+                const targetId = btn.getAttribute('data-target');
+                const matchingBtns = document.querySelectorAll(`[data-target="${targetId}"]`);
+                
+                matchingBtns.forEach(mb => {
+                    if(mb.parentElement.id === 'nav-tabs') {
+                        mb.classList.remove('text-gray-500');
+                        mb.classList.add('text-cinnabar', 'border-b-2', 'border-cinnabar');
+                    } else {
+                        mb.classList.remove('bg-gray-100', 'text-gray-600');
+                        mb.classList.add('bg-cinnabar', 'text-white');
+                    }
+                });
+
+                document.getElementById(targetId).classList.add('active');
+
+                // Re-render charts if practice section is clicked to ensure correct sizing
+                if(targetId === 'section-practice') {
+                    timeChart.resize();
+                    radarChart.resize();
+                }
+            });
+        });
+
+        // --- 2. Accordion Logic (Framework Section) ---
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(45deg)'; // Make it an 'x'
+                icon.classList.replace('text-gray-400', 'text-cinnabar');
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                icon.classList.replace('text-cinnabar', 'text-gray-400');
+            }
+        }
+
+        // --- 3. Interactive Quote Logic (Philosophy Section) ---
+        function toggleQuote(id) {
+            const analysis = document.getElementById(`${id}-analysis`);
+            if (analysis.classList.contains('hidden')) {
+                analysis.classList.remove('hidden');
+            } else {
+                analysis.classList.add('hidden');
+            }
+        }
+
+        // --- 4. Chart.js Initialization ---
+        
+        // Common configuration
+        Chart.defaults.font.family = '"system-ui", "-apple-system", "sans-serif"';
+        Chart.defaults.color = '#5c6b5d';
+
+        // Time Allocation Chart (Bar)
+        const ctxTime = document.getElementById('timeChart').getContext('2d');
+        const timeChart = new Chart(ctxTime, {
+            type: 'bar',
+            data: {
+                labels: ['热身/松骨', '筑基(揉腹/呼吸)', '易筋(十二大劲)', '洗髓(静坐收心)', '收功'],
+                datasets: [{
+                    label: '建议时长 (分钟)',
+                    data: [5, 10, 25, 15, 5],
+                    backgroundColor: [
+                        'rgba(130, 154, 132, 0.6)', // jade
+                        'rgba(184, 155, 114, 0.6)', // gold
+                        'rgba(139, 58, 58, 0.7)',   // cinnabar
+                        'rgba(92, 107, 93, 0.7)',   // bamboo
+                        'rgba(44, 43, 41, 0.5)'     // ink
+                    ],
+                    borderColor: [
+                        '#829A84',
+                        '#B89B72',
+                        '#8B3A3A',
+                        '#5C6B5D',
+                        '#2C2B29'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' 分钟';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '分钟' },
+                        grid: { color: '#E5E0D8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 0,
+                            callback: function(value, index, values) {
+                                // Wrap long labels (16 char logic adaptation for Chinese)
+                                const label = this.getLabelForValue(value);
+                                return label.length > 6 ? label.substring(0, 6) + '..' : label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Radar Chart (Focus Shift)
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        const radarChart = new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['形体规范 (调身)', '呼吸吐纳 (调息)', '意念引导 (调心)', '筋骨发力 (内壮)', '经络疏通 (气感)'],
+                datasets: [
+                    {
+                        label: '筑基阶段',
+                        data: [80, 60, 40, 30, 40],
+                        fill: true,
+                        backgroundColor: 'rgba(184, 155, 114, 0.2)', // gold
+                        borderColor: '#B89B72',
+                        pointBackgroundColor: '#B89B72',
+                    },
+                    {
+                        label: '易筋阶段',
+                        data: [90, 70, 70, 95, 60],
+                        fill: true,
+                        backgroundColor: 'rgba(139, 58, 58, 0.2)', // cinnabar
+                        borderColor: '#8B3A3A',
+                        pointBackgroundColor: '#8B3A3A',
+                    },
+                    {
+                        label: '洗髓阶段',
+                        data: [50, 90, 100, 40, 95],
+                        fill: true,
+                        backgroundColor: 'rgba(92, 107, 93, 0.2)', // bamboo
+                        borderColor: '#5C6B5D',
+                        pointBackgroundColor: '#5C6B5D',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 2 }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12 }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#E5E0D8' },
+                        grid: { color: '#E5E0D8' },
+                        pointLabels: {
+                            font: { size: 11, family: '"system-ui", sans-serif' },
+                            color: '#2C2B29'
+                        },
+                        ticks: { display: false, max: 100, min: 0 }
+                    }
+                }
+            }
+        });
+
+        // --- 5. Interactive Plan Generator ---
+        function generatePlan() {
+            const stage = document.getElementById('userStage').value;
+            const hours = parseFloat(document.getElementById('userHours').value);
+            const outputBox = document.getElementById('planOutput');
+            const titleEl = document.getElementById('planTitle');
+            const detailsEl = document.getElementById('planDetails');
+            
+            outputBox.classList.remove('hidden');
+            detailsEl.innerHTML = ''; // Clear previous
+
+            let stageText = '';
+            let advices = [];
+
+            if (stage === 'basic') {
+                stageText = '筑基培元期';
+                advices = [
+                    `文献重点：精读周述官《增演图说》卷一、卷二。`,
+                    `实践建议：在每周的 ${hours} 小时中，分配至少 60% 的时间在“操腹九冲图”（揉腹法）上。`,
+                    `核心目标：调理中气，感受丹田温热。切忌急于追求“十二大劲”的形体动作，以免虚火上浮。`,
+                    `研究课题：理解“动静互根”理论在日常站桩中的体现。`
+                ];
+            } else if (stage === 'yijin') {
+                stageText = '拔骨易筋期';
+                advices = [
+                    `文献重点：对照研读《现代整理版》中的“十二大劲”与“韦驮十二劲”图解。`,
+                    `实践建议：每周 ${hours} 小时，保证每次练习不低于40分钟。重点体会“摘星换斗”、“倒拽九牛尾”等动作中的暗劲。`,
+                    `核心目标：实现筋骨的拔长与坚韧，体会“气以理为体，理以气为用”的身心合一。`,
+                    `安全警告：注意发力方式，必须配合自然呼吸，切忌憋气导致气血逆流。`
+                ];
+            } else {
+                stageText = '洗髓通关期';
+                advices = [
+                    `文献重点：深参《易筋经洗髓经》原典心法，如“四大假合篇”。`,
+                    `实践建议：在每周 ${hours} 小时中，大幅增加静坐（坐十二段锦）的比例，减少剧烈的动功。`,
+                    `核心目标：元精元气的深层转化，体验“水中有火具，湿热乃蒸腾”的内丹景象。`,
+                    `研究课题：如何将“生亦未曾生，死亦未曾死”的哲学观代入静坐，实现精神抗压力的质变。`
+                ];
+            }
+
+            titleEl.innerText = `您的专属研究与实践规划 (${stageText})`;
+            
+            advices.forEach(adv => {
+                const li = document.createElement('li');
+                li.innerHTML = adv;
+                detailsEl.appendChild(li);
+            });
+            
+            // Scroll to output
+            outputBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
