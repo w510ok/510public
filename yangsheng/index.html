@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>人体水力学 · 从水锤泵到血管养护</title>
+<meta name="description" content="从水锤泵到血管养护——一份循证身体保养与习惯养成手册。江南AI工作小组出品。" />
+<meta name="theme-color" content="#0d1530" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/png" href="favicon-64.png" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="血管养护" />
+<style>
+  :root{
+    --bg:#0a1024; --bg2:#0d1530; --panel:#111a38; --panel2:#16213f;
+    --line:rgba(212,175,55,.16); --line-cool:rgba(120,150,205,.14);
+    --ink:#e9eef8; --ink-dim:#a3b3d2; --ink-faint:#6c7ea3;
+    --gold:#d4af37; --gold-soft:#e7c869; --gold-deep:#b4922a;
+    --teal:#2dd4bf; --teal-dim:#1aa394; --teal-deep:#0d6e64;
+    --danger:#e07a7a; --good:#54d191;
+    --r:16px; --rs:11px;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC","Hiragino Sans GB",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; font-family:var(--sans); color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(45,212,191,.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 0%, rgba(212,175,55,.06), transparent 55%),
+      linear-gradient(180deg,#0a1024 0%, #0b1228 40%, #0a0f22 100%);
+    background-attachment:fixed; line-height:1.72; letter-spacing:.1px;
+    -webkit-font-smoothing:antialiased; padding-bottom:env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:0 18px}
+  a{color:var(--teal); text-decoration:none}
+  a:hover{text-decoration:underline}
+  sup.ref{font-family:var(--mono); font-size:.62em; color:var(--gold-soft); padding-left:1px; cursor:pointer; vertical-align:super}
+  sup.ref:hover{color:var(--gold)}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px);
+    background:linear-gradient(180deg,rgba(10,16,36,.92),rgba(10,16,36,.62));
+    border-bottom:1px solid var(--line-cool)}
+  .topbar-in{max-width:880px; margin:0 auto; display:flex; align-items:center; gap:12px;
+    padding:9px 16px}
+  .brandmark{width:26px;height:26px;flex:none;border-radius:7px;
+    background:radial-gradient(circle at 50% 35%, #1a2750, #0d1530);
+    display:grid;place-items:center;border:1px solid var(--line)}
+  .brandmark svg{width:18px;height:18px}
+  .brandtxt{font-size:13px;font-weight:600;letter-spacing:.3px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brandtxt b{color:var(--gold-soft);font-weight:700}
+  .nav{margin-left:auto;display:flex;gap:2px}
+  .nav a{font-size:12.5px;color:var(--ink-faint);padding:6px 9px;border-radius:8px;white-space:nowrap}
+  .nav a:hover{color:var(--ink);background:rgba(255,255,255,.04);text-decoration:none}
+  @media(max-width:680px){ .nav{display:none} }
+  #installBtn{display:none;margin-left:auto;font-family:var(--mono);font-size:11.5px;
+    color:var(--bg);background:linear-gradient(180deg,var(--gold-soft),var(--gold-deep));
+    border:none;border-radius:8px;padding:6px 11px;font-weight:700;cursor:pointer}
+  #installBtn:hover{filter:brightness(1.06)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:46px 0 26px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+  h1{font-size:clamp(30px,7vw,52px);line-height:1.05;margin:16px 0 6px;font-weight:800;letter-spacing:-.5px}
+  h1 .sub2{display:block;font-size:clamp(15px,3.4vw,21px);font-weight:600;color:var(--gold-soft);letter-spacing:.5px;margin-top:12px}
+  .lede{color:var(--ink-dim);font-size:clamp(15px,2.6vw,17.5px);max-width:62ch;margin:14px 0 0}
+  .lede b{color:var(--ink)}
+
+  /* gauges */
+  .gauges{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:30px 0 4px}
+  @media(max-width:560px){ .gauges{grid-template-columns:repeat(2,1fr)} }
+  .gauge{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--line-cool);
+    border-radius:var(--rs);padding:14px 13px;position:relative;overflow:hidden}
+  .gauge::after{content:"";position:absolute;inset:0 0 auto 0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.5}
+  .gauge .num{font-family:var(--mono);font-size:23px;font-weight:700;color:var(--gold-soft);line-height:1}
+  .gauge .num small{font-size:12px;color:var(--ink-faint);font-weight:500}
+  .gauge .cap{font-size:11.5px;color:var(--ink-faint);margin-top:7px;line-height:1.4}
+
+  /* ---------- schematic ---------- */
+  .schematic{margin:30px 0 6px;background:
+      linear-gradient(180deg,rgba(17,26,56,.7),rgba(13,21,48,.55));
+    border:1px solid var(--line-cool);border-radius:var(--r);padding:20px 16px 8px;
+    background-image:linear-gradient(rgba(120,150,205,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,150,205,.05) 1px,transparent 1px);
+    background-size:22px 22px,22px 22px}
+  .schematic .twin{display:flex;align-items:stretch;justify-content:center;gap:6px;flex-wrap:wrap}
+  .schematic .unit{flex:1 1 280px;max-width:340px;min-width:250px}
+  .schematic .approx{flex:0 0 auto;display:grid;place-items:center;color:var(--gold);
+    font-size:30px;font-family:var(--mono);padding:0 4px}
+  .unit h4{margin:0 0 2px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    font-family:var(--mono);color:var(--gold-soft);text-align:center}
+  .unit p.note{margin:2px 0 0;font-size:11.5px;color:var(--ink-faint);text-align:center}
+  .sch-cap{font-size:12px;color:var(--ink-faint);text-align:center;margin:12px 0 8px;line-height:1.6}
+  svg .lbl{font-family:var(--mono);font-size:9px;fill:var(--ink-dim);letter-spacing:.04em}
+  svg .lbl-g{fill:var(--gold-soft)}
+  @media(max-width:600px){ .schematic .approx{transform:rotate(90deg);padding:8px 0} }
+
+  /* ---------- sections ---------- */
+  section{padding:34px 0;border-top:1px solid var(--line-cool)}
+  .sec-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--teal)}
+  .sec-eyebrow .idx{color:var(--gold)}
+  h2{font-size:clamp(22px,4.6vw,30px);margin:10px 0 4px;font-weight:750;letter-spacing:-.3px}
+  h2 + .deck{color:var(--ink-dim);max-width:64ch;margin:6px 0 0;font-size:15.5px}
+  h3{font-size:18px;margin:26px 0 8px;font-weight:700;color:var(--gold-soft)}
+  p{margin:12px 0}
+  .muted{color:var(--ink-dim)}
+
+  /* callout / boundary */
+  .callout{border-radius:var(--rs);padding:15px 16px;margin:18px 0;font-size:14.5px;line-height:1.68}
+  .callout .ttl{font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .callout .ttl svg{width:16px;height:16px;flex:none}
+  .callout.warn{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.30)}
+  .callout.warn .ttl{color:var(--gold-soft)}
+  .callout.info{background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.24)}
+  .callout.info .ttl{color:var(--teal)}
+
+  /* mapping table */
+  .maptable{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .maptable th,.maptable td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line-cool);vertical-align:top}
+  .maptable th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .maptable td:first-child{color:var(--teal);font-weight:600;white-space:nowrap}
+  .maptable td:nth-child(2){color:var(--gold-soft);font-weight:600}
+  .maptable tr:hover td{background:rgba(255,255,255,.02)}
+  .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* condition cards */
+  .cards{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0}
+  .card{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--line-cool);
+    border-radius:var(--r);padding:16px 16px 15px;position:relative}
+  .card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--gold);
+    display:inline-flex;align-items:center;gap:7px;text-transform:uppercase}
+  .card .tag .n{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+    background:rgba(212,175,55,.12);border:1px solid var(--line);color:var(--gold-soft);font-weight:700}
+  .card h4{margin:9px 0 4px;font-size:16.5px;font-weight:700}
+  .card .mech{color:var(--ink-dim);font-size:14px;margin:4px 0 0}
+  .card .fix{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-cool);font-size:13px;color:var(--ink-faint)}
+  .card .fix b{color:var(--teal)}
+
+  /* pillars */
+  .pillar{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line-cool);
+    border-radius:var(--r);padding:18px;margin:14px 0;display:flex;gap:15px;align-items:flex-start}
+  .pillar .ic{width:42px;height:42px;flex:none;border-radius:11px;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 35%,#1b2a54,#0e1633);border:1px solid var(--line);color:var(--teal)}
+  .pillar .ic svg{width:23px;height:23px}
+  .pillar .body{flex:1;min-width:0}
+  .pillar h4{margin:0 0 2px;font-size:16.5px;font-weight:700}
+  .pillar .dose{font-family:var(--mono);font-size:12.5px;color:var(--gold-soft);margin:3px 0 7px;
+    background:rgba(212,175,55,.07);border:1px solid var(--line);border-radius:8px;padding:5px 9px;display:inline-block}
+  .pillar p{margin:6px 0 0;font-size:14px;color:var(--ink-dim)}
+
+  /* habit-science chips */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}
+  .chip{background:var(--panel2);border:1px solid var(--line-cool);border-radius:10px;padding:10px 13px;font-size:13px;flex:1 1 200px}
+  .chip b{color:var(--teal);display:block;font-size:13.5px;margin-bottom:2px}
+
+  /* ---------- tracker ---------- */
+  .tracker{background:linear-gradient(170deg,#0f1a3a,#0b1126);border:1px solid var(--line);
+    border-radius:20px;padding:18px 16px 20px;margin:18px 0;box-shadow:0 18px 50px -28px rgba(0,0,0,.8)}
+  .tk-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .tk-date{font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
+  .tk-date b{display:block;color:var(--ink);font-size:18px;letter-spacing:.4px}
+  .tk-spacer{flex:1}
+  /* water column */
+  .column-wrap{display:flex;align-items:center;gap:16px;margin:8px 0 4px}
+  .column{position:relative;width:54px;height:150px;flex:none;border-radius:14px;overflow:hidden;
+    background:linear-gradient(180deg,#0a1430,#0c1733);border:1px solid var(--line-cool)}
+  .column .ticks{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .column .ticks i{position:absolute;left:0;right:0;height:1px;background:rgba(120,150,205,.14)}
+  .column .fill{position:absolute;left:0;right:0;bottom:0;height:0%;
+    background:linear-gradient(180deg,var(--teal),var(--teal-deep));
+    box-shadow:0 0 18px rgba(45,212,191,.5);transition:height .9s cubic-bezier(.22,1,.36,1)}
+  .column .fill::before{content:"";position:absolute;top:-7px;left:0;right:0;height:10px;border-radius:50%;
+    background:rgba(170,245,235,.55);filter:blur(1px)}
+  .column .arrow{position:absolute;top:7px;left:50%;transform:translateX(-50%);z-index:4;color:var(--gold-soft);font-size:13px}
+  .column-stat .big{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--teal);line-height:1}
+  .column-stat .big small{font-size:14px;color:var(--ink-faint)}
+  .column-stat .lab{font-size:12.5px;color:var(--ink-dim);margin-top:4px;max-width:30ch}
+  .column-stat .sub{font-size:11.5px;color:var(--ink-faint);margin-top:8px;font-family:var(--mono)}
+
+  .mini-stats{display:flex;gap:10px;margin:14px 0 4px;flex-wrap:wrap}
+  .mini{flex:1 1 90px;background:var(--panel2);border:1px solid var(--line-cool);border-radius:10px;padding:9px 11px}
+  .mini .v{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--gold-soft)}
+  .mini .k{font-size:11px;color:var(--ink-faint);margin-top:1px}
+  .week{display:flex;gap:6px;margin-top:8px}
+  .week .d{flex:1;aspect-ratio:1;border-radius:7px;background:var(--panel2);border:1px solid var(--line-cool);
+    display:grid;place-items:center;font-family:var(--mono);font-size:9px;color:var(--ink-faint);position:relative}
+  .week .d.full{background:linear-gradient(180deg,var(--teal),var(--teal-deep));border-color:transparent;color:#04201d}
+  .week .d.part{background:rgba(45,212,191,.18);border-color:rgba(45,212,191,.4);color:var(--teal)}
+  .week .d.today{outline:1.5px solid var(--gold-soft);outline-offset:1px}
+
+  .habits{margin:16px 0 0;display:flex;flex-direction:column;gap:9px}
+  .habit{display:flex;align-items:center;gap:13px;background:var(--panel2);border:1px solid var(--line-cool);
+    border-radius:13px;padding:12px 13px;transition:border-color .2s,background .2s}
+  .habit.on{border-color:rgba(45,212,191,.45);background:rgba(45,212,191,.07)}
+  .habit .hic{width:34px;height:34px;flex:none;border-radius:9px;display:grid;place-items:center;
+    background:#0d1633;border:1px solid var(--line-cool);color:var(--ink-faint)}
+  .habit.on .hic{color:var(--teal);border-color:rgba(45,212,191,.4)}
+  .habit .hic svg{width:19px;height:19px}
+  .habit .htxt{flex:1;min-width:0}
+  .habit .htxt b{font-size:14.5px;font-weight:650}
+  .habit .htxt span{display:block;font-size:11.5px;color:var(--ink-faint);line-height:1.4;margin-top:1px}
+  .toggle{width:46px;height:27px;flex:none;border-radius:20px;border:1px solid var(--line-cool);
+    background:#0d1633;position:relative;cursor:pointer;transition:background .2s,border-color .2s;padding:0}
+  .toggle::after{content:"";position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:50%;
+    background:var(--ink-faint);transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s}
+  .toggle[aria-checked="true"]{background:linear-gradient(180deg,var(--teal),var(--teal-deep));border-color:transparent}
+  .toggle[aria-checked="true"]::after{transform:translateX(19px);background:#04231f}
+  .toggle:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+  .habit .del{flex:none;background:none;border:none;color:var(--ink-faint);cursor:pointer;padding:4px;border-radius:6px}
+  .habit .del:hover{color:var(--danger)}
+
+  .tk-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line-cool)}
+  .btn{font-family:var(--mono);font-size:12px;border-radius:9px;padding:8px 12px;cursor:pointer;
+    border:1px solid var(--line-cool);background:var(--panel2);color:var(--ink-dim);transition:.18s;display:inline-flex;align-items:center;gap:6px}
+  .btn:hover{color:var(--ink);border-color:var(--gold-soft)}
+  .btn svg{width:14px;height:14px}
+  .btn.primary{background:linear-gradient(180deg,var(--teal),var(--teal-deep));color:#04231f;border-color:transparent;font-weight:700}
+  .btn.ghost{background:transparent}
+  .btn.danger:hover{color:var(--danger);border-color:var(--danger)}
+
+  .settings{margin-top:12px;border:1px dashed var(--line-cool);border-radius:13px;padding:0;overflow:hidden}
+  .settings summary{list-style:none;cursor:pointer;padding:12px 14px;font-size:13px;color:var(--ink-dim);
+    font-family:var(--mono);display:flex;align-items:center;gap:8px}
+  .settings summary::-webkit-details-marker{display:none}
+  .settings summary::before{content:"▸";color:var(--gold-soft);transition:transform .2s}
+  .settings[open] summary::before{transform:rotate(90deg)}
+  .settings .panel{padding:4px 14px 14px}
+  .set-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line-cool)}
+  .set-row .nm{flex:1;font-size:13.5px}
+  .set-row .nm small{display:block;color:var(--ink-faint);font-size:11px}
+  .add-row{display:flex;gap:8px;margin-top:12px}
+  .add-row input{flex:1;background:#0a1430;border:1px solid var(--line-cool);color:var(--ink);
+    border-radius:9px;padding:9px 11px;font-size:13.5px;font-family:var(--sans)}
+  .add-row input:focus{outline:none;border-color:var(--teal)}
+
+  .storage-banner{display:none;background:rgba(224,122,122,.1);border:1px solid rgba(224,122,122,.35);
+    color:#f2c2c2;border-radius:11px;padding:11px 13px;font-size:12.5px;margin:12px 0}
+
+  /* references */
+  .refs{counter-reset:r;list-style:none;padding:0;margin:14px 0 0;font-size:13px}
+  .refs li{padding:11px 0 11px 34px;border-bottom:1px solid var(--line-cool);position:relative;color:var(--ink-dim)}
+  .refs li::before{counter-increment:r;content:"[" counter(r) "]";position:absolute;left:0;top:11px;
+    font-family:var(--mono);font-size:11px;color:var(--gold-soft)}
+  .refs li b{color:var(--ink);font-weight:600}
+  .refs li .src{color:var(--ink-faint);font-style:italic}
+
+  /* footer */
+  footer{border-top:1px solid var(--line-cool);padding:30px 0 46px;margin-top:10px}
+  .foot-mark{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+  .foot-mark .brandmark{width:34px;height:34px}
+  .foot-mark .brandmark svg{width:23px;height:23px}
+  .foot-mark b{font-size:15px;color:var(--gold-soft)}
+  .foot-mark span{display:block;font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:1px}
+  footer p{font-size:12px;color:var(--ink-faint);max-width:70ch;line-height:1.7}
+  .copyright{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:14px;letter-spacing:.04em}
+
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);z-index:90;opacity:0;
+    background:#0d1a3a;border:1px solid var(--teal);color:var(--ink);padding:11px 18px;border-radius:12px;
+    font-size:13.5px;box-shadow:0 16px 40px -18px rgba(0,0,0,.9);transition:.3s;pointer-events:none}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+  }
+  html{scroll-behavior:smooth}
+  :focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brandmark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21C7 17 4 13.5 4 9.5 4 7 6 5 8.3 5c1.5 0 2.8.8 3.7 2 .9-1.2 2.2-2 3.7-2C18 5 20 7 20 9.5c0 4-3 7.5-8 11.5Z" stroke="#d4af37" stroke-width="1.4"/><path d="M12 16.5v-7M12 8.5l-2.2 2.4M12 8.5l2.2 2.4" stroke="#2dd4bf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="brandtxt"><b>人体水力学</b> · 血管养护手册</div>
+    <nav class="nav">
+      <a href="#analogy">类比</a>
+      <a href="#faults">五种工况</a>
+      <a href="#pillars">六大支柱</a>
+      <a href="#habit">习惯系统</a>
+      <a href="#tracker">每日打卡</a>
+      <a href="#refs">参考</a>
+    </nav>
+    <button id="installBtn" type="button">安装到主屏</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="eyebrow">江南AI工作小组 · 深度研究</div>
+    <h1>人体水力学
+      <span class="sub2">从水锤泵到血管养护 —— 一台叫"心血管"的水泵,该怎么保养?</span>
+    </h1>
+    <p class="lede">把身体当成一套<b>水力管路</b>来看:心脏是泵,血管是管,大动脉的弹性像一只<b>稳压气室</b>,瓣膜是<b>止回阀</b>,每一次心跳沿管壁推出一道<b>压力波</b>。这个直觉不是凭空类比——血流动力学里确实用同一套语言描述循环系统。下面把这套"水力学"讲清楚,再落到<b>每天能做、且有证据支撑</b>的保养动作上。</p>
+
+    <div class="gauges">
+      <div class="gauge"><div class="num">150–300<small> 分钟</small></div><div class="cap">每周中等强度有氧的下限—上限<sup class="ref" data-ref="1">[1]</sup></div></div>
+      <div class="gauge"><div class="num">−34<small> %</small></div><div class="cap">每 30 分钟起身 5 分钟,餐后血糖增幅下降<sup class="ref" data-ref="5">[5]</sup></div></div>
+      <div class="gauge"><div class="num">66<small> 天</small></div><div class="cap">一个简单习惯走向"自动化"的中位时长<sup class="ref" data-ref="3">[3]</sup></div></div>
+      <div class="gauge"><div class="num">7–9<small> 小时</small></div><div class="cap">心血管最优睡眠区间(过短过长都不利)<sup class="ref" data-ref="9">[9]</sup></div></div>
+    </div>
+
+    <!-- ============ SCHEMATIC ============ -->
+    <div class="schematic">
+      <div class="twin">
+        <div class="unit">
+          <h4>水锤泵</h4>
+          <svg viewBox="0 0 300 250" role="img" aria-label="水锤泵示意:驱动水流经止回阀进入稳压气室,把少量水沿扬程管推到高处">
+            <!-- drive pipe -->
+            <rect x="6" y="176" width="150" height="20" rx="4" fill="#16213f" stroke="rgba(120,150,205,.25)"/>
+            <path d="M30 186h36M78 186h36" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fa)"/>
+            <text class="lbl" x="18" y="214">驱动水流(大流量·低落差)</text>
+            <!-- junction box / waste valve -->
+            <rect x="150" y="168" width="34" height="40" rx="5" fill="#101a38" stroke="var(--gold)" stroke-opacity=".5"/>
+            <path d="M167 208v18" stroke="rgba(120,150,205,.4)" stroke-width="6"/>
+            <circle cx="167" cy="230" r="6" fill="#16213f" stroke="var(--gold-soft)" stroke-width="1.4"/>
+            <text class="lbl" x="120" y="246">废水阀</text>
+            <!-- check valve -->
+            <path d="M167 168l-7 12h14z" fill="none" stroke="#2dd4bf" stroke-width="1.6"/>
+            <text class="lbl lbl-g" x="186" y="178">止回阀</text>
+            <!-- air chamber -->
+            <rect x="150" y="78" width="60" height="92" rx="9" fill="#0e1836" stroke="var(--gold)" stroke-opacity=".55"/>
+            <rect x="156" y="84" width="48" height="30" rx="5" fill="rgba(212,175,55,.12)"/>
+            <text class="lbl lbl-g" x="160" y="103">空气</text>
+            <rect x="156" y="116" width="48" height="48" rx="5" fill="rgba(45,212,191,.22)"/>
+            <text class="lbl" x="214" y="128">稳压气室</text>
+            <!-- delivery riser -->
+            <rect x="222" y="20" width="14" height="150" rx="5" fill="#16213f" stroke="rgba(120,150,205,.25)"/>
+            <path d="M229 150v-100" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fa)"/>
+            <circle cx="229" cy="22" r="6" fill="var(--teal)"/>
+            <text class="lbl" x="244" y="60">扬程</text>
+            <text class="lbl" x="244" y="73">(水被推高)</text>
+            <defs>
+              <marker id="fa" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+                <path d="M0 0l6 3-6 3z" fill="#2dd4bf"/>
+              </marker>
+            </defs>
+          </svg>
+          <p class="note">用大流量、低落差的水的动能,把<b>少量水推到高处</b>。</p>
+        </div>
+
+        <div class="approx" aria-hidden="true">≈</div>
+
+        <div class="unit">
+          <h4>心血管</h4>
+          <svg viewBox="0 0 300 250" role="img" aria-label="心血管示意:心脏泵血,主动脉弹性如气室,瓣膜如止回阀,脉搏波沿动脉传播,反射波返回">
+            <!-- heart pump -->
+            <path d="M150 232c-30-22-48-42-48-66 0-15 12-27 26-27 9 0 17 5 22 13 5-8 13-13 22-13 14 0 26 12 26 27 0 24-18 44-48 66Z"
+                  fill="rgba(212,175,55,.10)" stroke="var(--gold-soft)" stroke-width="2"/>
+            <text class="lbl lbl-g" x="120" y="246">心脏(泵)</text>
+            <!-- valve -->
+            <path d="M150 139l-7 13h14z" fill="none" stroke="#2dd4bf" stroke-width="1.6"/>
+            <text class="lbl" x="158" y="150">瓣膜=止回阀</text>
+            <!-- aorta windkessel (coil) -->
+            <path d="M150 139c0-28 0-48-30-58" fill="none" stroke="var(--gold)" stroke-opacity=".6" stroke-width="9" stroke-linecap="round"/>
+            <path d="M126 86q8-6 0-12q8-6 0-12q8-6 0-12" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/>
+            <text class="lbl lbl-g" x="38" y="64">主动脉弹性</text>
+            <text class="lbl" x="38" y="77">(气室 / Windkessel)</text>
+            <!-- rising vessel to head -->
+            <rect x="143" y="18" width="14" height="122" rx="5" fill="#16213f" stroke="rgba(120,150,205,.25)"/>
+            <circle cx="150" cy="22" r="8" fill="rgba(45,212,191,.25)" stroke="var(--teal)"/>
+            <text class="lbl" x="164" y="26">头部供血</text>
+            <!-- pulse wave -->
+            <path d="M204 120q6-26 12 0t12 0t12 0" fill="none" stroke="var(--teal)" stroke-width="1.8"/>
+            <text class="lbl" x="204" y="146">脉搏波</text>
+            <!-- reflected wave arrow -->
+            <path d="M236 100l-22 8" stroke="var(--danger)" stroke-width="1.6" marker-end="url(#fr)"/>
+            <text class="lbl" x="200" y="96" fill="var(--danger)">反射波</text>
+            <defs>
+              <marker id="fr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+                <path d="M0 0l6 3-6 3z" fill="#e07a7a"/>
+              </marker>
+            </defs>
+          </svg>
+          <p class="note">心脏间歇喷血,<b>弹性主动脉抹平成持续灌流</b>,血才稳稳送到头顶。</p>
+        </div>
+      </div>
+      <p class="sch-cap">同一套水力学:<b style="color:var(--gold-soft)">弹性缓冲</b> · <b style="color:var(--gold-soft)">单向阀</b> · <b style="color:var(--gold-soft)">压力波反射</b> —— 三个零件,决定了"水"能不能既省力又稳定地往上送。</p>
+    </div>
+
+    <div class="callout warn">
+      <div class="ttl"><svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>先说清楚:这是科普,不是诊疗建议</div>
+      本手册把生理学翻译成"水力学"是为了好理解,也为了好执行。它<b>不能替代医生</b>。文中数字来自公开指南与同行评议研究,属于群体层面的结论,具体到每个人会有差异。若你有高血压、心脏病、糖尿病等基础病,或正在服药、计划大幅增加运动量,请先咨询专业医生再调整。
+    </div>
+  </header>
+
+  <!-- ============ SECTION: ANALOGY ============ -->
+  <section id="analogy">
+    <div class="sec-eyebrow"><span class="idx">01</span> · 类比框架</div>
+    <h2>水锤泵 ↔ 循环系统:哪里成立,哪里只是比喻</h2>
+    <p class="deck">水锤泵(hydraulic ram pump)不用电,只靠水自己的动能就能把水送上高处。它的三个关键零件,恰好能对上循环系统里三件真实存在的事。</p>
+
+    <p>水锤泵的工作循环是这样:一股<b>大流量、低落差</b>的水沿驱动管冲下来,推动<b>废水阀</b>;水流被突然截断的瞬间产生<b>水锤效应</b>(water hammer)——压力骤升,顶开<b>止回阀</b>,把一小股水压进<b>稳压气室</b>;气室里封着的空气被压缩,像弹簧一样回弹,持续而平稳地把这股水沿扬程管<b>推到高处</b>。少量的水,被送到了远高于水源的地方。</p>
+
+    <div class="scroll-x">
+    <table class="maptable">
+      <thead><tr><th>水锤泵零件</th><th>循环系统对应</th><th>真实机制(不是文学比喻)</th></tr></thead>
+      <tbody>
+        <tr><td>稳压气室</td><td>大动脉弹性</td><td>主动脉等弹性大血管像一只压力缓冲罐,把心脏<b>间歇喷射</b>的血流"抹平"成持续灌流——血流动力学称之为 <b>Windkessel(风箱/气室)效应</b><sup class="ref" data-ref="2">[2]</sup>。</td></tr>
+        <tr><td>止回阀</td><td>心脏瓣膜</td><td>主动脉瓣等单向阀保证血液只能往前、不倒流;阀坏了,泵效就垮了。</td></tr>
+        <tr><td>水锤压力波</td><td>脉搏波</td><td>每次心跳沿动脉壁传出一道压力波(脉搏波)。<b>管壁越硬,波速(PWV)越快</b>。</td></tr>
+        <tr><td>水锤"反噬"</td><td>反射波提前返回</td><td>压力波传到外周会反射回来。血管<b>有弹性</b>时,反射波在舒张期才回到心脏,帮冠脉灌注;血管<b>变硬</b>后波速变快、反射波<b>提前在收缩期</b>返回,叠加到收缩压峰值上,<b>抬高中心收缩压、增加心脏后负荷与心肌耗氧</b><sup class="ref" data-ref="2">[2]</sup>。</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p>你那句"<b>水锤效应更大则反噬血管</b>"的直觉,正对应这件事:系统越硬,这道波就越早、越猛地砸回来。<b>保持血管弹性,就是给气室留住那口"气"</b>——让反射波乖乖回到舒张期,而不是反过来加重心脏的负担。</p>
+
+    <!-- wave reflection mini diagram -->
+    <div class="schematic" style="margin-top:18px">
+      <div class="twin" style="gap:14px">
+        <div class="unit" style="max-width:380px;flex:1 1 300px">
+          <h4 style="color:var(--teal)">弹性血管 · 反射波回到舒张期</h4>
+          <svg viewBox="0 0 320 150" role="img" aria-label="弹性血管:反射波在舒张期返回,不抬高收缩压峰值">
+            <line x1="20" y1="120" x2="305" y2="120" stroke="rgba(120,150,205,.25)"/>
+            <path d="M20 120 Q60 30 100 60 Q120 78 150 75 Q200 70 240 95 Q270 110 305 116" fill="none" stroke="var(--teal)" stroke-width="2.4"/>
+            <path d="M150 75 q40 18 70 8" fill="none" stroke="rgba(84,209,145,.6)" stroke-width="1.6" stroke-dasharray="4 3"/>
+            <text class="lbl" x="60" y="44">收缩压峰值</text>
+            <text class="lbl" x="196" y="74" fill="var(--good)">反射波(舒张期)</text>
+            <text class="lbl" x="20" y="138">时间 →</text>
+          </svg>
+          <p class="note" style="color:var(--good)">峰值不被叠高 · 反射波还帮了冠脉灌注</p>
+        </div>
+        <div class="unit" style="max-width:380px;flex:1 1 300px">
+          <h4 style="color:var(--danger)">僵硬血管 · 反射波砸进收缩期</h4>
+          <svg viewBox="0 0 320 150" role="img" aria-label="僵硬血管:反射波提前在收缩期返回,叠高收缩压峰值">
+            <line x1="20" y1="120" x2="305" y2="120" stroke="rgba(120,150,205,.25)"/>
+            <path d="M20 120 Q55 24 90 50 Q105 64 120 40 Q135 60 160 70 Q210 80 250 100 Q275 112 305 117" fill="none" stroke="var(--danger)" stroke-width="2.4"/>
+            <path d="M90 50 q20 -22 30 -10" fill="none" stroke="rgba(224,122,122,.7)" stroke-width="1.6" stroke-dasharray="4 3"/>
+            <text class="lbl" x="118" y="32" fill="var(--danger)">叠加后更高的峰</text>
+            <text class="lbl" x="20" y="138">时间 →</text>
+          </svg>
+          <p class="note" style="color:var(--danger)">峰值被叠高 · 后负荷与心肌耗氧上升</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="ttl"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>类比的边界 —— 别把比喻当解剖</div>
+      类比成立在"<b>弹性缓冲 / 单向阀 / 压力波反射</b>"这三处。但要诚实:① 心脏是<b>主动</b>收缩的肌肉泵,不是靠水锤被动驱动的;② 血液是带细胞和黏度的活体液,不是清水;③ 真实循环还有神经、激素、肾脏等多重调节。<b>水力学是趁手的思维脚手架,搭好之后,落到身上要看证据。</b>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: FAULTS ============ -->
+  <section id="faults">
+    <div class="sec-eyebrow"><span class="idx">02</span> · 工况诊断</div>
+    <h2>五种"工况失调":你提到的现象,在水力学里是什么</h2>
+    <p class="deck">同一套泵—管—阀系统,会因为五类日常因素而"工况"变差。每一条都标出它在保养里对应的支柱。</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="tag"><span class="n">1</span> 暴饮暴食 × 年龄增长</div>
+        <h4>管壁结垢,且渐渐失去弹性</h4>
+        <p class="mech">长期高盐、高糖、高饱和脂肪与过量进食,叠加年龄,会让血管内壁沉积、增厚(动脉粥样硬化),同时弹性蛋白流失、管壁变硬(动脉僵硬)。落到水力学:<b>管子又结垢、气室又漏气</b>——缓冲没了,反射波提前砸回,泵更费力<sup class="ref" data-ref="2">[2]</sup>。</p>
+        <div class="fix">对应支柱 → <b>护管饮食</b> · <b>有氧运动</b></div>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="n">2</span> 运动不足</div>
+        <h4>缺了"第二台泵"</h4>
+        <p class="mech">血液从下肢回到心脏要对抗重力,主要靠走路、踮脚时<b>小腿肌肉的挤压</b>把静脉血往上挤——小腿因此被称作"第二心脏"。久不动,这台辅助泵就闲置,回流变差、心脏更吃力。</p>
+        <div class="fix">对应支柱 → <b>力量训练</b> · <b>有氧运动</b></div>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="n">3</span> 一个姿势不变 / 久坐</div>
+        <h4>管路淤滞,代谢就地堆积</h4>
+        <p class="mech">长时间不动,下肢静脉血流停滞,餐后血糖、胰岛素、血压都更难回落。研究显示:把久坐<b>每 30 分钟打断一次</b>,哪怕只是站 5 分钟或慢走几分钟,餐后血糖增幅就明显下降<sup class="ref" data-ref="5">[5]</sup><sup class="ref" data-ref="6">[6]</sup>。</p>
+        <div class="fix">对应支柱 → <b>打断久坐</b></div>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="n">4</span> 身心压力过大</div>
+        <h4>泵被迫常年高转速</h4>
+        <p class="mech">慢性压力让交感神经持续兴奋,心率、血压抬高,血管收缩——相当于让泵长期开在高档位运转。转速越高、系统越硬,水锤反噬越重。</p>
+        <div class="fix">对应支柱 → <b>减压与慢呼吸</b> · <b>睡眠修复</b></div>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="n">5</span> 思虑过度</div>
+        <h4>高耗能用脑,记得给系统"留余量"</h4>
+        <p class="mech">大脑是耗氧大户。持续高强度用脑、精神紧绷,往往伴随久坐、熬夜、忽略身体信号。这里不展开机制争论——把它当成一个提醒:<b>张弛有度</b>,用脑之间给身体留出活动与休息的余量,本身就是保养。</p>
+        <div class="fix">对应支柱 → <b>打断久坐</b> · <b>睡眠修复</b> · <b>慢呼吸</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: PILLARS ============ -->
+  <section id="pillars">
+    <div class="sec-eyebrow"><span class="idx">03</span> · 保养处方</div>
+    <h2>六大循证保养支柱</h2>
+    <p class="deck">每一条都标了"剂量"和出处。不必一次做满——先挑一两条最容易的开始,这正是下一节"习惯系统"要解决的事。</p>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12h4l2-7 4 14 2.5-7H22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="body">
+        <h4>① 有氧运动 · 给泵做有氧保养</h4>
+        <div class="dose">每周 150–300 分钟中等强度,或 75–150 分钟较大强度<sup class="ref" data-ref="1">[1]</sup></div>
+        <p>快走、慢跑、骑车、游泳都算。世卫 2020 指南特别取消了"每次至少 10 分钟"的旧门槛——<b>分次累加同样有效</b>,上下班快走、爬楼都计入<sup class="ref" data-ref="1">[1]</sup>。判断强度的土办法:中等强度"<b>能说话但唱不了歌</b>",较大强度"说话都费劲"。规律有氧能改善血管内皮功能、帮助维持管壁弹性。</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <div class="body">
+        <h4>② 力量训练 · 强化"第二台泵"</h4>
+        <div class="dose">每周 ≥ 2 天,覆盖主要肌群<sup class="ref" data-ref="1">[1]</sup></div>
+        <p>深蹲、提踵、靠墙静蹲、弹力带、自重训练都行。<b>下肢和小腿尤其关键</b>——它们是把静脉血顶回心脏的辅助泵。肌肉量上去,日常代谢、血糖处理和回流都更稳。从极小量起步(每天几组提踵)比一次练到力竭更可持续。</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v9m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <div class="body">
+        <h4>③ 打断久坐 · 防止管路淤堵</h4>
+        <div class="dose">每坐约 30 分钟,起身活动 ≥ 2–5 分钟<sup class="ref" data-ref="5">[5]</sup><sup class="ref" data-ref="6">[6]</sup></div>
+        <p>这是性价比最高的一条。试验里,<b>每 30 分钟站 5 分钟</b>可把餐后血糖增幅降约 <b>34%</b>、轻走 5 分钟降约 <b>28%</b><sup class="ref" data-ref="5">[5]</sup>;糖代谢异常人群每 30 分钟做 3 分钟轻走或简单抗阻,餐后血糖与血压都明显改善<sup class="ref" data-ref="6">[6]</sup>。即使每天总久坐很长,<b>每天约 60–75 分钟身体活动可基本抵消其死亡风险</b><sup class="ref" data-ref="10">[10]</sup>。设个 30 分钟提醒,站起来接杯水、走两步即可。</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5-3 8-7 8-11a8 8 0 1 0-16 0c0 4 3 8 8 11Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 11c1.5 1.5 4.5 1.5 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="body">
+        <h4>④ 护管饮食 · 保持管壁弹性</h4>
+        <div class="dose">DASH 模式 · 控盐 · 多补钾(蔬果)<sup class="ref" data-ref="7">[7]</sup></div>
+        <p>多蔬果、全谷、豆类、坚果、低脂乳与鱼,少盐、少加工肉与含糖饮料,这套被称为 <b>DASH</b> 的吃法对血压证据最足。研究显示:<b>低钠 DASH</b> 相比高钠对照可把收缩压降约 <b>5–20 mmHg</b>(基线越高、降幅越大)<sup class="ref" data-ref="7">[7]</sup>;蔬果里的钾还能对冲钠的不利影响、保护血管功能。更可贵的是,有研究观察到这套吃法能<b>降低动脉僵硬指标(脉搏波速度)</b><sup class="ref" data-ref="8">[8]</sup>——也就是给"气室"补回弹性。把"控盐+多蔬果"当成方向即可,不必精算热量。</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M20 13a8 8 0 1 1-9-9 6.5 6.5 0 0 0 9 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <div class="body">
+        <h4>⑤ 睡眠修复 · 让泵进入夜间低速档</h4>
+        <div class="dose">成年人 7–9 小时(过短、过长都不利)<sup class="ref" data-ref="9">[9]</sup></div>
+        <p>美国心脏协会已把睡眠列入心血管健康核心指标。证据呈 U 形:<b>睡不足 7 小时或超过 9 小时</b>都与高血压、心血管病、卒中风险上升相关<sup class="ref" data-ref="9">[9]</sup>。充足睡眠让夜间血压自然"勺型"回落,给系统降档检修。比硬凑时长更重要的是<b>规律</b>:固定起床时间、睡前调暗光线、远离屏幕。</p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l1.5-3 2 6 1.5-3H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8a3 3 0 1 1 2 5h-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="body">
+        <h4>⑥ 减压与慢呼吸 · 给泵降转速</h4>
+        <div class="dose">每天几分钟慢呼吸 / 正念 / 户外走动</div>
+        <p>慢而深的呼吸(如吸 4 秒、呼 6 秒)能即时激活副交感、让心率与血压回落,是给"高转速的泵"踩一脚刹车最简单的办法。配合规律的户外活动、与人交流、给用脑留出间歇,长期看有助于把系统从"常年高档位"拉回来。这一条与第 4、5 种工况直接相扣。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: HABIT SCIENCE ============ -->
+  <section id="habit">
+    <div class="sec-eyebrow"><span class="idx">04</span> · 习惯养成</div>
+    <h2>为什么是"习惯",而不是"决心"</h2>
+    <p class="deck">行为科学有句扎心的结论:<b>知道,不等于做到</b>。保养能不能落地,靠的不是某天的意志力爆发,而是把动作变成<b>不太费脑的习惯</b>。</p>
+
+    <h3>习惯回路:线索 → 行为 → 奖励</h3>
+    <p>每个习惯都是一条回路:一个<b>线索</b>(cue)触发一个<b>行为</b>(routine),行为带来一点<b>奖励</b>(reward),回路被强化。养成新习惯的诀窍,是把新行为<b>挂在一个已经稳定的旧线索后面</b>——这叫"习惯叠加"。例如:"<b>每次接水(线索),就顺手做 10 次提踵(行为)</b>";"<b>刷完牙(线索),就做 3 分钟慢呼吸</b>"。</p>
+
+    <div class="chips">
+      <div class="chip"><b>习惯叠加</b>把新动作绑在旧动作之后:"做完 X,就做 Y"。</div>
+      <div class="chip"><b>执行意图</b>写成"当出现 A 情境,我就做 B",比模糊的"我要多运动"有效得多。</div>
+      <div class="chip"><b>两分钟起步</b>新习惯先缩到 2 分钟版本,门槛低到无法拒绝,先把"开始"变容易。</div>
+      <div class="chip"><b>环境设计</b>把水杯、哑铃、跑鞋放在显眼处;让健康选项成为最省力的那个。</div>
+    </div>
+
+    <h3>66 天,而不是 21 天</h3>
+    <p>"21 天养成习惯"是流传最广的误传,源头是 1960 年一本整形外科医生的书<sup class="ref" data-ref="3">[3]</sup>。真正的实证来自伦敦大学学院 Lally 团队 2010 年的研究:一个简单日常行为达到"<b>自动化</b>"的中位时长约 <b>66 天</b>,个体差异很大,跨度从 18 天到 254 天<sup class="ref" data-ref="3">[3]</sup>。实用建议是:<b>按约 10 周来期待</b>,行为会越做越省力<sup class="ref" data-ref="4">[4]</sup>。</p>
+
+    <div class="callout info">
+      <div class="ttl"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>最重要的一条:漏一天,不会前功尽弃</div>
+      同一研究里,<b>偶尔漏掉一天几乎不影响</b>习惯的养成进程,第二天接着做,自动化继续累积<sup class="ref" data-ref="3">[3]</sup>。所以请扔掉"今天断了干脆放弃"的全或无心态——习惯是<b>渐近曲线</b>,早期每一次重复收益最大,而一次中断只是曲线上一个小坑。<b>这正是下面打卡器的设计哲学:进度只增不减,漏一天也不清零。</b>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: TRACKER ============ -->
+  <section id="tracker">
+    <div class="sec-eyebrow"><span class="idx">05</span> · 每日打卡</div>
+    <h2>每日养护清单</h2>
+    <p class="deck">把六大支柱拆成几个"今天能做到"的小动作。点一下记录,数据<b>全部存在你本机</b>(localStorage),不上传任何服务器。水柱越充越满,就是你离"自动化"越近。</p>
+
+    <div id="storageBanner" class="storage-banner"></div>
+
+    <div class="tracker" id="tracker">
+      <div class="tk-head">
+        <div class="tk-date">今天 · <b id="tkDate">—</b></div>
+        <div class="tk-spacer"></div>
+      </div>
+
+      <div class="column-wrap">
+        <div class="column" aria-hidden="true">
+          <div class="arrow">▲</div>
+          <div class="ticks" id="colTicks"></div>
+          <div class="fill" id="colFill"></div>
+        </div>
+        <div class="column-stat">
+          <div class="big"><span id="totalDays">0</span><small> / 66 天</small></div>
+          <div class="lab">累计有效打卡天数(走向"自动化"的水位 —— 只升不降)</div>
+          <div class="sub" id="autoMsg">先从今天的第一滴水开始。</div>
+        </div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini"><div class="v" id="streakV">0</div><div class="k">当前连续(漏 1 天仍续)</div></div>
+        <div class="mini"><div class="v" id="todayV">0/0</div><div class="k">今日完成</div></div>
+        <div class="mini"><div class="v" id="week7V">0/7</div><div class="k">近 7 天活跃</div></div>
+      </div>
+      <div class="week" id="weekDots" aria-label="最近七天完成情况"></div>
+
+      <div class="habits" id="habitList"></div>
+
+      <div class="tk-tools">
+        <button class="btn primary" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>导出数据</button>
+        <button class="btn" id="importBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15V3m0 12 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>导入数据</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden />
+        <button class="btn ghost danger" id="resetBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-9 0 1 13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>清空</button>
+      </div>
+
+      <details class="settings">
+        <summary>自定义清单(开关 / 添加 / 删除)</summary>
+        <div class="panel">
+          <div id="settingsRows"></div>
+          <div class="add-row">
+            <input type="text" id="newHabitInput" maxlength="24" placeholder="添加一个自己的小习惯,如:午后散步 10 分钟" />
+            <button class="btn primary" id="addHabitBtn" type="button">添加</button>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <p class="muted" style="font-size:13px">提示:这份 PWA 可<b>安装到手机主屏</b>,断网也能用(点右上角"安装到主屏",或浏览器菜单里的"添加到主屏幕")。换设备时用"导出/导入"搬运数据即可。</p>
+  </section>
+
+  <!-- ============ SECTION: REFERENCES ============ -->
+  <section id="refs">
+    <div class="sec-eyebrow"><span class="idx">06</span> · 证据与参考</div>
+    <h2>参考来源</h2>
+    <p class="deck">以下为文中数字的主要出处。均为公开指南或同行评议研究,结论属群体层面,个体存在差异,且不构成医疗建议。</p>
+    <ol class="refs">
+      <li><b>世界卫生组织 2020《身体活动与久坐行为指南》。</b> <span class="src">Br J Sports Med, 2020.</span> 成人每周 150–300 分钟中等或 75–150 分钟较大强度有氧;每周≥2 天力量训练;减少久坐;取消"每次≥10 分钟"门槛。</li>
+      <li><b>Nichols WW 等:动脉僵硬、脉搏波速度与反射波对中心主动脉压波形的影响。</b> <span class="src">J Clin Hypertens (Greenwich), 2008;10(4):295–303.</span> 动脉变硬 → 反射波提前在收缩期返回 → 抬高中心收缩压、增加左室后负荷与心肌耗氧。</li>
+      <li><b>Lally P 等:真实世界中习惯如何形成。</b> <span class="src">Eur J Soc Psychol, 2010;40(6):998–1009.</span> 自动化中位约 66 天(范围 18–254 天);偶尔漏一天不影响养成进程。</li>
+      <li><b>Gardner B, Lally P, Wardle J:让健康成为习惯——习惯养成的心理学。</b> <span class="src">Br J Gen Pract, 2012;62(605):664–666.</span> 建议按约 10 周期待;强调情境线索下的重复。</li>
+      <li><b>Henson J 等:打断久坐对餐后代谢的影响。</b> <span class="src">Diabetologia / J Clin Endocrinol Metab, 2016.</span> 每 30 分钟站立 5 分钟,餐后血糖增幅约降 34%;轻走 5 分钟约降 28%。</li>
+      <li><b>Dempsey PC 等:2 型糖尿病者打断久坐的获益。</b> <span class="src">Diabetes Care, 2016;39(6):964–972.</span> 每 30 分钟 3 分钟轻走或简单抗阻,餐后血糖增幅约降 39%,并降低收缩压与舒张压。</li>
+      <li><b>DASH-Sodium 试验及后续分析(Sacks FM 等;Juraschek SP 等)。</b> <span class="src">N Engl J Med, 2001; J Am Coll Cardiol, 2017.</span> 低钠 DASH 相比高钠对照可降收缩压约 5–20 mmHg,基线血压越高降幅越大;钾可对冲钠的不利作用。</li>
+      <li><b>Hummel SL 等:低钠 DASH 饮食改善血压、动脉僵硬与氧化应激。</b> <span class="src">Hypertension, 2012.</span> 在相关患者中观察到颈股脉搏波速度下降(约 12.4 → 11.0 m/s)。</li>
+      <li><b>美国心脏协会 Life's Essential 8(纳入睡眠指标)。</b> <span class="src">Circulation, 2022.</span> 成人理想睡眠 7–9 小时;呈 U/J 形,过短或过长均与心血管风险上升相关。</li>
+      <li><b>Ekelund U 等:身体活动、久坐时间与死亡风险的协同分析。</b> <span class="src">Lancet, 2016;388(10051):1302–1310.</span> 每日约 60–75 分钟身体活动可基本抵消久坐>8 小时相关的死亡风险升高。</li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="foot-mark">
+      <div class="brandmark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21C7 17 4 13.5 4 9.5 4 7 6 5 8.3 5c1.5 0 2.8.8 3.7 2 .9-1.2 2.2-2 3.7-2C18 5 20 7 20 9.5c0 4-3 7.5-8 11.5Z" stroke="#d4af37" stroke-width="1.4"/><path d="M12 16.5v-7M12 8.5l-2.2 2.4M12 8.5l2.2 2.4" stroke="#2dd4bf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <b>江南AI工作小组</b>
+        <span>人体水力学 · 血管养护手册 · v1.0</span>
+      </div>
+    </div>
+    <p>本手册为健康科普资料,旨在用"水力学"的直觉把循证保养讲清楚、帮助养成日常习惯。<b>它不构成医疗诊断或治疗建议,不能替代专业医生。</b>文中所有数字均来自公开指南与同行评议研究,属群体层面结论,个体差异显著。如有高血压、心脏病、糖尿病等基础疾病,正在服药,或计划显著改变运动、饮食、睡眠方式,请先咨询专业医生。如出现胸痛、严重气促、晕厥等症状,请及时就医。</p>
+    <div class="copyright">© 江南AI工作小组 · 标准:专业 · 务实 · 可考据 · 可落地。数据仅存于本机,不会上传。</div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- storage (graceful) ---------- */
+  var MEM = {}, LS_OK = true;
+  try { var t='__hc_test__'; localStorage.setItem(t,'1'); localStorage.removeItem(t); }
+  catch(e){ LS_OK = false; }
+  function lsGet(k){ try{ return LS_OK ? localStorage.getItem(k) : (k in MEM ? MEM[k] : null);}catch(e){ return (k in MEM)?MEM[k]:null; } }
+  function lsSet(k,v){ try{ if(LS_OK) localStorage.setItem(k,v); else MEM[k]=v; }catch(e){ MEM[k]=v; LS_OK=false; showStorageBanner(); } }
+
+  function showStorageBanner(){
+    var b=document.getElementById('storageBanner');
+    if(!b) return;
+    b.style.display='block';
+    b.innerHTML='当前环境限制了本地存储,打卡数据本次会话有效但<b>无法长期保存</b>。把这份文件下载到本机、用浏览器打开(或安装为应用)即可正常保存。';
+  }
+  if(!LS_OK) showStorageBanner();
+
+  var K_HABITS='HC_habits_v1', K_LOG='HC_log_v1';
+
+  var DEFAULTS = [
+    {id:'aerobic',  label:'有氧活动', hint:'快走/骑行/游泳等累计 ≈30 分钟(可分次)', icon:'pulse',    active:true, custom:false},
+    {id:'strength', label:'下肢力量', hint:'提踵/深蹲/爬楼,激活小腿这台"第二心脏"', icon:'dumbbell', active:true, custom:false},
+    {id:'sitbreak', label:'打断久坐', hint:'每坐约 30 分钟就起身活动了几分钟',        icon:'stand',    active:true, custom:false},
+    {id:'diet',     label:'护管饮食', hint:'多蔬果,刻意少盐、少加工与含糖饮料',      icon:'leaf',     active:true, custom:false},
+    {id:'water',    label:'喝足水',   hint:'全天补水充足,没有长时间口渴',            icon:'drop',     active:true, custom:false},
+    {id:'sleep',    label:'睡眠留足', hint:'为 7–9 小时睡眠留出时间,按计划准备入睡', icon:'moon',     active:true, custom:false},
+    {id:'breath',   label:'慢呼吸',   hint:'做几分钟慢呼吸/放松,给心率"降转速"',     icon:'wave',     active:true, custom:false}
+  ];
+
+  var ICONS = {
+    pulse:'<path d="M2 12h4l2-7 4 14 2.5-7H22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    dumbbell:'<path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    stand:'<path d="M12 3v9m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    leaf:'<path d="M12 21c5-3 8-7 8-11a8 8 0 1 0-16 0c0 4 3 8 8 11Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 11c1.5 1.5 4.5 1.5 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    drop:'<path d="M12 3s7 7.5 7 12a7 7 0 1 1-14 0c0-4.5 7-12 7-12Z" stroke="currentColor" stroke-width="1.6"/>',
+    moon:'<path d="M20 13a8 8 0 1 1-9-9 6.5 6.5 0 0 0 9 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+    wave:'<path d="M3 12h3l1.5-3 2 6 1.5-3H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8a3 3 0 1 1 2 5h-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    star:'<path d="M12 4l2.2 5.2 5.6.5-4.3 3.7 1.3 5.5L12 17l-4.8 2.9 1.3-5.5L4.2 9.7l5.6-.5L12 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+  };
+  function iconSvg(name){ return '<svg viewBox="0 0 24 24" fill="none">'+(ICONS[name]||ICONS.star)+'</svg>'; }
+
+  /* ---------- state ---------- */
+  var habits, log;
+  function loadState(){
+    try{ habits = JSON.parse(lsGet(K_HABITS)); }catch(e){ habits=null; }
+    if(!Array.isArray(habits) || !habits.length){ habits = DEFAULTS.map(function(h){return Object.assign({},h);}); }
+    try{ log = JSON.parse(lsGet(K_LOG)); }catch(e){ log=null; }
+    if(!log || typeof log!=='object') log = {};
+  }
+  function saveHabits(){ lsSet(K_HABITS, JSON.stringify(habits)); }
+  function saveLog(){ lsSet(K_LOG, JSON.stringify(log)); }
+
+  /* ---------- date helpers ---------- */
+  function ymd(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+  function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); x.setDate(x.getDate()+n); return x; }
+  function todayKey(){ return ymd(new Date()); }
+  var WK=['周日','周一','周二','周三','周四','周五','周六'];
+
+  /* ---------- derived ---------- */
+  function dayHasAny(key){
+    var d=log[key]; if(!d) return false;
+    for(var k in d){ if(d[k]) return true; }
+    return false;
+  }
+  function totalActiveDays(){
+    var n=0; for(var k in log){ if(dayHasAny(k)) n++; } return n;
+  }
+  function currentStreak(){
+    var count=0, gap=0, cur=new Date();
+    for(var i=0;i<800;i++){
+      var key=ymd(cur), active=dayHasAny(key);
+      if(active){ count++; gap=0; }
+      else if(i===0){ /* today pending: ignore */ }
+      else { gap++; if(gap>1) break; }
+      cur=addDays(cur,-1);
+    }
+    return count;
+  }
+  function activeHabits(){ return habits.filter(function(h){return h.active;}); }
+  function todayDone(){
+    var d=log[todayKey()]||{}, ah=activeHabits(), n=0;
+    ah.forEach(function(h){ if(d[h.id]) n++; });
+    return {done:n, total:ah.length};
+  }
+  function last7(){
+    var arr=[], cur=new Date();
+    for(var i=6;i>=0;i--){
+      var dt=addDays(cur,-i), key=ymd(dt), d=log[key]||{};
+      var done=0, tot=0;
+      activeHabits().forEach(function(h){ tot++; if(d[h.id]) done++; });
+      // also count any logged habit even if later deactivated
+      var any=dayHasAny(key);
+      arr.push({key:key, dow:dt.getDay(), done:done, tot:tot, any:any, isToday:(key===todayKey())});
+    }
+    return arr;
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var tEl=document.getElementById('tkDate');
+    var now=new Date();
+    tEl.textContent = ymd(now)+' · '+WK[now.getDay()];
+
+    // ticks (lines at each ~10%)
+    var ticks=document.getElementById('colTicks');
+    if(ticks && !ticks.dataset.done){
+      var html=''; for(var p=10;p<100;p+=10){ html+='<i style="bottom:'+p+'%"></i>'; }
+      ticks.innerHTML=html; ticks.dataset.done='1';
+    }
+
+    var total=totalActiveDays();
+    var pct=Math.min(100, Math.round(total/66*100));
+    document.getElementById('colFill').style.height=pct+'%';
+    document.getElementById('totalDays').textContent=total;
+
+    var msg=document.getElementById('autoMsg');
+    if(total===0) msg.textContent='先从今天的第一滴水开始。';
+    else if(total<66) msg.textContent='水位 '+pct+'% · 还差 '+(66-total)+' 天到"自动化"。';
+    else msg.textContent='满格 · 这套保养已基本成为你的自动反应。';
+
+    document.getElementById('streakV').textContent=currentStreak();
+    var td=todayDone();
+    document.getElementById('todayV').textContent=td.done+'/'+td.total;
+
+    var wk=last7(), active7=0, dotsHtml='';
+    wk.forEach(function(w){
+      if(w.any) active7++;
+      var cls='d'; var full = w.tot>0 && w.done===w.tot && w.done>0;
+      if(full) cls+=' full'; else if(w.done>0||w.any) cls+=' part';
+      if(w.isToday) cls+=' today';
+      dotsHtml+='<div class="'+cls+'" title="'+w.key+' · '+w.done+'/'+w.tot+'">'+WK[w.dow].slice(1)+'</div>';
+    });
+    document.getElementById('week7V').textContent=active7+'/7';
+    document.getElementById('weekDots').innerHTML=dotsHtml;
+
+    // habit rows
+    var dlog=log[todayKey()]||{};
+    var listHtml=activeHabits().map(function(h){
+      var on=!!dlog[h.id];
+      return '<div class="habit'+(on?' on':'')+'" data-id="'+h.id+'">'+
+        '<div class="hic">'+iconSvg(h.icon)+'</div>'+
+        '<div class="htxt"><b>'+esc(h.label)+'</b><span>'+esc(h.hint||'')+'</span></div>'+
+        '<button class="toggle" role="switch" aria-checked="'+(on?'true':'false')+'" aria-label="'+esc(h.label)+'" data-toggle="'+h.id+'"></button>'+
+        '</div>';
+    }).join('');
+    if(!listHtml) listHtml='<p class="muted" style="text-align:center;font-size:13px">清单是空的。到下方"自定义清单"里打开或添加几项吧。</p>';
+    document.getElementById('habitList').innerHTML=listHtml;
+
+    renderSettings();
+  }
+
+  function renderSettings(){
+    var rows=habits.map(function(h){
+      return '<div class="set-row">'+
+        '<div class="hic" style="width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:#0d1633;border:1px solid var(--line-cool);color:'+(h.active?'var(--teal)':'var(--ink-faint)')+'">'+iconSvg(h.icon)+'</div>'+
+        '<div class="nm">'+esc(h.label)+(h.custom?' <small>自定义</small>':'')+'</div>'+
+        (h.custom?'<button class="btn ghost danger" data-del="'+h.id+'" type="button" style="padding:5px 9px">删除</button>':'')+
+        '<button class="toggle" role="switch" aria-checked="'+(h.active?'true':'false')+'" aria-label="启用'+esc(h.label)+'" data-active="'+h.id+'"></button>'+
+        '</div>';
+    }).join('');
+    document.getElementById('settingsRows').innerHTML=rows;
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+  /* ---------- actions ---------- */
+  function toggleHabit(id){
+    var key=todayKey();
+    if(!log[key]) log[key]={};
+    log[key][id] = !log[key][id];
+    if(!log[key][id]) delete log[key][id];
+    if(Object.keys(log[key]).length===0) delete log[key];
+    saveLog(); render();
+  }
+  function toggleActive(id){
+    var h=habits.filter(function(x){return x.id===id;})[0];
+    if(h){ h.active=!h.active; saveHabits(); render(); }
+  }
+  function delHabit(id){
+    habits=habits.filter(function(x){return x.id!==id;});
+    saveHabits(); render(); toast('已删除');
+  }
+  function addHabit(){
+    var inp=document.getElementById('newHabitInput');
+    var v=(inp.value||'').trim();
+    if(!v){ inp.focus(); return; }
+    habits.push({id:'c'+Date.now(), label:v, hint:'自定义习惯', icon:'star', active:true, custom:true});
+    inp.value=''; saveHabits(); render(); toast('已添加:'+v);
+  }
+
+  function exportData(){
+    var payload={ app:'人体水力学·血管养护手册', schema:'hydro-care-v1', exportedAt:new Date().toISOString(), habits:habits, log:log };
+    var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url; a.download='血管养护-数据-'+todayKey()+'.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1500);
+    toast('数据已导出');
+  }
+  function importData(file){
+    var fr=new FileReader();
+    fr.onload=function(){
+      try{
+        var obj=JSON.parse(fr.result);
+        if(obj.schema!=='hydro-care-v1' && !(obj.habits||obj.log)) throw 0;
+        if(!confirm('导入将覆盖当前的清单与打卡记录。确定继续?')) return;
+        if(Array.isArray(obj.habits) && obj.habits.length) habits=obj.habits;
+        if(obj.log && typeof obj.log==='object') log=obj.log;
+        saveHabits(); saveLog(); render(); toast('数据已导入');
+      }catch(e){ toast('文件无法识别,请选择本应用导出的 JSON'); }
+    };
+    fr.readAsText(file);
+  }
+  function resetAll(){
+    if(!confirm('确定清空所有打卡记录与自定义清单?此操作不可撤销(建议先导出备份)。')) return;
+    habits=DEFAULTS.map(function(h){return Object.assign({},h);});
+    log={}; saveHabits(); saveLog(); render(); toast('已清空');
+  }
+
+  var toastTimer;
+  function toast(msg){
+    var t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){t.classList.remove('show');},2200);
+  }
+
+  /* ---------- events (delegation) ---------- */
+  document.getElementById('tracker').addEventListener('click',function(e){
+    var tg=e.target.closest('[data-toggle]'); if(tg){ toggleHabit(tg.getAttribute('data-toggle')); return; }
+    var ac=e.target.closest('[data-active]'); if(ac){ toggleActive(ac.getAttribute('data-active')); return; }
+    var dl=e.target.closest('[data-del]'); if(dl){ delHabit(dl.getAttribute('data-del')); return; }
+  });
+  document.getElementById('addHabitBtn').addEventListener('click',addHabit);
+  document.getElementById('newHabitInput').addEventListener('keydown',function(e){ if(e.key==='Enter') addHabit(); });
+  document.getElementById('exportBtn').addEventListener('click',exportData);
+  document.getElementById('importBtn').addEventListener('click',function(){ document.getElementById('importFile').click(); });
+  document.getElementById('importFile').addEventListener('change',function(e){ if(e.target.files&&e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
+  document.getElementById('resetBtn').addEventListener('click',resetAll);
+
+  // reference smooth-scroll
+  document.querySelectorAll('sup.ref').forEach(function(s){
+    s.addEventListener('click',function(){
+      var n=s.getAttribute('data-ref');
+      var ol=document.querySelector('#refs .refs');
+      if(ol && ol.children[n-1]){
+        ol.children[n-1].scrollIntoView({behavior:'smooth',block:'center'});
+        ol.children[n-1].style.transition='background .2s';
+        ol.children[n-1].style.background='rgba(212,175,55,.12)';
+        setTimeout(function(){ol.children[n-1].style.background='';},1400);
+      }
+    });
+  });
+
+  /* ---------- init ---------- */
+  loadState();
+  render();
+
+  /* ---------- PWA: install prompt + service worker ---------- */
+  var deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault(); deferredPrompt=e;
+    var b=document.getElementById('installBtn'); if(b) b.style.display='inline-block';
+  });
+  var ib=document.getElementById('installBtn');
+  if(ib){ ib.addEventListener('click',function(){
+    if(!deferredPrompt){ toast('在浏览器菜单中选择"添加到主屏幕"'); return; }
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(function(){ deferredPrompt=null; ib.style.display='none'; });
+  }); }
+  window.addEventListener('appinstalled',function(){ if(ib) ib.style.display='none'; });
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){ /* offline install unavailable here; app still works */ });
+    });
+  }
+})();
+</script>
+</body>
+</html>
