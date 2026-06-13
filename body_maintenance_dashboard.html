@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人体心血管效能与保养深度解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #faf9f6;
+            color: #292524;
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 35vh;
+            min-height: 300px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 45vh;
+            }
+        }
+        .valve-card {
+            transition: all 0.3s ease;
+        }
+        .valve-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #9f1239;
+        }
+        .tab-btn.active {
+            background-color: #9f1239;
+            color: white;
+            border-color: #9f1239;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-rose-200 selection:text-rose-900">
+
+<!-- Chosen Palette: Warm Neutrals & Deep Crimson (Stone-50 background, Stone-800 text, Rose-800 accents for cardiovascular themes, Emerald-700 for health actions) -->
+<!-- Application Structure Plan: The SPA uses a logical flow: 1. Core Analogy (Heart as Water Ram Pump) to establish the mental model. 2. Interactive Systems Analysis (breaking down the 4 threats from the report). 3. The Climax (The Water Hammer Effect explaining the ultimate damage mechanism). 4. Actionable Maintenance Guide. This top-down, analogy-first structure helps users grasp complex physiological concepts intuitively before diving into specific health threats and solutions. -->
+<!-- Visualization & Content Choices: 1. Core Analogy -> HTML/CSS Interactive Grid -> Shows mapping between pump parts and organs. 2. Diet/Aging Threat -> Chart.js Line Chart -> Shows elasticity decline over time, comparing healthy vs unhealthy states. 3. Muscle Threat -> Chart.js Bar Chart -> Compares blood return volume (Sedentary vs Active). 4. Overthinking Threat -> Chart.js Doughnut Chart -> Demonstrates blood "hijacking" by the brain. 5. Interaction -> Buttons to toggle states on charts to encourage active exploration. NO SVG/Mermaid used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-stone-100 border-b border-stone-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🫀</span>
+                <h1 class="text-xl md:text-2xl font-bold tracking-tight text-stone-800">生命动力深度洞察</h1>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+                <a href="#analogy" class="hover:text-rose-700 transition-colors">水锤泵模型</a>
+                <a href="#threats" class="hover:text-rose-700 transition-colors">四大阻力</a>
+                <a href="#crisis" class="hover:text-rose-700 transition-colors">水锤反噬</a>
+                <a href="#solutions" class="hover:text-rose-700 transition-colors">保养指南</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-20">
+
+        <section class="text-center space-y-6 max-w-3xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 leading-tight">
+                解密身体引擎：<br>
+                <span class="text-rose-700">心血管的高效与危机</span>
+            </h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+                我们的身体并非简单的管道拼接，而是一套高度精密、利用物理势能运作的动力系统。本报告基于深度的生理学与流体力学隐喻，为您揭示暴饮暴食、久坐、压力与过度思虑是如何一步步摧毁这套系统的。
+            </p>
+        </section>
+
+        <section id="analogy" class="space-y-8">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold text-stone-800 mb-4 border-l-4 border-rose-700 pl-4">一、核心隐喻：人体“水锤泵”供血机制</h3>
+                <p class="text-stone-600 mb-6 leading-relaxed">
+                    本节旨在建立基础认知。心脏的高效能运作，完美契合了物理学中的“水锤泵”原理。它不是单纯靠蛮力推血，而是巧妙利用了流体动能与血管壁的势能。了解这一模型，是理解后续健康危机的关键。
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="valve-card bg-white p-6 rounded-2xl border border-stone-200 cursor-pointer">
+                        <div class="text-4xl mb-3">⚙️</div>
+                        <h4 class="font-bold text-lg mb-2">水锤泵主体</h4>
+                        <p class="text-sm text-stone-500 mb-2">流体动能发生器</p>
+                        <div class="bg-rose-50 text-rose-800 text-sm p-3 rounded-lg font-medium">
+                            对应器官：心脏
+                        </div>
+                        <p class="text-xs text-stone-500 mt-3">提供初始脉冲，将少量血液推向头顶高处。</p>
+                    </div>
+                    
+                    <div class="valve-card bg-white p-6 rounded-2xl border border-stone-200 cursor-pointer">
+                        <div class="text-4xl mb-3">🎛️</div>
+                        <h4 class="font-bold text-lg mb-2">止回阀/排气阀</h4>
+                        <p class="text-sm text-stone-500 mb-2">防止回流，引导单向流动</p>
+                        <div class="bg-rose-50 text-rose-800 text-sm p-3 rounded-lg font-medium">
+                            对应结构：心脏瓣膜 & 静脉瓣
+                        </div>
+                        <p class="text-xs text-stone-500 mt-3">确保血液在复杂网络中始终朝向正确的方向前进。</p>
+                    </div>
+
+                    <div class="valve-card bg-white p-6 rounded-2xl border border-stone-200 cursor-pointer">
+                        <div class="text-4xl mb-3">🎈</div>
+                        <h4 class="font-bold text-lg mb-2">稳压罐</h4>
+                        <p class="text-sm text-stone-500 mb-2">吸收冲击，维持平稳压力</p>
+                        <div class="bg-rose-50 text-rose-800 text-sm p-3 rounded-lg font-medium">
+                            对应结构：大血管弹性
+                        </div>
+                        <p class="text-xs text-stone-500 mt-3">吸收心脏射血的巨大水锤冲击，转化为势能平缓释放。</p>
+                    </div>
+
+                    <div class="valve-card bg-white p-6 rounded-2xl border border-stone-200 cursor-pointer">
+                        <div class="text-4xl mb-3">🚰</div>
+                        <h4 class="font-bold text-lg mb-2">泄压阀网络</h4>
+                        <p class="text-sm text-stone-500 mb-2">沿途分配，缓解主管道压力</p>
+                        <div class="bg-rose-50 text-rose-800 text-sm p-3 rounded-lg font-medium">
+                            对应结构：沿途内脏器官
+                        </div>
+                        <p class="text-xs text-stone-500 mt-3">沿途器官的代谢用血，如同泄压阀，保障系统整体压力平衡。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="threats" class="space-y-16">
+            <div class="max-w-4xl mx-auto mb-10">
+                <h3 class="text-2xl font-bold text-stone-800 mb-4 border-l-4 border-rose-700 pl-4">二、系统崩溃的四大元凶</h3>
+                <p class="text-stone-600 leading-relaxed">
+                    完美的机制为何会失效？本节通过数据可视化，剖析日常生活习惯是如何破坏人体“水锤泵”的各个核心组件的。请点击下方图表中的交互按钮，观察不良习惯带来的巨大生理差异。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-semibold">阻力一</div>
+                    <h4 class="text-xl md:text-2xl font-bold text-stone-900">暴饮暴食与年龄增长</h4>
+                    <p class="text-stone-600">
+                        随着年龄增长，加之暴饮暴食带来的脂质沉积，血管（稳压罐）的弹性蛋白断裂、斑块堵塞。稳压罐失去弹性，意味着心脏每一次跳动的冲击力将直接粗暴地砸在血管壁上，无法被有效缓冲。
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="updateElasticityChart('healthy')" class="tab-btn active px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-elastic-healthy">健康节制</button>
+                        <button onclick="updateElasticityChart('unhealthy')" class="tab-btn px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-elastic-unhealthy">暴饮暴食</button>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="chart-container">
+                        <canvas id="elasticityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-col-reverse lg:flex-row-reverse">
+                <div class="space-y-6 lg:pl-8">
+                    <div class="inline-block px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-semibold">阻力二</div>
+                    <h4 class="text-xl md:text-2xl font-bold text-stone-900">运动不足：肌肉泵罢工</h4>
+                    <p class="text-stone-600">
+                        心脏负责将血泵出，但血液回流极大程度上依赖骨骼肌的收缩（犹如辅助水泵）。运动不足导致肌肉辅助心血管能力匮乏，大量血液淤积在下肢，心脏不得不以更高的负荷“抽”血。
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="updateMuscleChart('sedentary')" class="tab-btn active px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-muscle-sedentary">久坐不动</button>
+                        <button onclick="updateMuscleChart('active')" class="tab-btn px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-muscle-active">规律运动</button>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="chart-container">
+                        <canvas id="muscleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="flex gap-2">
+                        <div class="inline-block px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-semibold">阻力三 & 四</div>
+                    </div>
+                    <h4 class="text-xl md:text-2xl font-bold text-stone-900">姿势固化与思虑过度</h4>
+                    <p class="text-stone-600">
+                        一个姿势不变，加之身心压力大，导致微循环局部供血不足且极易淤堵。更为致命的是<strong class="text-rose-700">“思虑过度”</strong>。大脑作为系统最高点，当过度用脑时，器官供血供氧被迫向大脑高度集中。这不仅导致其他脏器（泄压阀）代谢不足，更引发了灾难性的连锁反应。
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="updateBrainChart('rest')" class="tab-btn active px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-brain-rest">平心静气</button>
+                        <button onclick="updateBrainChart('thinking')" class="tab-btn px-4 py-2 border border-stone-300 rounded-lg text-sm font-medium hover:bg-stone-100" id="btn-brain-thinking">思虑过度</button>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="chart-container">
+                        <canvas id="brainChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crisis" class="bg-rose-900 text-stone-50 rounded-3xl p-8 md:p-12 shadow-xl">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-5xl mb-6">⚠️</div>
+                <h3 class="text-3xl font-bold mb-6">终极反噬：致命的水锤效应</h3>
+                <p class="text-rose-100 text-lg mb-8 leading-relaxed">
+                    本节揭示上述四大威胁交织后的最终爆发点。当大脑持续用血过多（思虑），身体不得不提升心率与心脏动能，试图把更多的水推到“最高点”。
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-rose-800/50 p-6 rounded-xl border border-rose-700">
+                        <div class="text-2xl mb-2 font-bold">1. 异常泵压</div>
+                        <p class="text-sm text-rose-200">心脏被迫增加动能，输出狂暴的血流脉冲。</p>
+                    </div>
+                    <div class="text-3xl flex items-center justify-center text-rose-400 rotate-90 md:rotate-0">
+                        ➔
+                    </div>
+                    <div class="bg-rose-800/50 p-6 rounded-xl border border-rose-700">
+                        <div class="text-2xl mb-2 font-bold">2. 缓冲失效</div>
+                        <p class="text-sm text-rose-200">因衰老和暴食导致的僵硬血管（稳压罐）无法吸收动能。</p>
+                    </div>
+                    <div class="hidden md:block"></div>
+                    <div class="text-3xl flex items-center justify-center text-rose-400 rotate-90 md:rotate-0">
+                        ➔
+                    </div>
+                    <div class="bg-rose-800/50 p-6 rounded-xl border border-rose-400">
+                        <div class="text-2xl mb-2 font-bold text-white">3. 暴力反噬</div>
+                        <p class="text-sm text-rose-100 font-medium">强大的水锤效应无处释放，直接反噬、撕裂心脑血管壁，造成不可逆损伤。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="space-y-8">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h3 class="text-3xl font-bold text-stone-800 mb-4">专业务实可落地的保养指南</h3>
+                <p class="text-stone-600">基于“水锤泵”效能模型，我们为您提炼了以下关键的身体系统维护方案。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl border-t-4 border-emerald-600 shadow-sm">
+                    <div class="text-3xl mb-4">🥗</div>
+                    <h4 class="text-xl font-bold text-stone-800 mb-3">维护稳压罐：清淡节制</h4>
+                    <ul class="space-y-2 text-stone-600">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>杜绝暴饮暴食，减轻代谢系统负担。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>控制甘油三酯与低密度脂蛋白，防止管壁脂肪堆积。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>保持血管弹性，让系统拥有缓冲水锤冲击的空间。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border-t-4 border-blue-600 shadow-sm">
+                    <div class="text-3xl mb-4">🚶</div>
+                    <h4 class="text-xl font-bold text-stone-800 mb-3">激活辅助泵：拒绝久坐</h4>
+                    <ul class="space-y-2 text-stone-600">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">✓</span>
+                            <span>每45分钟变换姿势，打破局部淤堵。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">✓</span>
+                            <span>增加下肢力量训练，激活骨骼肌泵的血液回流辅助功能。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-600 font-bold">✓</span>
+                            <span>分担主泵（心脏）压力，降低整体系统负荷。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border-t-4 border-purple-600 shadow-sm md:col-span-2 lg:col-span-1">
+                    <div class="text-3xl mb-4">🧘</div>
+                    <h4 class="text-xl font-bold text-stone-800 mb-3">平息高地需求：精神减负</h4>
+                    <ul class="space-y-2 text-stone-600">
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>警惕“思虑过度”，强制切断无意义的精神内耗。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>通过冥想、深呼吸降低大脑“劫血”状态，让血液回流其他脏器进行正常代谢。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>从源头避免心脏进入高频暴走模式，根除恶性水锤效应。</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-stone-800 p-8 rounded-2xl border-t-4 border-stone-400 shadow-sm md:col-span-2 lg:col-span-1 text-stone-100 flex flex-col justify-center">
+                    <h4 class="text-xl font-bold text-white mb-3">系统总结言</h4>
+                    <p class="text-stone-300 leading-relaxed text-sm">
+                        您的身体是一台精妙绝伦的水利工程。心脏供能，血管稳压，肌肉辅助，脏器分流。保养身体，实质上就是不给主泵加压（少思虑），不堵塞管道（健康饮食），多开动辅泵（勤运动）。顺应物理与生理规律，方能长久运行。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 text-center mt-20">
+        <p class="text-sm">@江南ai工作小组 2026.06. 基于生理水力学隐喻的健康互动研究报告</p>
+    </footer>
+
+    <script>
+        Chart.defaults.font.family = 'system-ui, -apple-system, sans-serif';
+        Chart.defaults.color = '#57534e';
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        };
+
+        const ctxElasticity = document.getElementById('elasticityChart').getContext('2d');
+        const dataElasticHealthy = [100, 95, 88, 80, 70, 60];
+        const dataElasticUnhealthy = [100, 85, 65, 45, 30, 15];
+        let elasticityChart = new Chart(ctxElasticity, {
+            type: 'line',
+            data: {
+                labels: ['20岁', '30岁', '40岁', '50岁', '60岁', '70岁'],
+                datasets: [{
+                    label: '血管弹性保留率 (%)',
+                    data: dataElasticHealthy,
+                    borderColor: '#059669',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+
+        const ctxMuscle = document.getElementById('muscleChart').getContext('2d');
+        let muscleChart = new Chart(ctxMuscle, {
+            type: 'bar',
+            data: {
+                labels: ['静脉回流量', '心脏泵血负担', '微循环通畅度'],
+                datasets: [{
+                    label: '生理指标水平',
+                    data: [30, 90, 20],
+                    backgroundColor: ['#e11d48', '#9f1239', '#fb7185'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+
+        const ctxBrain = document.getElementById('brainChart').getContext('2d');
+        let brainChart = new Chart(ctxBrain, {
+            type: 'doughnut',
+            data: {
+                labels: ['大脑用血', '消化系统', '骨骼肌群', '其他脏器'],
+                datasets: [{
+                    data: [15, 35, 30, 20],
+                    backgroundColor: ['#e11d48', '#059669', '#2563eb', '#d6d3d1'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                ...chartOptions,
+                cutout: '65%',
+                plugins: {
+                    legend: { position: 'right' }
+                }
+            }
+        });
+
+        function updateBtnStyles(activeId, inactiveId) {
+            document.getElementById(activeId).classList.add('active', 'bg-rose-700', 'text-white', 'border-rose-700');
+            document.getElementById(activeId).classList.remove('text-stone-700', 'bg-transparent');
+            
+            document.getElementById(inactiveId).classList.remove('active', 'bg-rose-700', 'text-white', 'border-rose-700');
+            document.getElementById(inactiveId).classList.add('text-stone-700', 'bg-transparent');
+        }
+
+        window.updateElasticityChart = function(state) {
+            if(state === 'healthy') {
+                elasticityChart.data.datasets[0].data = dataElasticHealthy;
+                elasticityChart.data.datasets[0].borderColor = '#059669';
+                elasticityChart.data.datasets[0].backgroundColor = 'rgba(5, 150, 105, 0.1)';
+                updateBtnStyles('btn-elastic-healthy', 'btn-elastic-unhealthy');
+            } else {
+                elasticityChart.data.datasets[0].data = dataElasticUnhealthy;
+                elasticityChart.data.datasets[0].borderColor = '#be123c';
+                elasticityChart.data.datasets[0].backgroundColor = 'rgba(190, 18, 60, 0.1)';
+                updateBtnStyles('btn-elastic-unhealthy', 'btn-elastic-healthy');
+            }
+            elasticityChart.update();
+        };
+
+        window.updateMuscleChart = function(state) {
+            if(state === 'sedentary') {
+                muscleChart.data.datasets[0].data = [30, 90, 20];
+                muscleChart.data.datasets[0].backgroundColor = ['#e11d48', '#9f1239', '#fb7185'];
+                updateBtnStyles('btn-muscle-sedentary', 'btn-muscle-active');
+            } else {
+                muscleChart.data.datasets[0].data = [85, 40, 95];
+                muscleChart.data.datasets[0].backgroundColor = ['#059669', '#34d399', '#10b981'];
+                updateBtnStyles('btn-muscle-active', 'btn-muscle-sedentary');
+            }
+            muscleChart.update();
+        };
+
+        window.updateBrainChart = function(state) {
+            if(state === 'rest') {
+                brainChart.data.datasets[0].data = [15, 35, 30, 20];
+                brainChart.data.datasets[0].backgroundColor[0] = '#e11d48';
+                updateBtnStyles('btn-brain-rest', 'btn-brain-thinking');
+            } else {
+                brainChart.data.datasets[0].data = [45, 15, 15, 25];
+                brainChart.data.datasets[0].backgroundColor[0] = '#881337';
+                updateBtnStyles('btn-brain-thinking', 'btn-brain-rest');
+            }
+            brainChart.update();
+        };
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        updateBtnStyles('btn-elastic-healthy', 'btn-elastic-unhealthy');
+        updateBtnStyles('btn-muscle-sedentary', 'btn-muscle-active');
+        updateBtnStyles('btn-brain-rest', 'btn-brain-thinking');
+    </script>
+</body>
+</html>
