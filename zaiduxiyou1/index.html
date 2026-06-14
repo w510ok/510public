@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>再读西游 · 用国内大模型深读名著的方法与工作台｜江南AI工作小组</title>
+<meta name="description" content="一套用国内大模型（DeepSeek、Kimi、通义千问、文心一言、智谱清言、豆包等）深读古典名著的方法与提示词工作台，附《西游记》全本范例。可换书复用，数据在本地完成。江南AI工作小组。"/>
+<meta name="theme-color" content="#243049"/>
+<link rel="manifest" href='data:application/manifest+json,{"name":"再读西游 · 名著深读工作台","short_name":"再读西游","start_url":".","display":"standalone","background_color":"#f6efe1","theme_color":"#243049","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%2796%27 fill=%27%23243049%27/%3E%3Crect x=%2754%27 y=%2754%27 width=%27404%27 height=%27404%27 rx=%2764%27 fill=%27none%27 stroke=%27%239e2b25%27 stroke-width=%2716%27/%3E%3Ctext x=%27256%27 y=%27322%27 font-size=%27210%27 text-anchor=%27middle%27 fill=%27%23c0902f%27 font-family=%27serif%27%3E游%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+<style>
+:root{
+  --ink:#20242c;        /* 墨 */
+  --ink-soft:#525a68;   /* 次级文字 */
+  --paper:#f6efe1;      /* 宣纸 */
+  --paper-2:#fbf6ec;
+  --card:#fffcf5;       /* 笺 */
+  --line:#e7dbc7;       /* 细线 */
+  --cinnabar:#9e2b25;   /* 朱：编辑性强调 */
+  --cinnabar-dk:#7a211c;
+  --indigo:#243049;     /* 黛：导航/页脚 */
+  --gold:#b9882c;       /* 泥金 */
+  --jade:#2f6f61;       /* 青：仅用于交互工具/动作 */
+  --jade-dk:#245649;
+  --jade-soft:#e8f0ec;
+  --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",STSong,SimSun,serif;
+  --sans:"PingFang SC","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);font-family:var(--serif);line-height:1.78;
+  background:
+    radial-gradient(1200px 480px at 78% -8%, #fbf4e7 0, rgba(251,244,231,0) 60%),
+    linear-gradient(180deg,#f3ead9 0,#f7f1e6 38%,#f6efe1 100%);
+}
+.wrap{max-width:1120px;margin:auto;padding:0 22px}
+a{color:var(--cinnabar);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding:86px 0 70px;border-bottom:1px solid var(--line)}
+.hero:before{
+  content:"";position:absolute;right:-120px;top:-120px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle at center,rgba(192,144,47,.16),rgba(192,144,47,0) 70%);pointer-events:none;
+}
+.seal{
+  display:inline-flex;align-items:center;justify-content:center;gap:0;
+  font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.32em;
+  color:var(--cinnabar);border:1.5px solid var(--cinnabar);border-radius:8px;
+  padding:7px 14px 7px 18px;background:rgba(158,43,37,.04);
+  writing-mode:horizontal-tb;
+}
+.kicker{margin:18px 0 0;font-family:var(--sans);font-size:14px;letter-spacing:.2em;color:var(--ink-soft)}
+h1.title{
+  font-size:clamp(46px,8.4vw,96px);line-height:1.02;margin:.16em 0 .08em;
+  letter-spacing:.14em;color:#1d242f;font-weight:700;
+}
+.thesis{
+  font-size:clamp(19px,2.5vw,30px);color:var(--cinnabar-dk);margin:.1em 0 .2em;
+  font-weight:600;letter-spacing:.04em;
+}
+.hero p.intro{max-width:760px;margin:14px 0 0;color:#3c434f;font-size:18px}
+.cta-row{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:600;
+  padding:12px 20px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:.15s;
+}
+.btn-primary{background:var(--jade);color:#fff}
+.btn-primary:hover{background:var(--jade-dk);text-decoration:none}
+.btn-ghost{background:transparent;color:var(--indigo);border-color:var(--indigo)}
+.btn-ghost:hover{background:rgba(36,48,73,.06);text-decoration:none}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:40;background:rgba(36,48,71,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+.nav .wrap{display:flex;gap:6px;overflow:auto;padding:9px 22px;scrollbar-width:none}
+.nav .wrap::-webkit-scrollbar{display:none}
+.nav a{color:#eee;font-family:var(--sans);font-size:14px;padding:7px 13px;border-radius:999px;white-space:nowrap}
+.nav a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+
+/* ---------- Section scaffold ---------- */
+section{padding:66px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.eyebrow{font-family:var(--sans);font-size:13px;letter-spacing:.26em;color:var(--gold);text-transform:none;margin:0 0 10px}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.25;margin:0 0 8px;color:var(--indigo);letter-spacing:.02em}
+h2 .han{color:var(--cinnabar);font-weight:700}
+.lead{font-size:18px;color:#475061;max-width:840px;margin:6px 0 0}
+h3{font-size:21px;margin:0 0 8px;color:#283142}
+
+/* ---------- Generic cards / grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:26px}
+.card{
+  grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+  box-shadow:0 10px 28px rgba(90,66,30,.06);
+}
+.card.wide{grid-column:span 6}
+.card.full{grid-column:1/-1}
+.card .num{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--cinnabar);line-height:1}
+.card b{display:block;margin:10px 0 4px;font-size:16px}
+.card p{margin:6px 0 0;color:var(--ink-soft);font-size:15px}
+.pull{border-left:4px solid var(--cinnabar);padding:14px 18px;background:#fff7ea;border-radius:0 12px 12px 0;color:#3f3b37;font-size:17px}
+
+/* ---------- Studio (signature) ---------- */
+.studio{background:linear-gradient(180deg,#fbf6ec, #f4ecdd)}
+.studio-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px}
+.bookbar{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;box-shadow:0 10px 28px rgba(90,66,30,.06)}
+.bookbar .label{font-family:var(--sans);font-size:13px;letter-spacing:.16em;color:var(--ink-soft);margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  font-family:var(--sans);font-size:15px;padding:8px 16px;border-radius:999px;cursor:pointer;
+  border:1.5px solid var(--line);background:#fff;color:#3c434f;transition:.12s;
+}
+.chip:hover{border-color:var(--jade)}
+.chip[aria-pressed="true"]{background:var(--jade);color:#fff;border-color:var(--jade)}
+.custom-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.field{flex:1;min-width:220px;display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--sans);font-size:12.5px;letter-spacing:.12em;color:var(--ink-soft)}
+.field input{
+  font-family:var(--sans);font-size:15px;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;
+  background:#fff;color:var(--ink);
+}
+.field input:focus{outline:none;border-color:var(--jade);box-shadow:0 0 0 3px var(--jade-soft)}
+.target-note{font-family:var(--sans);font-size:13.5px;color:var(--ink-soft);margin:14px 0 0}
+.target-note b{color:var(--cinnabar-dk)}
+
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:22px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;box-shadow:0 8px 22px rgba(90,66,30,.05)}
+.step .tag{font-family:var(--sans);font-size:12.5px;letter-spacing:.18em;color:var(--jade-dk);font-weight:700}
+.step .tag .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--jade-soft);color:var(--jade-dk);margin-right:8px;font-size:13px;vertical-align:middle}
+.step h4{font-family:var(--serif);font-size:19px;margin:8px 0 4px;color:#283142}
+.step .purpose{color:var(--ink-soft);font-size:14.5px;margin:0 0 12px}
+.prompt-box{
+  flex:1;font-family:var(--mono);font-size:12.6px;line-height:1.62;color:#2b3340;
+  background:#fbf7ee;border:1px dashed var(--line);border-radius:10px;padding:13px 14px;
+  white-space:pre-wrap;word-break:break-word;max-height:230px;overflow:auto;margin:0 0 12px;
+}
+.prompt-box .hl{color:var(--cinnabar);font-weight:700;background:rgba(158,43,37,.08);border-radius:3px;padding:0 2px}
+.copy{
+  align-self:flex-start;font-family:var(--sans);font-size:14px;font-weight:600;color:#fff;background:var(--jade);
+  border:none;border-radius:999px;padding:9px 18px;cursor:pointer;transition:.12s;
+}
+.copy:hover{background:var(--jade-dk)}
+.copy.done{background:var(--gold)}
+.usage{margin-top:22px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--jade);border-radius:0 14px 14px 0;padding:18px 20px}
+.usage h4{font-family:var(--sans);font-size:15px;color:var(--jade-dk);margin:0 0 8px;letter-spacing:.08em}
+.usage p{margin:6px 0;color:#3f4654;font-size:14.5px}
+.usage .llms{font-family:var(--sans);font-size:13.5px;color:var(--ink-soft);margin-top:8px}
+
+/* ---------- Method (sequence) ---------- */
+.method-list{margin-top:26px;display:grid;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.method-row{display:grid;grid-template-columns:78px 1fr 1fr;gap:18px;padding:18px 22px;align-items:baseline;border-top:1px solid var(--line)}
+.method-row:first-child{border-top:none}
+.method-row .idx{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold);line-height:1}
+.method-row .name{font-family:var(--serif);font-size:18px;font-weight:700;color:#283142}
+.method-row .do{color:var(--ink-soft);font-size:15px}
+.method-row .out{font-family:var(--sans);font-size:13.5px;color:var(--jade-dk);align-self:center}
+.method-foot{font-family:var(--sans);font-size:14px;color:var(--ink-soft);margin-top:14px}
+
+/* ---------- Example: timeline ---------- */
+.timeline{display:grid;gap:12px;margin-top:26px}
+.phase{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:15px 18px;border-left:4px solid var(--gold);background:#fffaf2;border-radius:0 12px 12px 0}
+.phase b{font-family:var(--sans);font-size:14px;color:var(--cinnabar-dk)}
+.phase span{color:#3f4654;font-size:15px}
+
+/* ---------- table ---------- */
+.table-wrap{overflow:auto;margin-top:26px;border:1px solid var(--line);border-radius:14px}
+table.tbl{width:100%;border-collapse:collapse;background:#fffdf8;font-size:14.5px;min-width:560px}
+table.tbl th,table.tbl td{border-bottom:1px solid #ece1d0;padding:11px 14px;text-align:left;vertical-align:top}
+table.tbl th{background:var(--indigo);color:#fff;font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.04em}
+table.tbl tr:last-child td{border-bottom:none}
+
+/* ---------- charts ---------- */
+.charts{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:26px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 8px 22px rgba(90,66,30,.05)}
+.chart h4{font-family:var(--sans);font-size:14.5px;color:#283142;margin:0 0 4px;letter-spacing:.04em}
+.chart .sub{font-family:var(--sans);font-size:12px;color:var(--ink-soft);margin:0 0 14px}
+.bar{display:grid;grid-template-columns:118px 1fr 46px;gap:10px;align-items:center;margin:9px 0}
+.bar .bl{font-size:14px;color:#37404e;text-align:right;line-height:1.25}
+.bar .bt{height:16px;border-radius:8px;background:linear-gradient(90deg,var(--gold),var(--cinnabar));min-width:6px}
+.bar .bt.jade{background:linear-gradient(90deg,#5a9c8c,var(--jade))}
+.bar .bt.indigo{background:linear-gradient(90deg,#54627e,var(--indigo))}
+.bar .bv{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:right}
+
+/* ---------- statement & footer ---------- */
+.statement p{color:#3f4654;font-size:15.5px;max-width:880px}
+.statement .colophon{margin-top:18px;font-family:var(--sans);font-size:13.5px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:14px}
+.footer{background:var(--indigo);color:#efe8da;padding:30px 0;font-family:var(--sans);font-size:13.5px;letter-spacing:.04em}
+.footer a{color:var(--gold)}
+.footer .seal-sm{display:inline-block;border:1px solid var(--gold);border-radius:6px;padding:3px 10px;color:var(--gold);margin-right:10px;letter-spacing:.24em}
+
+/* ---------- responsive ---------- */
+@media(max-width:820px){
+  .card,.card.wide{grid-column:1/-1}
+  .steps{grid-template-columns:1fr}
+  .charts{grid-template-columns:1fr}
+  .method-row{grid-template-columns:54px 1fr;row-gap:6px}
+  .method-row .out{grid-column:1/-1}
+  .phase{grid-template-columns:1fr}
+  h1.title{letter-spacing:.06em}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+:focus-visible{outline:3px solid var(--jade);outline-offset:2px;border-radius:6px}
+@media print{
+  .nav,.cta-row,.copy,.bookbar,.usage{display:none!important}
+  body{background:#fff}
+  section{page-break-inside:avoid;border-top:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="seal">江南AI工作小组</span>
+    <p class="kicker">用国内大模型深读古典名著的方法与工作台</p>
+    <h1 class="title">再读西游</h1>
+    <p class="thesis">少年看神通，中年看组织，再读看心性。</p>
+    <p class="intro">这不是把《西游记》做成一个漂亮的页面，而是把“重读一部名著”整理成一套可复用的方法：先建底本，再建表、做图谱、摘原文、写专题，最后形成发布成果。下面的<strong>提示词工作台</strong>能把每一步变成可直接粘贴进国内大模型的提示词；换一本书即可复用到《红楼梦》《三国演义》《水浒传》等。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#studio">进入提示词工作台 →</a>
+      <a class="btn btn-ghost" href="#method">先看方法</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav"><div class="wrap">
+  <a href="#overview">总览</a>
+  <a href="#studio">提示词工作台</a>
+  <a href="#method">深读六步法</a>
+  <a href="#map">百回地图</a>
+  <a href="#trials">八十一难</a>
+  <a href="#charts">图谱</a>
+  <a href="#monsters">后台妖怪</a>
+  <a href="#articles">专题文章</a>
+  <a href="#downloads">配套资料</a>
+  <a href="#statement">声明</a>
+</div></nav>
+
+<!-- 总览 -->
+<section id="overview"><div class="wrap">
+  <p class="eyebrow">总览</p>
+  <h2>这套工作台能为你做什么</h2>
+  <p class="lead">一个入口，三件事：给你一套可迁移的深读方法、一组可直接使用的国内大模型提示词，以及一份《西游记》全本范例，帮助你把“读过”变成“可查、可写、可分享”。</p>
+  <div class="grid">
+    <div class="card"><div class="num">6</div><b>可复用的深读步骤</b><p>建底本、建表、做图谱、摘原文、写专题、做发布包。换一本名著即可照做。</p></div>
+    <div class="card"><div class="num">100</div><b>《西游记》百回范例</b><p>按前传、立项、团队成型、信任危机、风险升级、临近灵山、归真收束等阶段组织。</p></div>
+    <div class="card"><div class="num">81</div><b>八十一难校核</b><p>以第99回“灾难的簿子”为主轴，补足老鼋落水、经包受湿的最后一难。</p></div>
+    <div class="card wide"><b>一句话定位</b><p class="pull">《西游记》的表层是取经，深层是人如何安顿自己的心；这套工作台，是把这种“再读”变成人人可上手的流程。</p></div>
+    <div class="card wide"><b>使用边界</b><p>本成果为 AI 辅助阅读研究与个人深读作品。AI 用于检索、归纳、建表、图谱和初稿组织；关键判断、发布口径和正式引用仍需人工校核。维基文库百回本作为可检索底本，正式引用建议对照纸质校注本；网页短摘仅作评论、研究与索引用途。</p></div>
+  </div>
+</div></section>
+
+<!-- ★ 提示词工作台（签名元素） -->
+<section id="studio" class="studio"><div class="wrap">
+  <div class="studio-head">
+    <div>
+      <p class="eyebrow">核心工具</p>
+      <h2>国内大模型<span class="han">提示词工作台</span></h2>
+      <p class="lead">先选一本名著，再把每一步的提示词复制到你常用的国内大模型里运行。提示词内置“专业、务实、可考据、可落地”的要求：逐条标注回目出处、只取短摘、不臆造情节、不确定处标“待核”。</p>
+    </div>
+  </div>
+
+  <div class="bookbar">
+    <p class="label">第一步：选择要深读的名著</p>
+    <div class="chips" id="chips" role="group" aria-label="选择名著">
+      <button class="chip" data-book="西游记" aria-pressed="true">西游记</button>
+      <button class="chip" data-book="红楼梦" aria-pressed="false">红楼梦</button>
+      <button class="chip" data-book="三国演义" aria-pressed="false">三国演义</button>
+      <button class="chip" data-book="水浒传" aria-pressed="false">水浒传</button>
+      <button class="chip" data-book="金瓶梅" aria-pressed="false">金瓶梅</button>
+      <button class="chip" data-book="水经注" aria-pressed="false">水经注</button>
+      <button class="chip" data-book="庄子" aria-pressed="false">庄子</button>
+      <button class="chip" data-book="史记" aria-pressed="false">史记</button>
+    </div>
+    <div class="custom-row">
+      <div class="field">
+        <label for="customBook">或自定义书名（选填，覆盖上方选择）</label>
+        <input id="customBook" type="text" placeholder="例如：聊斋志异 / 徐霞客游记 / 你要读的任意一本"/>
+      </div>
+      <div class="field">
+        <label for="topic">专题 / 切入角度（供“摘原文”“写专题”使用，选填）</label>
+        <input id="topic" type="text" placeholder="例如：信任与误判 / 真假之辨 / 假权威"/>
+      </div>
+    </div>
+    <p class="target-note">当前生成的提示词面向：<b id="targetName">《西游记》</b></p>
+  </div>
+
+  <div class="steps" id="steps"><!-- 由脚本渲染 --></div>
+
+  <div class="usage">
+    <h4>怎么用这些提示词</h4>
+    <p>① 选好书 → ② 在某一步点“复制提示词” → ③ 粘贴到你常用的国内大模型对话框里运行 → ④ 把结果存进表格或文档，再进入下一步。建议六步顺序推进；“摘原文”“写专题”可填写上方的专题角度。</p>
+    <p>处理“通读全书 / 长文本”类任务时，优先选择支持长上下文的模型；逐回 / 逐篇处理时，可把章节文本随提示词一并贴入。</p>
+    <p class="llms">兼容常见国内大模型：DeepSeek、Kimi（月之暗面）、通义千问、文心一言、智谱清言（GLM）、豆包、腾讯元宝、讯飞星火等。本页只负责<strong>生成提示词</strong>，不联网、不调用任何接口；所有内容在你本地与所选模型之间完成。</p>
+  </div>
+</div></section>
+
+<!-- 深读六步法（可迁移模板内核） -->
+<section id="method"><div class="wrap">
+  <p class="eyebrow">可迁移的模板内核</p>
+  <h2>名著深读<span class="han">六步法</span></h2>
+  <p class="lead">这套流程不依赖某一本书。它的顺序本身就是方法：从一个可检索底本出发，逐步把零散阅读沉淀成结构化、可考据、可发布的成果。上面的提示词工作台，正是这六步的自动化版本。</p>
+  <div class="method-list">
+    <div class="method-row"><div class="idx">一</div><div><div class="name">建底本</div></div><div class="do">确定一个可检索底本，记录版本、整理者与引用边界；正式发表前保留纸质校注本复核机制。</div><div class="out">底本说明 · 引用规范</div></div>
+    <div class="method-row"><div class="idx">二</div><div><div class="name">建表</div></div><div class="do">至少建立六张表：主题表、人物关系表、关键情节表、对象分类表、原文摘录表、专题观点表。</div><div class="out">结构化数据底座</div></div>
+    <div class="method-row"><div class="idx">三</div><div><div class="name">做图谱</div></div><div class="do">把人物、后台、主题转成三类图：人物关系图、风险/后台矩阵、主题热力。图谱服务理解，不为炫技。</div><div class="out">关系图 · 矩阵 · 热力</div></div>
+    <div class="method-row"><div class="idx">四</div><div><div class="name">摘原文</div></div><div class="do">每条摘录含回目、短摘、定位、主题、解释、用途、来源。以短摘为主，避免大段复制。</div><div class="out">证据链索引</div></div>
+    <div class="method-row"><div class="idx">五</div><div><div class="name">写专题</div></div><div class="do">从数据表与摘录中抽取观点，先写小专题，再汇成研究报告。</div><div class="out">专题文章 · 报告</div></div>
+    <div class="method-row"><div class="idx">六</div><div><div class="name">做发布包</div></div><div class="do">形成导览网页、数据底座、研究报告、连载稿、讲稿与方法模板，发布前做口径、引用、版权、事实四类校核。</div><div class="out">可发布成果包</div></div>
+  </div>
+  <p class="method-foot">推荐迁移对象：《水浒传》《三国演义》《红楼梦》《金瓶梅》《水经注》《庄子》《史记》及金庸小说等。</p>
+</div></section>
+
+<!-- 范例：百回地图 -->
+<section id="map"><div class="wrap">
+  <p class="eyebrow">范例 · 再读西游</p>
+  <h2>百回地图：从“大闹天宫”到“五圣成真”</h2>
+  <p class="lead">把一百回按“心性—使命—组织—信任—风险—收束”的节奏分段，是建表与做图谱之前最有用的一张全局图。</p>
+  <div class="timeline">
+    <div class="phase"><b>第1–7回</b><span>心猿出世、学道、大闹天宫、五行山定心猿：全书“心性总纲”。</span></div>
+    <div class="phase"><b>第8–14回</b><span>取经立项、唐僧出场、双叉岭、五行山收悟空：使命生成与核心能力入队。</span></div>
+    <div class="phase"><b>第15–22回</b><span>白龙马、黑风山、收八戒、黄风岭、流沙河：取经团队基本成型。</span></div>
+    <div class="phase"><b>第23–31回</b><span>四圣试禅心、人参果、三打白骨精、宝象国：团队信任危机与再磨合。</span></div>
+    <div class="phase"><b>第32–61回</b><span>平顶山、乌鸡国、红孩儿、车迟国、女儿国、真假美猴王、火焰山：法宝、后台、欲望、身份等复杂风险集中展开。</span></div>
+    <div class="phase"><b>第62–83回</b><span>祭赛国、小雷音寺、朱紫国、盘丝洞、狮驼岭、比丘国、无底洞：后半程风险等级持续升级。</span></div>
+    <div class="phase"><b>第84–100回</b><span>灭法国、凤仙郡、玉华州、金平府、天竺国、寇员外、无字经、老鼋湿经、五圣成真：临近终点的最后校验。</span></div>
+  </div>
+</div></section>
+
+<!-- 范例：八十一难 -->
+<section id="trials"><div class="wrap">
+  <p class="eyebrow">范例 · 再读西游</p>
+  <h2>八十一难：从“遭贬”到“湿经”</h2>
+  <p class="lead">第99回以“灾难的簿子”列前八十难，又说“还少一难”；老鼋落水、经包俱湿，补足九九归真。八十一难不仅是故事清单，也是一套修行与风险结构。</p>
+  <div class="table-wrap">
+    <table class="tbl">
+      <tr><th>阶段</th><th>代表难</th><th>主题</th><th>可写观点</th></tr>
+      <tr><td>前因</td><td>金蝉遭贬、出胎几杀</td><td>使命缘起</td><td>取经不是旅行，而是带着旧因果进入新任务。</td></tr>
+      <tr><td>团队</td><td>五行山、鹰愁涧、高老庄、流沙河</td><td>组织成型</td><td>强能力、欲望、稳定与承载缺一不可。</td></tr>
+      <tr><td>信任</td><td>三打白骨精、逐猴王、宝象国</td><td>误判与复归</td><td>失去核心能力后，系统风险会迅速暴露。</td></tr>
+      <tr><td>假权威</td><td>小雷音寺、金平府、天竺国</td><td>辨伪</td><td>越接近目标，越要辨识冒名的权威与成果。</td></tr>
+      <tr><td>收官</td><td>无字经、凌云渡、老鼋湿经</td><td>成果质量与最后一难</td><td>快到终点时最容易放松，最后一难常在“以为结束”之后。</td></tr>
+    </table>
+  </div>
+</div></section>
+
+<!-- 范例：图谱（重建数据可视化） -->
+<section id="charts"><div class="wrap">
+  <p class="eyebrow">范例 · 再读西游</p>
+  <h2>图谱：人、神、妖与制度系统</h2>
+  <p class="lead">把数据表转成三类图：谁与谁相关（人物关系）、妖怪从哪里来由谁收束（后台矩阵）、全书风险分布在哪些主题上（主题热力）。下面是从《西游记》数据底座汇总的结果。</p>
+  <div class="charts">
+    <div class="chart">
+      <h4>人物关系度数 · Top 10</h4>
+      <p class="sub">节点的关系连边越多，越是全书的枢纽角色</p>
+      <div id="chart-degree"></div>
+    </div>
+    <div class="chart">
+      <h4>后台风险类型分布</h4>
+      <p class="sub">按“责任方 / 来源”归并的妖怪与冲突组数</p>
+      <div id="chart-risk"></div>
+    </div>
+    <div class="chart" style="grid-column:1/-1">
+      <h4>八十一难主题大类分布</h4>
+      <p class="sub">八十一难按主题归类后的数量与占比，合计 81</p>
+      <div id="chart-theme"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 范例：后台妖怪 -->
+<section id="monsters"><div class="wrap">
+  <p class="eyebrow">范例 · 再读西游</p>
+  <h2>后台妖怪矩阵：西游世界的责任链</h2>
+  <p class="lead">很多难不是单点妖怪，而是系统关系的外溢。把妖怪按“后台来源”归类，是理解全书风险结构的关键一步。</p>
+  <div class="grid">
+    <div class="card"><b>坐骑下界</b><p>青毛狮子、白象、金毛犼、白鹿、九灵元圣等，背后是神佛系统的边界管理。</p></div>
+    <div class="card"><b>童子携宝</b><p>金角、银角、黄眉童子等，问题不只在妖怪，而在法宝与资源外溢。</p></div>
+    <div class="card"><b>亲属后台</b><p>红孩儿、鼍龙、地涌夫人等，体现家族、义亲、供奉关系带来的治理复杂性。</p></div>
+    <div class="card"><b>非后台高风险</b><p>白骨精、六耳猕猴、蝎子精、蜈蚣精等，没有显性后台，却击中信任、身份、欲望与心魔。</p></div>
+    <div class="card"><b>假权威</b><p>车迟国三大仙、小雷音寺、金平府、天竺国真假公主，代表“冒名合法性”。</p></div>
+    <div class="card"><b>非妖之难</b><p>灭法国、凤仙郡旱灾、无字经、老鼋湿经，提示真正的难不一定长着妖怪脸。</p></div>
+  </div>
+</div></section>
+
+<!-- 范例：专题文章 -->
+<section id="articles"><div class="wrap">
+  <p class="eyebrow">范例 · 再读西游</p>
+  <h2>专题文章</h2>
+  <p class="lead">从数据表与摘录中抽取观点，写成可用于公众号、读书会与研究报告的专题母稿。</p>
+  <div class="grid">
+    <div class="card wide"><h3>三打白骨精</h3><p>专业判断为何输给表象与内部噪声。</p></div>
+    <div class="card wide"><h3>真假美猴王</h3><p>最难降伏的，是另一个自己。</p></div>
+    <div class="card wide"><h3>小雷音寺</h3><p>假权威为何比妖怪更危险。</p></div>
+    <div class="card wide"><h3>狮驼岭</h3><p>全书最重的组织化妖怪风险。</p></div>
+  </div>
+</div></section>
+
+<!-- 配套资料 -->
+<section id="downloads"><div class="wrap">
+  <p class="eyebrow">配套资料</p>
+  <h2>下载与复用</h2>
+  <p class="lead">网页是对外展示的主入口；下面的资料用于内部汇报、深入校核与方法迁移。方法模板可直接套到其它名著上。</p>
+  <div class="grid">
+    <div class="card"><b>Excel 数据底座</b><p>百回主题、八十一难、人物关系、妖怪分类、法宝、专题证据与校核清单。</p><a class="btn btn-ghost" style="margin-top:12px" href="downloads/zaidu_xiyou_data_base.xlsx">下载 Excel</a></div>
+    <div class="card"><b>研究报告（PDF）</b><p>适合归档、汇报与分享的完整研究报告。</p><a class="btn btn-ghost" style="margin-top:12px" href="downloads/zaidu_xiyou_research_report.pdf">打开 PDF</a></div>
+    <div class="card"><b>公众号连载稿</b><p>四篇专题文章母稿，含标题、导语与配图建议。</p><a class="btn btn-ghost" style="margin-top:12px" href="downloads/zaidu_xiyou_wechat_series.html">打开连载稿</a></div>
+    <div class="card"><b>读书会讲稿（PPT）</b><p>用于内部分享、读书会与讲座的演示文稿。</p><a class="btn btn-ghost" style="margin-top:12px" href="downloads/zaidu_xiyou_reading_salon.pptx">下载 PPT</a></div>
+    <div class="card wide"><b>名著深读方法模板</b><p>把六步法整理成可复用的方法模板，迁移到《水浒传》《红楼梦》《水经注》《庄子》等只需替换书名与底本。</p><a class="btn btn-ghost" style="margin-top:12px" href="downloads/ai_classic_reading_method.html">查看方法模板</a></div>
+  </div>
+</div></section>
+
+<!-- 声明 -->
+<section id="statement" class="statement"><div class="wrap">
+  <p class="eyebrow">声明与来源</p>
+  <h2>资料与声明</h2>
+  <p>本项目以维基文库《西游记》百回本作为可检索底本。该页面标注《西游记》为明代白话长篇神话小说，全书 20 卷 100 回，作者标注为“吴承恩（有争议）”。八十一难校核以第 99 回“灾难的簿子”为主轴。</p>
+  <p>本成果为 AI 辅助阅读研究作品。AI 用于检索、归纳、建表、图谱与初稿组织；关键判断、发布口径与正式引用仍需人工校核。正式公开发表前，建议对照人民文学、中华书局、上海古籍等通行纸质校注本。</p>
+  <p>来源：<a href="https://zh.wikisource.org/wiki/%E8%A5%BF%E9%81%8A%E8%A8%98" target="_blank" rel="noopener">维基文库《西游记》</a> · <a href="https://zh.wikisource.org/wiki/%E8%A5%BF%E9%81%8A%E8%A8%98/%E7%AC%AC099%E5%9B%9E" target="_blank" rel="noopener">第 099 回</a>。</p>
+  <p class="colophon">本工作台所内置的提示词，旨在帮助读者在国内大模型上完成名著深读；模型输出仅供参考，引用、版权与事实须经使用者本人核校后方可对外发布。© 江南AI工作小组 · 再读西游。</p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <span class="seal-sm">江南AI工作小组</span>
+  © 江南AI工作小组 · 再读西游 · 用国内大模型深读名著的方法与工作台 · 可读、可查、可写、可发布
+</div></footer>
+
+<script>
+/* ---------------- 数据：图谱（来自《西游记》数据底座汇总） ---------------- */
+const DEGREE = [["孙悟空",48],["唐僧",27],["观音",15],["猪八戒",14],["如来",7],["唐僧师徒",6],["红孩儿",5],["牛魔王",5],["地涌夫人",5],["沙悟净",4]];
+const RISK   = [["佛门/菩萨/星君后台",17],["王权/制度寄生",7],["家族/亲属/龙族后台",5],["其他/复合型",5],["天庭/道教后台",4],["非后台高风险",1]];
+const THEME  = [["后台/法宝/收束",19,"23.5%"],["环境/民生/资源",16,"19.8%"],["制度/王权/合法性",11,"13.6%"],["欲望/身体/身份",11,"13.6%"],["团队/协同/信任",10,"12.3%"],["其他",7,"8.6%"],["妖怪/战斗风险",5,"6.2%"],["心性/因果/成果",2,"2.5%"]];
+
+function renderBars(elId, rows, cls, fmt){
+  const max = Math.max.apply(null, rows.map(r=>r[1]));
+  const el = document.getElementById(elId);
+  el.innerHTML = rows.map(function(r){
+    var w = Math.max(6, Math.round(r[1]/max*100));
+    var val = fmt ? fmt(r) : r[1];
+    return '<div class="bar"><div class="bl">'+r[0]+'</div><div class="bt '+cls+'" style="width:'+w+'%"></div><div class="bv">'+val+'</div></div>';
+  }).join("");
+}
+renderBars("chart-degree", DEGREE, "");
+renderBars("chart-risk",   RISK,   "indigo");
+renderBars("chart-theme",  THEME,  "jade", function(r){return r[1]+" · "+r[2];});
+
+/* ---------------- 提示词工作台 ---------------- */
+const STEPS = [
+  {
+    tag:"建底本", title:"第一步 · 建底本",
+    purpose:"让模型先把版本、结构与引用规范说清楚。",
+    build:function(b){return (
+"我要用 AI 辅助深读《"+b+"》，请帮我建立可检索底本。请完成：\n"+
+"1. 列出《"+b+"》的权威版本与通行校注本（含出版社、整理者），并指出其中一个适合检索引用的公共底本（如维基文库 / 中国哲学书电子化计划等）；\n"+
+"2. 给出全书的卷 / 回 / 篇目结构（数量与名称）；\n"+
+"3. 给出引用规范建议：如何标注回目或篇章、短摘字数边界、避免大段复制的原则。\n"+
+"请用表格输出。末尾注明：以上信息须以纸质校注本人工复核，不得臆造版本或回目。"
+    );}
+  },
+  {
+    tag:"建表", title:"第二步 · 建表",
+    purpose:"一次产出六张结构化数据表，作为后续一切的底座。",
+    build:function(b){return (
+"基于《"+b+"》可检索底本，请帮我建立深读数据表，用 Markdown 表格至少输出六张：\n"+
+"1. 主题表（每行：章节范围 / 核心事件 / 主题 / 一句话观点）；\n"+
+"2. 人物关系表（人物 / 身份 / 所属阵营 / 关系对象 / 关系性质）；\n"+
+"3. 关键情节表（事件 / 出处回目 / 性质 / 冲突或风险类型）；\n"+
+"4. 对象分类表（如人物、势力、物件，按来源或类型归类）；\n"+
+"5. 原文摘录表（回目 / 短摘≤25字 / 定位 / 主题 / 解释 / 用途）；\n"+
+"6. 专题观点表（专题 / 核心论点 / 支撑情节 / 可延伸方向）。\n"+
+"要求：每条尽量标注回目出处；摘录只取短句、不整段复制；凡不确定处标注“待核”，不得编造情节或回目。"
+    );}
+  },
+  {
+    tag:"做图谱", title:"第三步 · 做图谱",
+    purpose:"把数据表转成可直接画图的结构化规格。",
+    build:function(b){return (
+"基于上一步的《"+b+"》数据表，请给我三类可视化的“数据规格”（不画图，只给结构化数据与说明）：\n"+
+"1. 人物关系图——节点列表（含分组 / 阵营）与边列表（关系对，注明关系类型）；\n"+
+"2. 风险 / 后台矩阵——按“来源 / 责任方”与“风险类型”两个维度归类的表格；\n"+
+"3. 主题热力——每个章节区间在各主题上的强弱评级（如 1–4 级）。\n"+
+"要求：输出可直接转为图表的结构化数据（节点 / 边列表、矩阵表），并说明每张图想帮读者理解什么。图谱服务理解，不为炫技。"
+    );}
+  },
+  {
+    tag:"摘原文", title:"第四步 · 摘原文",
+    purpose:"围绕一个专题，整理一条条带出处的短摘证据。",
+    build:function(b,t){return (
+"我要为《"+b+"》整理一份证据链索引，围绕专题【"+(t||"在此填写专题，如：信任与误判")+"】，从原文挑选若干关键短摘。\n"+
+"每条包含：回目 / 章节、短摘（≤25字，只取关键句）、定位（在该回的位置或上下文）、主题、解释（这条说明了什么）、用途（可用于哪类论点）、来源（底本）。\n"+
+"要求：以短摘为主，严禁整段复制原文；逐条标注出处；凡记不准的原文一律标注“原文待核”，不得凭印象编写。"
+    );}
+  },
+  {
+    tag:"写专题", title:"第五步 · 写专题",
+    purpose:"把观点与短摘组织成一篇可发布的专题初稿。",
+    build:function(b,t){return (
+"基于《"+b+"》的数据表与摘录，请帮我写一篇深读专题初稿，主题为【"+(t||"在此填写，如：真假之辨——最难降伏的是另一个自己")+"】。\n"+
+"结构：1) 一句话核心论点；2) 从原文情节切入（标注回目）；3) 展开 2–3 个分论点，每个配 1 条短摘佐证（注明出处）；4) 落到一个现实可迁移的洞见。\n"+
+"要求：观点鲜明、务实、可考据；引用只用短摘并标注回目；不确定处标注“待核”。这是初稿，关键判断与引用仍需我人工校核后定稿。"
+    );}
+  },
+  {
+    tag:"做发布包", title:"第六步 · 做发布包",
+    purpose:"把成果整理成可发布形态，并附四类校核清单。",
+    build:function(b){return (
+"我已完成《"+b+"》的若干专题。请帮我整理成一套可发布成果，并给出“四类校核清单”：\n"+
+"1. 建议的成果形态（如导览网页、数据表、研究报告、连载文章母稿、讲稿、方法模板）及各自用途；\n"+
+"2. 发布前校核清单，分四类——口径（表述是否一致）、引用（短摘是否标注出处、是否超出短摘边界）、版权（是否含不宜公开内容、是否仅作评论研究索引用途）、事实（情节 / 回目 / 人物是否经人工复核）。\n"+
+"请以清单或表格输出。"
+    );}
+  }
+];
+
+var STATE = {book:"西游记", topic:""};
+try{
+  var saved = JSON.parse(localStorage.getItem("zaidu_studio")||"{}");
+  if(saved.book) STATE.book = saved.book;
+  if(typeof saved.topic === "string") STATE.topic = saved.topic;
+}catch(e){}
+
+function persist(){ try{ localStorage.setItem("zaidu_studio", JSON.stringify(STATE)); }catch(e){} }
+function esc(s){ return s.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+function highlight(s, book){
+  // 在预览里把书名高亮，便于一眼看清替换结果
+  return esc(s).replace(new RegExp("《"+book.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"》","g"),
+    '《<span class="hl">'+esc(book)+'</span>》');
+}
+
+function renderStudio(){
+  var b = STATE.book, t = STATE.topic;
+  document.getElementById("targetName").textContent = "《"+b+"》";
+  var html = STEPS.map(function(s,i){
+    var text = s.build(b, t);
+    return ''+
+    '<article class="step">'+
+      '<div class="tag"><span class="n">'+(i+1)+'</span>'+s.tag+'</div>'+
+      '<h4>'+s.title+'</h4>'+
+      '<p class="purpose">'+s.purpose+'</p>'+
+      '<div class="prompt-box" id="pb'+i+'">'+highlight(text,b)+'</div>'+
+      '<button class="copy" data-i="'+i+'">复制提示词</button>'+
+    '</article>';
+  }).join("");
+  document.getElementById("steps").innerHTML = html;
+}
+
+function setBook(name){
+  STATE.book = name;
+  document.querySelectorAll("#chips .chip").forEach(function(c){
+    c.setAttribute("aria-pressed", c.dataset.book===name ? "true":"false");
+  });
+  persist(); renderStudio();
+}
+
+document.getElementById("chips").addEventListener("click", function(e){
+  var c = e.target.closest(".chip"); if(!c) return;
+  document.getElementById("customBook").value = "";
+  setBook(c.dataset.book);
+});
+document.getElementById("customBook").addEventListener("input", function(e){
+  var v = e.target.value.trim();
+  document.querySelectorAll("#chips .chip").forEach(function(c){c.setAttribute("aria-pressed","false");});
+  STATE.book = v || "西游记";
+  if(!v){ // 回落到西游记并点亮默认 chip
+    var d=document.querySelector('#chips .chip[data-book="西游记"]'); if(d) d.setAttribute("aria-pressed","true");
+  }
+  persist(); renderStudio();
+});
+document.getElementById("topic").addEventListener("input", function(e){
+  STATE.topic = e.target.value.trim(); persist(); renderStudio();
+});
+
+document.getElementById("steps").addEventListener("click", function(e){
+  var btn = e.target.closest(".copy"); if(!btn) return;
+  var i = +btn.dataset.i;
+  var text = STEPS[i].build(STATE.book, STATE.topic);
+  var done = function(){
+    var old = btn.textContent; btn.textContent = "已复制 ✓"; btn.classList.add("done");
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove("done"); }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text); done(); });
+  }else{ fallbackCopy(text); done(); }
+});
+function fallbackCopy(text){
+  var ta=document.createElement("textarea"); ta.value=text;
+  ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta);
+  ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta);
+}
+
+/* 初始化：恢复自定义书名 / 专题，再渲染 */
+(function init(){
+  var def = ["西游记","红楼梦","三国演义","水浒传","金瓶梅","水经注","庄子","史记"];
+  if(STATE.topic) document.getElementById("topic").value = STATE.topic;
+  if(def.indexOf(STATE.book) === -1){ // 是自定义书名
+    document.getElementById("customBook").value = STATE.book;
+    document.querySelectorAll("#chips .chip").forEach(function(c){c.setAttribute("aria-pressed","false");});
+  }else{
+    document.querySelectorAll("#chips .chip").forEach(function(c){
+      c.setAttribute("aria-pressed", c.dataset.book===STATE.book ? "true":"false");
+    });
+  }
+  renderStudio();
+})();
+
+/* ---------------- 离线（PWA） ---------------- */
+(function(){
+  if('serviceWorker' in navigator){
+    var sw='self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("fetch",e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))))';
+    var blob=new Blob([sw],{type:'text/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(function(){});
+  }
+})();
+</script>
+</body>
+</html>
