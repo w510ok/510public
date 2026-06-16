@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>防汛隐患排查台账 · 江南AI工作小组</title>
+<style>
+:root{
+  --navy:#0a1628; --navy-2:#0f2038; --navy-3:#16304f; --line:#1f3a5c;
+  --ink:#e8eef6; --ink-2:#9fb3cc; --ink-3:#5e7591;
+  --gold:#d4a843; --gold-soft:#3a2f12; --teal:#2dd4bf; --teal-soft:#0c3330;
+  --red:#ef4444; --red-soft:#3a1414; --amber:#f59e0b; --amber-soft:#3a2a0c; --green:#22c55e; --green-soft:#0d3318;
+  --r-high:#ef4444; --r-mid:#f59e0b; --r-low:#22c55e;
+  --radius:14px; --radius-sm:10px;
+  --shadow:0 8px 30px rgba(0,0,0,.4);
+  --safe-b:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--navy); color:var(--ink);
+  font-size:15px; line-height:1.5; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(72px + var(--safe-b));
+}
+
+/* ---------- App shell ---------- */
+.app-header{
+  position:sticky; top:0; z-index:40;
+  background:linear-gradient(180deg,rgba(10,22,40,.98),rgba(10,22,40,.92));
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;
+}
+.app-header .brand{display:flex;align-items:center;gap:10px}
+.app-header .seal{
+  width:34px;height:34px;border-radius:9px;flex:none;
+  background:radial-gradient(circle at 30% 30%,#1c3a5e,#0a1628);
+  border:1px solid var(--gold); display:grid;place-items:center;
+  color:var(--gold);font-weight:800;font-size:13px;letter-spacing:-1px;
+  box-shadow:inset 0 0 12px rgba(212,168,67,.25);
+}
+.app-header h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.5px}
+.app-header .sub{font-size:11px;color:var(--ink-3);margin-top:1px;letter-spacing:.3px}
+.view{padding:16px;max-width:720px;margin:0 auto;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view-title{display:flex;align-items:baseline;justify-content:space-between;margin:2px 0 14px}
+.view-title h2{font-size:19px;margin:0;font-weight:700}
+.view-title .tag{font-size:11px;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+
+/* ---------- Cards / stats ---------- */
+.grid{display:grid;gap:10px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-4{grid-template-columns:repeat(2,1fr)}
+.stat{
+  background:var(--navy-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;position:relative;overflow:hidden;
+}
+.stat .num{font-size:28px;font-weight:800;line-height:1;letter-spacing:-1px}
+.stat .lbl{font-size:12px;color:var(--ink-2);margin-top:6px}
+.stat::after{content:"";position:absolute;right:-14px;top:-14px;width:56px;height:56px;border-radius:50%;opacity:.08;background:var(--gold)}
+.stat.accent .num{color:var(--gold)} .stat.accent::after{background:var(--gold);opacity:.12}
+.stat.danger .num{color:var(--red)} .stat.danger::after{background:var(--red)}
+.stat.warn .num{color:var(--amber)} .stat.warn::after{background:var(--amber)}
+.stat.ok .num{color:var(--green)} .stat.ok::after{background:var(--green)}
+
+.panel{background:var(--navy-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.panel h3{margin:0 0 12px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.panel h3 .dot{width:6px;height:14px;border-radius:3px;background:var(--gold)}
+
+/* ---------- Closed-loop signature ---------- */
+.loop{display:flex;align-items:stretch;gap:0;margin:4px 0 2px}
+.loop .step{
+  flex:1;text-align:center;padding:10px 4px;position:relative;
+  background:var(--navy-3);border:1px solid var(--line);
+}
+.loop .step:first-child{border-radius:10px 0 0 10px}
+.loop .step:last-child{border-radius:0 10px 10px 0}
+.loop .step + .step{border-left:none}
+.loop .step .k{font-size:18px;font-weight:800;color:var(--ink)}
+.loop .step .t{font-size:11px;color:var(--ink-2);margin-top:3px}
+.loop .step.on{background:linear-gradient(160deg,var(--gold-soft),var(--navy-3));border-color:var(--gold)}
+.loop .step.on .k{color:var(--gold)}
+.loop-arc{font-size:11px;color:var(--ink-3);text-align:center;margin-top:8px;letter-spacing:1px}
+
+/* ---------- Bars ---------- */
+.bar-row{display:flex;align-items:center;gap:10px;margin:9px 0}
+.bar-row .name{font-size:13px;width:84px;flex:none;color:var(--ink-2)}
+.bar-track{flex:1;height:8px;background:var(--navy-3);border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s ease}
+.bar-row .val{font-size:12px;color:var(--ink);width:30px;text-align:right;flex:none;font-variant-numeric:tabular-nums}
+
+/* ---------- Hazard list ---------- */
+.toolbar{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -2px;scrollbar-width:none}
+.toolbar::-webkit-scrollbar{display:none}
+.chip{
+  flex:none;padding:7px 13px;border-radius:20px;font-size:13px;cursor:pointer;
+  background:var(--navy-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap;
+  transition:all .15s;
+}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#1a1304;font-weight:600}
+.haz{
+  background:var(--navy-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:border-color .15s;
+  border-left-width:4px;
+}
+.haz:active{border-color:var(--gold)}
+.haz.r-high{border-left-color:var(--r-high)}
+.haz.r-mid{border-left-color:var(--r-mid)}
+.haz.r-low{border-left-color:var(--r-low)}
+.haz .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.haz .ttl{font-size:15px;font-weight:600;line-height:1.35}
+.haz .meta{font-size:12px;color:var(--ink-3);margin-top:5px;display:flex;gap:10px;flex-wrap:wrap}
+.haz .meta b{color:var(--ink-2);font-weight:500}
+.badge{font-size:11px;padding:3px 9px;border-radius:7px;font-weight:600;white-space:nowrap;flex:none}
+.b-wait{background:var(--navy-3);color:var(--ink-2)}
+.b-assigned{background:var(--teal-soft);color:var(--teal)}
+.b-doing{background:var(--amber-soft);color:var(--amber)}
+.b-verify{background:#2a2440;color:#a78bfa}
+.b-closed{background:var(--green-soft);color:var(--green)}
+.b-warn{background:var(--red-soft);color:var(--red)}
+.risk-pill{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600}
+.rp-high{background:var(--red-soft);color:var(--red)}
+.rp-mid{background:var(--amber-soft);color:var(--amber)}
+.rp-low{background:var(--green-soft);color:var(--green)}
+
+/* ---------- Forms ---------- */
+label.fld{display:block;margin-bottom:14px}
+label.fld .lab{font-size:13px;color:var(--ink-2);margin-bottom:6px;display:flex;justify-content:space-between}
+.req{color:var(--gold)}
+input,select,textarea{
+  width:100%;background:var(--navy);border:1px solid var(--line);border-radius:var(--radius-sm);
+  color:var(--ink);padding:11px 12px;font-size:15px;font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,168,67,.12)}
+textarea{resize:vertical;min-height:72px}
+select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 4.5L6 8l3-3.5' stroke='%239fb3cc' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+.seg{display:flex;gap:8px}
+.seg .opt{flex:1;text-align:center;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--navy);font-size:14px;cursor:pointer;font-weight:600}
+.seg .opt.on-high{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+.seg .opt.on-mid{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+.seg .opt.on-low{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:13px 18px;border-radius:var(--radius-sm);border:none;cursor:pointer;
+  font-size:15px;font-weight:600;font-family:inherit;width:100%;
+}
+.btn-gold{background:var(--gold);color:#1a1304}
+.btn-gold:active{filter:brightness(.92)}
+.btn-ghost{background:var(--navy-3);color:var(--ink);border:1px solid var(--line)}
+.btn-teal{background:var(--teal);color:#04201c}
+.btn-row{display:flex;gap:10px}
+.btn-sm{padding:9px 14px;font-size:13px;width:auto}
+
+/* ---------- Checklist reference ---------- */
+.cl-cat{margin-bottom:10px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--navy-2)}
+.cl-head{padding:13px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600}
+.cl-head .cnt{font-size:12px;color:var(--gold);font-weight:500}
+.cl-body{display:none;border-top:1px solid var(--line)}
+.cl-cat.open .cl-body{display:block}
+.cl-cat.open .cl-head .arr{transform:rotate(90deg)}
+.cl-head .arr{transition:transform .2s;color:var(--ink-3)}
+.cl-item{padding:12px 14px;border-bottom:1px solid var(--line)}
+.cl-item:last-child{border-bottom:none}
+.cl-item .ci-t{font-size:14px;font-weight:500;margin-bottom:6px}
+.cl-item .ci-cite{font-size:12px;color:var(--teal);background:var(--teal-soft);display:inline-block;padding:2px 8px;border-radius:6px;margin-right:6px;margin-bottom:4px}
+.cl-item .ci-freq{font-size:12px;color:var(--gold);background:var(--gold-soft);display:inline-block;padding:2px 8px;border-radius:6px;margin-bottom:4px}
+.cl-item .ci-use{margin-top:8px}
+
+/* ---------- Detail drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(4,10,20,.7);z-index:90;display:none;backdrop-filter:blur(2px)}
+.scrim.show{display:block}
+.drawer{
+  position:fixed;left:0;right:0;bottom:0;z-index:100;
+  background:var(--navy-2);border-top:1px solid var(--gold);
+  border-radius:18px 18px 0 0;max-height:88vh;overflow-y:auto;
+  transform:translateY(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+  padding:8px 16px calc(24px + var(--safe-b));
+}
+.drawer.show{transform:translateY(0)}
+.drawer .grip{width:40px;height:4px;background:var(--line);border-radius:2px;margin:8px auto 14px}
+.timeline{margin:10px 0;padding-left:4px}
+.tl-item{display:flex;gap:11px;padding-bottom:14px;position:relative}
+.tl-item:not(:last-child)::before{content:"";position:absolute;left:6px;top:16px;bottom:-2px;width:1.5px;background:var(--line)}
+.tl-dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--gold);background:var(--navy-2);flex:none;margin-top:2px}
+.tl-dot.done{background:var(--gold)}
+.tl-body .tl-act{font-size:14px;font-weight:600}
+.tl-body .tl-when{font-size:12px;color:var(--ink-3);margin-top:2px}
+.tl-body .tl-note{font-size:13px;color:var(--ink-2);margin-top:4px;background:var(--navy);padding:8px 10px;border-radius:8px}
+
+/* ---------- Misc ---------- */
+.empty{text-align:center;padding:50px 20px;color:var(--ink-3)}
+.empty .ico{font-size:38px;margin-bottom:12px;opacity:.5}
+.empty .hint{font-size:13px;margin-top:6px}
+.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv:last-child{border:none}
+.kv .k{color:var(--ink-2)} .kv .v{font-weight:500;text-align:right;max-width:60%}
+.note-line{font-size:12px;color:var(--ink-3);line-height:1.6;margin-top:8px}
+.toast{
+  position:fixed;left:50%;bottom:calc(86px + var(--safe-b));transform:translateX(-50%) translateY(20px);
+  background:var(--navy-3);border:1px solid var(--gold);color:var(--ink);
+  padding:11px 20px;border-radius:24px;font-size:14px;z-index:200;
+  opacity:0;transition:all .3s;box-shadow:var(--shadow);white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.divider{height:1px;background:var(--line);margin:16px 0}
+
+/* ---------- Bottom nav ---------- */
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:rgba(15,32,56,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);display:flex;
+  padding-bottom:var(--safe-b);
+}
+.nav .tab{flex:1;text-align:center;padding:9px 2px 8px;cursor:pointer;color:var(--ink-3);position:relative}
+.nav .tab .ti{font-size:21px;line-height:1}
+.nav .tab .tl{font-size:10.5px;margin-top:3px}
+.nav .tab.on{color:var(--gold)}
+.nav .tab.on::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:2.5px;background:var(--gold);border-radius:0 0 3px 3px}
+.fab-add{position:relative}
+.foot{text-align:center;font-size:11px;color:var(--ink-3);padding:18px 0 6px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="seal">汛</div>
+    <div>
+      <h1>防汛隐患排查台账</h1>
+      <div class="sub">供排一体化 · 排查—整改—复盘—提升闭环</div>
+    </div>
+  </div>
+</header>
+
+<!-- ====== 态势 ====== -->
+<section id="v-dash" class="view"></section>
+
+<!-- ====== 台账 ====== -->
+<section id="v-ledger" class="view" style="display:none"></section>
+
+<!-- ====== 排查录入 ====== -->
+<section id="v-add" class="view" style="display:none"></section>
+
+<!-- ====== 清单 ====== -->
+<section id="v-checklist" class="view" style="display:none"></section>
+
+<!-- ====== 复盘 ====== -->
+<section id="v-review" class="view" style="display:none"></section>
+
+<!-- ====== 数据 ====== -->
+<section id="v-data" class="view" style="display:none"></section>
+
+<!-- ====== 详情抽屉 ====== -->
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer"><div class="grip"></div><div id="drawer-body"></div></div>
+
+<!-- ====== 底部导航 ====== -->
+<nav class="nav">
+  <div class="tab on" data-v="dash"  onclick="nav('dash')"><div class="ti">▦</div><div class="tl">态势</div></div>
+  <div class="tab"     data-v="ledger" onclick="nav('ledger')"><div class="ti">▤</div><div class="tl">台账</div></div>
+  <div class="tab fab-add" data-v="add" onclick="nav('add')"><div class="ti">＋</div><div class="tl">排查</div></div>
+  <div class="tab"     data-v="checklist" onclick="nav('checklist')"><div class="ti">☰</div><div class="tl">清单</div></div>
+  <div class="tab"     data-v="review" onclick="nav('review')"><div class="ti">↻</div><div class="tl">复盘</div></div>
+  <div class="tab"     data-v="data" onclick="nav('data')"><div class="ti">⚙</div><div class="tl">数据</div></div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   防汛隐患排查台账 PWA  ·  江南AI工作小组
+   纯静态 · localStorage · 无服务端依赖
+   ============================================================ */
+'use strict';
+
+/* ---------- 存储 ---------- */
+const DB = {
+  hk:'jn_flood_hazards_v1', rk:'jn_flood_reviews_v1', mk:'jn_flood_meta_v1',
+  read(k){ try{ return JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){ return []; } },
+  write(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ toast('存储失败：浏览器空间不足'); return false; } },
+  hazards(){ return this.read(this.hk); },
+  reviews(){ return this.read(this.rk); },
+  meta(){ try{ return JSON.parse(localStorage.getItem(this.mk)||'{}'); }catch(e){ return {}; } },
+  saveHazards(a){ return this.write(this.hk,a); },
+  saveReviews(a){ return this.write(this.rk,a); },
+  saveMeta(m){ try{ localStorage.setItem(this.mk,JSON.stringify(m)); }catch(e){} },
+};
+
+/* ---------- 闭环状态机 ---------- */
+// 排查发现 → 派单 → 整改中 → 待核验 → 已销号  ；旁路：已设警示/挂账
+const STAGES = {
+  wait:    {label:'待派单',  badge:'b-wait',     next:'assigned', act:'派单',   needAssignee:true},
+  assigned:{label:'已派单',  badge:'b-assigned', next:'doing',    act:'开始整改'},
+  doing:   {label:'整改中',  badge:'b-doing',    next:'verify',   act:'报验'},
+  verify:  {label:'待核验',  badge:'b-verify',   next:'closed',   act:'核验销号'},
+  closed:  {label:'已销号',  badge:'b-closed',   next:null,       act:null},
+  warn:    {label:'已设警示·挂账', badge:'b-warn', next:'doing',   act:'转入整改'},
+};
+const STAGE_ORDER = ['wait','assigned','doing','verify','closed'];
+
+/* ---------- 区域 / 设施 字典 ---------- */
+const AREAS = ['主城区','乡镇行政区','城市主干道','城市易涝点位','低洼路段','老旧管网','下穿通道/立交','地下空间出入口','河道沿线'];
+const FACILITIES = ['雨水管网','雨水口/收集设施','雨水/污水泵站','供水设施','河道闸站','其他'];
+const RISK = {high:'高风险',mid:'中风险',low:'低风险'};
+
+/* ============================================================
+   排查清单（可考据）——引规范条款与频次
+   依据：GB 50014-2021 / GB 51222-2017 / CJJ 68-2016 / CJJ 6-2009 /
+        《供水条例》国务院令第831号(2026-06-01施行) / 住建部相关要求
+   ============================================================ */
+const CHECKLIST = [
+  { cat:'雨水管网', cite:'CJJ 68-2016 · GB 51222-2017 §7.2', items:[
+      {t:'管道、检查井结构完好，无破损、淤堵、塌陷，过水断面满足排水要求', cite:'CJJ 68-2016 第3章 巡查与检查', freq:'日常巡查；汛前全覆盖一轮', use:'雨水管网'},
+      {t:'汛前完成主干雨水管网清疏，淤积深度不超过管径规定比例', cite:'GB 51222-2017 §7.2 日常维护', freq:'汛前清疏；汛中按需', use:'雨水管网'},
+      {t:'管网与河道排放口畅通，无倒灌、无违法接管、无垃圾堵塞', cite:'CJJ 68-2016 巡查要求', freq:'汛前+强降雨后', use:'雨水管网'},
+      {t:'老旧、易堵、低洼段管网加密巡查，建立重点段台账', cite:'住建部 一点一策 / GB 51222 §7.3', freq:'汛中加密', use:'老旧管网'},
+  ]},
+  { cat:'雨水口 / 收集设施', cite:'GB 51222-2017 §7.2 · CJJ 68-2016', items:[
+      {t:'雨水口（井箅）无堵塞、无被占压覆盖，箅前无垃圾杂物堆积', cite:'CJJ 68-2016 日常巡查', freq:'汛前清疏；强降雨前再查', use:'雨水口/收集设施'},
+      {t:'易涝点位雨水口在降雨前预先清掏，强降雨期间安排专人值守看护', cite:'住建部 排水防涝应急管理通知', freq:'强降雨前/中', use:'城市易涝点位'},
+      {t:'井盖、雨水箅完好无缺失、无破损、无松动，防坠落设施齐备', cite:'住建部2024城市排水防涝工作要求 补齐井盖防坠落', freq:'日常巡查', use:'雨水口/收集设施'},
+  ]},
+  { cat:'雨水 / 污水泵站', cite:'GB 51222-2017 §5.2.9 · CJJ 68-2016', items:[
+      {t:'泵组、闸阀、格栅、自控系统汛前检修保养完好，机组试运行正常', cite:'CJJ 68-2016 泵站维护', freq:'汛前检修；汛中巡检', use:'雨水/污水泵站'},
+      {t:'配电、自控等关键设备安装高度按内涝防治设计重现期校核，防淹没', cite:'GB 51222-2017 §5.2.9（强制性）', freq:'汛前核查', use:'雨水/污水泵站'},
+      {t:'双电源/备用发电机组到位并定期试机，断电应急可在规定时间内启动', cite:'GB 51222-2017 §5.2 / 应急保障', freq:'汛前试机；月度', use:'雨水/污水泵站'},
+      {t:'强降雨预报发布后，泵站、调蓄设施按指令预降水位、预腾容量', cite:'防汛预案 预排空调度', freq:'预警响应时', use:'雨水/污水泵站'},
+  ]},
+  { cat:'供水设施', cite:'《供水条例》第三十七条（国务院令第831号）', items:[
+      {t:'及时排查和消除供水安全隐患，落实各项安全防范措施', cite:'《供水条例》第三十七条', freq:'常态化+汛前专项', use:'供水设施'},
+      {t:'水厂、加压泵站、低洼地带供水设施防淹防涝措施到位', cite:'《供水条例》第三十七条 / GB 51222', freq:'汛前核查', use:'供水设施'},
+      {t:'供水应急物资按预案配备到位，应急供水（水源切换/减压）方案可执行', cite:'《供水条例》第三十六、三十七、三十九条', freq:'汛前清点', use:'供水设施'},
+  ]},
+  { cat:'重点区域 / 易涝点', cite:'GB 50014-2021 §4.1 · 住建部 一点一策', items:[
+      {t:'城市易涝点位、低洼路段建立"一点一策"，明确责任人、强排措施、警示与封路预案', cite:'住建部 城市排水防涝工作要求 一点一策', freq:'汛前更新台账', use:'城市易涝点位'},
+      {t:'下穿通道/立交按30年一遇校核，配备移动泵车并保持"热备"', cite:'GB 50014-2021 §4.1.3 / 住建部 移动泵车热备', freq:'汛前+预警响应', use:'下穿通道/立交'},
+      {t:'地下空间出入口设挡水/排水措施，强降雨期间布控值守', cite:'GB 51222-2017 §7.3 应急管理', freq:'强降雨期间', use:'地下空间出入口'},
+      {t:'退水时间满足内涝防治设计重现期下最大允许退水时间要求', cite:'GB 50014-2021 §4.1.5（强制性）', freq:'灾后评估', use:'城市易涝点位'},
+  ]},
+  { cat:'河道闸站 / 联排联调', cite:'GB 51222-2017 §7 · 联排联调', items:[
+      {t:'城区河道水位、闸站工况监控正常，与周边江河湖库联排联调机制畅通', cite:'住建部 应急洪涝联排联调', freq:'汛中持续', use:'河道闸站'},
+      {t:'梅雨期/台风期河道保持预降水位，腾出调蓄库容', cite:'防汛预案 预降水位', freq:'预警响应时', use:'河道闸站'},
+  ]},
+  { cat:'作业安全 / 有限空间', cite:'CJJ 6-2009 · GB 51222-2017 §7', items:[
+      {t:'下井（有限空间）作业严格执行"先通风、再检测、后作业"，气体检测合格', cite:'CJJ 6-2009 井下作业安全', freq:'每次作业', use:'其他'},
+      {t:'防护、检测、通风、应急救援设备齐全完好，作业人员持证、监护到位', cite:'CJJ 6-2009 防护与应急救援', freq:'每次作业', use:'其他'},
+      {t:'一线人员防汛作业专项培训到位，作业流程与操作规范执行', cite:'防汛预案 / CJJ 6-2009', freq:'汛前培训', use:'其他'},
+  ]},
+];
+
+/* ---------- 工具函数 ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; }
+function fmtDay(iso){ if(!iso) return '—'; const d=new Date(iso); const p=n=>String(n).padStart(2,'0'); return `${d.getMonth()+1}/${d.getDate()}`; }
+function riskClass(r){ return r==='high'?'r-high':r==='mid'?'r-mid':'r-low'; }
+function riskPill(r){ return `<span class="risk-pill rp-${r}">${RISK[r]||'—'}</span>`; }
+let toastT;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ============================================================
+   导航
+   ============================================================ */
+let CUR='dash';
+const VIEWS=['dash','ledger','add','checklist','review','data'];
+function nav(v){
+  CUR=v;
+  VIEWS.forEach(x=>{ $('#v-'+x).style.display = x===v?'block':'none'; });
+  $$('.nav .tab').forEach(t=>t.classList.toggle('on', t.dataset.v===v));
+  window.scrollTo(0,0);
+  if(v==='dash') renderDash();
+  if(v==='ledger') renderLedger();
+  if(v==='add') renderAdd();
+  if(v==='checklist') renderChecklist();
+  if(v==='review') renderReview();
+  if(v==='data') renderData();
+}
+
+/* ============================================================
+   态势（仪表盘）
+   ============================================================ */
+function renderDash(){
+  const hz=DB.hazards();
+  const total=hz.length;
+  const open=hz.filter(h=>h.status!=='closed').length;
+  const closed=hz.filter(h=>h.status==='closed').length;
+  const high=hz.filter(h=>h.risk==='high'&&h.status!=='closed').length;
+  const overdue=hz.filter(h=>isOverdue(h)).length;
+  const rate=total?Math.round(closed/total*100):0;
+
+  // 按阶段
+  const byStage={}; STAGE_ORDER.forEach(s=>byStage[s]=0); byStage.warn=0;
+  hz.forEach(h=>byStage[h.status]=(byStage[h.status]||0)+1);
+  // 按区域（未销号）
+  const byArea={};
+  hz.filter(h=>h.status!=='closed').forEach(h=>byArea[h.area]=(byArea[h.area]||0)+1);
+  const areaRows=Object.entries(byArea).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const areaMax=Math.max(1,...areaRows.map(r=>r[1]));
+
+  // 最近活动
+  const recent=[...hz].sort((a,b)=>(b.updatedAt||b.foundAt||'').localeCompare(a.updatedAt||a.foundAt||'')).slice(0,4);
+
+  let html=`
+  <div class="view-title"><h2>防汛态势</h2><span class="tag">command center</span></div>
+
+  <div class="grid grid-4" style="margin-bottom:14px">
+    <div class="stat accent"><div class="num">${open}</div><div class="lbl">未销号隐患</div></div>
+    <div class="stat ${high?'danger':''}"><div class="num">${high}</div><div class="lbl">高风险待处置</div></div>
+    <div class="stat ${overdue?'warn':''}"><div class="num">${overdue}</div><div class="lbl">超期未整改</div></div>
+    <div class="stat ok"><div class="num">${rate}%</div><div class="lbl">整改销号率</div></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>闭环管理 · 全链条</h3>
+    <div class="loop">
+      ${STAGE_ORDER.map(s=>`<div class="step ${byStage[s]?'on':''}"><div class="k">${byStage[s]||0}</div><div class="t">${STAGES[s].label}</div></div>`).join('')}
+    </div>
+    <div class="loop-arc">排查发现 → 派单整改 → 报验核验 → 销号闭环 ${byStage.warn?`· 另有 ${byStage.warn} 项已设警示挂账`:''}</div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>未销号隐患 · 区域分布</h3>
+    ${areaRows.length?areaRows.map(([n,v])=>`
+      <div class="bar-row"><div class="name">${esc(n)}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${v/areaMax*100}%;background:linear-gradient(90deg,var(--teal),var(--gold))"></div></div>
+        <div class="val">${v}</div></div>`).join('')
+      :`<div class="note-line">暂无未销号隐患记录。</div>`}
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>最近动态</h3>
+    ${recent.length?recent.map(h=>`
+      <div class="kv" onclick="openDrawer('${h.id}')" style="cursor:pointer">
+        <div class="k">${riskPill(h.risk)} ${esc(h.area)}</div>
+        <div class="v"><span class="badge ${STAGES[h.status].badge}">${STAGES[h.status].label}</span></div>
+      </div>`).join('')
+      :`<div class="empty"><div class="ico">▦</div>尚无排查记录<div class="hint">点击底部「＋ 排查」开始建立台账</div></div>`}
+  </div>
+
+  <div class="foot">江南AI工作小组 · 供排一体化防汛 · 数据仅存本机</div>
+  `;
+  $('#v-dash').innerHTML=html;
+}
+
+function isOverdue(h){
+  if(h.status==='closed'||h.status==='warn') return false;
+  if(!h.dueDate) return false;
+  return new Date(h.dueDate) < new Date(new Date().toDateString());
+}
+
+/* ============================================================
+   台账（隐患列表）
+   ============================================================ */
+let LF={status:'all',risk:'all',area:'all'};
+function renderLedger(){
+  let hz=DB.hazards().sort((a,b)=>(b.foundAt||'').localeCompare(a.foundAt||''));
+  const total=hz.length;
+  if(LF.status!=='all') hz=hz.filter(h=> LF.status==='open'? h.status!=='closed' : h.status===LF.status);
+  if(LF.risk!=='all') hz=hz.filter(h=>h.risk===LF.risk);
+  if(LF.area!=='all') hz=hz.filter(h=>h.area===LF.area);
+
+  const areaOpts=['all',...AREAS];
+  let html=`
+  <div class="view-title"><h2>隐患台账</h2><span class="tag">${hz.length}/${total} 项</span></div>
+
+  <div class="toolbar">
+    ${[['all','全部'],['open','未销号'],['wait','待派单'],['doing','整改中'],['verify','待核验'],['warn','已挂账'],['closed','已销号']]
+      .map(([k,l])=>`<div class="chip ${LF.status===k?'on':''}" onclick="setLF('status','${k}')">${l}</div>`).join('')}
+  </div>
+  <div class="toolbar">
+    <div class="chip ${LF.risk==='all'?'on':''}" onclick="setLF('risk','all')">全部风险</div>
+    <div class="chip ${LF.risk==='high'?'on':''}" onclick="setLF('risk','high')">高</div>
+    <div class="chip ${LF.risk==='mid'?'on':''}" onclick="setLF('risk','mid')">中</div>
+    <div class="chip ${LF.risk==='low'?'on':''}" onclick="setLF('risk','low')">低</div>
+    <select style="width:auto;flex:none;padding:7px 30px 7px 12px;border-radius:20px;font-size:13px" onchange="setLF('area',this.value)">
+      ${areaOpts.map(a=>`<option value="${a}" ${LF.area===a?'selected':''}>${a==='all'?'全部区域':a}</option>`).join('')}
+    </select>
+  </div>
+  `;
+
+  if(!hz.length){
+    html+=`<div class="empty"><div class="ico">▤</div>${total?'无符合筛选条件的隐患':'台账为空'}<div class="hint">${total?'调整上方筛选条件':'点击「＋ 排查」新增第一条隐患'}</div></div>`;
+  }else{
+    html+=hz.map(h=>{
+      const od=isOverdue(h);
+      return `<div class="haz ${riskClass(h.risk)}" onclick="openDrawer('${h.id}')">
+        <div class="top">
+          <div class="ttl">${esc(h.title||h.facility+'隐患')}</div>
+          <span class="badge ${STAGES[h.status].badge}">${STAGES[h.status].label}</span>
+        </div>
+        <div class="meta">
+          <span>${riskPill(h.risk)}</span>
+          <b>📍 ${esc(h.area)}</b>
+          <b>${esc(h.facility)}</b>
+          <b>发现 ${fmtDay(h.foundAt)}</b>
+          ${od?`<span style="color:var(--red)">⚠ 超期</span>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  html+=`<div class="foot">江南AI工作小组</div>`;
+  $('#v-ledger').innerHTML=html;
+}
+function setLF(k,v){ LF[k]=v; renderLedger(); }
+
+/* ============================================================
+   排查录入
+   ============================================================ */
+let ADD={risk:'mid'};
+function renderAdd(){
+  $('#v-add').innerHTML=`
+  <div class="view-title"><h2>新增排查</h2><span class="tag">发现即录入</span></div>
+
+  <div class="panel">
+    <label class="fld"><div class="lab"><span>风险等级 <span class="req">*</span></span></div>
+      <div class="seg" id="risk-seg">
+        <div class="opt ${ADD.risk==='high'?'on-high':''}" onclick="setRisk('high')">高风险</div>
+        <div class="opt ${ADD.risk==='mid'?'on-mid':''}" onclick="setRisk('mid')">中风险</div>
+        <div class="opt ${ADD.risk==='low'?'on-low':''}" onclick="setRisk('low')">低风险</div>
+      </div>
+    </label>
+
+    <div class="grid grid-2">
+      <label class="fld"><div class="lab"><span>重点区域 <span class="req">*</span></span></div>
+        <select id="f-area" onchange="syncChecklist()">${AREAS.map(a=>`<option>${a}</option>`).join('')}</select></label>
+      <label class="fld"><div class="lab"><span>设施类型 <span class="req">*</span></span></div>
+        <select id="f-fac" onchange="syncChecklist()">${FACILITIES.map(a=>`<option>${a}</option>`).join('')}</select></label>
+    </div>
+
+    <label class="fld"><div class="lab"><span>隐患描述 <span class="req">*</span></span></div>
+      <textarea id="f-title" placeholder="如：xx路与xx路交叉口雨水口堵塞，强降雨易积水"></textarea>
+      <div id="cl-hint" class="note-line"></div>
+    </label>
+
+    <div class="grid grid-2">
+      <label class="fld"><div class="lab"><span>具体位置</span></div>
+        <input id="f-loc" placeholder="点位 / 桩号 / 地址"></label>
+      <label class="fld"><div class="lab"><span>整改时限</span></div>
+        <input id="f-due" type="date"></label>
+    </div>
+
+    <div class="grid grid-2">
+      <label class="fld"><div class="lab"><span>排查人</span></div>
+        <input id="f-by" placeholder="姓名 / 班组" value="${esc(DB.meta().lastUser||'')}"></label>
+      <label class="fld"><div class="lab"><span>GPS定位</span></div>
+        <button class="btn btn-ghost btn-sm" style="width:100%" onclick="grabGPS()" id="gps-btn">📍 获取坐标</button></label>
+    </div>
+    <div id="gps-out" class="note-line"></div>
+
+    <label class="fld"><div class="lab"><span>现场照片 / 备注</span></div>
+      <input id="f-photo" type="file" accept="image/*" capture="environment" onchange="previewPhoto(this)" style="padding:8px">
+      <div id="photo-out" style="margin-top:8px"></div>
+    </label>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="nav('dash')">取消</button>
+      <button class="btn btn-gold" onclick="saveHazard()">登记入台账</button>
+    </div>
+    <div class="note-line">登记后状态为「待派单」，进入排查—整改—复盘—提升闭环。</div>
+  </div>
+  <div class="foot">江南AI工作小组</div>
+  `;
+  ADD={risk:'mid',gps:null,photo:null};
+  setTimeout(syncChecklist,0);
+}
+function setRisk(r){ ADD.risk=r; $$('#risk-seg .opt').forEach((o,i)=>{ o.className='opt'; }); 
+  const map={high:0,mid:1,low:2}; const cls={high:'on-high',mid:'on-mid',low:'on-low'};
+  $$('#risk-seg .opt')[map[r]].classList.add(cls[r]); }
+function syncChecklist(){
+  const area=$('#f-area').value, fac=$('#f-fac').value;
+  const hits=[];
+  CHECKLIST.forEach(c=>c.items.forEach(it=>{ if(it.use===fac||it.use===area) hits.push(it); }));
+  const box=$('#cl-hint');
+  if(hits.length){
+    box.innerHTML='💡 相关排查要点（点击填入描述）：<br>'+hits.slice(0,4).map(it=>
+      `<span style="display:inline-block;background:var(--navy-3);color:var(--teal);padding:3px 9px;border-radius:7px;margin:4px 4px 0 0;cursor:pointer" onclick="fillTitle('${esc(it.t).replace(/'/g,"\\'")}')">${esc(it.t.slice(0,18))}…</span>`
+    ).join('');
+  }else box.innerHTML='';
+}
+function fillTitle(t){ $('#f-title').value=t; }
+function grabGPS(){
+  if(!navigator.geolocation){ toast('设备不支持定位'); return; }
+  $('#gps-btn').textContent='定位中…';
+  navigator.geolocation.getCurrentPosition(p=>{
+    ADD.gps={lat:+p.coords.latitude.toFixed(6),lng:+p.coords.longitude.toFixed(6)};
+    $('#gps-out').innerHTML=`✅ 已获取：${ADD.gps.lat}, ${ADD.gps.lng}`;
+    $('#gps-btn').textContent='📍 已定位';
+  },err=>{ toast('定位失败：'+err.message); $('#gps-btn').textContent='📍 获取坐标'; },{enableHighAccuracy:true,timeout:8000});
+}
+function previewPhoto(input){
+  const f=input.files[0]; if(!f) return;
+  if(f.size>2.2*1024*1024){ toast('图片较大，将压缩存储'); }
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const max=900, sc=Math.min(1,max/Math.max(img.width,img.height));
+      const cv=document.createElement('canvas'); cv.width=img.width*sc; cv.height=img.height*sc;
+      cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+      ADD.photo=cv.toDataURL('image/jpeg',0.72);
+      $('#photo-out').innerHTML=`<img src="${ADD.photo}" style="max-width:100%;border-radius:10px;border:1px solid var(--line)">`;
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(f);
+}
+function saveHazard(){
+  const title=$('#f-title').value.trim();
+  const area=$('#f-area').value, fac=$('#f-fac').value;
+  if(!title){ toast('请填写隐患描述'); return; }
+  const by=$('#f-by').value.trim();
+  const now=new Date().toISOString();
+  const h={
+    id:uid(), title, area, facility:fac, risk:ADD.risk,
+    location:$('#f-loc').value.trim(), dueDate:$('#f-due').value||'',
+    foundBy:by, foundAt:now, updatedAt:now,
+    gps:ADD.gps||null, photo:ADD.photo||null,
+    status:'wait',
+    log:[{stage:'wait',act:'排查发现·登记入台账',by,at:now,note:title}],
+  };
+  const arr=DB.hazards(); arr.push(h);
+  if(DB.saveHazards(arr)){
+    const m=DB.meta(); m.lastUser=by; DB.saveMeta(m);
+    toast('已登记入台账'); nav('ledger');
+  }
+}
+
+/* ============================================================
+   详情抽屉 · 闭环推进
+   ============================================================ */
+let CURID=null;
+function openDrawer(id){
+  CURID=id;
+  const h=DB.hazards().find(x=>x.id===id);
+  if(!h) return;
+  const od=isOverdue(h);
+  const next=STAGES[h.status].next, act=STAGES[h.status].act;
+
+  let html=`
+  <div class="top" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px">
+    <div style="font-size:17px;font-weight:700;line-height:1.35">${esc(h.title)}</div>
+    <span class="badge ${STAGES[h.status].badge}">${STAGES[h.status].label}</span>
+  </div>
+  <div style="margin:8px 0 14px">${riskPill(h.risk)} ${od?'<span class="risk-pill rp-high">⚠ 已超期</span>':''}</div>
+
+  <div class="kv"><span class="k">重点区域</span><span class="v">${esc(h.area)}</span></div>
+  <div class="kv"><span class="k">设施类型</span><span class="v">${esc(h.facility)}</span></div>
+  ${h.location?`<div class="kv"><span class="k">具体位置</span><span class="v">${esc(h.location)}</span></div>`:''}
+  ${h.gps?`<div class="kv"><span class="k">GPS坐标</span><span class="v"><a href="https://uri.amap.com/marker?position=${h.gps.lng},${h.gps.lat}" target="_blank" style="color:var(--teal)">${h.gps.lat}, ${h.gps.lng}</a></span></div>`:''}
+  <div class="kv"><span class="k">排查人</span><span class="v">${esc(h.foundBy||'—')}</span></div>
+  <div class="kv"><span class="k">发现时间</span><span class="v">${fmtDate(h.foundAt)}</span></div>
+  <div class="kv"><span class="k">整改时限</span><span class="v" style="${od?'color:var(--red)':''}">${h.dueDate||'未设定'}</span></div>
+  ${h.assignee?`<div class="kv"><span class="k">整改责任</span><span class="v">${esc(h.assignee)}</span></div>`:''}
+  ${h.photo?`<img src="${h.photo}" style="width:100%;border-radius:10px;border:1px solid var(--line);margin:12px 0">`:''}
+
+  <div class="divider"></div>
+  <h3 style="font-size:14px;margin:0 0 12px;display:flex;align-items:center;gap:8px"><span style="width:6px;height:14px;border-radius:3px;background:var(--gold)"></span>闭环留痕</h3>
+  <div class="timeline">
+    ${(h.log||[]).map((l,i)=>`
+      <div class="tl-item"><div class="tl-dot ${i<h.log.length?'done':''}"></div>
+        <div class="tl-body">
+          <div class="tl-act">${esc(l.act)}</div>
+          <div class="tl-when">${fmtDate(l.at)}${l.by?' · '+esc(l.by):''}</div>
+          ${l.note?`<div class="tl-note">${esc(l.note)}</div>`:''}
+        </div></div>`).join('')}
+  </div>
+  `;
+
+  // 操作区
+  html+=`<div class="divider"></div>`;
+  if(h.status==='closed'){
+    html+=`<div class="note-line" style="text-align:center;color:var(--green)">✅ 该隐患已完成整改并销号闭环</div>`;
+  }else{
+    html+=`<div class="btn-row" style="margin-bottom:10px">`;
+    if(next) html+=`<button class="btn btn-gold" onclick="advance('${h.id}')">${act} →</button>`;
+    if(h.status!=='warn') html+=`<button class="btn btn-ghost" onclick="setWarn('${h.id}')">暂无法整改·设警示</button>`;
+    html+=`</div>`;
+  }
+  html+=`<button class="btn btn-ghost" style="margin-top:4px;color:var(--red)" onclick="delHazard('${h.id}')">删除此记录</button>`;
+
+  $('#drawer-body').innerHTML=html;
+  $('#scrim').classList.add('show'); $('#drawer').classList.add('show');
+}
+function closeDrawer(){ $('#scrim').classList.remove('show'); $('#drawer').classList.remove('show'); }
+
+function advance(id){
+  const arr=DB.hazards(); const h=arr.find(x=>x.id===id); if(!h) return;
+  const cur=STAGES[h.status], next=cur.next; if(!next) return;
+  const by=DB.meta().lastUser||'';
+  let note='';
+  if(next==='assigned'){ const a=prompt('派单给（整改责任人/班组）：',h.assignee||''); if(a===null) return; h.assignee=a.trim(); note='派单至 '+h.assignee; }
+  else if(next==='doing'){ note=prompt('整改措施说明（选填）：','')||''; }
+  else if(next==='verify'){ note=prompt('整改完成情况说明：','')||''; }
+  else if(next==='closed'){ const v=prompt('核验意见（确认整改到位）：','复核通过，隐患消除'); if(v===null) return; note=v; }
+  h.status=next; const now=new Date().toISOString(); h.updatedAt=now;
+  (h.log=h.log||[]).push({stage:next,act:cur.act+'（→'+STAGES[next].label+'）',by,at:now,note});
+  DB.saveHazards(arr);
+  toast(STAGES[next].label); openDrawer(id);
+  if(next==='closed') setTimeout(()=>{ if(CUR!=='ledger') renderDash(); },300);
+}
+function setWarn(id){
+  const arr=DB.hazards(); const h=arr.find(x=>x.id===id); if(!h) return;
+  const note=prompt('警示/挂账原因（如需工程改造、待停水窗口等）：',''); if(note===null) return;
+  h.status='warn'; const now=new Date().toISOString(); h.updatedAt=now;
+  (h.log=h.log||[]).push({stage:'warn',act:'设置警示并挂账',by:DB.meta().lastUser||'',at:now,note});
+  DB.saveHazards(arr); toast('已设警示挂账'); openDrawer(id);
+}
+function delHazard(id){
+  if(!confirm('确认删除此隐患记录？该操作不可恢复。')) return;
+  const arr=DB.hazards().filter(x=>x.id!==id); DB.saveHazards(arr);
+  closeDrawer(); toast('已删除'); nav(CUR);
+}
+
+/* ============================================================
+   清单（可考据排查要点）
+   ============================================================ */
+function renderChecklist(){
+  let html=`
+  <div class="view-title"><h2>排查清单</h2><span class="tag">引规范条款</span></div>
+  <div class="panel" style="padding:13px 14px">
+    <div class="note-line" style="margin:0">依据 <b style="color:var(--teal)">GB 50014-2021</b>、<b style="color:var(--teal)">GB 51222-2017</b>、<b style="color:var(--teal)">CJJ 68-2016</b>、<b style="color:var(--teal)">CJJ 6-2009</b> 及 <b style="color:var(--gold)">《供水条例》(国务院令第831号)</b> 编制。点击展开各设施排查要点、对应条款与频次。</div>
+  </div>
+  `;
+  html+=CHECKLIST.map((c,i)=>`
+    <div class="cl-cat" id="cl-${i}">
+      <div class="cl-head" onclick="document.getElementById('cl-${i}').classList.toggle('open')">
+        <div>${esc(c.cat)} <span class="cnt">${c.items.length}项</span></div>
+        <span class="arr">›</span>
+      </div>
+      <div class="cl-body">
+        <div style="padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--teal)">主要依据：${esc(c.cite)}</div>
+        ${c.items.map(it=>`
+          <div class="cl-item">
+            <div class="ci-t">${esc(it.t)}</div>
+            <span class="ci-cite">${esc(it.cite)}</span>
+            <span class="ci-freq">⏱ ${esc(it.freq)}</span>
+            <div class="ci-use"><button class="btn btn-ghost btn-sm" onclick="quickFrom('${esc(it.use)}','${esc(it.t).replace(/'/g,"\\'")}')">按此排查 →</button></div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  html+=`<div class="foot">条款依据可考据 · 频次按现行规范及住建部要求 · 江南AI工作小组</div>`;
+  $('#v-checklist').innerHTML=html;
+}
+function quickFrom(use,t){
+  nav('add');
+  setTimeout(()=>{
+    const fa=$('#f-area'), ff=$('#f-fac');
+    if([...ff.options].some(o=>o.value===use)) ff.value=use;
+    else if([...fa.options].some(o=>o.value===use)) fa.value=use;
+    $('#f-title').value=t; syncChecklist();
+  },30);
+}
+
+/* ============================================================
+   复盘（强降雨后）
+   ============================================================ */
+function renderReview(){
+  const rv=DB.reviews().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  let html=`
+  <div class="view-title"><h2>降雨复盘</h2><span class="tag">${rv.length} 次</span></div>
+  <div class="panel">
+    <h3><span class="dot"></span>新增复盘记录</h3>
+    <div class="note-line" style="margin:0 0 12px">每场强降雨后48小时内复盘，分析预案与处置不足，结论反馈预案修订与设施改造（对接住建部"灾后复盘与预案修订结合"要求）。</div>
+    <label class="fld"><div class="lab"><span>降雨/汛情名称 <span class="req">*</span></span></div>
+      <input id="r-name" placeholder="如：6月15日梅雨强降雨"></label>
+    <div class="grid grid-2">
+      <label class="fld"><div class="lab"><span>日期</span></div><input id="r-date" type="date"></label>
+      <label class="fld"><div class="lab"><span>最大降雨量(mm)</span></div><input id="r-rain" type="number" placeholder="选填"></label>
+    </div>
+    <label class="fld"><div class="lab"><span>主要积水点 / 出险点</span></div><textarea id="r-points" placeholder="点位及处置情况"></textarea></label>
+    <label class="fld"><div class="lab"><span>暴露的短板/预案不足</span></div><textarea id="r-gaps" placeholder="部署传导、协同联动、巡查养护、信息报送等"></textarea></label>
+    <label class="fld"><div class="lab"><span>整改提升措施</span></div><textarea id="r-imp" placeholder="预案修订、设施改造、物资补充等"></textarea></label>
+    <button class="btn btn-teal" onclick="saveReview()">保存复盘</button>
+  </div>
+  `;
+  if(rv.length){
+    html+=rv.map(r=>`
+      <div class="panel" style="padding:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <div style="font-size:15px;font-weight:700">${esc(r.name)}</div>
+          <button class="btn-sm" style="background:none;border:none;color:var(--red);font-size:12px;cursor:pointer" onclick="delReview('${r.id}')">删除</button>
+        </div>
+        <div class="note-line" style="margin:4px 0 10px">${r.date||'—'}${r.rain?' · 最大 '+esc(r.rain)+'mm':''}</div>
+        ${r.points?`<div class="kv"><span class="k" style="flex:none">积水点</span><span class="v" style="max-width:72%;text-align:left">${esc(r.points)}</span></div>`:''}
+        ${r.gaps?`<div class="kv"><span class="k" style="flex:none;color:var(--amber)">短板</span><span class="v" style="max-width:72%;text-align:left">${esc(r.gaps)}</span></div>`:''}
+        ${r.imp?`<div class="kv"><span class="k" style="flex:none;color:var(--green)">提升</span><span class="v" style="max-width:72%;text-align:left">${esc(r.imp)}</span></div>`:''}
+      </div>`).join('');
+  }else{
+    html+=`<div class="empty"><div class="ico">↻</div>尚无复盘记录</div>`;
+  }
+  html+=`<div class="foot">江南AI工作小组</div>`;
+  $('#v-review').innerHTML=html;
+}
+function saveReview(){
+  const name=$('#r-name').value.trim(); if(!name){ toast('请填写降雨/汛情名称'); return; }
+  const r={ id:uid(), name, date:$('#r-date').value||new Date().toISOString().slice(0,10),
+    rain:$('#r-rain').value, points:$('#r-points').value.trim(),
+    gaps:$('#r-gaps').value.trim(), imp:$('#r-imp').value.trim(), at:new Date().toISOString() };
+  const arr=DB.reviews(); arr.push(r);
+  if(DB.saveReviews(arr)){ toast('复盘已保存'); renderReview(); }
+}
+function delReview(id){ if(!confirm('删除该复盘记录？')) return; DB.saveReviews(DB.reviews().filter(x=>x.id!==id)); renderReview(); }
+
+/* ============================================================
+   数据（导出/导入/统计/清空）
+   ============================================================ */
+function renderData(){
+  const hz=DB.hazards(), rv=DB.reviews();
+  const closed=hz.filter(h=>h.status==='closed').length;
+  let html=`
+  <div class="view-title"><h2>数据管理</h2><span class="tag">本机存储</span></div>
+  <div class="grid grid-2" style="margin-bottom:14px">
+    <div class="stat accent"><div class="num">${hz.length}</div><div class="lbl">隐患记录</div></div>
+    <div class="stat"><div class="num">${rv.length}</div><div class="lbl">复盘记录</div></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>导出 / 备份</h3>
+    <div class="note-line" style="margin:0 0 12px">导出完整 JSON 备份，可在其他设备导入恢复，便于交接与汇总上报。</div>
+    <div class="btn-row" style="margin-bottom:10px">
+      <button class="btn btn-gold" onclick="exportJSON()">导出JSON备份</button>
+      <button class="btn btn-ghost" onclick="exportCSV()">导出CSV台账</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>导入 / 恢复</h3>
+    <div class="note-line" style="margin:0 0 12px">导入 JSON 备份。可选择「合并」或「覆盖」现有数据。</div>
+    <input id="imp-file" type="file" accept="application/json,.json" style="padding:8px;margin-bottom:10px">
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="importJSON('merge')">合并导入</button>
+      <button class="btn btn-ghost" onclick="importJSON('replace')">覆盖导入</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="dot"></span>安装到主屏</h3>
+    <div class="note-line" style="margin:0">iOS：Safari 分享 → 添加到主屏幕；Android：浏览器菜单 → 添加到主屏幕 / 安装应用。安装后可离线使用，数据存于本机。</div>
+    <button class="btn btn-ghost" id="install-btn" style="margin-top:12px;display:none" onclick="doInstall()">📲 安装应用</button>
+  </div>
+
+  <div class="panel" style="border-color:var(--red-soft)">
+    <h3><span class="dot" style="background:var(--red)"></span>清空数据</h3>
+    <div class="note-line" style="margin:0 0 12px">删除本机全部隐患与复盘记录，不可恢复。建议先导出备份。</div>
+    <button class="btn btn-ghost" style="color:var(--red)" onclick="clearAll()">清空全部数据</button>
+  </div>
+  <div class="foot">江南AI工作小组 · 数据全部存储于本机浏览器，不上传任何服务器</div>
+  `;
+  $('#v-data').innerHTML=html;
+  if(window.__deferredPrompt) $('#install-btn').style.display='flex';
+}
+function exportJSON(){
+  const data={ _meta:{app:'防汛隐患排查台账',org:'江南AI工作小组',exportedAt:new Date().toISOString(),version:1},
+    hazards:DB.hazards(), reviews:DB.reviews() };
+  dl(JSON.stringify(data,null,2),`防汛台账备份_${new Date().toISOString().slice(0,10)}.json`,'application/json');
+  toast('已导出备份');
+}
+function exportCSV(){
+  const hz=DB.hazards();
+  const head=['风险等级','重点区域','设施类型','隐患描述','具体位置','状态','整改责任','排查人','发现时间','整改时限','GPS'];
+  const rows=hz.map(h=>[RISK[h.risk],h.area,h.facility,h.title,h.location||'',STAGES[h.status].label,h.assignee||'',h.foundBy||'',fmtDate(h.foundAt),h.dueDate||'',h.gps?`${h.gps.lat} ${h.gps.lng}`:'']
+    .map(c=>`"${String(c).replace(/"/g,'""')}"`).join(','));
+  dl('\ufeff'+[head.join(','),...rows].join('\r\n'),`防汛隐患台账_${new Date().toISOString().slice(0,10)}.csv`,'text/csv');
+  toast('已导出CSV');
+}
+function dl(content,name,type){
+  const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function importJSON(mode){
+  const f=$('#imp-file').files[0]; if(!f){ toast('请先选择备份文件'); return; }
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      const nh=d.hazards||[], nr=d.reviews||[];
+      if(!Array.isArray(nh)){ toast('文件格式不正确'); return; }
+      if(mode==='replace'){
+        if(!confirm('覆盖导入将清除现有数据，确认？')) return;
+        DB.saveHazards(nh); DB.saveReviews(nr);
+      }else{
+        const eh=DB.hazards(), ids=new Set(eh.map(x=>x.id));
+        nh.forEach(x=>{ if(!ids.has(x.id)) eh.push(x); });
+        const er=DB.reviews(), rids=new Set(er.map(x=>x.id));
+        nr.forEach(x=>{ if(!rids.has(x.id)) er.push(x); });
+        DB.saveHazards(eh); DB.saveReviews(er);
+      }
+      toast(`已${mode==='replace'?'覆盖':'合并'}导入`); renderData();
+    }catch(err){ toast('解析失败：文件可能损坏'); }
+  };
+  reader.readAsText(f);
+}
+function clearAll(){
+  if(!confirm('确认清空全部数据？不可恢复。')) return;
+  if(!confirm('再次确认：导出备份了吗？继续将永久删除。')) return;
+  localStorage.removeItem(DB.hk); localStorage.removeItem(DB.rk);
+  toast('已清空'); renderData();
+}
+
+/* ============================================================
+   PWA · 安装 / Service Worker（离线）
+   ============================================================ */
+window.__deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); window.__deferredPrompt=e; const b=$('#install-btn'); if(b)b.style.display='flex'; });
+function doInstall(){ const p=window.__deferredPrompt; if(!p) return; p.prompt(); p.userChoice.finally(()=>{ window.__deferredPrompt=null; $('#install-btn').style.display='none'; }); }
+
+// 内联 manifest（blob），支持"添加到主屏"
+(function(){
+  try{
+    const mani={ name:'防汛隐患排查台账', short_name:'防汛台账', start_url:'.', display:'standalone',
+      background_color:'#0a1628', theme_color:'#0a1628',
+      icons:[{src:iconURL(192),sizes:'192x192',type:'image/png'},{src:iconURL(512),sizes:'512x512',type:'image/png'}] };
+    const blob=new Blob([JSON.stringify(mani)],{type:'application/manifest+json'});
+    const l=document.createElement('link'); l.rel='manifest'; l.href=URL.createObjectURL(blob); document.head.appendChild(l);
+    const al=document.createElement('link'); al.rel='apple-touch-icon'; al.href=iconURL(180); document.head.appendChild(al);
+  }catch(e){}
+})();
+function iconURL(s){
+  const c=document.createElement('canvas'); c.width=c.height=s; const x=c.getContext('2d');
+  x.fillStyle='#0a1628'; x.fillRect(0,0,s,s);
+  x.fillStyle='#d4a843'; x.font=`bold ${s*0.5}px -apple-system,sans-serif`; x.textAlign='center'; x.textBaseline='middle';
+  x.fillText('汛',s/2,s*0.54);
+  x.strokeStyle='#2dd4bf'; x.lineWidth=s*0.03; x.strokeRect(s*0.12,s*0.12,s*0.76,s*0.76);
+  return c.toDataURL('image/png');
+}
+// Service Worker：从真实路径访问时启用离线缓存（file:// 下自动跳过）
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  const swCode=`self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',e=>{ e.respondWith( fetch(e.request).then(r=>{ const c=r.clone(); caches.open('jn-flood-v1').then(ca=>ca.put(e.request,c)); return r; }).catch(()=>caches.match(e.request)) ); });`;
+  try{
+    const burl=URL.createObjectURL(new Blob([swCode],{type:'text/javascript'}));
+    navigator.serviceWorker.register(burl).catch(()=>{});
+  }catch(e){}
+}
+
+/* ---------- 启动 ---------- */
+nav('dash');
+</script>
+</body>
+</html>
