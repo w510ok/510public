@@ -1,0 +1,22 @@
+{
+  "name": "扶阳化脓灸：理论到实践转化工具包",
+  "short_name": "化脓灸PWA",
+  "description": "化脓灸/瘢痕灸的证据分级、风险筛查、医师SOP与随访记录工具。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fdf8eb",
+  "theme_color": "#8b4a24",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

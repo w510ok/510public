@@ -1,0 +1,69 @@
+{
+  "title": "扶阳化脓灸理论到实践转化工具包 - source notes",
+  "version": "1.0",
+  "created": "2026-06-17",
+  "core_user_material": "用户上传的《粘贴的文本 (1).txt》，包含关于化脓灸的疫苗效应、扶阳效应、常用穴位、具体操作、局部脓液、灸后护理等论述。",
+  "public_sources": [
+    {
+      "id": "S1",
+      "name": "Safety of Moxibustion: A Systematic Review of Case Reports",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4058265/",
+      "use": "不良事件、烧伤/感染/过敏/烟雾等风险"
+    },
+    {
+      "id": "S2",
+      "name": "Adverse events of moxibustion: a systematic review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21056845/",
+      "use": "不良事件类型和风险边界"
+    },
+    {
+      "id": "S3",
+      "name": "WHO benchmarks for the practice of acupuncture",
+      "url": "https://www.who.int/publications/i/item/978-92-4-001688-0",
+      "use": "针灸服务基础设施、安全实践与从业规范参考"
+    },
+    {
+      "id": "S4",
+      "name": "WHO Vaccines and immunization: What is vaccination?",
+      "url": "https://www.who.int/news-room/questions-and-answers/item/vaccines-and-immunization-what-is-vaccination",
+      "use": "疫苗概念、特异性免疫训练，与‘疫苗效应’类比纠偏"
+    },
+    {
+      "id": "S5",
+      "name": "CDC Explaining How Vaccines Work",
+      "url": "https://www.cdc.gov/vaccines/basics/explaining-how-vaccines-work.html",
+      "use": "疫苗通过模拟感染训练免疫系统，不等于灸疮造成的非特异炎症"
+    },
+    {
+      "id": "S6",
+      "name": "The Mechanism of Moxibustion: Ancient Theory and Modern Research",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789413/",
+      "use": "热效应、辐射效应、艾及燃烧产物的现代机制研究"
+    },
+    {
+      "id": "S7",
+      "name": "Moxibustion for Essential Hypertension and Hypertensive Symptoms: A Systematic Review of 18 RCTs",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33494086/",
+      "use": "高血压方向证据等级：可能作为辅助但证据质量有限"
+    },
+    {
+      "id": "S8",
+      "name": "Moxibustion for cancer care: a systematic review and meta-analysis",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2873382/",
+      "use": "肿瘤支持治疗证据：恶心呕吐等有限，不支持抗癌根治宣称"
+    },
+    {
+      "id": "S9",
+      "name": "NCI Infection and Neutropenia during Cancer Treatment",
+      "url": "https://www.cancer.gov/about-cancer/treatment/side-effects/infection",
+      "use": "肿瘤治疗/中性粒低下人群感染风险"
+    },
+    {
+      "id": "S10",
+      "name": "NICE Blood Transfusion - Platelet thresholds and targets",
+      "url": "https://www.ncbi.nlm.nih.gov/books/n/niceng24/ch12/",
+      "use": "侵入性操作常参考血小板 >50×10^9/L 的安全底线"
+    }
+  ],
+  "evidence_note": "PWA中的证据分级为面向实务的粗分级，不替代系统评价或临床指南。"
+}

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>扶阳化脓灸：理论到实践转化工具包</title>
+  <meta name="theme-color" content="#8b4a24">
+  <meta name="description" content="化脓灸/瘢痕灸的证据分级、风险筛查、医师SOP与随访记录工具。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <style>
+    :root{
+      --bg:#fdf8eb; --paper:#fffaf0; --ink:#251a12; --muted:#6f604f;
+      --brown:#8b4a24; --brown2:#5f351f; --gold:#d89b46; --line:#eadcc5;
+      --red:#a93a2a; --redbg:#fff0ec; --green:#28704e; --greenbg:#eef9f1;
+      --blue:#315c86; --bluebg:#eef5fb; --amber:#956120; --amberbg:#fff7df;
+      --shadow:0 18px 46px rgba(81,49,18,.12); --radius:20px;
+      --safeTop: env(safe-area-inset-top); --safeBottom: env(safe-area-inset-bottom);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at top left,#fff2d2 0,#fdf8eb 34%,#f7f0df 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;line-height:1.62;}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(139,74,36,.05),transparent 45%,rgba(216,155,70,.08));z-index:-1;}
+    a{color:var(--brown);text-decoration:none;border-bottom:1px dotted rgba(139,74,36,.35)}
+    .app{max-width:1180px;margin:0 auto;padding:calc(14px + var(--safeTop)) 14px calc(100px + var(--safeBottom));}
+    .hero{position:relative;overflow:hidden;border:1px solid rgba(139,74,36,.16);border-radius:28px;padding:28px 22px;background:linear-gradient(135deg,#fff9ea,#fbe9c4 58%,#efd3aa);box-shadow:var(--shadow);}
+    .hero:after{content:"灸";position:absolute;right:-18px;top:-48px;font-size:190px;font-weight:900;color:rgba(139,74,36,.08);line-height:1;}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:5px 10px;border:1px solid rgba(139,74,36,.22);border-radius:999px;color:var(--brown2);background:rgba(255,255,255,.52);font-size:13px;font-weight:650;}
+    h1{font-size:clamp(28px,7vw,58px);line-height:1.08;letter-spacing:-.04em;margin:18px 0 12px;color:#3b2416;}
+    h2{font-size:clamp(23px,4.2vw,34px);line-height:1.2;margin:34px 0 14px;color:#3d2617;letter-spacing:-.02em;}
+    h3{font-size:19px;margin:20px 0 10px;color:#4d2e1b;}
+    h4{font-size:16px;margin:16px 0 8px;color:#5f351f;}
+    p{margin:8px 0}.lead{font-size:18px;max-width:850px;color:#4f3d2d}.small{font-size:13px;color:var(--muted)}
+    .heroGrid{display:grid;grid-template-columns:1.5fr .8fr;gap:18px;align-items:end}.heroActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;z-index:1}.btn{appearance:none;border:0;border-radius:999px;background:var(--brown);color:white;font-weight:800;padding:12px 16px;box-shadow:0 8px 22px rgba(139,74,36,.22);cursor:pointer}.btn.secondary{background:#fff;color:var(--brown2);border:1px solid rgba(139,74,36,.18);box-shadow:none}.btn.ghost{background:transparent;color:var(--brown2);box-shadow:none;border:1px dashed rgba(139,74,36,.35)}.btn.danger{background:var(--red)}
+    .nav{position:sticky;top:0;z-index:50;margin:12px -14px 0;padding:8px 14px;background:rgba(253,248,235,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(139,74,36,.12);overflow:auto;white-space:nowrap}.nav a{display:inline-flex;border:0;margin:0 6px 0 0;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.76);color:#5f351f;font-size:14px;font-weight:720}.nav a.active{background:var(--brown);color:white}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{grid-column:span 4;background:rgba(255,250,240,.88);border:1px solid rgba(139,74,36,.13);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(75,49,25,.08)}.card.wide{grid-column:span 8}.card.full{grid-column:1/-1}.card.half{grid-column:span 6}.card.red{background:var(--redbg);border-color:rgba(169,58,42,.22)}.card.green{background:var(--greenbg);border-color:rgba(40,112,78,.18)}.card.blue{background:var(--bluebg);border-color:rgba(49,92,134,.18)}.card.amber{background:var(--amberbg);border-color:rgba(149,97,32,.22)}.card h3{margin-top:0}.kpi{font-size:34px;font-weight:900;color:var(--brown);line-height:1}.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:#f3e7d5;color:#664022;font-size:12px;font-weight:800;margin:2px}.tag.red{background:#ffe2db;color:#9b2f20}.tag.green{background:#e2f4e9;color:#1e6845}.tag.blue{background:#dfedf8;color:#2c5a82}.tag.gray{background:#eee7dc;color:#635343}.tag.amber{background:#ffe8b7;color:#8b5a16}
+    .alert{border-left:5px solid var(--red);background:#fff0ec;border-radius:14px;padding:14px 16px;margin:12px 0;color:#5c211b}.ok{border-left-color:var(--green);background:#eef9f1;color:#163d2c}.note{border-left-color:var(--blue);background:#eef5fb;color:#183c5a}.warn{border-left-color:#d28b2d;background:#fff7df;color:#593b13}
+    .timeline{position:relative;padding-left:18px}.timeline:before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:#dfc8a7}.step{position:relative;margin:0 0 15px;padding-left:18px}.step:before{content:"";position:absolute;left:-18px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 2px #dfc8a7}.step b{color:#4d2e1b}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0;background:#fffaf0;border:1px solid var(--line);border-radius:16px;overflow:hidden}th,td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f4e5cd;color:#51331e;font-size:13px}tr:last-child td{border-bottom:0}.tableWrap{overflow:auto;border-radius:16px}
+    .scorebox{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line);margin-top:10px}.scoreIcon{min-width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:white;background:var(--brown)}.scorebox.red .scoreIcon{background:var(--red)}.scorebox.amber .scoreIcon{background:var(--amber)}.scorebox.green .scoreIcon{background:var(--green)}
+    .checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.check{display:flex;align-items:flex-start;gap:9px;padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.72)}.check input{margin-top:5px;transform:scale(1.15)}
+    input,textarea,select{width:100%;border:1px solid #dbc7a9;background:#fffdf8;border-radius:14px;padding:11px 12px;font:inherit;color:var(--ink);outline:none}textarea{min-height:88px;resize:vertical}.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-size:13px;color:#654d38;font-weight:800;margin:0 0 5px}.footerBtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.record{border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;margin:8px 0}.records{max-height:260px;overflow:auto}
+    details{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.68);padding:10px 14px;margin:10px 0}summary{font-weight:850;color:#4e301d;cursor:pointer}.sourceList li{margin:8px 0}.sourceList{padding-left:20px}.pillrow{display:flex;gap:8px;flex-wrap:wrap}.matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.matrix div{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+    .printOnly{display:none}.mobileBar{position:fixed;left:0;right:0;bottom:0;z-index:90;background:rgba(253,248,235,.92);backdrop-filter:blur(16px);border-top:1px solid rgba(139,74,36,.15);padding:8px 10px calc(8px + var(--safeBottom));display:none}.mobileBar .btn{flex:1;padding:10px 8px;font-size:13px}.installHint{display:none}
+    @media (max-width:880px){.heroGrid{grid-template-columns:1fr}.heroActions{justify-content:flex-start}.card,.card.wide,.card.half{grid-column:1/-1}.checklist,.formGrid{grid-template-columns:1fr}.matrix{grid-template-columns:1fr 1fr}.mobileBar{display:flex;gap:8px}.nav{top:0}.app{padding-bottom:125px}}
+    @media (max-width:520px){.matrix{grid-template-columns:1fr}.hero{padding:22px 16px;border-radius:24px}.card{padding:15px}.nav a{font-size:13px;padding:8px 10px}table{font-size:13px}.kpi{font-size:30px}}
+    @media print{body{background:#fff;color:#000}.app{max-width:none;padding:0}.nav,.heroActions,.mobileBar,.btn,.installHint{display:none!important}.hero,.card,details{box-shadow:none;background:#fff;border-color:#999;break-inside:avoid}.printOnly{display:block}.card{grid-column:1/-1}.grid{display:block}.sourceList a:after{content:" <" attr(href) ">";font-size:11px}.hero:after{display:none}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="hero" id="top">
+    <div class="heroGrid">
+      <div>
+        <span class="eyebrow">理论到实践 · 证据分级 · 安全闭环 · PWA离线版</span>
+        <h1>扶阳化脓灸<br>理论到实践转化工具包</h1>
+        <p class="lead">把“化脓灸/瘢痕灸”的古籍依据、扶阳理论、现代机制、临床证据和风险控制，转化为可审查、可记录、可随访、可复盘的实践框架。</p>
+        <div class="pillrow" aria-label="核心定位">
+          <span class="tag red">不是自行烧灼指南</span>
+          <span class="tag amber">不替代疫苗与标准治疗</span>
+          <span class="tag blue">面向研究、科普、临床质控</span>
+          <span class="tag green">支持离线使用</span>
+        </div>
+      </div>
+      <div class="heroActions">
+        <button class="btn" onclick="location.hash='risk'">先做风险筛查</button>
+        <button class="btn secondary" onclick="window.print()">打印SOP</button>
+        <button class="btn ghost" id="installBtn" style="display:none">安装PWA</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav" id="nav">
+    <a href="#position">定位</a><a href="#theory">理论框架</a><a href="#evidence">证据矩阵</a><a href="#risk">风险筛查</a><a href="#path">实践路径</a><a href="#sop">医师SOP</a><a href="#follow">随访记录</a><a href="#sources">资料依据</a>
+  </nav>
+
+  <section id="position">
+    <h2>一、先定边界：能研究，但不能神化；能转化，但不能失控</h2>
+    <div class="grid">
+      <article class="card red wide">
+        <h3>最高优先级安全提示</h3>
+        <p><b>化脓灸不是普通艾灸。</b>它有意造成局部烧灼、水疱、灸疮、渗出甚至永久瘢痕，属于有创外治法。普通人不应在家自行操作；医疗机构也应先做病史、用药、血常规、凝血、皮肤和感染风险评估。</p>
+        <p><b>本工具的“实践”含义：</b>不是教人自行烧灼，而是把理论落成“是否适合做、谁能做、怎么评估、怎么告知、怎么记录、怎么随访、何时停止”的闭环。</p>
+      </article>
+      <article class="card amber">
+        <h3>对“疫苗效应”的纠偏</h3>
+        <p>古人把灸疮比作“常备卫气”“三里常不干”，现代可理解为局部损伤、炎症和神经免疫调节的类比。它<b>不是疫苗</b>：疫苗依靠明确抗原训练特异性免疫记忆，化脓灸并不提供特异病原体抗原。</p>
+      </article>
+      <article class="card green">
+        <h3>仍可保留的价值</h3>
+        <p>作为中医外治法，化脓灸的历史、体质调理观、温热刺激、局部炎症与长期穴位刺激，值得研究。更现实的落地是：作为正规中医临床中的小范围、严格筛选、可追踪辅助技术，而不是“包治百病”。</p>
+      </article>
+      <article class="card blue">
+        <h3>一页判断</h3>
+        <div class="matrix">
+          <div><b>事实</b><br><span class="small">直接灸可导致烧伤、渗出、瘢痕；不良事件有文献记录。</span></div>
+          <div><b>理论</b><br><span class="small">扶阳、温经、通络、开门逐邪属中医解释体系。</span></div>
+          <div><b>假说</b><br><span class="small">“免疫激活”“非特异防御提高”可作为研究假说。</span></div>
+          <div><b>不可宣称</b><br><span class="small">不能宣称替代降压药、胰岛素、抗病毒、抗肿瘤治疗或疫苗。</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="theory">
+    <h2>二、理论框架：从古籍语言转为现代可审查语言</h2>
+    <div class="grid">
+      <article class="card half">
+        <h3>1. 古籍中的核心脉络</h3>
+        <div class="timeline">
+          <div class="step"><b>防病强身：</b>《千金方》“宦游吴蜀，体上常须两三处灸之，勿令疮暂瘥”，强调环境变化、瘴疠防御与长期灸疮。</div>
+          <div class="step"><b>灸疮发作：</b>《针灸资生经》“凡着艾得疮发，所患即瘥，不得疮发，其疾不愈”，强调灸疮与疗效的传统关系。</div>
+          <div class="step"><b>扶阳救逆：</b>《伤寒论》《扁鹊心书》等重视灸法在虚寒、阳气衰微、急证中的地位。</div>
+          <div class="step"><b>强壮穴：</b>足三里“若要安，三里常不干”，关元、命门、足三里成为后世扶阳灸常用叙述中心。</div>
+        </div>
+      </article>
+      <article class="card half">
+        <h3>2. 后世发挥与现代扶阳派观点</h3>
+        <p>上传材料把化脓灸解释为“扶阳、疫苗、免疫激活、开门逐邪”，并扩展到高血压、糖尿病、乙肝、肿瘤、免疫性疾病等大病种。这类论述有启发性，但需要分层：</p>
+        <table>
+          <tr><th>层级</th><th>应如何使用</th></tr>
+          <tr><td>古籍原文</td><td>可作为历史与理论依据，但不能直接等同现代疗效证据。</td></tr>
+          <tr><td>临床经验</td><td>可形成观察研究和病例登记，不可直接推出“根治”。</td></tr>
+          <tr><td>机制假说</td><td>可设计动物实验、免疫指标、炎症因子、神经调节研究验证。</td></tr>
+          <tr><td>疗效宣称</td><td>必须经过随机对照、真实世界队列、安全监测和长期随访。</td></tr>
+        </table>
+      </article>
+      <article class="card full">
+        <h3>3. 现代可审查机制：五个通道</h3>
+        <div class="matrix">
+          <div><b>温热效应</b><br><span class="small">局部热刺激影响皮肤温度感受器、微循环、组织代谢。</span></div>
+          <div><b>局部损伤/炎症</b><br><span class="small">水疱、渗出、创面修复可动员炎症细胞和细胞因子。</span></div>
+          <div><b>神经反射</b><br><span class="small">疼痛、温度、触觉刺激可能经外周神经影响自主神经和中枢调节。</span></div>
+          <div><b>艾燃烧产物</b><br><span class="small">艾叶挥发成分和烟雾可能有药理作用，也有呼吸道刺激风险。</span></div>
+          <div><b>经络/穴位体系</b><br><span class="small">作为中医定位和临床经验系统，需与解剖安全和现代记录结合。</span></div>
+          <div><b>心理与照护效应</b><br><span class="small">仪式、期待、随访、生活方式改变也会影响主观症状。</span></div>
+          <div><b>不能推出</b><br><span class="small">不能因“免疫指标变化”直接推出抗癌、抗病毒或替代疫苗。</span></div>
+          <div><b>最佳研究方向</b><br><span class="small">先从疼痛、虚寒型胃肠症状、疲劳、术后/慢病辅助症状和安全性登记做起。</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="evidence">
+    <h2>三、证据矩阵：把“可谈、可试、不可宣称”分清楚</h2>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>主题</th><th>现有证据判断</th><th>实践结论</th><th>红线</th></tr></thead>
+        <tbody>
+          <tr><td><b>安全性</b></td><td><span class="tag red">风险证据明确</span><br>系统综述记录了烧伤、感染、过敏、咳嗽、恶心、皮肤色素沉着、瘢痕等不良事件；直接灸/瘢痕灸风险高于温和间接灸。</td><td>必须按有创外治法管理，做知情同意和伤口随访。</td><td>不可把“化脓”简单说成绝对安全。</td></tr>
+          <tr><td><b>“疫苗效应”</b></td><td><span class="tag amber">比喻/假说</span><br>灸疮可类比“非特异免疫动员”，但疫苗需明确抗原和特异免疫记忆。</td><td>可改写为“局部炎症—神经免疫调节假说”。</td><td>不可替代任何疫苗，尤其乙肝、流感、肺炎、带状疱疹等。</td></tr>
+          <tr><td><b>扶阳/虚寒证</b></td><td><span class="tag blue">传统经验强，现代证据有限</span><br>适合做中医辨证和症状改善研究。</td><td>优先选择低风险温和灸；瘢痕灸仅限严格筛选。</td><td>不能脱离现代诊断，把所有慢病都归为阳虚。</td></tr>
+          <tr><td><b>高血压</b></td><td><span class="tag amber">低质量辅助证据</span><br>有系统评价纳入RCT提示可能对血压/症状有辅助作用，但研究质量和异质性限制明显。</td><td>只能作为生活方式和规范降压治疗之外的辅助观察。</td><td>不可停降压药；不可用灸后短期血压变化判断治愈。</td></tr>
+          <tr><td><b>哮喘/肺心病/COPD</b></td><td><span class="tag amber">低到很低</span><br>部分艾灸或热敏灸研究关注症状和肺功能，但不等同化脓灸；烟雾还可能刺激呼吸道。</td><td>有肺病、烟敏、哮喘者慎用烟灸，优先无烟/替代方案，由医生评估。</td><td>不可替代吸入激素、支气管扩张剂、氧疗和急救方案。</td></tr>
+          <tr><td><b>肿瘤支持治疗</b></td><td><span class="tag amber">有限、偏支持治疗</span><br>系统综述提示对化疗相关恶心呕吐可能有有限辅助信号，但研究偏倚高。</td><td>最多作为支持治疗研究；需肿瘤科同意。</td><td>不能宣称消瘤、治癌、替代手术/放化疗/靶免治疗。</td></tr>
+          <tr><td><b>糖尿病/高血脂</b></td><td><span class="tag gray">证据不足</span><br>多为理论和经验阐释，缺乏可靠证据证明可控制血糖血脂或逆转并发症。</td><td>糖尿病人创面感染风险高，瘢痕灸应严控或避免。</td><td>不可替代饮食运动、降糖药、胰岛素、他汀等。</td></tr>
+          <tr><td><b>乙肝/病毒病</b></td><td><span class="tag gray">证据不足</span><br>“提高免疫力以清除病毒”是过度简化。</td><td>只能作为生活质量辅助观察。</td><td>不可替代乙肝疫苗、抗病毒治疗、HBV DNA和肝癌筛查。</td></tr>
+          <tr><td><b>自身免疫病</b></td><td><span class="tag gray">理论大于证据</span><br>免疫调节可能双向，疾病活动期/免疫抑制期创面风险更高。</td><td>需风湿免疫科/专科医生共同评估。</td><td>不可因“调免疫”自行停激素、免疫抑制剂、生物制剂。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="risk">
+    <h2>四、风险筛查：先判断“不能做”，再谈“怎么做”</h2>
+    <div class="grid">
+      <article class="card full red">
+        <h3>自查不是诊断；任一硬风险触发，默认不做化脓灸</h3>
+        <p>下面工具用于普通人和机构初筛。它不替代医生判断；目的在于把“隐性高风险”显性化，防止因追求化脓、重灸而造成感染、出血、瘢痕、延误治疗。</p>
+      </article>
+      <article class="card wide">
+        <h3>勾选存在的情况</h3>
+        <div class="checklist" id="riskList">
+          <label class="check"><input type="checkbox" data-level="hard" value="正在化疗/靶免/免疫抑制，或近期白细胞/中性粒细胞偏低"><span>正在化疗、靶向/免疫治疗、长期激素/免疫抑制，或白细胞/中性粒细胞偏低</span></label>
+          <label class="check"><input type="checkbox" data-level="hard" value="血小板低、出血倾向、正在使用抗凝/抗血小板药"><span>血小板低、容易出血/瘀斑，或正在使用抗凝/抗血小板药</span></label>
+          <label class="check"><input type="checkbox" data-level="hard" value="糖尿病控制不佳、周围神经病变、慢性伤口"><span>糖尿病控制不佳、周围神经病变、足病、慢性伤口或伤口愈合差</span></label>
+          <label class="check"><input type="checkbox" data-level="hard" value="发热、活动性感染、皮肤感染或局部破损"><span>发热、活动性感染、皮肤感染、局部破损、疖肿、湿疹渗出</span></label>
+          <label class="check"><input type="checkbox" data-level="hard" value="不接受永久瘢痕或瘢痕疙瘩体质"><span>不接受永久瘢痕，或有瘢痕疙瘩/增生性瘢痕体质</span></label>
+          <label class="check"><input type="checkbox" data-level="hard" value="孕期、儿童、意识障碍或不能准确表达疼痛"><span>孕期、儿童、意识障碍、感觉障碍，或不能准确表达疼痛/不适</span></label>
+          <label class="check"><input type="checkbox" data-level="moderate" value="严重贫血、极度疲劳、营养差"><span>严重贫血、极度疲劳、营养差、近期大病初愈</span></label>
+          <label class="check"><input type="checkbox" data-level="moderate" value="哮喘、COPD、烟雾敏感或艾草过敏"><span>哮喘、COPD、烟雾敏感、艾草/菊科植物过敏</span></label>
+          <label class="check"><input type="checkbox" data-level="moderate" value="血压明显不稳、心律失常、近期胸痛"><span>血压明显不稳、心律失常、近期胸痛/气促/晕厥</span></label>
+          <label class="check"><input type="checkbox" data-level="moderate" value="无法完成术后清洁换药和随访"><span>无法完成术后清洁换药、拍照记录和7—30天随访</span></label>
+        </div>
+        <div class="footerBtns">
+          <button class="btn" onclick="evaluateRisk()">生成风险判断</button>
+          <button class="btn secondary" onclick="clearRisk()">清空</button>
+          <button class="btn secondary" onclick="saveRisk()">保存本地记录</button>
+        </div>
+      </article>
+      <aside class="card" id="riskResult">
+        <h3>风险判断</h3>
+        <div class="scorebox amber"><div class="scoreIcon">?</div><div><b>尚未评估</b><br><span class="small">请勾选左侧项目后点击“生成风险判断”。</span></div></div>
+      </aside>
+      <article class="card full">
+        <h3>本地风险记录</h3>
+        <div id="riskRecords" class="records small">暂无记录。</div>
+        <button class="btn secondary" onclick="downloadRiskRecords()">下载风险记录 JSON</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="path">
+    <h2>五、从理论到实践的落地路径</h2>
+    <div class="grid">
+      <article class="card full">
+        <div class="timeline">
+          <div class="step"><b>第0步：目的限定。</b>明确是研究、科普、临床辅助还是个人养生咨询。个人养生默认选择非瘢痕、非破皮、低烟或无烟方案，不进入化脓灸。</div>
+          <div class="step"><b>第1步：现代医学诊断先行。</b>高血压、糖尿病、乙肝、肿瘤、自身免疫病、哮喘等，必须先有规范诊断和标准治疗方案。</div>
+          <div class="step"><b>第2步：中医辨证与目标症状。</b>只把“怕冷、疲乏、慢性虚寒性疼痛、胃肠虚寒、康复期体质调理”等作为可观察目标，避免“根治基础病”目标。</div>
+          <div class="step"><b>第3步：风险筛查与知情同意。</b>对免疫、血小板、凝血、糖尿病、皮肤、瘢痕体质、烟雾过敏进行硬筛查；告知疼痛、瘢痕、感染、色沉和失败可能。</div>
+          <div class="step"><b>第4步：小范围、低剂量、可停止。</b>即使在正规机构，也应遵循最小有效刺激、逐步评估、出现红旗即停止的原则；不以“越痛越好、越脓越好”为目标。</div>
+          <div class="step"><b>第5步：创面管理和随访。</b>记录局部大小、疼痛、渗出、体温、全身症状、照片和处理；红旗症状立即转现代伤口/感染处理。</div>
+          <div class="step"><b>第6步：疗效复盘。</b>用量表和客观指标复盘：疼痛评分、睡眠、疲劳、胃肠症状、血压血糖等。任何客观指标改善都不能自行停药，须主管医生确认。</div>
+        </div>
+      </article>
+      <article class="card green half">
+        <h3>更适合普通人的安全转化</h3>
+        <p>普通人想“借鉴扶阳思路”，不必进入化脓灸。更安全的转化是：规律作息、保暖、适度运动、避免过度寒凉饮食、遵医嘱控制基础病；需要艾灸时优先选择正规机构的温和灸、隔物灸或无烟方案。</p>
+      </article>
+      <article class="card red half">
+        <h3>不适合转化为家庭操作</h3>
+        <p>家庭自行化脓灸最大问题不是“不会找穴”，而是无法完成医学筛查、无菌操作、剂量控制、创面判断、过敏/晕厥/感染急救，以及对基础病延误治疗的纠偏。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="sop">
+    <h2>六、医师/机构版 SOP：把经验操作纳入质控</h2>
+    <div class="grid">
+      <article class="card wide">
+        <h3>术前四审</h3>
+        <table>
+          <tr><th>项目</th><th>要点</th><th>必须留痕</th></tr>
+          <tr><td>医学审查</td><td>诊断、病期、正在用药、感染风险、出血风险、糖尿病控制、免疫状态。</td><td>病史摘要、近期血常规/凝血/血糖或医生判断。</td></tr>
+          <tr><td>中医审查</td><td>辨证依据、选穴理由、目标症状、预期疗程与停止条件。</td><td>辨证记录、目标量表。</td></tr>
+          <tr><td>风险审查</td><td>硬禁忌、相对禁忌、烟雾通风、瘢痕接受度、术后护理能力。</td><td>风险筛查表、知情同意。</td></tr>
+          <tr><td>替代方案</td><td>温和灸、隔物灸、热疗、针刺、药物、康复、继续观察。</td><td>已说明替代方案及不做的选择。</td></tr>
+        </table>
+      </article>
+      <article class="card red">
+        <h3>三条停止线</h3>
+        <p><b>术中停止：</b>晕厥、胸闷、喘憋、剧烈疼痛、过敏、血压异常、患者要求停止。</p>
+        <p><b>术后停止：</b>红肿快速扩大、恶臭或黄绿色脓液、发热≥38℃、红线样淋巴管炎、持续出血、疼痛加重。</p>
+        <p><b>研究停止：</b>不能按期随访、记录不完整、疗效目标不清、出现严重不良事件。</p>
+      </article>
+      <article class="card full">
+        <h3>操作原则：给专业人员的质控框架，不给家庭模仿的细节</h3>
+        <div class="matrix">
+          <div><b>最小有效刺激</b><br><span class="small">不追求大面积烧伤，不以“脓多”为唯一疗效标志。</span></div>
+          <div><b>无菌和消防</b><br><span class="small">清洁皮肤、合格艾材、通风、灭火、防烟、防烫伤。</span></div>
+          <div><b>部位安全</b><br><span class="small">避免面部、乳头/生殖器、大血管、关节、感觉障碍处、皮肤病处。</span></div>
+          <div><b>剂量留痕</b><br><span class="small">记录穴位、方法、时长/壮数、创面大小、患者反应。</span></div>
+          <div><b>创面随访</b><br><span class="small">至少D1、D3、D7、D14、D30随访，必要时转伤口门诊。</span></div>
+          <div><b>疗效复盘</b><br><span class="small">先看目标症状，再看客观指标；不得据此自行停药。</span></div>
+          <div><b>病例登记</b><br><span class="small">建立安全事件库，记录失败和不良反应，而不只收集有效案例。</span></div>
+          <div><b>伦理边界</b><br><span class="small">不得对肿瘤、乙肝、糖尿病等作“根治”承诺。</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="follow">
+    <h2>七、随访记录：让实践可复盘</h2>
+    <div class="grid">
+      <article class="card half">
+        <h3>术前/咨询记录</h3>
+        <div class="formGrid">
+          <div class="field"><label>日期</label><input id="preDate" type="date"></div>
+          <div class="field"><label>操作者/机构</label><input id="preOrg" placeholder="仅本地保存"></div>
+          <div class="field"><label>目的</label><select id="prePurpose"><option>理论学习/咨询</option><option>临床辅助评估</option><option>研究登记</option><option>其他</option></select></div>
+          <div class="field"><label>风险结论</label><select id="preRisk"><option>不进入化脓灸</option><option>仅可专业评估</option><option>可考虑低风险替代</option><option>资料不全，暂缓</option></select></div>
+        </div>
+        <div class="field"><label>目标症状与观察指标</label><textarea id="preTarget" placeholder="例如：怕冷、慢性虚寒性腹泻、疼痛评分、睡眠、疲劳；不要写‘治愈高血压/肿瘤’"></textarea></div>
+        <div class="field"><label>禁忌证/用药/检查摘要</label><textarea id="preMedical" placeholder="如血常规、血小板、抗凝药、糖尿病、免疫抑制、皮肤情况等"></textarea></div>
+        <div class="footerBtns"><button class="btn" onclick="savePreRecord()">保存术前记录</button><button class="btn secondary" onclick="downloadAllRecords()">下载全部记录</button></div>
+      </article>
+      <article class="card half">
+        <h3>术后/咨询后随访记录</h3>
+        <div class="formGrid">
+          <div class="field"><label>随访日</label><select id="fuDay"><option>D1</option><option>D3</option><option>D7</option><option>D14</option><option>D30</option><option>其他</option></select></div>
+          <div class="field"><label>体温/全身情况</label><input id="fuTemp" placeholder="例：36.8℃，无发热"></div>
+          <div class="field"><label>疼痛评分 0-10</label><input id="fuPain" type="number" min="0" max="10" placeholder="0"></div>
+          <div class="field"><label>创面/皮肤</label><select id="fuWound"><option>无创面，仅咨询</option><option>干燥结痂</option><option>少量清亮/淡黄渗出</option><option>红肿扩大</option><option>恶臭/黄绿色脓液</option><option>出血</option></select></div>
+        </div>
+        <div class="field"><label>处理与下一步</label><textarea id="fuAction" placeholder="例如：继续观察、清洁覆盖、转伤口门诊、暂停疗程、联系主管医生"></textarea></div>
+        <div class="footerBtns"><button class="btn" onclick="saveFollowRecord()">保存随访记录</button><button class="btn secondary" onclick="renderRecords()">刷新记录</button></div>
+      </article>
+      <article class="card full">
+        <h3>本地记录</h3>
+        <p class="small">所有记录只保存在当前浏览器 localStorage，不上传服务器。更换设备或清缓存会丢失，请及时下载。</p>
+        <div id="allRecords" class="records">暂无记录。</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2>八、资料依据与读法</h2>
+    <div class="grid">
+      <article class="card full">
+        <h3>本工具如何使用资料</h3>
+        <p>本工具以用户上传长文为核心素材，保留其“疫苗效应、扶阳效应、常用穴位、操作护理”的理论脉络；同时用现代安全综述、机制综述、WHO/CDC疫苗概念、针灸实践基准、肿瘤/高血压系统评价等材料重新分层。</p>
+        <div class="alert warn"><b>读法建议：</b>古籍和经验用于提出问题；机制研究用于解释可能性；临床试验和系统评价用于判断疗效强弱；安全综述和禁忌筛查用于决定能否落地。</div>
+        <ol class="sourceList">
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4058265/" target="_blank" rel="noreferrer">Safety of Moxibustion: A Systematic Review of Case Reports</a>：不良事件与安全边界。</li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/21056845/" target="_blank" rel="noreferrer">Adverse events of moxibustion: a systematic review</a>：烧伤、感染、过敏等不良事件。</li>
+          <li><a href="https://www.who.int/publications/i/item/978-92-4-001688-0" target="_blank" rel="noreferrer">WHO benchmarks for the practice of acupuncture</a>：针灸实践安全和基础设施参考。</li>
+          <li><a href="https://www.who.int/news-room/questions-and-answers/item/vaccines-and-immunization-what-is-vaccination" target="_blank" rel="noreferrer">WHO Vaccines and immunization: What is vaccination?</a>：疫苗概念和特异免疫训练。</li>
+          <li><a href="https://www.cdc.gov/vaccines/basics/explaining-how-vaccines-work.html" target="_blank" rel="noreferrer">CDC Explaining How Vaccines Work</a>：疫苗如何模拟感染并训练免疫系统。</li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3789413/" target="_blank" rel="noreferrer">The Mechanism of Moxibustion: Ancient Theory and Modern Research</a>：热效应、辐射效应、艾及燃烧产物机制。</li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/33494086/" target="_blank" rel="noreferrer">Moxibustion for Essential Hypertension and Hypertensive Symptoms</a>：高血压方向系统评价。</li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2873382/" target="_blank" rel="noreferrer">Moxibustion for cancer care</a>：肿瘤支持治疗系统评价。</li>
+          <li><a href="https://www.cancer.gov/about-cancer/treatment/side-effects/infection" target="_blank" rel="noreferrer">NCI Infection and Neutropenia during Cancer Treatment</a>：肿瘤治疗相关中性粒细胞低下和感染风险。</li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/books/n/niceng24/ch12/" target="_blank" rel="noreferrer">NICE Blood Transfusion: platelet thresholds and targets</a>：侵入性操作前血小板阈值参考。</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="card full">
+      <h3>版本说明</h3>
+      <p class="small">V1.0｜适合手机端阅读、离线安装、打印SOP、风险筛查和随访记录。此工具不是诊断或治疗建议；所有医疗行为需由合格医生/中医师在合规机构内完成。</p>
+    </div>
+  </section>
+</div>
+
+<div class="mobileBar">
+  <button class="btn" onclick="location.hash='risk'">风险</button>
+  <button class="btn secondary" onclick="location.hash='evidence'">证据</button>
+  <button class="btn secondary" onclick="window.print()">打印</button>
+</div>
+
+<script>
+(function(){
+  const today = new Date().toISOString().slice(0,10);
+  const d = document.getElementById('preDate'); if(d) d.value = today;
+  renderRecords(); renderRiskRecords();
+  if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{})); }
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; const b=document.getElementById('installBtn'); if(b){b.style.display='inline-flex'; b.onclick=()=>{b.style.display='none'; deferredPrompt.prompt();};} });
+  const navLinks = [...document.querySelectorAll('.nav a')];
+  const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id)); } }); }, {rootMargin:'-35% 0px -58% 0px'});
+  sections.forEach(s=>io.observe(s));
+})();
+
+function selectedRisks(){ return [...document.querySelectorAll('#riskList input:checked')].map(i=>({level:i.dataset.level, value:i.value})); }
+function evaluateRisk(){
+  const items = selectedRisks();
+  const hard = items.filter(i=>i.level==='hard');
+  const moderate = items.filter(i=>i.level==='moderate');
+  const box = document.getElementById('riskResult');
+  let html='';
+  if(hard.length){
+    html = `<h3>风险判断</h3><div class="scorebox red"><div class="scoreIcon">停</div><div><b>不建议进入化脓灸/瘢痕灸</b><br><span class="small">已触发硬风险：${hard.map(x=>x.value).join('；')}。默认选择不破皮替代方案，并咨询主管医生。</span></div></div>`;
+  }else if(moderate.length){
+    html = `<h3>风险判断</h3><div class="scorebox amber"><div class="scoreIcon">慎</div><div><b>需专业医师进一步评估</b><br><span class="small">存在相对风险：${moderate.map(x=>x.value).join('；')}。不应自行操作，需明确替代方案和停止线。</span></div></div>`;
+  }else{
+    html = `<h3>风险判断</h3><div class="scorebox green"><div class="scoreIcon">评</div><div><b>未勾选明显风险，但仍不能自行操作</b><br><span class="small">这只代表初筛未发现高风险。化脓灸仍需正规机构、知情同意、创面护理和随访；普通养生优先选择低风险非瘢痕方案。</span></div></div>`;
+  }
+  html += `<div class="alert note"><b>下一步：</b>把此结果带给正规中医/针灸医师和主管专科医生，确认是否有必要、是否有替代方案、是否需要近期血常规/凝血/血糖等检查。</div>`;
+  box.innerHTML = html;
+}
+function clearRisk(){ document.querySelectorAll('#riskList input').forEach(i=>i.checked=false); evaluateRisk(); }
+function saveRisk(){
+  const items = selectedRisks();
+  const records = JSON.parse(localStorage.getItem('moxaRiskRecords') || '[]');
+  records.unshift({time:new Date().toISOString(), items});
+  localStorage.setItem('moxaRiskRecords', JSON.stringify(records));
+  renderRiskRecords();
+}
+function renderRiskRecords(){
+  const el = document.getElementById('riskRecords'); if(!el) return;
+  const records = JSON.parse(localStorage.getItem('moxaRiskRecords') || '[]');
+  if(!records.length){el.textContent='暂无记录。'; return;}
+  el.innerHTML = records.map((r,idx)=>`<div class="record"><b>${idx+1}. ${new Date(r.time).toLocaleString()}</b><br>${r.items.length?r.items.map(x=>`<span class="tag ${x.level==='hard'?'red':'amber'}">${x.value}</span>`).join(' '):'<span class="tag green">未勾选风险</span>'}</div>`).join('');
+}
+function downloadRiskRecords(){ downloadJSON('化脓灸风险筛查记录.json', JSON.parse(localStorage.getItem('moxaRiskRecords') || '[]')); }
+function savePreRecord(){
+  const rec = {type:'术前/咨询', time:new Date().toISOString(), date:v('preDate'), org:v('preOrg'), purpose:v('prePurpose'), risk:v('preRisk'), target:v('preTarget'), medical:v('preMedical')};
+  pushRecord(rec); renderRecords();
+}
+function saveFollowRecord(){
+  const rec = {type:'随访', time:new Date().toISOString(), day:v('fuDay'), temp:v('fuTemp'), pain:v('fuPain'), wound:v('fuWound'), action:v('fuAction')};
+  pushRecord(rec); renderRecords();
+}
+function pushRecord(rec){ const arr=JSON.parse(localStorage.getItem('moxaRecords') || '[]'); arr.unshift(rec); localStorage.setItem('moxaRecords', JSON.stringify(arr)); }
+function renderRecords(){
+  const el = document.getElementById('allRecords'); if(!el) return;
+  const arr = JSON.parse(localStorage.getItem('moxaRecords') || '[]');
+  if(!arr.length){el.textContent='暂无记录。'; return;}
+  el.innerHTML = arr.map((r,idx)=>`<div class="record"><b>${idx+1}. ${r.type}｜${new Date(r.time).toLocaleString()}</b><pre style="white-space:pre-wrap;margin:6px 0 0;font-family:inherit">${escapeHtml(JSON.stringify(r,null,2))}</pre></div>`).join('');
+}
+function downloadAllRecords(){ downloadJSON('化脓灸咨询与随访记录.json', {records:JSON.parse(localStorage.getItem('moxaRecords') || '[]'), riskRecords:JSON.parse(localStorage.getItem('moxaRiskRecords') || '[]')}); }
+function downloadJSON(filename, data){
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json;charset=utf-8'});
+  const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);
+}
+function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+function escapeHtml(str){ return str.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+</script>
+</body>
+</html>
