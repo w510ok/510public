@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>智能家庭厨艺与营养规则引擎｜江南AI工作小组</title>
+<meta name="description" content="现代智能家庭烹饪与营养协同规则引擎：基于食品热力学、胶体化学与智能厨房的系统化建构报告。江南AI工作小组。" />
+<style>
+:root {
+  --bg:#f7f1e8; --paper:#fffaf2; --ink:#251b14; --muted:#6e5a4b; --line:#e4d3bd;
+  --brand:#8a3f18; --brand2:#b96b2c; --gold:#d99a3e; --jade:#2f746c; --blue:#305f8e;
+  --red:#b6362f; --green:#2f7d51; --shadow:0 18px 60px rgba(75,43,21,.15); --radius:24px;
+}
+body.dark { --bg:#161310; --paper:#211c17; --ink:#f4eadc; --muted:#c2ad99; --line:#3a3028; --brand:#f0a15a; --brand2:#d88947; --gold:#e5b15e; --jade:#70c6ba; --blue:#8db9e3; --red:#ff8278; --green:#83cf9d; --shadow:0 18px 60px rgba(0,0,0,.35); }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(217,154,62,.20),transparent 36%),linear-gradient(180deg,var(--bg),#fbf7ef 48%,var(--bg));color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;line-height:1.72;}
+body.dark{background:radial-gradient(circle at 15% 0%,rgba(217,154,62,.10),transparent 40%),linear-gradient(180deg,#14110f,#1b1714 60%,#14110f)}
+a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(185,107,44,.35)}
+.container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+.hero{position:relative;overflow:hidden;padding:72px 0 44px;border-bottom:1px solid var(--line)}
+.hero:before{content:"";position:absolute;right:-160px;top:-180px;width:520px;height:520px;border-radius:50%;background:conic-gradient(from 90deg,rgba(217,154,62,.15),rgba(47,116,108,.10),rgba(138,63,24,.12),rgba(217,154,62,.15));filter:blur(2px)}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:36px;position:relative;z-index:2}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.03em}
+.logo-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--gold));display:grid;place-items:center;color:white;box-shadow:var(--shadow)}
+.logo small{display:block;font-weight:500;color:var(--muted);letter-spacing:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+button,.btn{border:1px solid var(--line);background:rgba(255,250,242,.74);color:var(--ink);border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;backdrop-filter:blur(8px)}
+body.dark button, body.dark .btn{background:rgba(33,28,23,.76)}
+button:hover,.btn:hover{border-color:var(--brand);transform:translateY(-1px)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;position:relative;z-index:2}
+.kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:rgba(255,250,242,.62);color:var(--brand);font-weight:800;font-size:14px}
+h1{font-size:clamp(34px,6vw,68px);line-height:1.08;margin:18px 0 18px;letter-spacing:-.05em}
+.subtitle{font-size:clamp(16px,2vw,22px);color:var(--muted);max-width:820px;margin:0 0 22px}
+.meta-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:rgba(255,250,242,.72);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:14px}
+.pill strong{color:var(--brand)}
+.panel{background:linear-gradient(180deg,rgba(255,250,242,.88),rgba(255,250,242,.66));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden}
+body.dark .panel{background:linear-gradient(180deg,rgba(33,28,23,.95),rgba(33,28,23,.7))}
+.panel h3{margin:0 0 10px;font-size:20px}
+.alert{border-left:5px solid var(--red);padding:16px 18px;background:rgba(182,54,47,.08);border-radius:18px;margin:18px 0}
+.safe{border-left-color:var(--green);background:rgba(47,125,81,.08)}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:28px;padding:28px 0 64px}
+.sidebar{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;padding:16px;background:rgba(255,250,242,.76);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 32px rgba(75,43,21,.08);backdrop-filter:blur(10px)}
+body.dark .sidebar{background:rgba(33,28,23,.78)}
+.search{width:100%;border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:var(--paper);color:var(--ink);outline:none;font-size:15px}
+.nav{display:grid;gap:4px;margin-top:14px}
+.nav a{display:block;border:0;color:var(--muted);padding:8px 10px;border-radius:12px;font-weight:650}
+.nav a:hover{background:rgba(217,154,62,.14);color:var(--brand)}
+.content{min-width:0}
+.section{scroll-margin-top:18px;margin-bottom:26px}
+.section-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:0 12px 42px rgba(75,43,21,.08)}
+.eyebrow{color:var(--brand);font-weight:900;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:clamp(25px,4vw,38px);line-height:1.18;margin:8px 0 14px;letter-spacing:-.03em}
+h3{font-size:22px;margin:18px 0 10px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mini{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.28)}
+.mini b{color:var(--brand)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;margin-top:16px}
+table{width:100%;border-collapse:collapse;min-width:680px;background:rgba(255,255,255,.25)}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{background:rgba(217,154,62,.13);color:var(--brand);font-weight:900}
+tr:last-child td{border-bottom:0}
+.arch{width:100%;height:auto;margin:18px 0;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(217,154,62,.08))}
+.rule-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.rule{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.22)}
+.rule strong{display:block;color:var(--brand);margin-bottom:6px}
+.timeline{display:grid;gap:14px;margin-top:16px}
+.tl{display:grid;grid-template-columns:130px 160px 1fr;gap:12px;align-items:start;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.22)}
+.tl b{color:var(--brand)}
+.cards-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:34px 0 16px}
+.cards-head h2{margin:0}
+.filter-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{padding:8px 12px;border-radius:999px;border:1px solid var(--line);cursor:pointer;color:var(--muted);font-weight:800;background:rgba(255,250,242,.72)}
+.tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.dish{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 42px rgba(75,43,21,.08);overflow:hidden}
+.dish.hide{display:none}
+.dish-head{padding:20px 20px 14px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,rgba(217,154,62,.12),transparent)}
+.dish-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.dish-title h3{margin:0;font-size:22px;line-height:1.25}
+.badge{display:inline-flex;align-items:center;border-radius:999px;background:rgba(47,116,108,.12);color:var(--jade);padding:4px 9px;font-size:12px;font-weight:900;white-space:nowrap}
+.dish-meta{color:var(--muted);font-size:14px;margin-top:8px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted)}
+.dish-body{padding:18px 20px 20px}
+.dish-body p{margin-top:0}
+.detail{border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
+.detail summary{cursor:pointer;padding:11px 14px;font-weight:900;color:var(--brand);background:rgba(217,154,62,.10)}
+.detail .inside{padding:12px 14px}
+ul,ol{padding-left:1.25rem}
+.step{display:grid;grid-template-columns:108px 1fr;gap:10px;border-bottom:1px dashed var(--line);padding:10px 0}
+.step:last-child{border-bottom:0}
+.step b{color:var(--brand)}
+.fmea{display:grid;gap:10px}
+.fmea-row{border:1px dashed var(--line);border-radius:14px;padding:10px}
+.fmea-row b{color:var(--red)}
+.checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.check{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:12px;background:rgba(255,255,255,.22)}
+.check input{margin-top:6px;transform:scale(1.15)}
+.refs{font-size:14px;color:var(--muted)}
+.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted)}
+.float-tools{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:10}
+.float-tools button{box-shadow:var(--shadow)}
+mark{background:rgba(217,154,62,.35);color:inherit;border-radius:4px;padding:0 2px}
+.print-note{display:none}
+@media (max-width: 900px){
+  .hero-grid,.layout,.grid-2,.grid-3,.card-grid{grid-template-columns:1fr}
+  .sidebar{position:relative;top:0;max-height:none}
+  .tl{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr}
+  .checklist{grid-template-columns:1fr}
+  .brandbar{align-items:flex-start;flex-direction:column}
+  .actions{justify-content:flex-start}
+}
+@media print{
+  body{background:#fff;color:#111} .sidebar,.actions,.float-tools,.filter-tabs,.search{display:none!important}
+  .layout{display:block;padding:0} .hero{padding:22px 0} .dish{break-inside:avoid} .card-grid{display:block} .dish{margin-bottom:14px}
+  .detail:not([open]) .inside{display:block} .print-note{display:block}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <div class="brandbar">
+      <div class="logo"><div class="logo-mark">AI</div><div>江南AI工作小组<small>家庭厨艺 × 营养协同 × 规则引擎</small></div></div>
+      <div class="actions">
+        <button onclick="toggleDark()">深色模式</button>
+        <button onclick="window.print()">打印 / 另存PDF</button>
+        <button onclick="copyExecutiveSummary()">复制摘要</button>
+      </div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">SCRE · SuNan Cooking Rules Engine</div>
+        <h1>智能家庭厨艺与营养规则引擎</h1>
+        <p class="subtitle">现代智能家庭烹饪与营养协同规则引擎：基于食品热力学、胶体化学与智能厨房的系统化建构报告。</p>
+        <div class="meta-pills">
+          <span class="pill"><strong>编制：</strong>江南AI工作小组</span>
+          <span class="pill"><strong>日期：</strong>2026-06-19</span>
+        </div>
+      </div>
+      <aside class="panel">
+        <h3>执行要点</h3>
+        <div class="alert safe"><b>家庭落地原则：</b>先称量、测温、计时、记录；再优化风味、营养搭配、设备联动和AI纠偏。</div>
+        <div class="alert safe"><b>研究重点：</b>突出厨艺训练、食品安全、营养协同和苏南家常菜数字化。</div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main class="container layout">
+  <aside class="sidebar">
+    <input id="search" class="search" placeholder="搜索：红烧、鲈鱼、植酸、菠菜…" oninput="filterAll(this.value)" />
+    <nav class="nav">
+      <a href="#overview">一、系统总览</a>
+      <a href="#sensory">二、七维感官变量</a>
+      <a href="#chemistry">三、核心机理规则库</a>
+      <a href="#nutrition">四、营养协同引擎</a>
+      <a href="#scre">五、苏南SCRE</a>
+      <a href="#cyber">六、物理信息厨房</a>
+      <a href="#roadmap">七、实施路线</a>
+      <a href="#cards">八、15张SOP控制卡</a>
+      <a href="#safety">九、安全清单</a>
+      </nav>
+  </aside>
+
+  <div class="content">
+    <section class="section section-card" id="overview" data-search="系统总览 规则引擎 家庭烹饪 温度 时间 比例">
+      <div class="eyebrow">总览图</div>
+      <h2>从食材、设备、营养目标到 SOP 与 FMEA 的闭环</h2>
+      <svg class="arch" viewBox="0 0 1100 360" role="img" aria-label="SCRE系统架构图">
+        <defs><linearGradient id="g1" x1="0" x2="1"><stop stop-color="#8a3f18"/><stop offset="1" stop-color="#d99a3e"/></linearGradient></defs>
+        <rect x="40" y="50" width="250" height="250" rx="26" fill="rgba(217,154,62,.16)" stroke="#d8b98d"/>
+        <text x="165" y="92" text-anchor="middle" font-size="28" font-weight="800" fill="currentColor">输入层</text>
+        <text x="70" y="140" font-size="22" fill="currentColor">食材：重量/厚度/新鲜度</text>
+        <text x="70" y="180" font-size="22" fill="currentColor">设备：锅具/功率/温度计</text>
+        <text x="70" y="220" font-size="22" fill="currentColor">人员：口味/偏好/习惯</text>
+        <text x="70" y="260" font-size="22" fill="currentColor">传感：温度/声音/VOCs</text>
+        <path d="M310 175 H410" stroke="url(#g1)" stroke-width="8" stroke-linecap="round"/>
+        <polygon points="410,175 392,162 392,188" fill="#b96b2c"/>
+        <rect x="430" y="40" width="240" height="270" rx="32" fill="rgba(47,116,108,.14)" stroke="#8bbdb5"/>
+        <text x="550" y="85" text-anchor="middle" font-size="30" font-weight="900" fill="currentColor">SCRE规则引擎</text>
+        <text x="465" y="135" font-size="22" fill="currentColor">热力学：温区/时间</text>
+        <text x="465" y="175" font-size="22" fill="currentColor">胶体：乳化/澄清/凝胶</text>
+        <text x="465" y="215" font-size="22" fill="currentColor">营养：吸收/搭配/配伍</text>
+        <text x="465" y="255" font-size="22" fill="currentColor">FMEA：失败诊断/补救</text>
+        <path d="M690 175 H790" stroke="url(#g1)" stroke-width="8" stroke-linecap="round"/>
+        <polygon points="790,175 772,162 772,188" fill="#b96b2c"/>
+        <rect x="810" y="50" width="250" height="250" rx="26" fill="rgba(48,95,142,.12)" stroke="#9db8d3"/>
+        <text x="935" y="92" text-anchor="middle" font-size="28" font-weight="800" fill="currentColor">输出层</text>
+        <text x="840" y="140" font-size="22" fill="currentColor">单页SOP卡</text>
+        <text x="840" y="180" font-size="22" fill="currentColor">购物/备料清单</text>
+        <text x="840" y="220" font-size="22" fill="currentColor">温度/计时提醒</text>
+        <text x="840" y="260" font-size="22" fill="currentColor">纠偏与复盘记录</text>
+      </svg>
+      <div id="sectionMount"></div>
+    </section>
+
+    <div id="dynamicSections"></div>
+
+    <section id="cards" class="section">
+      <div class="cards-head">
+        <div><div class="eyebrow">SOP + FMEA</div><h2>15张核心菜肴控制卡</h2></div>
+        <div class="filter-tabs" id="tabs"></div>
+      </div>
+      <div class="card-grid" id="cardsMount"></div>
+    </section>
+
+    <section id="safety" class="section section-card">
+      <div class="eyebrow">安全清单</div>
+      <h2>每次执行前的 10 项检查</h2>
+      <p>建议贴在厨房或放入家庭规则引擎首页，用于每次备餐、烹饪和复盘前快速自查。</p>
+      <div class="checklist" id="checklist"></div>
+    </section>
+
+  </div>
+</main>
+
+<div class="float-tools">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <b>© 江南AI工作小组</b>　智能家庭厨艺与营养规则引擎。<br>
+    
+  </div>
+</footer>
+
+<script>
+const sections = [{"id": "overview", "title": "一、系统总览：从经验厨房到规则引擎", "eyebrow": "总则", "body": "家庭烹饪正在从“凭手感、凭经验”的模糊手艺，转向“温度、时间、比例、几何尺寸、风险控制”可记录、可复盘、可优化的精密工程。本页面构建个人版 SCRE：苏南家常菜烹饪规则引擎，兼顾食品热力学、胶体化学、感官控制、营养协同、食品安全与智能家居互联。", "bullets": ["目标不是替代厨师直觉，而是把关键失误点变成可观察、可记录、可纠偏的变量。", "目标不是堆砌复杂概念，而是把家庭膳食执行做得更稳定、更清爽、更可复盘。", "目标不是一步到位全自动厨房，而是先用秤、温度计、计时器、SOP卡实现低成本闭环。"]}, {"id": "sensory", "title": "二、七维感官变量：把“好吃”拆成可控参数", "eyebrow": "训练框架", "body": "七维变量包括味道与风味、香气、温度、质地、颜色、形状、数量/体积。每个变量都应对应一个可观察指标和一个可纠偏动作。本版将感官判断转化为可称量、可测温、可计时、可复盘的家庭控制参数。", "table": [["味道与风味", "酸甜苦咸鲜、pH、盐糖比例、鲜味物质", "称量调味；小样试味；收汁前后复核咸度"], ["香气", "VOCs释放、脂溶性香味、热油/酒精挥发", "高温短时激香，避免长时间挥发损失"], ["温度", "中心温度、表面温度、热惯性", "探针测温；拉出温度提前量；离火休息"], ["质地", "蛋白变性、淀粉糊化、胶体凝胶", "按食材设定温区；厚度一致；水合预处理"], ["颜色", "美拉德、焦糖化、叶绿素、肌红蛋白", "控水、控温、控碱酸、控时间"], ["形状", "表面积/体积比、厚薄均一", "刀工统一；大块食材建模估时"], ["数量/体积", "能量密度、蛋白/碳水/蔬果比例", "按盘餐模型称量，结合个人目标调整"]]}, {"id": "chemistry", "title": "三、核心机理规则库：热、胶体与质构", "eyebrow": "底层规则", "body": "把传统术语翻译成可执行规则：褐变需要干燥表面和足够温度；焦糖化需要缓冲升温；蛋白质需要分区控温；淀粉必须先水合再升温；清汤与白汤的火力逻辑相反。", "rules": [{"name": "美拉德反应", "text": "煎、烤、煸前擦干表面，不要堆叠出水；表面若被水分锚定在沸点附近，就难以形成褐变香气。"}, {"name": "焦糖化", "text": "糖色以琥珀为止；焦黑苦味不可逆。家庭操作宜小火、厚底锅、少量水/油缓冲升温。"}, {"name": "蛋白变性", "text": "鱼肉薄、结缔组织少，清蒸要高能短时；红烧肉和狮子头需要低扰动慢炖/慢焐。"}, {"name": "淀粉糊化", "text": "干淀粉不要直接撒进热汤；先用冷水或油离线调成均匀浆，再入锅升温。"}, {"name": "高汤胶体", "text": "清汤忌大滚，白汤靠大滚；澄清汤要低扰动浸提、脱脂、过滤。"}]}, {"id": "nutrition", "title": "四、营养协同引擎：吸收、搭配与食品安全", "eyebrow": "营养协同", "body": "营养协同的重点，是把豆谷浸泡、维C搭配、脂溶性营养素与油脂、香料组合、熟制复热等日常动作转化为稳定规则。表达上突出适量、均衡、熟制、清洁和家庭差异。", "rules": [{"name": "非血红素铁 + 维生素C", "text": "豆类、全谷物、豆腐等植物铁来源可搭配番茄、柠檬、柑橘；浓茶咖啡宜与此类餐食错开，减少风味和吸收干扰。"}, {"name": "脂溶性营养素 + 油脂", "text": "胡萝卜素、番茄红素、维生素 A/D/E/K 等更适合与少量优质脂质同餐；总油量仍需纳入整体能量管理。"}, {"name": "姜黄 + 黑胡椒", "text": "食品级调味可作为风味组合，重点是少量、现磨、不过量；不把日常调味夸大为特殊功效。"}, {"name": "豆谷植酸处理", "text": "浸泡、萌发、酸性发酵可降低植酸影响；泡水应倒弃，豆类和全谷物要充分熟化。"}, {"name": "食品安全", "text": "现做现吃、生熟分开、温度计测中心温度、剩菜彻底复热，是家庭厨房最基础的安全规则。"}]}, {"id": "scre", "title": "五、苏南 SCRE：和、精、清、新的数字化翻译", "eyebrow": "本体模型", "body": "“和”对应咸甜中和与口味克制；“精”对应刀工、火候和慢工；“清”对应清汤、清蒸、清爽不混浊；“新”对应时令时鲜、河鲜与原料新鲜度。数字化之后，每道菜都要有输入、触发条件、温区、终点判据和FMEA纠偏。", "table": [["红烧", "咸甜平衡、色泽红亮", "糖色焦苦、肉柴、色深", "小火糖色、微沸慢炖、收汁监控"], ["清蒸", "本味鲜嫩、形态完整", "夹生、过老、腥水倒吸", "旺汽入锅、盘底架空、出锅倒液"], ["油焖", "油润入味、咸鲜回甜", "涩、腻、收汁不亮", "焯水去涩、足油煸透、大火挂汁"], ["响油", "瞬时香气爆发", "油温低、焦蒜苦", "180°C左右短时定点淋油"], ["炖/焐", "汤清味醇、原料酥烂", "汤浑、纤维老、鲜味不足", "撇沫、微沸、延长慢浸"]]}, {"id": "cyber", "title": "六、物理信息厨房：从SOP到本地闭环", "eyebrow": "智能厨房", "body": "当前最务实路径是“低成本数字化厨房”：电子秤、探针温度计、计时器、菜谱卡、留痕表。再逐步接入 Matter 兼容厨电、功率测量、排风联动、声音/气体传感器。由于 Matter 标准持续迭代，本页采用“能力抽象”写法：本地控制、状态回读、能耗遥测、排风联动，而非绑定某一单一版本。", "bullets": ["第一阶段：称量、测温、计时、SOP卡。", "第二阶段：营养配餐计算、浸泡/发酵计时、FMEA对话式纠偏。", "第三阶段：Matter 网关、灶具/烤箱/排风本地联动。", "第四阶段：声学沸腾识别、VOCs/PM 联动、个性化算法。"]}, {"id": "roadmap", "title": "七、实施路线：6个月个人版规则引擎", "eyebrow": "落地", "body": "先把家庭厨房从“不可复盘”变成“可记录”；再把常吃菜变成单页卡；最后把口味偏好、食品安全要点和智能设备联动纳入统一规则库。", "timeline": [["第1–2个月", "数字化厨房", "购置秤、温度计、计时器；建立调味称量和中心温度记录。"], ["第3–4个月", "营养协同", "建立豆谷浸泡/发酵、植物铁搭配、蔬菜焯水、食品安全复热规则。"], ["第5–6个月", "个人卡片库", "固定 15–20 道高频菜，形成 SOP + FMEA + 复盘表。"], ["后续迭代", "智能联动", "接入 Matter 厨电、传感器和本地网关，做半自动控制。"]]}];
+const cards = [{"id": "C01", "title": "苏帮经典红烧肉", "group": "传统苏南 / 热力学", "level": "中等", "tags": ["红烧", "焦糖化", "胶原蛋白", "收汁"], "position": "传统经典苏帮菜。核心是脂肪熔出、蔗糖热解、胶原蛋白水解与咸甜平衡。", "mise": ["五花肉 500g，切约 3cm 立方块，尽量等尺寸。", "绍兴黄酒 30mL，生抽 20mL，老抽 10mL，冰糖 40g。", "开水约 600mL；建议另备温度计、厚底锅。"], "science": ["表面含水会把温度锚定在约 100°C，阻碍美拉德反应；煎前擦干是关键。", "糖色以金黄至琥珀为止，超过深褐并出现焦苦味时不可继续使用。", "慢炖区间以似开非开为宜，使胶原逐步转化为明胶，避免瘦肉大滚失水。"], "steps": [["物理脱水", "五花肉表面用厨房纸彻底吸干；锅内不要堆叠过多。", "目标：减少蒸汽阻碍，提升褐变效率。"], ["慢火煸油", "冷锅入肉，小火慢煸，逼出部分游离脂肪。", "脂肪熔出后可形成润滑屏障，降低腻感。"], ["猛火烹酒", "锅底温度较高时烹入黄酒，迅速翻动。", "乙醇挥发可带走部分腥膻挥发物。"], ["缓冲炒糖色", "肉块暂出，留少量油，小火熬冰糖至琥珀色。", "严禁焦黑；焦糖化不可逆。"], ["低热慢炖", "肉回锅上色，注入开水和调料，烧开后极小火 60 分钟左右。", "汤面微动，避免持续大滚。"], ["高速收汁", "开盖大火收汁，观察挂壁和亮度，及时停火。", "收汁阶段糖盐浓度快速上升，需防糊底。"]], "fmea": [["糖色焦黑发苦", "升温过快或离火太迟，糖热裂解过度。", "立刻弃用糖色并洗锅重做；已混入肉中时仅可改为手撕肉并用酸甜浓汁遮蔽。"], ["瘦肉干柴", "大火长时间滚沸，肌纤维强收缩排水。", "停火后让肉块浸在 60–65°C 温热酱汁中 10–15 分钟，争取回吸部分汁液。"], ["颜色过深", "老抽或糖色过量，且收汁时间过长。", "补少量热水稀释，分次收汁；下次将老抽后置。"]]}, {"id": "C02", "title": "猛火清蒸鲈鱼", "group": "传统苏南 / 河鲜", "level": "易", "tags": ["清蒸", "鱼肉", "旺汽", "响油"], "position": "突出本味与嫩度，关键在饱和蒸汽、几何中心熟度、离线撇液和高温响油。", "mise": ["鲜鲈鱼约 600g，去内脏、鳃、脊骨黑膜。", "小葱 30g，姜 20g，植物油 25mL，蒸鱼豉油 20mL。", "盘底架空材料：葱白或筷子。"], "science": ["鱼肉结缔组织少，热穿透过度会迅速变老。", "盘底冷凝水含腥味物质，蒸毕应倒掉。", "响油需要足够温度才能激发葱姜蒜 VOCs。"], "steps": [["形态处理", "鱼背两侧沿骨划深刀，厚薄尽量一致。", "增加表面积/体积比，减少局部夹生。"], ["架空对流", "盘底垫葱白或筷子，使鱼身离开盘底冷凝水。", "避免腥水倒吸。"], ["饱和旺汽", "水完全沸腾、蒸汽充足后再入锅，大火约 7–9 分钟，视鱼重调整。", "以中心熟透、鱼肉可轻松离骨为准。"], ["撇液换底", "出锅即倒掉盘底水，抽去旧葱姜。", "切断腥味二次吸附。"], ["高温响油", "新葱姜铺面，油烧至轻微冒烟后定点淋入。", "听觉、嗅觉和风味同步激发。"]], "fmea": [["中心粉红半透明", "蒸汽不足或鱼体过厚，中心温度不足。", "架高鱼体改善对流，大火追加 60–90 秒；勿长时间小火回蒸。"], ["鱼肉发柴", "蒸制过久或出锅后未及时离热。", "立即倒液、淋油，转作蘸汁型；下次按重量建立时间表。"], ["腥味重", "黑膜未除、盘底水未倒、旧葱姜继续浸泡。", "出锅后彻底换葱姜，热油激香；下次前处理加强。"]]}, {"id": "C03", "title": "淮扬大煮干丝", "group": "传统淮扬 / 胶体吸味", "level": "中等", "tags": ["干丝", "高汤", "刀工", "微沸"], "position": "以极细刀工扩大比表面积，依托澄清高汤中的鲜味物质扩散进入大豆蛋白凝胶网络。", "mise": ["白豆腐干 2 块，片成薄片后切极细丝。", "澄清鸡汤或高汤 500mL，火腿丝 15g，熟鸡丝 20g。", "盐约 3g，视高汤咸度调整。"], "science": ["细切可显著提升扩散效率。", "持续大滚会造成机械剪切，使干丝断裂、汤汁浑浊。", "焯水可去碱味并使蛋白凝胶再水合。"], "steps": [["精细切配", "豆干先片薄，再切均匀细丝。", "刀工是本菜的第一控制点。"], ["双次焯水", "沸水焯 2 次，每次约 60 秒，轻轻拨散。", "去碱味、软化胶体。"], ["微沸慢浸", "高汤、火腿丝、干丝入锅，烧开后转 85–90°C 微沸 8 分钟。", "让鲜味物质扩散吸附，避免大滚碎丝。"], ["终点调味", "最后按高汤咸度补盐，轻推勿翻。", "保持汤清与形态完整。"]], "fmea": [["干丝散碎", "持续大火沸腾或翻动过猛。", "滤出改为凉拌干丝，保留口感价值。"], ["汤汁混浊", "高汤本身乳化或火力过大。", "改用纸滤或蛋清澄清；下次全程微沸。"], ["寡淡不入味", "干丝过粗或浸煮时间短。", "延长微沸慢浸 3–5 分钟，少量分次补盐。"]]}, {"id": "C04", "title": "柠檬扁豆泥", "group": "营养协同 / 植物铁", "level": "中等", "tags": ["扁豆", "植物铁", "维生素C", "植酸"], "position": "面向豆类口感、植物铁搭配和植酸处理的营养协同菜肴。", "mise": ["干扁豆 150g，过滤水 600mL。", "新鲜柠檬汁 15mL，初榨橄榄油 10mL。", "餐前后茶、咖啡宜与植物铁餐错开。"], "science": ["豆类植酸会影响铁、锌等矿物质利用，浸泡和熟化可降低影响。", "柠檬、番茄、柑橘等维生素C来源适合与植物铁食材同餐。", "茶、咖啡多酚可能降低植物铁利用，宜与此类餐食错开。"], "steps": [["温酸浸泡", "扁豆用温水浸泡，水中少量柠檬汁调成微酸环境。", "激活部分内源酶，降低抗营养素影响。"], ["倒水冲洗", "泡豆水全部倒掉，清水冲洗 3 次。", "移除溶出物和部分抗营养因子。"], ["软化熟制", "重新加水煮至沙软或高压 15–20 分钟。", "确保彻底熟化，减少肠胃不适。"], ["终点加酸", "离火后加入柠檬汁，搅拌成泥。", "降低维生素 C 加热损失。"], ["加油乳化", "拌入橄榄油，调整口感与能量密度。", "形成更顺滑的食用质地。"]], "fmea": [["植物铁利用不充分", "同餐或餐后即饮茶咖啡，或与高钙食物大量同食。", "将茶咖啡与植物铁餐错开；用柑橘、番茄、柠檬等搭配。"], ["胀气明显", "豆类未充分浸泡/熟化，低聚糖残留多。", "延长浸泡、倒水、充分熟化；少量多次尝试。"], ["质地粗糙", "熟化不足或未充分破壁。", "继续小火补煮，或加少量热水和橄榄油打细。"]]}, {"id": "C05", "title": "安全熟制鸡胸肉", "group": "食品安全 / 中心温度", "level": "高", "tags": ["鸡胸", "温度计", "熟制", "生熟分开"], "position": "用于家庭禽肉熟制、中心测温、复热和生熟分开的食品安全示范。", "mise": ["去皮鸡胸肉 200g，切厚度不超过 1.5cm 薄片。", "食盐 2–3g，干净砧板、食品温度计。", "建议现做现吃；如需保存，应快速冷却后冷藏。"], "science": ["家用食品安全兜底：禽肉中心温度应达到 74°C。", "厚度越均匀，中心热穿透越稳定，口感和安全性都更可控。", "生熟分开、快速冷却、冷藏和彻底再加热，是家庭厨房基础动作。"], "steps": [["生熟分区", "鸡肉处理用独立砧板和刀具，操作前后洗手与清洁台面。", "避免交叉污染。"], ["厚度控制", "切成薄片或小块，使中心热穿透可控。", "厚度越均匀，熟制越可靠。"], ["中心测温", "平底锅、蒸煮或烤制均可，用温度计确认中心 ≥74°C。", "食品安全优先于嫩度。"], ["即时食用", "出锅后趁热食用；如需保存，快速冷却后冷藏。", "减少长时间室温放置。"], ["再加热兜底", "剩菜再食用前彻底加热至中心 ≥74°C。", "不以“温热”替代安全复热。"]], "fmea": [["中心粉红半透明", "加热不足或厚度过大。", "不得直接食用；切小块回锅，测温达到 ≥74°C。"], ["冷藏后直接冷食", "低温保存不能替代复热。", "建议复热达标后再食用。"], ["砧板交叉污染", "生肉汁接触熟食或蔬果。", "废弃受污染熟食；立即清洗工具和台面。"]]}, {"id": "C06", "title": "清炖蟹粉狮子头", "group": "传统淮扬 / 蛋白凝胶", "level": "高", "tags": ["狮子头", "上劲", "微沸", "高汤"], "position": "核心是手工颗粒重组、盐溶性蛋白水合、慢焐成形和清汤保护。", "mise": ["五花肉 400g，肥四瘦六，手切米粒状。", "蟹粉或蟹肉 50g，葱姜水 50mL，高汤 800mL。", "盐约 6g，白菜叶若干。"], "science": ["盐和机械搅拌使肌原纤维蛋白溶出并形成粘性网络。", "大滚会冲散肉圆并使汤浑浊。", "白菜叶可作天然覆盖层，降低表面干燥与氧化。"], "steps": [["手工切肉", "先切片、切丝，再切小粒，少量斩打。", "保留颗粒感与结构弹性。"], ["盐水上劲", "加盐后分 3 次打入葱姜水，顺一方向搅拌至发黏。", "形成锁水凝胶。"], ["轻手成形", "团成大丸，动作轻，避免过度压实。", "松而不散是目标。"], ["白菜覆盖", "清汤入砂锅，狮子头入锅后覆白菜叶。", "形成温和蒸汽回流。"], ["低温慢焐", "汤温维持 82–88°C，慢焐约 2 小时。", "清、嫩、酥同步实现。"]], "fmea": [["入汤散架", "上劲不足或下锅时大沸。", "无法复原；改作白菜肉末羹或滑炒肉末。"], ["肉质粗硬", "肉馅过度压实或火力过猛。", "延长温汤浸润；下次降低搅拌强度。"], ["汤不清", "浮沫未除或沸腾冲击。", "转小火，撇净浮沫，必要时过滤。"]]}, {"id": "C07", "title": "响油鳝糊", "group": "传统苏帮 / 香气瞬时释放", "level": "中等", "tags": ["响油", "鳝丝", "VOCs", "勾芡"], "position": "以热油瞬间破坏葱蒜细胞壁，释放硫醚类挥发香气；同时依赖酱汁挂壁形成经典口感。", "mise": ["熟鳝丝 250g，切约 5cm 段。", "葱姜蒜末、现磨黑胡椒粉共约 30g。", "香油 15mL，植物油 40mL，生抽 20mL，糖 10g，水淀粉 15mL。"], "science": ["黄酒高温挥发可帮助带走腥味分子。", "水淀粉需常温调匀后入锅，避免结块。", "响油温度不足则只有油腻，无香气爆发。"], "steps": [["爆香去腥", "鳝丝大火煸热后烹黄酒，快速翻炒。", "利用乙醇挥发去腥。"], ["调味挂壁", "加生抽、糖焖 60–90 秒，水淀粉薄芡。", "让酱汁均匀包裹鳝丝。"], ["风味集中", "装盘后中央挖浅槽，集中放葱姜蒜和胡椒。", "为热油定点激香。"], ["热油闪爆", "混合油烧至约 180–200°C，立即淋在香料上。", "目标是清晰“滋啦”声和香气上冲。"]], "fmea": [["没有滋啦声", "油温不足。", "撇去浮油，重新少量热油补浇新鲜蒜末。"], ["蒜末焦苦", "油温过高或淋油过慢。", "剔除焦蒜，补新鲜香料和适温热油。"], ["酱汁泄水", "芡汁浓度不足或出锅后久置。", "小火回锅，少量水淀粉二次薄芡。"]]}, {"id": "C08", "title": "油焖春笋", "group": "江浙家常 / 草酸处理", "level": "易", "tags": ["春笋", "油焖", "焯水", "收汁"], "position": "通过焯水降低涩感，再用足量油脂和酱糖焖烧形成油润咸鲜回甜。", "mise": ["新鲜春笋 300g，滚刀块。", "植物油 40–50mL，生抽 25mL，老抽 5mL，白糖 15g。", "沸水一锅用于预焯。"], "science": ["笋中草酸和涩味物质需先通过焯水溶出。", "油焖并非少油菜，油脂承担传热、润滑和风味溶剂作用。", "收汁阶段需持续翻动防止糖酱糊底。"], "steps": [["沸水焯笋", "春笋入沸水 3 分钟，捞出沥干。", "降低麻口涩味。"], ["高温油煸", "油烧热，下笋块煸至边角微黄。", "局部脱水并形成香气。"], ["酱糖焖烧", "加生抽、老抽、糖，少量水，加盖焖 5 分钟。", "形成咸甜复合风味。"], ["浓缩挂光", "开盖大火收汁，不断翻动至红亮。", "避免糊底和过咸。"]], "fmea": [["麻口涩味", "焯水不足或原料偏老。", "温水冲去酱汁后再沸水煮 2 分钟，重新少量调味收汁。"], ["过油腻", "收汁不足或油量过大。", "倾出浮油，补少量热水再收浓。"], ["糊底发苦", "糖酱浓缩后仍大火离人。", "苦味不可逆；弃糊底部分，换锅重收。"]]}, {"id": "C09", "title": "白汤鲫鱼豆腐汤", "group": "江浙汤品 / 乳化", "level": "中等", "tags": ["鲫鱼", "白汤", "乳化", "豆腐"], "position": "与清汤相反，白汤依赖大火机械对流把油脂、明胶和水构造成稳定水包油乳液。", "mise": ["鲫鱼 1 条约 400g，处理干净并擦干。", "嫩豆腐 200g，姜片 15g，植物油 30mL。", "沸水 1200mL，必须提前准备。"], "science": ["鱼先煎可提供香气和游离脂质。", "倒入沸水并持续大滚，才有足够机械力形成乳白汤。", "小火适合清汤，不适合白汤起乳。"], "steps": [["煎鱼脱水", "热锅热油，鱼两面煎至金黄。", "形成香气并释放脂质。"], ["沸水冲击", "立即倒入 100°C 沸水，避免冷水降温。", "促进脂肪分散。"], ["大火乳化", "保持大火滚沸约 15 分钟。", "气泡与对流相当于物理搅拌。"], ["豆腐缓煮", "加豆腐后转中火 5 分钟，出锅前调盐。", "保持豆腐完整。"]], "fmea": [["汤不白", "用冷水或火力不足。", "可少量加入豆浆/牛奶并大火冲滚 1 分钟作为物理补救。"], ["鱼腥", "鱼未煎透或内膜未清。", "补姜葱和少量黄酒滚煮；下次前处理加强。"], ["豆腐碎", "豆腐过早加入并大滚。", "豆腐后置，中火轻煮，不用锅铲大翻。"]]}, {"id": "C10", "title": "番茄柠檬红扁豆泥", "group": "营养协同 / 植物铁", "level": "中等", "tags": ["红扁豆", "番茄", "柠檬", "低草酸"], "position": "以红扁豆、番茄和柠檬构建植物铁、有机酸与维生素C的日常搭配模型。", "mise": ["红扁豆 150g，过滤水 500mL。", "西红柿 100g，柠檬汁 10mL，盐 2g。", "可选橄榄油 5–10mL改善口感。"], "science": ["红扁豆相对易煮沙，适合作为植物铁和膳食纤维来源。", "番茄有机酸和终点柠檬汁可帮助形成清爽酸香，并促进植物铁利用。", "菠菜等高草酸食材不宜作为植物铁搭配的唯一思路。"], "steps": [["温酸浸泡", "红扁豆温水浸泡，少量苹果醋或柠檬调微酸。", "降低植酸影响。"], ["沥水淋洗", "泡水倒掉，清水冲洗。", "减少抗营养因子。"], ["番茄焖煮", "扁豆与切碎番茄一同焖至软烂。", "有机酸参与风味与吸收协同。"], ["离火加柠檬", "关火后调入柠檬汁，搅成泥。", "减少维生素C热损失。"]], "fmea": [["口感苦涩", "水温过高或浸泡不足。", "破壁加少量热油和酸，物理细化并调味。"], ["胃肠不适", "豆类摄入过量或熟化不足。", "减少单次量，延长熟化。"], ["搭配目标不清", "只关注单一食材，忽略维生素C、浸泡和熟化。", "按“豆类 + 番茄/柠檬 + 充分熟化”建立固定组合。"]]}, {"id": "C11", "title": "姜黄黄咖喱豆腐", "group": "香料营养 / 脂溶搭配", "level": "中等", "tags": ["姜黄", "黑胡椒", "脂溶", "咖喱"], "position": "通过油脂、椰浆、姜黄和黑胡椒构建香气、色泽与脂溶性分散的膳食模型。", "mise": ["北豆腐 200g，椰浆 120mL。", "姜黄粉 3–5g，现磨黑胡椒 0.5–1g。", "植物油或椰子油 15mL。"], "science": ["姜黄素疏水，先入油相更易分散并释放色泽。", "黑胡椒以现磨少量为佳，重点提升香气层次和辛香尾韵。", "香料使用以食品级调味为主，避免过量导致苦、辣、冲。"], "steps": [["油相展开", "小火用油煸姜黄粉和部分黑胡椒 20–30 秒。", "把疏水成分分散在脂质中，避免糊化发苦。"], ["椰浆乳化", "倒入椰浆和少量沸水，搅匀。", "形成稳定多相乳液。"], ["豆腐挂味", "焯水豆腐入锅，中火慢炖 5–6 分钟。", "去豆腥并挂上金黄汤汁。"], ["终点补香", "离火前少量现磨黑胡椒。", "强调新鲜香气，不追求过辣。"]], "fmea": [["黄汤分层", "椰浆温差大或大火猛滚破乳。", "离火，加 5mL 常温椰浆，慢搅 30 秒再小火恢复。"], ["苦味明显", "姜黄粉煸炒过火。", "补椰浆和少量糖盐平衡；严重焦糊弃用。"], ["辛辣冲鼻", "黑胡椒过量或煸炒过久。", "补椰浆、豆腐或少量甜味平衡；下次减量并后置。"]]}, {"id": "C12", "title": "天然酵母酸性发酵全麦欧包", "group": "发酵 / 植酸降解", "level": "高", "tags": ["全麦", "酸种", "发酵", "烘焙"], "position": "以酸性发酵降低植酸影响，同时构建面筋网络和高温蒸汽硬壳。", "mise": ["全麦面粉 300g，酸种酵头 60g。", "水 210mL，盐 6g。", "铸铁锅或带盖烤具；温度计可选。"], "science": ["乳酸菌/酵母发酵降低 pH，有助于植酸降解。", "拉伸折叠增强面筋网络，形成持气结构。", "带盖高温烘烤形成局部蒸汽，帮助炉内膨胀和脆壳。"], "steps": [["混合自溶", "面粉、水、酸种混合，静置 30 分钟后加盐。", "改善水合和面筋形成。"], ["温和发酵", "约 24–30°C 发酵 4–6 小时，观察体积和气泡。", "不以时间机械决定，需看状态。"], ["折叠上筋", "每 45 分钟拉伸折叠，共 3–4 次。", "增强弹性与持气。"], ["整形冷藏", "整形后可冷藏缓发，增强风味。", "防止过发。"], ["带盖烘烤", "230°C 预热，带盖 25 分钟，开盖 10–15 分钟。", "形成脆壳和深色风味。"]], "fmea": [["死硬扁塌", "过发、酸度过高或面筋不足。", "改烤薄脆饼，撒盐香草 200°C 烤脆。"], ["酸味过重", "发酵过久或温度过高。", "缩短发酵或降低酸种比例。"], ["底部焦黑", "锅底热量过强。", "底部加烤盘隔热或降低下火。"]]}, {"id": "C13", "title": "低脂双重澄清高汤", "group": "汤品 / 胶体澄清", "level": "高", "tags": ["高汤", "澄清", "脱脂", "微滤"], "position": "把“清汤”作为胶体稳定控制工程：低扰动浸提、降温沉降、脱脂与过滤。", "mise": ["纯净水 2000mL，带骨鸡肉或瘦猪肉 500g，姜 15g。", "冰水 100mL，纸滤器或细滤布。", "可选蛋清 1 个用于补救澄清。"], "science": ["持续大滚会把脂肪和明胶多肽乳化成永久浑浊。", "微沸区间有利于胶原浸提，同时减少对流扰动。", "蛋清筏可吸附悬浮颗粒，是传统澄清补救法。"], "steps": [["冷水入锅", "骨肉冷水入锅，烧开后彻底撇浮沫。", "减少游离蛋白悬浮。"], ["低温慢浸", "转极小火，汤面似开非开，慢浸 3–4 小时。", "提鲜不乳化。"], ["降温沉降", "汤滤出后快速降温到温热状态，静置。", "使大颗粒沉降。"], ["冰水屏障", "少量冰水沿汤面轻洒，帮助脂肪上浮成层后撇去。", "脱脂。"], ["干滤微滤", "用干净纸滤或细布过滤。", "获得清亮汤体。"]], "fmea": [["乳白浑浊", "大火滚沸导致乳化。", "冷却至温热后加入打散蛋清，小火加热成蛋清筏，撇除过滤。"], ["腥味重", "浮沫未除或原料不新鲜。", "加强前段焯洗；成品只能用姜葱黄酒弱化。"], ["油腻", "脱脂不彻底。", "冷藏后去除凝固脂肪层。"]]}, {"id": "C14", "title": "滑炒鸡片双菇", "group": "家常快炒 / 淀粉水合", "level": "中等", "tags": ["鸡片", "滑炒", "双菇", "水淀粉"], "position": "通过常温水淀粉预水合与快速滑炒，控制鸡肉蛋白变性和蘑菇褐变香气。", "mise": ["鸡胸肉 150g，切约 0.2cm 薄片。", "香菇 50g、口蘑 50g，切片并擦干。", "盐 2g，水 10mL，玉米淀粉 5g，油 25mL。"], "science": ["干淀粉直接遇热易外层糊化结块，必须先常温水合。", "鸡片薄、油温中等、时间短，是滑嫩关键。", "蘑菇表面需干燥，才有褐变香气而不是出水蒸煮。"], "steps": [["水合上浆", "鸡片加盐，水和淀粉先调成无颗粒浆后拌入。", "避免结块并形成保护膜。"], ["温油滑散", "约 120°C 温油，下鸡片快速划散，变白即捞。", "不追求焦色，追求嫩度。"], ["双菇煸香", "锅中补油，150°C 左右下擦干双菇，大火 60 秒。", "促进褐变和香气。"], ["合炒出锅", "鸡片回锅，快速合炒 10–20 秒调味。", "避免二次过热。"]], "fmea": [["鸡片粘连", "浆太稠或下锅后未及时划散。", "下次薄浆、分批下锅；本次可加少量热水打散成滑鸡羹。"], ["蘑菇出水", "表面湿或锅温不足。", "先盛出水分再大火收干，重建香气。"], ["鸡片老", "二次加热过久。", "加少量芡汁包裹补救；下次鸡片最后回锅。"]]}, {"id": "C15", "title": "焯水菠菜泥", "group": "蔬菜处理 / 焯水控色", "level": "高", "tags": ["菠菜", "焯水", "草酸", "锁色"], "position": "用于菠菜去涩、控色、改善口感和细腻成泥的蔬菜处理方法。", "mise": ["新鲜菠菜 200g，切段。", "清水 1500mL 以上，冰水一盆。", "橄榄油 5mL，盐 1g。"], "science": ["菠菜焯水可带走部分水溶性物质和草酸相关涩感。", "焯后快速冰镇有利于保持绿色和清爽口感。", "挤水后再打泥，可减少水塌和寡淡感。"], "steps": [["大水焯水", "水沸后入菠菜，中火微沸约 2–3 分钟。", "利用大水量降低涩味并软化纤维。"], ["弃水冰镇", "捞出后焯水液倒掉，菠菜入冰水。", "锁色并保持清爽口感。"], ["物理挤水", "用干净纱布或手套挤干内部水分。", "避免成泥后出水。"], ["打泥调味", "加少量清水、橄榄油和盐，破壁成泥。", "改善吞咽与口感。"]], "fmea": [["颜色发黄", "焯水过久或未冰镇，叶绿素变化。", "不影响食用；可用少量油脂和绿色葱叶改善视觉。"], ["口感水塌", "挤水不足或打泥加水过多。", "重新过滤或小火略收浓。"], ["涩感明显", "焯水不足或菠菜偏老。", "重新大水短焯 30–60 秒，挤干后再调味。"]]}];
+const checklist = [
+  "本餐是否明确主要目标：清淡、鲜香、补充蔬果、控制油盐糖或提高饱腹感？",
+  "生熟砧板、刀具、容器是否分开？处理生肉/鱼/蛋后是否洗手并清洁台面？",
+  "禽肉、鱼虾、蛋类和剩菜是否做到充分熟制或彻底复热？",
+  "豆类、全谷物是否完成浸泡、倒水、冲洗和充分熟化？",
+  "是否记录盐、糖、油大致用量，避免“少许”失控？",
+  "植物铁餐是否搭配番茄、柠檬或柑橘，并与浓茶咖啡适当错开？",
+  "是否存在过敏原：虾蟹、鱼、坚果、豆制品、乳制品、麸质？",
+  "蔬菜是否根据需要完成清洗、焯水、沥水、冰镇或挤水？",
+  "剩菜是否快速冷却、冷藏保存，并在限定时间内食用？",
+  "本次是否记录了失败模式、口味偏差和下次纠偏动作？"
+];
+function el(tag, attrs={}, html=''){ const n=document.createElement(tag); for(const [k,v] of Object.entries(attrs)){ if(k==='class') n.className=v; else if(k==='dataset') Object.assign(n.dataset,v); else n.setAttribute(k,v); } n.innerHTML=html; return n; }
+function sectionHTML(s){
+  let out = `<section class="section section-card" id="${s.id}" data-search="${[s.title,s.eyebrow,s.body,(s.bullets||[]).join(' '),(s.rules||[]).map(r=>r.name+' '+r.text).join(' ')].join(' ')}"><div class="eyebrow">${s.eyebrow}</div><h2>${s.title}</h2><p>${s.body}</p>`;
+  if(s.bullets) out += `<div class="grid-3">${s.bullets.map(b=>`<div class="mini">${b}</div>`).join('')}</div>`;
+  if(s.table) out += `<div class="table-wrap"><table><thead><tr>${(s.id==='scre'?['技法','目标','失败模式','纠偏控制']:['变量','控制机制','落地动作']).map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${s.table.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if(s.rules) out += `<div class="rule-list">${s.rules.map(r=>`<div class="rule"><strong>${r.name}</strong>${r.text}</div>`).join('')}</div>`;
+  if(s.timeline) out += `<div class="timeline">${s.timeline.map(t=>`<div class="tl"><b>${t[0]}</b><strong>${t[1]}</strong><span>${t[2]}</span></div>`).join('')}</div>`;
+  return out + `</section>`;
+}
+function renderSections(){
+  const mount=document.getElementById('dynamicSections');
+  mount.innerHTML = sections.filter(s=>s.id!=='overview').map(sectionHTML).join('');
+  const ov = sections.find(s=>s.id==='overview');
+  document.getElementById('sectionMount').innerHTML = `<p>${ov.body}</p><div class="grid-3">${ov.bullets.map(b=>`<div class="mini">${b}</div>`).join('')}</div>`;
+}
+function uniqueGroups(){ return ['全部',...Array.from(new Set(cards.map(c=>c.group.split('/')[0].trim())))]; }
+let activeGroup='全部';
+function renderTabs(){
+  const t=document.getElementById('tabs');
+  t.innerHTML=uniqueGroups().map(g=>`<button class="tab ${g===activeGroup?'active':''}" onclick="setGroup('${g}')">${g}</button>`).join('');
+}
+function setGroup(g){ activeGroup=g; renderTabs(); renderCards(document.getElementById('search').value||''); }
+function renderCards(q=''){
+  q=q.trim().toLowerCase();
+  const mount=document.getElementById('cardsMount');
+  mount.innerHTML = cards.map(c=>{
+    const text = JSON.stringify(c).toLowerCase();
+    const byGroup = activeGroup==='全部' || c.group.startsWith(activeGroup);
+    const byQuery = !q || text.includes(q);
+    const hide = !(byGroup && byQuery);
+    return `<article class="dish ${hide?'hide':''}" data-search="${text.replaceAll('"','')}">
+      <div class="dish-head"><div class="dish-title"><h3>${c.id} · ${highlight(c.title,q)}</h3><span class="badge">${c.level}</span></div>
+      <div class="dish-meta">${c.group}｜${c.position}</div><div class="tags">${c.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+      <div class="dish-body">
+        <details class="detail" open><summary>Mise en Place 参数</summary><div class="inside"><ul>${c.mise.map(x=>`<li>${x}</li>`).join('')}</ul></div></details>
+        <details class="detail"><summary>底层科学原理</summary><div class="inside"><ul>${c.science.map(x=>`<li>${x}</li>`).join('')}</ul></div></details>
+        <details class="detail" open><summary>SOP 标准操作</summary><div class="inside">${c.steps.map(s=>`<div class="step"><b>${s[0]}</b><div>${s[1]}<br><span style="color:var(--muted)">${s[2]}</span></div></div>`).join('')}</div></details>
+        <details class="detail"><summary>FMEA 故障诊断与补救</summary><div class="inside fmea">${c.fmea.map(f=>`<div class="fmea-row"><b>${f[0]}</b><br><span>根因：${f[1]}</span><br><span>纠偏：${f[2]}</span></div>`).join('')}</div></details>
+      </div></article>`
+  }).join('');
+}
+function highlight(s,q){ if(!q) return s; const i=s.toLowerCase().indexOf(q); if(i<0) return s; return s.slice(0,i)+'<mark>'+s.slice(i,i+q.length)+'</mark>'+s.slice(i+q.length); }
+function renderChecklist(){
+  const mount=document.getElementById('checklist');
+  const saved=JSON.parse(localStorage.getItem('jnaiKitchenChecklist')||'[]');
+  mount.innerHTML=checklist.map((x,i)=>`<label class="check"><input type="checkbox" ${saved[i]?'checked':''} onchange="saveChecklist()"><span>${i+1}. ${x}</span></label>`).join('');
+}
+function saveChecklist(){ const arr=[...document.querySelectorAll('#checklist input')].map(x=>x.checked); localStorage.setItem('jnaiKitchenChecklist',JSON.stringify(arr)); }
+function filterAll(q){
+  const lower=q.trim().toLowerCase();
+  document.querySelectorAll('.section-card').forEach(sec=>{
+    if(!lower || (sec.dataset.search||sec.innerText).toLowerCase().includes(lower) || sec.id==='safety') sec.style.display=''; else sec.style.display='none';
+  });
+  renderCards(q);
+}
+function toggleDark(){ document.body.classList.toggle('dark'); localStorage.setItem('jnaiKitchenDark',document.body.classList.contains('dark')?'1':'0'); }
+function copyExecutiveSummary(){
+  const txt = '智能家庭厨艺与营养规则引擎｜江南AI工作小组：以食品热力学、胶体化学、感官控制、营养协同、食品安全和智能厨房互联为主线，将苏南家常菜经验转化为可称量、可测温、可计时、可纠偏的家庭SCRE规则引擎，并形成15张SOP+FMEA控制卡。';
+  navigator.clipboard.writeText(txt).then(()=>alert('摘要已复制'));
+}
+if(localStorage.getItem('jnaiKitchenDark')==='1') document.body.classList.add('dark');
+renderSections(); renderTabs(); renderCards(); renderChecklist();
+</script>
+</body>
+</html>
