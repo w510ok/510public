@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>执念与规训：电影《抓特务》深度研究</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --ancient-red: #8C2F39;
+            --ink-black: #1A1A1A;
+            --parchment: #F4F1EA;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--parchment);
+            color: var(--ink-black);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(140, 47, 57, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--ancient-red);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- 顶部英雄区 -->
+    <header class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden bg-zinc-900">
+        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1594908900066-3f47337549d8?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-zinc-900"></div>
+        
+        <div class="relative z-10 max-w-4xl">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-widest">抓特务</h1>
+            <p class="text-xl md:text-2xl text-stone-300 font-light italic mb-8">“执念的隐喻、时间的考掘与生命的五毒”</p>
+            <div class="h-1 w-24 bg-red-700 mx-auto mb-8"></div>
+            <p class="text-stone-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                一场跨越四十年的猫鼠游戏，不仅是关于身份、规训与历史纠缠的博弈，更是一面照见人性深处“贪嗔痴慢疑”的无常镜鉴。
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-16 px-4">
+        
+        <!-- 第一部分：制片史与形态演变 -->
+        <section id="evolution" class="mb-24">
+            <div class="flex flex-col md:flex-row items-center mb-12">
+                <div class="md:w-1/3">
+                    <h2 class="text-3xl font-bold border-l-4 border-red-800 pl-4 py-2 mb-4">三十一载时间长跑</h2>
+                    <p class="text-gray-600 mb-6">
+                        从1992年中篇小说问世，到2026年电影公映，作品经历了从文学意象到二十集平民史诗，再到141分钟心理博弈的深度提纯。
+                    </p>
+                </div>
+                <div class="md:w-2/3 w-full">
+                    <div class="chart-container bg-white p-6 rounded-xl shadow-lg">
+                        <canvas id="mediaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="p-6 bg-white border-t-4 border-gray-300 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-bold mb-2">1992 原著小说</h3>
+                    <p class="text-sm text-gray-500">张策《无悔追踪》</p>
+                    <p class="mt-4 text-gray-700">两万字中篇，奠定了“生活流反特”的叙事基石与心理深度。</p>
+                </div>
+                <div class="p-6 bg-white border-t-4 border-red-400 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-bold mb-2">1995 电视剧版</h3>
+                    <p class="text-sm text-gray-500">尹力导演 / 王志文、刘佩琦主演</p>
+                    <p class="mt-4 text-gray-700">二十集编年体，全景式扫描北京胡同平民史诗，确立了时代变迁框架。</p>
+                </div>
+                <div class="p-6 bg-white border-t-4 border-red-800 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-bold mb-2">2026 电影版</h3>
+                    <p class="text-sm text-gray-500">冯小刚导演 / 胡歌、雷佳音主演</p>
+                    <p class="mt-4 text-gray-700">心理年代戏，将散点式扫描提纯为高强度的双雄对峙，聚焦执念本身。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：符号与身体政治 -->
+        <section id="symbolism" class="mb-24 bg-stone-100 -mx-4 px-4 py-16 rounded-3xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">身体尊严与权力规训</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">电影通过极具张力的生活细节，展现了国家意志对个体生命的渗透。这些瞬间不仅是剧情转折，更是深刻的哲学隐喻。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="glass-panel p-8 rounded-2xl cursor-pointer hover:bg-white transition group" onclick="updateSymbol(0)">
+                        <h4 class="text-xl font-bold flex items-center group-hover:text-red-800">
+                            <span class="w-8 h-8 rounded-full bg-red-800 text-white flex items-center justify-center mr-4 text-sm font-normal">01</span>
+                            抽掉的皮带：政治去势
+                        </h4>
+                        <p class="mt-4 text-gray-600">肖大力冷酷抽掉冯静波的皮带，使其在街坊面前狼狈提裤。这不仅是执法，更是通过制造“不体面”来瓦解精神支柱。</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl cursor-pointer hover:bg-white transition group" onclick="updateSymbol(1)">
+                        <h4 class="text-xl font-bold flex items-center group-hover:text-red-800">
+                            <span class="w-8 h-8 rounded-full bg-red-800 text-white flex items-center justify-center mr-4 text-sm font-normal">02</span>
+                            捏碎的酒杯：无声抗争
+                        </h4>
+                        <p class="mt-4 text-gray-600">在婚礼的喧闹中，冯静波捏碎酒杯，鲜血混着烈酒流入嘴中。这是他在漫长压抑下唯一一次近乎自残的精神爆发。</p>
+                    </div>
+                </div>
+                <div id="symbolDisplay" class="bg-zinc-900 h-[400px] rounded-3xl p-10 flex flex-col justify-center text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="text-9xl font-serif">“</span>
+                    </div>
+                    <h3 id="symbolTitle" class="text-3xl font-serif mb-6 text-red-400">符号深解</h3>
+                    <p id="symbolText" class="text-lg leading-relaxed text-stone-300 italic">
+                        点击左侧卡片，探索每一个细节背后的政治与身体隐喻。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三部分：五毒镜鉴（哲学重构） -->
+        <section id="fivePoisons" class="mb-24 bg-zinc-900 text-stone-300 -mx-4 px-4 py-16 rounded-3xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">五毒镜鉴：佛教哲学下的生命形态</h2>
+                <p class="text-stone-400 max-w-3xl mx-auto">
+                    “用一生去求证一个怀疑，用一生去隐藏一个身份。” 这种极致的猫鼠博弈，在东方佛理中正是“贪、嗔、痴、慢、疑”交织而成的无尽苦海。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- 左侧按钮 -->
+                <div class="lg:col-span-4 flex flex-col justify-between space-y-3">
+                    <button onclick="showPoison('tan')" id="btn-tan" class="poison-btn text-left p-4 rounded-xl border border-stone-800 hover:border-red-800 hover:bg-stone-800/50 transition duration-300">
+                        <span class="text-red-500 font-serif text-lg font-bold mr-3">【贪】</span> 肖之“真相”与冯之“偏安”
+                    </button>
+                    <button onclick="showPoison('chen')" id="btn-chen" class="poison-btn text-left p-4 rounded-xl border border-stone-800 hover:border-red-800 hover:bg-stone-800/50 transition duration-300">
+                        <span class="text-red-500 font-serif text-lg font-bold mr-3">【嗔】</span> 时代对立面的隐秘怨怼
+                    </button>
+                    <button onclick="showPoison('chi')" id="btn-chi" class="poison-btn text-left p-4 rounded-xl border border-stone-800 hover:border-red-800 hover:bg-stone-800/50 transition duration-300">
+                        <span class="text-red-500 font-serif text-lg font-bold mr-3">【痴】</span> 错把临时符号当不灭本质
+                    </button>
+                    <button onclick="showPoison('man')" id="btn-man" class="poison-btn text-left p-4 rounded-xl border border-stone-800 hover:border-red-800 hover:bg-stone-800/50 transition duration-300">
+                        <span class="text-red-500 font-serif text-lg font-bold mr-3">【慢】</span> 判官的傲慢与士人的清高
+                    </button>
+                    <button onclick="showPoison('yi')" id="btn-yi" class="poison-btn text-left p-4 rounded-xl border border-stone-800 hover:border-red-800 hover:bg-stone-800/50 transition duration-300">
+                        <span class="text-red-500 font-serif text-lg font-bold mr-3">【疑】</span> 怀疑之眼与终身防备的牢笼
+                    </button>
+                </div>
+
+                <!-- 右侧详细解析板 -->
+                <div class="lg:col-span-8 bg-zinc-950 p-8 rounded-2xl border border-stone-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <span id="poisonChar" class="text-6xl font-serif text-red-600 font-bold bg-zinc-900 w-20 h-20 flex items-center justify-center rounded-2xl border border-red-900/30">疑</span>
+                            <div>
+                                <h3 id="poisonTitle" class="text-2xl font-bold text-white">怀疑之眼与终身防备的牢笼</h3>
+                                <p id="poisonSub" class="text-sm text-stone-500">Vicikiccha：整部戏的核心引擎与生命原罪</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6 text-stone-300 text-lg leading-relaxed">
+                            <div class="border-l-2 border-red-800 pl-4">
+                                <p class="font-bold text-stone-200">肖大力的「疑」：</p>
+                                <p id="poisonXiao" class="text-base mt-1 text-stone-400">“疑邻盗斧”的终身审判。他用一双怀疑的眼睛审视了冯静波四十年，一举一动、一言一行，甚至在对方成为先进分子时，也将这种积极解读为更深沉的隐蔽。这种“疑”不仅是在抓特务，更是将怀疑内化为了生存的唯一燃料。</p>
+                            </div>
+                            <div class="border-l-2 border-stone-700 pl-4">
+                                <p class="font-bold text-stone-200">冯静波的「疑」：</p>
+                                <p id="poisonFeng" class="text-base mt-1 text-stone-400">“惊弓之鸟”的防备深渊。他无法信任身边的任何人，包括妻子、儿女 and 邻里。哪怕枕戈旦夕，也必须死死捂住那个“底牌”，在风吹草动中战战兢兢。他的世界因外界的怀疑而充满了对世间万物的敌意与防备。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="poisonSummary" class="mt-8 pt-6 border-t border-stone-800 text-stone-400 text-sm italic">
+                        “疑”是两人最直接的生命交汇点。肖大力因疑而活，冯静波因疑而躲。他们用一生编织了一张因果网，谁也无法超脱。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：苦海同舟，敌我消融的生命互证 -->
+        <section id="sufferingCompassion" class="mb-24">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6 border-l-4 border-red-800 pl-4 py-2">两重深苦，一个知己</h2>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        抛开冷酷的时代对立，凝视这两个具体的灵魂，所见皆是无尽的“苦”。肖大力的执念摧毁了他本可安稳的家庭，冯静波的隐藏剥夺了他真实活着的权利。
+                    </p>
+                    <div class="space-y-4">
+                        <div class="bg-stone-50 p-6 rounded-2xl border-l-4 border-zinc-700">
+                            <h4 class="font-bold text-zinc-900 mb-1">肖大力的苦：燃烧自我的荒野孤狼</h4>
+                            <p class="text-sm text-gray-600">为了证实一个怀疑，他不惜牺牲世俗的幸福、妻子的一生和儿女的前途。他在名之为“正义”的祭坛上，将自己活成了一把永不熄灭也永不妥协的焦炭。</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-800">
+                            <h4 class="font-bold text-red-900 mb-1">冯静波的苦：永不退场的画皮幽灵</h4>
+                            <p class="text-sm text-red-800">为了捂住一个身份，他戴着温良谦逊的“好人”假面，在日常琐碎里窒息生存。他无法真正爱人，也无法被人真正信任，一辈子都在无形的地狱中战战兢兢。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 w-full">
+                    <div class="chart-container bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-between">
+                        <h4 class="text-center font-bold text-gray-800 mb-4 font-serif">命运曲线：从“极致对抗”走向“同体大悲”</h4>
+                        <div class="h-[280px]">
+                            <canvas id="destinyChart"></canvas>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-4 text-center">随着时间消逝（1950-1990），双雄的生命对抗张力逐渐下降，取而代之的是无言的生命共鸣与终极慈悲。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五部分：终极的慈悲与彼此超度 -->
+        <section id="mutualSalvation" class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold font-serif">生命在荒野里的彼此证成</h2>
+                <p class="text-gray-500 mt-2">当冰冷的敌我观念消融，剩下的是对生命无常的深深抚摸</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 bg-zinc-900 text-stone-300 rounded-3xl flex flex-col justify-between border border-stone-800 hover:border-red-900 transition duration-300">
+                    <div>
+                        <span class="text-red-500 text-sm font-serif tracking-widest uppercase block mb-3">存在之苦</span>
+                        <h3 class="text-2xl font-bold text-white mb-4">以彼此为唯一的“锚”</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            在这个瞬息万变、甚至荒诞的时代里，身边的街坊、潮流、甚至是亲人都在随波逐流地改变。奇妙的是，唯有肖大力那双怀疑的眼睛，和冯静波那抹闪烁的防备，四十年来从未动摇。他们成了彼此在荒凉大地上最确定的存在证明。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-stone-800 text-xs italic text-stone-500">
+                        “若没有你，我的半生守望和半生躲藏，都将失去读者。”
+                    </div>
+                </div>
+
+                <div class="p-8 bg-white rounded-3xl flex flex-col justify-between shadow-md hover:shadow-xl transition duration-300 border border-gray-100">
+                    <div>
+                        <span class="text-red-800 text-sm font-serif tracking-widest uppercase block mb-3">敌我消融</span>
+                        <h3 class="text-2xl font-bold text-zinc-900 mb-4">被迫的行善与终身规训</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            因为肖大力的日夜盯防，冯静波在大半辈子中“不敢犯错”，甚至活成了教书育人、温文尔雅、扫大街、写黑板报的模范公民。监管者的“疑”最终塑造了被监管者的“善”；被监管者的“藏”也供养了监管者一生的“职责”。他们早已互为因果。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-gray-100 text-xs italic text-red-800">
+                        “因你的监督，我活成了真正的善人；因我的存在，你有了燃烧的养料。”
+                    </div>
+                </div>
+
+                <div class="p-8 bg-zinc-900 text-stone-300 rounded-3xl flex flex-col justify-between border border-stone-800 hover:border-red-900 transition duration-300">
+                    <div>
+                        <span class="text-red-500 text-sm font-serif tracking-widest uppercase block mb-3">同体大悲</span>
+                        <h3 class="text-2xl font-bold text-white mb-4">无声的超度与释怀</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            电影尾声，当风暴过去，真相已不再具有政治意义，两个颤巍巍的老人在四合院落里相对而坐。那不再是追逃的终点，而是一场无言的“告解”。看到对方脸上的皱纹与眼中的疲惫，他们终于明白，折磨了对方一辈子的自己，不过是时代大风吹过的一粒微尘。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-stone-800 text-xs italic text-stone-500">
+                        “我们用生命最痛苦的姿态，超度着那个无法回头的时代。”
+                    </div>
+                </div>
+            </div>
+
+            <!-- 终极升华段落 -->
+            <div class="mt-16 p-12 bg-stone-150 rounded-3xl border border-red-200 text-center relative overflow-hidden">
+                <div class="absolute -left-10 -top-10 opacity-5 pointer-events-none">
+                    <span class="text-[200px] font-serif">慈</span>
+                </div>
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+                    <span class="text-[200px] font-serif">悲</span>
+                </div>
+                
+                <div class="max-w-3xl mx-auto space-y-6 text-gray-700 z-10 relative">
+                    <h3 class="text-3xl font-serif italic text-red-900">“我也早就不跟你们一条心了。”</h3>
+                    <p class="text-lg leading-relaxed">
+                        当冯静波在数十年后，用近乎解脱的语气轻轻吐出这句话，压在两人肩头一辈子的五毒大山瞬间土崩瓦解。
+                    </p>
+                    <p class="text-base leading-relaxed">
+                        这不是叛变，也不是认输。这是一种经历了漫长折磨、看穿了身份虚无之后的<strong>无缘大慈、同体大悲</strong>。肖大力没有把冯静波送入冰冷的断头台，而是用陪伴和盯防保护了他一生的“好人”修行；冯静波也没有让肖大力的怀疑落空，他用自己一生的克己复礼，完成了对肖大力职责的最高祭奠。
+                    </p>
+                    <div class="h-px w-24 bg-red-800/30 mx-auto my-6"></div>
+                    <p class="font-bold text-red-800 text-lg">
+                        在时间冰冷无情的荒野里，两个本该血流成河的仇敌，通过忍受无尽的折磨，在生命残局里，达成了对彼此最温柔的超度。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-zinc-900 text-stone-500 py-12 px-4 text-center text-sm">
+        <p class="mb-4 text-stone-300">深度研究报告：执念的隐喻与时间的考掘</p>
+        <p>© 江南ai工作小组 2026 基于张策《无悔追踪》及其电影改编研究</p>
+        <div class="mt-6 flex justify-center space-x-6">
+            <span class="border-b border-stone-700 pb-1">电影美学研究</span>
+            <span class="border-b border-stone-700 pb-1">存在主义救赎</span>
+            <span class="border-b border-stone-700 pb-1">佛教同体大悲解构</span>
+        </div>
+    </footer>
+
+    <script>
+        // 图表 1: 媒介形态提纯对比
+        const mediaCtx = document.getElementById('mediaChart').getContext('2d');
+        new Chart(mediaCtx, {
+            type: 'bar',
+            data: {
+                labels: ['原著小说 (字数)', '电视剧版 (集数)', '电影版 (分钟)'],
+                datasets: [{
+                    label: '体量密度指标',
+                    data: [80, 100, 60], // 抽象归一化处理
+                    backgroundColor: ['#d1d5db', '#f87171', '#8c2f39'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataIndex === 0) return '2万字：文学意象留白';
+                                if (context.dataIndex === 1) return '20集：全景编年史史诗';
+                                if (context.dataIndex === 2) return '141分钟：高强度心理提纯';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { display: false }
+                }
+            }
+        });
+
+        // 图表 2: 双雄生命曲线：从对抗到慈悲
+        const destinyCtx = document.getElementById('destinyChart').getContext('2d');
+        new Chart(destinyCtx, {
+            type: 'line',
+            data: {
+                labels: ['50年代（敌我分明）', '60年代（日常规训）', '70年代（命运风暴）', '80年代（岁月流逝）', '90年代（终极慈悲）'],
+                datasets: [
+                    {
+                        label: '敌对与对抗张力',
+                        data: [95, 75, 50, 25, 5],
+                        borderColor: '#8C2F39',
+                        backgroundColor: 'rgba(140, 47, 57, 0.05)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#8C2F39'
+                    },
+                    {
+                        label: '共感与同体大悲度',
+                        data: [5, 20, 45, 75, 98],
+                        borderColor: '#4B5563',
+                        backgroundColor: 'rgba(75, 85, 99, 0.05)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#4B5563',
+                        borderDash: [5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: 'Noto Sans SC'
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                if (value === 0) return '虚无';
+                                if (value === 50) return '生命交织';
+                                if (value === 100) return '同体大悲';
+                                return '';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 交互逻辑：符号深解
+        const symbols = [
+            {
+                title: "抽掉的皮带：政治去势",
+                text: "在电影中段，肖大力抽掉冯静波皮带这一动作，构成了对知识分子身体尊严最直接的打击。在高度透明的四合院公共空间，失去了皮带的冯静波不仅失去了裤子的支撑，更失去了作为人的社会尊严，标志着国家机器对个体私域的彻底征服。"
+            },
+            {
+                title: "捏碎的酒杯：无声抗争",
+                text: "冯静波试图在婚礼的和解中寻得片刻喘息，却遭肖大力拒绝。捏碎杯子是无力发声者的绝望呐喊。胡歌在此处演出了角色身上那种‘虽然狡猾但十分破碎的疯感’，这是个体在庞大时代背景下最后的、近乎自残的尊严维持。"
+            }
+        ];
+
+        function updateSymbol(index) {
+            const display = document.getElementById('symbolDisplay');
+            const title = document.getElementById('symbolTitle');
+            const text = document.getElementById('symbolText');
+            
+            display.style.opacity = 0;
+            setTimeout(() => {
+                title.innerText = symbols[index].title;
+                text.innerText = symbols[index].text;
+                display.style.opacity = 1;
+            }, 200);
+            display.style.transition = 'opacity 0.3s ease';
+        }
+
+        // 交互逻辑：五毒解构
+        const poisonsData = {
+            tan: {
+                char: "贪",
+                title: "肖之“真相”与冯之“偏安”",
+                sub: "Raga：对虚妄目标的无尽执着",
+                xiao: "贪图一个绝对清白的交代。他无法容忍生活里存在哪怕一丝一毫的灰色。他贪求“特务伏法”这一终极叙事的圆满，为此可以牺牲自己的家庭、儿女的前途，甚至大半生的幸福。",
+                feng: "贪恋偏安一隅的安宁生活。作为前朝留下的潜伏者，他贪恋现世安稳、贪恋妻贤子孝的平庸温存。为了保住这层‘好人’的伪装，他不得不戴上沉重的假面，在日常琐碎里窒息生存。",
+                summary: "【贪】使肖大力自缚于名为‘正义’的祭坛，使冯静波窒息于名为‘日常’的泥淖。"
+            },
+            chen: {
+                char: "嗔",
+                title: "时代对立面的隐秘怨怼",
+                sub: "Dvesha：敌我结构下的怨恨滋生",
+                xiao: "肖大力对“潜伏之敌”带有宿命式的嗔怒。当时代的列车滚滚向前，他将无法在新时代找到自我定位的惶恐，全数转化为对冯静波的敌意与追踪。这是一种由于观念坚守而产生的“圣洁怒火”。",
+                feng: "冯静波对长期遭受精神凌迟的屈辱，在内心最深处埋下了极深的“嗔”。当他被剥夺皮带、被时刻监视时，那股无处发泄的怨恨最终内卷为捏碎酒杯时刺破掌心的冰冷鲜血。",
+                summary: "【嗔】是时代的铁锤击打在两人身上激起的火花，愤怒没有出口，最终全部反噬自身。"
+            },
+            chi: {
+                char: "痴",
+                title: "错把临时符号当不灭本质",
+                sub: "Moha：看不透无常的终极愚痴",
+                xiao: "“痴”于他的身份。时代早已经变了，连国民党都成了历史名词，可肖大力依然死守着“他是特务，我是公安”的对立。他无法接受时代的复杂性，用二十年前的黑白教条去硬套四十年的流变。",
+                feng: "“痴”于他的过往。其实，上峰早已将他遗忘，他也早就在岁月中成为了合格的社会主义建设者（写黑板报、教书）。但他依然被“我是个潜伏者”这一过期的代码锁死，终生不敢以真实面目示人。",
+                summary: "【痴】让两人紧紧抱住一块写着‘敌我’的墓碑，在时间的荒野里，被已经过去的幽灵奴役一生。"
+            },
+            man: {
+                char: "慢",
+                title: "判官的傲慢与士人的清高",
+                sub: "Mana：深藏在骨子里的优越感",
+                xiao: "自居为纯粹阶级真理的掌握者，对冯静波的道德批判居高临下。肖大力的“慢”表现为一种真理执掌者的不容置疑，他认为自己的一生坚守是崇高的，而冯静波的活着则是卑微的苟活。",
+                feng: "士大夫阶层的精神孤傲。即便在扫厕所、被剥夺皮带时，冯静波依然在骨子里蔑视肖大力的简单粗暴。他用智商上的优越感和古典的矜持来建立防御，“我知道你看不懂，我也懒得让你看懂”。",
+                summary: "【慢】让他们在无数次看似平和的对话中，始终立着针锋相对的无形壁垒，无法实现真正的沟通。"
+            },
+            yi: {
+                char: "疑",
+                title: "怀疑之眼与终身防备的牢笼",
+                sub: "Vicikiccha：整部戏的核心引擎与生命原罪",
+                xiao: "“疑邻盗斧”的终身审判。他用一双怀疑的眼睛审视了冯静波四十年，一举一动、一言一行，甚至在对方成为先进分子时，也将这种积极解读为更深沉的隐蔽。这种“疑”不仅是在抓特务，更是将怀疑内化为了生存的唯一燃料。",
+                feng: "“惊弓之鸟”的防备深渊。他无法信任身边的任何人，包括妻子、儿女和邻里。哪怕枕戈旦夕，也必须死死捂住那个“底牌”，在风吹草动中战战兢兢。他的世界因外界的怀疑而充满了对世间万物的敌意与防备。",
+                summary: "“疑”是两人最直接的生命交汇点。肖大力因疑而活，冯静波因疑而躲。他们用一生编织了一张因果网，谁也无法超脱。"
+            }
+        };
+
+        function showPoison(key) {
+            // 重置所有按钮样式
+            document.querySelectorAll('.poison-btn').forEach(btn => {
+                btn.classList.remove('border-red-800', 'bg-stone-800/50');
+                btn.classList.add('border-stone-800');
+            });
+            // 激活当前按钮
+            const activeBtn = document.getElementById(`btn-${key}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-stone-800');
+                activeBtn.classList.add('border-red-800', 'bg-stone-800/50');
+            }
+
+            const data = poisonsData[key];
+            const charEl = document.getElementById('poisonChar');
+            const titleEl = document.getElementById('poisonTitle');
+            const subEl = document.getElementById('poisonSub');
+            const xiaoEl = document.getElementById('poisonXiao');
+            const fengEl = document.getElementById('poisonFeng');
+            const summaryEl = document.getElementById('poisonSummary');
+
+            // 渐变动画
+            charEl.parentElement.parentElement.parentElement.style.opacity = 0.5;
+            setTimeout(() => {
+                charEl.innerText = data.char;
+                titleEl.innerText = data.title;
+                subEl.innerText = data.sub;
+                xiaoEl.innerText = data.xiao;
+                fengEl.innerText = data.feng;
+                summaryEl.innerText = data.summary;
+                charEl.parentElement.parentElement.parentElement.style.opacity = 1;
+            }, 150);
+        }
+
+        // 默认初始化激活“疑”
+        document.addEventListener("DOMContentLoaded", () => {
+            showPoison('yi');
+            updateSymbol(0);
+        });
+    </script>
+</body>
+</html>
