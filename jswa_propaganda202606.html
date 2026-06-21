@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>江苏省水协会员单位团体标准良好行为规范宣贯材料</title>
+  <style>
+    :root{
+      --ink:#1f2a37;
+      --muted:#5f6b7a;
+      --light:#f6f8fb;
+      --line:#dce3ec;
+      --blue:#0f4c81;
+      --blue2:#1b6ca8;
+      --green:#158466;
+      --orange:#b7631b;
+      --red:#b23a48;
+      --purple:#5b5fc7;
+      --card:#ffffff;
+      --shadow:0 12px 30px rgba(15, 38, 64, .12);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      color:var(--ink);
+      background:linear-gradient(180deg,#eef5fb 0,#f7f9fc 360px,#fff 100%);
+      line-height:1.68;
+    }
+    a{color:var(--blue2);text-decoration:none;}
+    .page{max-width:1180px;margin:0 auto;padding:26px 22px 64px;}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-radius:26px;
+      background:linear-gradient(135deg,#0b3f6e 0%,#0f5c93 48%,#159179 100%);
+      color:#fff;
+      padding:42px 42px 36px;
+      box-shadow:var(--shadow);
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto -120px -180px auto;
+      width:420px;height:420px;border-radius:50%;
+      background:rgba(255,255,255,.12);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px auto auto -100px;
+      width:280px;height:280px;border-radius:50%;
+      border:46px solid rgba(255,255,255,.08);
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.28);
+      font-size:14px;letter-spacing:.04em;
+    }
+    h1{font-size:38px;line-height:1.2;margin:20px 0 12px;font-weight:800;letter-spacing:-.02em;}
+    .subtitle{font-size:19px;max-width:920px;color:rgba(255,255,255,.9);margin:0 0 24px;}
+    .hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px;position:relative;z-index:1;}
+    .hero-kpi{
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+      border-radius:18px;padding:16px 14px;min-height:110px;
+      backdrop-filter: blur(6px);
+    }
+    .hero-kpi .num{font-size:28px;font-weight:800;margin-bottom:6px;}
+    .hero-kpi .txt{font-size:14px;color:rgba(255,255,255,.86);line-height:1.45;}
+    .toolbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:20px 2px 0;
+    }
+    .btn{
+      border:1px solid var(--line);background:#fff;color:var(--blue);
+      padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;
+      box-shadow:0 4px 14px rgba(15, 38, 64, .06);
+    }
+    .btn:hover{border-color:#b9cad9;background:#f9fcff;}
+    .toc{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;
+    }
+    .toc a{
+      display:inline-block;padding:8px 12px;border-radius:999px;
+      background:#fff;border:1px solid var(--line);font-size:14px;color:#2d4a62;
+    }
+    .toc a:hover{background:#eef6ff;border-color:#bdd7ee;}
+    section{margin-top:28px;}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:0 8px 24px rgba(15, 38, 64, .06);padding:26px;
+    }
+    h2{font-size:26px;line-height:1.3;margin:0 0 14px;color:#102a43;}
+    h3{font-size:19px;line-height:1.35;margin:0 0 10px;color:#153b5b;}
+    p{margin:8px 0 12px;}
+    .lead{font-size:18px;color:#344b63;}
+    .muted{color:var(--muted);font-size:14px;}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+    .mini-card{background:#fbfdff;border:1px solid var(--line);border-radius:16px;padding:18px;}
+    .mini-card strong{display:block;font-size:17px;color:#102a43;margin-bottom:6px;}
+    .tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 9px;margin:0 6px 6px 0;background:#eef6ff;color:var(--blue);border:1px solid #cfe2f4;}
+    .tag.green{background:#eaf8f3;color:var(--green);border-color:#cbeee2;}
+    .tag.orange{background:#fff5e8;color:var(--orange);border-color:#f7d8b4;}
+    .tag.red{background:#fff0f2;color:var(--red);border-color:#f4cbd1;}
+    .tag.purple{background:#f1f0ff;color:var(--purple);border-color:#d8d6ff;}
+    .summary-box{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch;}
+    .quote{
+      border-left:5px solid var(--blue2);background:#f3f8fd;border-radius:12px;padding:16px 18px;
+      color:#21445f;font-weight:700;
+    }
+    .warning{border-left-color:var(--orange);background:#fff7ec;color:#5b3715;}
+    .danger{border-left-color:var(--red);background:#fff4f5;color:#652b33;}
+    .success{border-left-color:var(--green);background:#eefaf5;color:#164f40;}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;}
+    th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+    th{background:#f3f7fb;text-align:left;color:#153b5b;font-size:14px;}
+    tr:last-child td{border-bottom:0;}
+    td{font-size:14.5px;}
+    .flow{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:18px 0;}
+    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 10px;min-height:106px;text-align:center;box-shadow:0 6px 18px rgba(15,38,64,.05);}
+    .step .no{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;font-weight:800;font-size:13px;margin-bottom:8px;}
+    .step b{display:block;font-size:15px;color:#153b5b;}
+    .step span{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:4px;}
+    .role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .role{border-radius:16px;border:1px solid var(--line);padding:18px;background:linear-gradient(180deg,#fff,#fbfdff);}
+    .role .icon{font-size:24px;margin-bottom:8px;}
+    .role ul{margin:8px 0 0 20px;padding:0;}
+    .role li{margin:3px 0;font-size:14.5px;}
+    .redline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+    .redline .item{border-radius:16px;padding:16px;background:#fff5f6;border:1px solid #f1c9cf;}
+    .redline .item b{color:var(--red);}
+    .timeline{position:relative;margin:18px 0 0;padding-left:26px;}
+    .timeline::before{content:"";position:absolute;left:8px;top:4px;bottom:10px;width:2px;background:#cfe0ef;}
+    .tl{position:relative;margin:0 0 18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;}
+    .tl::before{content:"";position:absolute;left:-24px;top:19px;width:14px;height:14px;border-radius:50%;background:var(--blue2);border:3px solid #e9f4ff;}
+    .tl b{display:block;color:#153b5b;margin-bottom:4px;}
+    .checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+    .check{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;}
+    .check input{margin-top:5px;transform:scale(1.12);}
+    .check span{font-size:14.5px;}
+    .progress-wrap{height:12px;border-radius:999px;background:#e7edf4;overflow:hidden;margin:12px 0 4px;}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,#0f5c93,#159179);transition:.25s ease;}
+    .note{font-size:13px;color:#687587;margin-top:8px;}
+    .qa details{border:1px solid var(--line);border-radius:14px;background:#fff;margin:10px 0;overflow:hidden;}
+    .qa summary{cursor:pointer;font-weight:800;padding:14px 16px;color:#153b5b;background:#f8fbff;}
+    .qa div{padding:2px 16px 14px;color:#3c4f63;}
+    .footer{margin-top:34px;padding:24px;border-radius:18px;background:#102a43;color:#dce8f3;}
+    .footer h2{color:#fff;}
+    .source-list{font-size:13px;line-height:1.7;color:#c8d6e3;}
+    .print-title{display:none;}
+    @media(max-width:980px){
+      .hero-grid,.grid-4,.redline{grid-template-columns:repeat(2,1fr);}
+      .grid-3,.role-grid{grid-template-columns:1fr 1fr;}
+      .summary-box,.grid-2{grid-template-columns:1fr;}
+      .flow{grid-template-columns:repeat(4,1fr);}
+    }
+    @media(max-width:640px){
+      .page{padding:14px 12px 40px;}
+      .hero{padding:28px 22px;border-radius:20px;}
+      h1{font-size:30px;}
+      .subtitle{font-size:16px;}
+      .hero-grid,.grid-3,.grid-4,.role-grid,.checklist,.redline{grid-template-columns:1fr;}
+      .flow{grid-template-columns:1fr 1fr;}
+      .card{padding:20px 16px;}
+      th,td{font-size:13.5px;padding:10px;}
+    }
+    @media print{
+      body{background:#fff;color:#111;}
+      .page{max-width:none;padding:0;}
+      .hero{box-shadow:none;border-radius:0;background:#fff;color:#111;padding:0 0 14px;border-bottom:3px solid #111;}
+      .hero::before,.hero::after,.toolbar,.toc{display:none!important;}
+      .badge{border:1px solid #777;background:#fff;color:#111;}
+      .subtitle{color:#333;}
+      .hero-grid{display:none;}
+      section{page-break-inside:avoid;margin-top:18px;}
+      .card,.mini-card,.role,.step,.tl{box-shadow:none;border-color:#999;}
+      a{color:#111;}
+      .footer{background:#fff;color:#111;border:1px solid #999;}
+      .footer h2{color:#111;}
+      .source-list{color:#333;}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <span class="badge">会员单位宣贯版 · 江苏省城镇供水排水协会</span>
+      <h1>团体标准良好行为规范宣贯材料</h1>
+      <p class="subtitle">面向会员单位的实务解读：把“参与团体标准”转化为技术创新、管理提升、合规应用和行业影响力建设。</p>
+      <div class="hero-grid">
+        <div class="hero-kpi"><div class="num">1个转变</div><div class="txt">由“指南”走向“规范”，从文本发布转向全过程治理。</div></div>
+        <div class="hero-kpi"><div class="num">5条红线</div><div class="txt">业务范围、强制标准、重复抄袭、违规收费、公平竞争。</div></div>
+        <div class="hero-kpi"><div class="num">8个阶段</div><div class="txt">提案、立项、起草、征求意见、审查、批准、发布、复审。</div></div>
+        <div class="hero-kpi"><div class="num">3类成果</div><div class="txt">技术成果标准化、管理经验流程化、应用证据可追溯。</div></div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="muted">版本：2026年6月 · 适用于会员单位内部学习、项目启动会、标准应用培训</div>
+      <div>
+        <button class="btn" onclick="window.print()">打印 / 另存为PDF</button>
+        <button class="btn" onclick="toggleCompact()">切换紧凑阅读</button>
+      </div>
+    </div>
+
+    <nav class="toc">
+      <a href="#why">一页读懂</a><a href="#member">会员单位怎么做</a><a href="#process">全流程</a><a href="#roles">岗位分工</a><a href="#redline">合规红线</a><a href="#application">应用场景</a><a href="#plan">行动计划</a><a href="#checklist">自查清单</a><a href="#qa">问答</a>
+    </nav>
+
+    <section id="why" class="card">
+      <h2>一页读懂：这次宣贯和会员单位有什么关系？</h2>
+      <div class="summary-box">
+        <div>
+          <p class="lead">《团体标准化 良好行为规范（征求意见稿）》释放出的核心信号，是团体标准工作将更加重视合规、公开、证据、应用和评价。会员单位不只是“署名参编”，而是要在共同需求、技术验证、意见反馈、实施应用和效果评价中发挥真实作用。</p>
+          <div class="quote success">建议会员单位把团体标准理解为“四个工具”：技术成果转化工具、企业管理提升工具、招采合同沟通工具、行业自律与品牌建设工具。</div>
+        </div>
+        <div class="mini-card">
+          <h3>本次宣贯对象</h3>
+          <span class="tag">供水企业</span><span class="tag">排水企业</span><span class="tag">设计咨询</span><span class="tag">检测机构</span><span class="tag">施工运维</span><span class="tag">设备材料</span><span class="tag">海绵城市</span><span class="tag">数字化服务</span>
+          <p class="muted">重点不是讲概念，而是讲“会员单位如何合规参与、如何准备材料、如何使用标准、如何形成可证明成果”。</p>
+        </div>
+      </div>
+      <div class="grid-4" style="margin-top:18px;">
+        <div class="mini-card"><strong>从“想做标准”到“共同需求”</strong>提案应体现行业痛点、会员共同需求、应用场景和技术基础，不宜为单个企业做标准。</div>
+        <div class="mini-card"><strong>从“文字起草”到“证据起草”</strong>技术指标、试验方法、适用范围、评价规则，都要有调研、试验、案例或标准比对支撑。</div>
+        <div class="mini-card"><strong>从“参编署名”到“实际贡献”</strong>参编单位应提供数据、案例、试验、意见、应用反馈等可追溯贡献。</div>
+        <div class="mini-card"><strong>从“发布完成”到“应用闭环”</strong>标准发布后要进入宣贯、应用、反馈、复审、修订或废止闭环。</div>
+      </div>
+    </section>
+
+    <section id="member" class="card">
+      <h2>会员单位最需要掌握的8件事</h2>
+      <table>
+        <thead><tr><th style="width:16%">事项</th><th>宣贯要点</th><th style="width:28%">会员单位应准备什么</th></tr></thead>
+        <tbody>
+          <tr><td><b>1. 选题来源</b></td><td>团体标准应服务市场和创新需要，体现行业共同需求，不宜围绕单一企业、单一产品、单一项目设置规则。</td><td>问题清单、应用场景、行业痛点、会员联合建议。</td></tr>
+          <tr><td><b>2. 会员参与</b></td><td>提案宜由3家以上会员参与提出，鼓励生产、科研、应用、检测、认证等多方参与，增强代表性和可实施性。</td><td>联合申报意向、单位资质、实际应用证明。</td></tr>
+          <tr><td><b>3. 立项论证</b></td><td>应论证业务范围、合法合规、公平竞争、先进性、必要性、可行性、协调性，以及与现行标准的差异。</td><td>立项申请书、标准大纲、对标分析、查重说明、调研报告。</td></tr>
+          <tr><td><b>4. 技术起草</b></td><td>标准不是材料汇编。关键指标应经过分析、试验、验证、讨论和专家把关，条文应可操作、可证实。</td><td>试验数据、检测报告、工程案例、运行记录、专家论证材料。</td></tr>
+          <tr><td><b>5. 征求意见</b></td><td>公开征求意见期限一般不少于30天，应面向全体会员并同步公开，意见处理要逐条回应、可追溯。</td><td>按期反馈意见，说明采纳理由、修改建议和条文依据。</td></tr>
+          <tr><td><b>6. 技术审查</b></td><td>技术审查专家宜不少于7人且为单数；起草人及其所在单位专家不得参加技术审查。</td><td>提前提交送审稿、编制说明、意见汇总、技术支撑材料。</td></tr>
+          <tr><td><b>7. 经费边界</b></td><td>不得以参编费、署名费、排名费、标准号管理费等方式收费；自愿支持也要公开透明、专款专用、与署名脱钩。</td><td>经费来源说明、支出计划、会议与试验费用留痕。</td></tr>
+          <tr><td><b>8. 实施应用</b></td><td>团体标准可用于采购、合同、检测、评价、服务改进和品牌建设，但不得指定品牌、供应商、服务机构或设置排他条件。</td><td>应用记录、合同或招采引用条款、检测评价依据、实施效果反馈。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="process" class="card">
+      <h2>团体标准全流程：会员单位参与节点图</h2>
+      <p class="lead">会员单位参与团体标准，不是只在起草阶段出现。真正高质量的团体标准，应该从选题、论证、起草、意见、应用到复审全周期共同参与。</p>
+      <div class="flow">
+        <div class="step"><div class="no">1</div><b>提案</b><span>提出需求、联合申报、提交大纲和应用证明</span></div>
+        <div class="step"><div class="no">2</div><b>立项</b><span>必要性、先进性、协调性、查重与公平竞争论证</span></div>
+        <div class="step"><div class="no">3</div><b>起草</b><span>调研、试验、案例、指标依据和条文形成</span></div>
+        <div class="step"><div class="no">4</div><b>征求意见</b><span>不少于30天，会员反馈，逐条处理</span></div>
+        <div class="step"><div class="no">5</div><b>技术审查</b><span>专家独立审查，起草单位回避，投票留痕</span></div>
+        <div class="step"><div class="no">6</div><b>批准发布</b><span>材料完整、编号规范、平台公开、文本获取</span></div>
+        <div class="step"><div class="no">7</div><b>实施应用</b><span>宣贯培训、合同采信、检测评价、案例沉淀</span></div>
+        <div class="step"><div class="no">8</div><b>复审改进</b><span>一般不超过3年复审，继续有效、修订或废止</span></div>
+      </div>
+      <div class="quote">主编单位要抓“证据链”，参编单位要抓“真实贡献”，应用单位要抓“采用记录”，协会和标委会要抓“程序公开和风险边界”。</div>
+    </section>
+
+    <section id="roles" class="card">
+      <h2>不同类型会员单位怎么参与？</h2>
+      <div class="role-grid">
+        <div class="role"><div class="icon">🏢</div><h3>供水排水运营单位</h3><ul><li>提供真实运行场景和管理痛点。</li><li>贡献运行数据、检修记录、服务案例。</li><li>承担试点应用和效果反馈。</li><li>推动标准进入班组SOP和绩效改进。</li></ul></div>
+        <div class="role"><div class="icon">🧪</div><h3>检测、监测与评价机构</h3><ul><li>提供试验方法、检测能力和质量控制依据。</li><li>参与技术指标可证实性审查。</li><li>形成检测评价应用场景，但不得变相指定机构。</li><li>建立证据材料和结果使用边界。</li></ul></div>
+        <div class="role"><div class="icon">🏗️</div><h3>设计、施工、运维单位</h3><ul><li>贡献工程场景、工艺流程和验收要点。</li><li>提供典型项目、图纸边界、施工运维难点。</li><li>把标准转化为作业指导、验收清单和培训资料。</li></ul></div>
+        <div class="role"><div class="icon">⚙️</div><h3>设备材料与技术服务单位</h3><ul><li>提供新产品、新技术、新服务的公开技术资料。</li><li>避免把团标写成单一产品说明书。</li><li>主动披露专利、商标、版权和适用边界。</li><li>接受公平竞争和可替代性审查。</li></ul></div>
+        <div class="role"><div class="icon">🌧️</div><h3>海绵城市与排水防涝单位</h3><ul><li>提供系统化治理、监测评估、材料应用和运维案例。</li><li>兼顾建设、运行、维护、绩效评价的全过程。</li><li>加强与供水、排水、城市更新、韧性城市场景衔接。</li></ul></div>
+        <div class="role"><div class="icon">📋</div><h3>法务、招采、财务和综合管理</h3><ul><li>把关收费、合同、采购、公平竞争和授权使用。</li><li>规范标准文本获取、版权使用和宣传用语。</li><li>整理经费、合同、会议、投票、应用等档案。</li></ul></div>
+      </div>
+    </section>
+
+    <section id="redline" class="card">
+      <h2>会员单位必须守住的5条合规红线</h2>
+      <div class="redline">
+        <div class="item"><b>不超范围</b><p>标准选题应属于协会章程和供排水业务范围，避免跨界无依据立项。</p></div>
+        <div class="item"><b>不低于强标</b><p>技术要求不得低于强制性国家标准和相关技术法规要求。</p></div>
+        <div class="item"><b>不抄袭重复</b><p>不得抄袭现有标准；核心技术要求应体现差异化、先进性和必要性。</p></div>
+        <div class="item"><b>不挂名收费</b><p>不得以参编、署名、排名、标准号等名义收费或转嫁收费。</p></div>
+        <div class="item"><b>不排除竞争</b><p>不得指定品牌、供应商、服务机构，不得设置不合理排他条件。</p></div>
+      </div>
+      <div class="quote danger" style="margin-top:16px;">凡涉及招标、采购、检测、评价、认证、品牌宣传等场景，会员单位应特别注意：标准可以作为技术依据，但不能被包装成单一企业、单一产品、单一机构的市场门槛。</div>
+    </section>
+
+    <section id="application" class="card">
+      <h2>团体标准怎么用起来？四类合规应用场景</h2>
+      <div class="grid-2">
+        <div class="mini-card"><h3>1. 企业内部管理和岗位SOP</h3><p>适合将团体标准转化为巡检表、验收表、运行参数表、培训课件、班组作业指导书、风险排查清单。</p><span class="tag green">推荐优先</span><span class="tag">留痕要求低</span></div>
+        <div class="mini-card"><h3>2. 招采、合同和项目管理</h3><p>可引用标准编号、名称、年代号和具体章条，说明适用范围与上位标准关系。不得指定品牌、供应商或排他条件。</p><span class="tag orange">需法务招采把关</span></div>
+        <div class="mini-card"><h3>3. 检测、检验、评价和符合性声明</h3><p>可作为自愿性合格评定依据，但应明确适用对象、程序、证据、有效期、监督退出、申诉投诉和责任边界。</p><span class="tag orange">需授权与公正性管理</span></div>
+        <div class="mini-card"><h3>4. 品牌建设、示范项目和行业自律</h3><p>可用于质量承诺、服务改进、优秀案例、质量提升活动，但宣传用语应准确，不夸大、不误导、不形成强制门槛。</p><span class="tag purple">重视应用案例</span></div>
+      </div>
+      <h3 style="margin-top:20px;">建议采用的合规引用表达</h3>
+      <table>
+        <thead><tr><th>应用场景</th><th>建议表达</th><th>避免表达</th></tr></thead>
+        <tbody>
+          <tr><td>招采文件</td><td>“技术要求可参考/不低于 T/JSWA ×××—×××× 第×章相关要求，投标人可提供等效或优于该要求的技术方案及证明材料。”</td><td>“必须采用某某品牌，必须由某某机构检测，必须完全绑定某企业方案。”</td></tr>
+          <tr><td>合同文件</td><td>“双方约定以相关团体标准作为履约技术依据之一，并结合国家标准、行业标准和项目实际执行。”</td><td>“团体标准替代所有法定标准或监管要求。”</td></tr>
+          <tr><td>检测评价</td><td>“依据团体标准相关章条开展自愿性评价，评价结论仅适用于本次样品、项目或约定范围。”</td><td>“通过评价即具有行政许可、市场准入或唯一合格资格。”</td></tr>
+          <tr><td>宣传推广</td><td>“本项目采用/参考江苏省水协团体标准开展建设、运行或管理提升。”</td><td>“行业唯一指定、官方强制认证、协会唯一授权供应商。”</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>江苏省水协和标委会已有工作基础</h2>
+      <div class="grid-3">
+        <div class="mini-card"><strong>组织基础</strong>标委会在协会领导下开展供水行业标准化工作，主任单位为江苏江南水务股份有限公司，副主任单位为江苏长江水务股份有限公司、江苏中法水务股份有限公司。</div>
+        <div class="mini-card"><strong>制度基础</strong>协会已形成团体标准管理办法和制修订工作细则，覆盖提案、立项、起草、征求意见、审查、批准、编号、发布、复审等程序。</div>
+        <div class="mini-card"><strong>项目基础</strong>近年来累计制定发布多项团体标准，覆盖供水管网、智能消火栓、智慧微海绵、管网健康诊断、海绵城市材料等方向。</div>
+      </div>
+      <div class="quote success" style="margin-top:16px;">下一步重点不是“从零开始”，而是在现有基础上补强公开、查重、对标、经费、回避、应用评价和复审证据链。</div>
+    </section>
+
+    <section id="plan" class="card">
+      <h2>建议面向会员单位的近期工作计划</h2>
+      <div class="timeline">
+        <div class="tl"><b>2026年6月下旬—7月中旬：宣贯学习与意见征集</b><p>向会员单位推送宣贯材料，组织线上/线下学习，围绕征求意见稿提出行业反馈意见。会员单位重点反馈：人员配置、经费口径、分支机构边界、核心技术重复度、线上审查、公共服务行业应用边界等问题。</p></div>
+        <div class="tl"><b>2026年7月下旬—8月2日前：形成协会反馈意见</b><p>由协会秘书处和标委会统一归集会员单位意见，经审核后向相关渠道提交。会员单位可同步结合本单位实际提出书面意见。</p></div>
+        <div class="tl"><b>2026年8月—9月：制度和模板补强</b><p>修订团体标准管理办法、制修订细则及配套表单，补齐查重报告、对标分析、专家回避、经费说明、专利披露、应用反馈、复审结论等模板。</p></div>
+        <div class="tl"><b>2026年9月—11月：已发布和在研标准体检</b><p>对已发布标准开展复审和实施评价，对在研项目补齐公开征求意见、技术验证、平台公开、专家审查和档案材料。</p></div>
+        <div class="tl"><b>2026年12月—2027年上半年：应用示范和案例沉淀</b><p>遴选若干项适合推广的团体标准，形成“标准文本+实施指南+培训课件+应用案例+反馈表单”的应用包，推动会员单位形成可复制案例。</p></div>
+      </div>
+    </section>
+
+    <section id="checklist" class="card">
+      <h2>会员单位立项前10项自查清单</h2>
+      <p class="lead">用于主编单位立项前内部讨论，也可用于参编单位判断是否适合参与。</p>
+      <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+      <div class="note" id="progressText">已完成 0 / 10 项</div>
+      <div class="checklist">
+        <label class="check"><input type="checkbox"><span>选题属于协会供排水业务范围，且不违反法律法规、政策和强制性标准。</span></label>
+        <label class="check"><input type="checkbox"><span>选题来自行业共同需求，已有至少3家会员单位应用、支持或愿意参与。</span></label>
+        <label class="check"><input type="checkbox"><span>已检索现行国家标准、行业标准、地方标准、团体标准，初步说明差异和必要性。</span></label>
+        <label class="check"><input type="checkbox"><span>关键技术指标、试验方法或管理要求有调研、检测、试验、案例或专家论证依据。</span></label>
+        <label class="check"><input type="checkbox"><span>不存在把单一企业产品、专有技术路线或品牌写成行业门槛的情况。</span></label>
+        <label class="check"><input type="checkbox"><span>涉及专利、软件、图表、标准引用、商标等内容，已准备知识产权披露和授权说明。</span></label>
+        <label class="check"><input type="checkbox"><span>经费来源、使用范围和会议、试验、出版等费用安排清晰，未与署名、排名、立项挂钩。</span></label>
+        <label class="check"><input type="checkbox"><span>已明确主编人、联系人、时间计划、编制组构成和成员分工。</span></label>
+        <label class="check"><input type="checkbox"><span>已考虑标准发布后的应用场景、培训方式、反馈渠道和复审责任。</span></label>
+        <label class="check"><input type="checkbox"><span>已准备可归档材料：申请书、大纲、应用证明、对标分析、支撑材料、会议纪要等。</span></label>
+      </div>
+      <div class="quote warning" style="margin-top:16px;">自查结果建议：少于7项不宜急于申报；7—8项可进入预沟通；9—10项可按程序提交立项材料。</div>
+    </section>
+
+    <section class="card">
+      <h2>项目材料包建议目录</h2>
+      <table>
+        <thead><tr><th style="width:18%">阶段</th><th>建议材料</th><th style="width:28%">会员单位关注点</th></tr></thead>
+        <tbody>
+          <tr><td>提案阶段</td><td>项目申请书、标准大纲、三家以上会员应用/需求证明、行业调研报告、现有标准检索清单。</td><td>证明“不是一家单位自己的标准”。</td></tr>
+          <tr><td>立项阶段</td><td>立项评估意见、专家签字、投票记录、计划号、会员范围通报和公开截图。</td><td>证明程序公开、公正、可追溯。</td></tr>
+          <tr><td>起草阶段</td><td>调研纪要、试验验证、检测报告、案例资料、条文版本、编制说明、专利披露。</td><td>证明指标有依据、条文可落地。</td></tr>
+          <tr><td>征求意见</td><td>征求意见稿、编制说明、征求意见通知、意见反馈、意见汇总处理表。</td><td>证明充分听取会员和相关方意见。</td></tr>
+          <tr><td>审查报批</td><td>送审稿、技术支撑文件、查重报告、审查纪要、专家投票、报批稿、发布公告。</td><td>证明专家独立审查，起草单位回避。</td></tr>
+          <tr><td>实施复审</td><td>宣贯记录、培训签到、采用证明、合同/招采引用、检测评价记录、实施反馈、复审结论。</td><td>证明标准被真正使用并持续改进。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="qa" class="card qa">
+      <h2>会员单位常见问题</h2>
+      <details open><summary>1. 参编团体标准，是不是只要交材料、挂名字？</summary><div>不是。新的规范导向强调真实贡献和全过程留痕。参编单位应提供技术、数据、案例、试验、意见处理或应用反馈等实质性贡献，不能把参编变成署名行为。</div></details>
+      <details><summary>2. 设备材料企业能不能主编或参编？</summary><div>可以，但要避免把标准写成企业产品说明书。应体现行业共同需求、可替代技术路径、公平竞争要求和必要的知识产权披露。</div></details>
+      <details><summary>3. 团体标准能不能进招标文件？</summary><div>可以作为技术依据之一，但应明确标准编号、名称、年代号、具体章条和适用范围，并允许等效或优于标准的方案。不得指定品牌、供应商、服务机构或设置不合理排他条件。</div></details>
+      <details><summary>4. 会员单位应用团体标准，需要留下哪些证据？</summary><div>建议至少保留采用决策记录、执行方案、培训记录、合同或项目文件引用页、实施前后效果、问题反馈和改进建议。应用证据将直接支撑协会标准实施评价和会员单位品牌建设。</div></details>
+      <details><summary>5. 团体标准和国家标准、行业标准、地方标准是什么关系？</summary><div>团体标准不能低于强制性标准要求；可以填补空白、细化推荐性标准、提升技术要求或形成更适合江苏供排水行业的实施方法。引用上位标准时要说明协调关系。</div></details>
+      <details><summary>6. 使用AI辅助编制标准可以吗？</summary><div>可以用于检索、对标、整理意见、搭建框架和形成材料底稿，但不能替代调研、试验、专家判断和程序审查。关键指标、适用范围、评分规则和判定条件必须由编制组和专家审定。</div></details>
+    </section>
+
+    <section class="card">
+      <h2>给会员单位负责人的一句话建议</h2>
+      <div class="quote success">把团体标准工作纳入本单位技术创新、质量管理、招采合规、项目验收、岗位培训和品牌建设体系。能把经验变成标准、把标准变成应用、把应用变成证据，才是真正的标准化能力。</div>
+      <div class="grid-3" style="margin-top:16px;">
+        <div class="mini-card"><strong>主编单位</strong>抓总体质量、证据链和程序合规。</div>
+        <div class="mini-card"><strong>参编单位</strong>抓真实贡献、应用反馈和知识产权边界。</div>
+        <div class="mini-card"><strong>应用单位</strong>抓制度转化、岗位执行和效果评价。</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <h2>资料依据与使用说明</h2>
+      <div class="source-list">
+        <p>1. 《团体标准化 良好行为规范（征求意见稿）》（2026年5月28日稿）。</p>
+        <p>2. 中国标准化研究院：《团体标准化 良好行为规范》国家标准公开征求意见通知，公开征求意见截止日期为2026年8月2日。</p>
+        <p>3. 国家标准化管理委员会《团体标准组织综合绩效评价指标体系》（国标委发〔2024〕34号）。</p>
+        <p>4. 《江苏省城镇供水排水协会团体标准管理办法》《江苏省城镇供水排水协会团体标准制修订工作细则》及标委会组织机构、年度工作计划等材料。</p>
+        <p>本材料为会员单位宣贯学习和内部工作参考，正式执行以国家最终发布标准、主管部门要求和协会正式制度文件为准。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const checks = Array.from(document.querySelectorAll('.check input'));
+    const progress = document.getElementById('progress');
+    const progressText = document.getElementById('progressText');
+    function updateProgress(){
+      const done = checks.filter(c=>c.checked).length;
+      progress.style.width = (done/checks.length*100) + '%';
+      progressText.textContent = `已完成 ${done} / ${checks.length} 项`;
+    }
+    checks.forEach((c,i)=>{
+      c.checked = localStorage.getItem('jswa_member_check_'+i)==='1';
+      c.addEventListener('change',()=>{
+        localStorage.setItem('jswa_member_check_'+i,c.checked?'1':'0');
+        updateProgress();
+      });
+    });
+    updateProgress();
+    function toggleCompact(){
+      document.body.classList.toggle('compact');
+      const compact = document.body.classList.contains('compact');
+      document.querySelectorAll('.card').forEach(el=>el.style.padding = compact?'18px':'26px');
+      document.querySelectorAll('section').forEach(el=>el.style.marginTop = compact?'18px':'28px');
+    }
+  </script>
+</body>
+</html>
