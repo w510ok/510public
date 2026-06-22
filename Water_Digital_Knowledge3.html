@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>水务知识库APP多角色岗位宣贯与答疑</title>
+<style>
+:root{
+  --bg:#eef7f8; --panel:#ffffff; --ink:#123238; --muted:#63787e; --line:#d7e8ea;
+  --brand:#087f86; --brand2:#0b5960; --deep:#07333b; --soft:#e5f7f7; --warn:#a65300; --red:#b42318; --green:#047857;
+  --shadow:0 16px 50px rgba(4,52,60,.13); --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#f7fbfc 0%,var(--bg) 52%,#f7fbfc 100%);color:var(--ink);line-height:1.72}
+a{color:inherit;text-decoration:none}
+.hero{background:radial-gradient(circle at 12% 10%,rgba(74,210,214,.28),transparent 28%),radial-gradient(circle at 90% 20%,rgba(255,255,255,.20),transparent 30%),linear-gradient(135deg,#082f3a,#0b5960 48%,#0a858b);color:#fff;padding:30px 18px 24px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;bottom:-100px;width:260px;height:260px;border-radius:50%;border:36px solid rgba(255,255,255,.08)}
+.wrap{max-width:1180px;margin:auto}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b9f4f1;font-weight:800}
+.kicker::before{content:"水";display:inline-grid;place-items:center;width:28px;height:28px;border-radius:10px;background:rgba(255,255,255,.16)}
+h1{font-size:clamp(28px,5.5vw,58px);line-height:1.12;margin:16px 0 12px;letter-spacing:-.04em}
+.subtitle{font-size:clamp(15px,2.2vw,22px);max-width:930px;color:#dffbfb;margin:0 0 22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.meta span{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);padding:8px 12px;border-radius:999px;font-size:13px;color:#f5ffff}
+.quote-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.quote{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:16px;backdrop-filter:blur(12px)}
+.quote b{display:block;font-size:14px;color:#fff;margin-bottom:6px}
+.quote p{margin:0;color:#e7ffff;font-size:14px}
+.sticky-nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);box-shadow:0 4px 20px rgba(4,52,60,.06)}
+.nav-scroll{display:flex;gap:8px;overflow:auto;padding:10px 14px;max-width:1180px;margin:auto}
+.nav-scroll a{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px;color:#24545a}
+.nav-scroll a:hover{background:var(--soft);border-color:#9edbdc;color:var(--brand2)}
+main{max-width:1180px;margin:0 auto;padding:22px 14px 48px}
+.section{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin:18px 0}
+h2{font-size:clamp(22px,3vw,34px);line-height:1.2;margin:0 0 12px;letter-spacing:-.03em;color:#123238}
+h3{font-size:20px;margin:24px 0 10px;color:#0a5960}
+p{margin:8px 0;color:#314d52}
+.lead{font-size:18px;color:#24494f}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--soft);border:1px solid #bfe8e8;color:#075c62;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.grid{display:grid;gap:14px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(4,52,60,.06)}
+.card h3{margin-top:0}
+.card .num{font-size:34px;font-weight:900;color:var(--brand);letter-spacing:-.05em}
+.callout{border-left:5px solid var(--brand);background:linear-gradient(90deg,#ecfbfb,#fff);padding:18px;border-radius:16px;margin:16px 0}
+.callout.warn{border-left-color:#c27803;background:linear-gradient(90deg,#fff7e6,#fff)}
+.callout.red{border-left-color:var(--red);background:linear-gradient(90deg,#fff0f0,#fff)}
+.logic-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0}
+.logic-chain span{background:#07333b;color:#eaffff;border-radius:12px;padding:9px 12px;font-weight:800;font-size:13px}
+.logic-chain i{font-style:normal;color:#6b8f95;font-weight:900}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;margin:12px 0;background:#fff}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}
+th{background:#f0fafb;color:#0b5960;font-weight:900}
+tr:last-child td{border-bottom:0}
+.role-filter{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 18px}
+.role-filter input{flex:1;min-width:220px;border:1px solid #bfdcde;border-radius:14px;padding:13px 14px;font-size:15px;outline:none;background:#fff}
+.role-filter input:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(8,127,134,.12)}
+.role-filter button,.btn{border:0;background:var(--brand);color:#fff;border-radius:14px;padding:12px 15px;font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(8,127,134,.22)}
+.btn.secondary{background:#ffffff;color:var(--brand2);border:1px solid #bfe4e5;box-shadow:none}
+.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.role-card{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbffff);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(4,52,60,.06)}
+.role-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
+.role-name{font-size:18px;font-weight:900;color:#083a42}
+.role-tag{font-size:12px;color:#067178;background:#e7fafa;border:1px solid #bfe8e8;border-radius:999px;padding:5px 8px;white-space:nowrap}
+details{border-top:1px dashed #cddfe2;padding:10px 0 0;margin-top:8px}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:900;color:#0a5960;list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--brand);transition:.2s}
+details[open] summary::before{transform:rotate(90deg)}
+details p{font-size:14px;margin:8px 0 0;color:#3a5b61}
+.faq-item{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;margin:10px 0}
+.faq-q{width:100%;text-align:left;background:#fff;border:0;padding:15px 16px;font-weight:900;color:#11383f;display:flex;justify-content:space-between;gap:12px;cursor:pointer;font-size:15px}
+.faq-a{display:none;padding:0 16px 15px;color:#36575c}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-q{background:#effbfb;color:#075c62}
+.timeline{position:relative;margin-left:6px;padding-left:22px;border-left:3px solid #bfe8e8}
+.step{position:relative;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.step::before{content:"";position:absolute;left:-31px;top:18px;width:14px;height:14px;background:var(--brand);border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px #bfe8e8}
+.step b{display:block;color:#0a5960;margin-bottom:4px}
+.phone-demo{width:310px;max-width:100%;margin:auto;background:#082f3a;border-radius:34px;padding:12px;box-shadow:0 22px 50px rgba(4,52,60,.22)}
+.phone-screen{background:#f7fcfc;border-radius:26px;overflow:hidden;min-height:540px}
+.phone-head{background:linear-gradient(135deg,#0b5960,#0a858b);color:#fff;padding:18px}
+.phone-head b{display:block;font-size:20px}
+.phone-head span{font-size:12px;color:#dffbfb}
+.phone-body{padding:14px}
+.app-btn{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #d7e8ea;border-radius:15px;margin:9px 0;padding:13px 14px;font-weight:900;color:#16464d}
+.app-btn small{font-weight:700;color:#6a858a}
+.role-strip{display:flex;gap:8px;overflow:auto;padding-bottom:6px}
+.role-chip{white-space:nowrap;background:#e7fafa;color:#075c62;border:1px solid #bfe8e8;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900}
+.copybox{position:relative;border:1px dashed #a9d7da;background:#f7ffff;border-radius:18px;padding:16px;margin-top:14px}
+.copybox pre{white-space:pre-wrap;margin:0;font-family:inherit;color:#294d53}
+.copybox .btn{margin-top:12px}
+.print-btn{position:fixed;right:18px;bottom:18px;z-index:40;border-radius:999px;padding:13px 16px}
+.hidden{display:none!important}
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.check{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.check b{color:#0a5960}
+@media (max-width:820px){
+  .quote-row,.grid-2,.grid-3,.role-grid,.checklist{grid-template-columns:1fr}
+  .section{padding:18px;border-radius:18px}
+  .hero{padding-top:24px}
+  table{min-width:720px}
+  .role-top{display:block}
+  .role-tag{display:inline-flex;margin-top:8px}
+}
+@media print{
+  .sticky-nav,.print-btn,.role-filter,.btn{display:none!important}
+  body{background:#fff}
+  .section{box-shadow:none;break-inside:avoid}
+  .hero{background:#0b5960!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .role-grid,.grid-2,.grid-3{display:block}
+  .role-card,.card{margin-bottom:12px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">ROLE-BASED TRAINING</div>
+    <h1>水务知识库APP多角色岗位宣贯与答疑</h1>
+    <p class="subtitle">围绕“功能键太多、实际界面分岗位、不是随时问 AI 就能解决行业知识库问题”等反馈，形成一份面向岗位宣贯、开课培训和试点使用沟通的移动版说明稿。</p>
+    <div class="meta"><span>面向：董事会 / 总经理室 / 信息化 / 业务部门 / 班组 / 一线岗位</span><span>性质：岗位宣贯 + 多角色答疑 + 开课讲义</span><span>版本：岗位宣贯版 V1.1</span></div>
+    <div class="quote-row">
+      <div class="quote"><b>真实反馈 01</b><p>“有回复，功能键太多，不知道如何理解或操作，要开课培训。”</p></div>
+      <div class="quote"><b>真实反馈 02</b><p>“实际 APP 界面是分岗位的。”</p></div>
+      <div class="quote"><b>真实反馈 03</b><p>“一个 APP 是一种组织建设灵魂，不是随时随地问 AI 就可以解决行业知识库问题。”</p></div>
+    </div>
+  </div>
+</header>
+<nav class="sticky-nav"><div class="nav-scroll">
+  <a href="#judgement">总体口径</a><a href="#upgrade">再上台阶</a><a href="#structure">功能怎么理解</a><a href="#roleplay">多岗位答疑</a><a href="#faq">共性问答</a><a href="#training">开课方案</a><a href="#practice">课堂演练</a><a href="#boundary">使用边界</a>
+</div></nav>
+<main>
+<section id="judgement" class="section">
+  <span class="badge">结论先行</span>
+  <h2>这不是“按钮太多”的问题，而是从展示页走向岗位应用后的正常问题</h2>
+  <p class="lead">宣贯时不要把重点放在“每个按钮怎么点”，而要讲清三件事：员工端按岗位收敛、后台端负责采信和留痕、AI 只做辅助不替代责任。</p>
+  <div class="grid grid-3">
+    <div class="card"><div class="num">1</div><h3>员工端要轻</h3><p>一线岗位默认只看五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。</p></div>
+    <div class="card"><div class="num">2</div><h3>管理端要清</h3><p>部门负责人看覆盖、待办、问题闭环和岗位能力，不要求人人学后台。</p></div>
+    <div class="card"><div class="num">3</div><h3>后台端要严</h3><p>采信、版本、权限、使用边界、资产留存、审计必须严，否则 AI 越强风险越大。</p></div>
+  </div>
+  <div class="callout">
+    <b>核心宣贯口径：</b>水务知识库 APP 不是聊天机器人，而是企业组织结构、岗位责任、制度流程、标准采信、培训复训和持续整改的数字化镜像。AI 是工具，组织机制才是灵魂。
+  </div>
+  <div class="logic-chain"><span>标准 / 制度</span><i>→</i><span>采信复核</span><i>→</i><span>规则提醒</span><i>→</i><span>岗位 SOP</span><i>→</i><span>工单案例</span><i>→</i><span>培训复训</span><i>→</i><span>持续整改</span></div>
+</section>
+
+
+<section id="upgrade" class="section">
+  <span class="badge">再上台阶</span>
+  <h2>从供水服务标准化，到知识治理标准化、组织能力标准化</h2>
+  <p class="lead">以江苏江南水务 601199 为样板推进水务知识库，不是简单增加一个 APP，也不是让员工“随时随地问 AI”。它更应被理解为供水服务标准化体系建设的再上台阶：把服务标准、法规依据、岗位责任、SOP 执行、培训复训、工单案例和持续改进，沉淀为可复制、可持续、可推广的组织能力。</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>1. 服务标准化再上台阶</h3>
+      <p>过去的标准化更多体现在制度、流程、台账和检查表；下一阶段要进一步落到岗位动作和证据留痕。水厂、管网、二供、客服、调度、抢修等岗位，都应能在本岗位界面看到“应该怎么做、依据是什么、留什么记录、什么情况升级”。</p>
+      <p><b>宣贯话术：</b>这套系统不是替代原有标准化体系，而是把已有标准化成果变成一线可用、管理可查、复盘可改的数字化工作台。</p>
+    </div>
+    <div class="card">
+      <h3>2. 行业标杆要能被借鉴</h3>
+      <p>标杆建设不能只展示结果，还要沉淀方法。知识库要把“为什么这样做、谁来负责、怎么采信、如何复训、如何闭环”一并固化，形成兄弟水司、协会分支机构、不同水厂和不同业务线可以学习借鉴的模板。</p>
+      <p><b>宣贯话术：</b>真正的标杆不是一个漂亮页面，而是一套别人看得懂、学得会、接得住、复制得走的组织方法。</p>
+    </div>
+    <div class="card">
+      <h3>3. 知识库是组织建设的骨架</h3>
+      <p>知识库不是资料堆积，而是组织建设：把董事会和总经理室关心的治理要求，转成部门责任；把总工和专业线关心的技术标准，转成岗位 SOP；把班组长和一线员工的经验，转成案例和题库；把问题反馈，转成制度修订和持续改进。</p>
+      <p><b>宣贯话术：</b>一个 APP 的背后，是组织如何分工、如何授权、如何复核、如何传承、如何改进。</p>
+    </div>
+    <div class="card">
+      <h3>4. 知识的作用：解疑与传道</h3>
+      <p>知识不是摆在库里的文件。它要在阅读困惑中解疑：员工读不懂标准、制度、公告和工单时，系统能用岗位语言讲清楚；它也要在授业执行中传道：师傅带徒、班前会、复训题和案例复盘，最终都要回到“按正确方法做事”。</p>
+      <p><b>宣贯话术：</b>知识库既要解决“我看不懂”的困惑，也要解决“我怎么做”的执行问题。</p>
+    </div>
+  </div>
+  <div class="callout warn">
+    <b>关于“来不及人工判断，只能信任 AI”的正确表达：</b>现场确实存在时间压力，尤其是水质异常、爆管、停水、舆情、二供风险和安全作业等场景。但我们信任的不是 AI 的自由发挥，而是“已采信知识 + 固定 SOP + 风险分级 + 岗位权限 + 事后复核”组成的组织系统。紧急时，AI 应优先调取已发布 SOP 和红线规则，帮助岗位快速执行；事后再由责任人员复盘、修订和留痕。
+  </div>
+  <div class="logic-chain"><span>服务标准化</span><i>→</i><span>知识标准化</span><i>→</i><span>岗位标准化</span><i>→</i><span>培训标准化</span><i>→</i><span>闭环标准化</span><i>→</i><span>行业可借鉴</span></div>
+</section>
+
+<section id="structure" class="section">
+  <span class="badge">把复杂菜单翻译成岗位语言</span>
+  <h2>功能键不是给所有人同时用的，而是给不同岗位分层使用的</h2>
+  <p>全量菜单更像组织建设总控台。真正上线时，员工看到岗位工作台，班组长看到班组任务，管理员看到采信后台，管理层看到风险与闭环。</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>三类视图</h3>
+      <p><b>员工岗位视图：</b>岗位知识、SOP、带依据查询、学习、反馈。</p>
+      <p><b>业务管理视图：</b>风险规则、SOP 覆盖、工单案例、学习达标、问题闭环。</p>
+      <p><b>知识治理视图：</b>采信中心、资产留存、使用边界、版本状态、权限审计。</p>
+      <div class="callout warn"><b>宣贯提醒：</b>不要让一线员工面对全量后台菜单。培训现场先让大家选岗位，再讲本岗位入口。</div>
+    </div>
+    <div class="phone-demo" aria-label="移动端岗位工作台示意">
+      <div class="phone-screen">
+        <div class="phone-head"><b>我的岗位工作台</b><span>客服坐席｜今日只看本岗位</span></div>
+        <div class="phone-body">
+          <div class="role-strip"><span class="role-chip">客服</span><span class="role-chip">调度</span><span class="role-chip">抢修</span><span class="role-chip">二供</span></div>
+          <div class="app-btn">今日红线 <small>2条</small></div>
+          <div class="app-btn">常用SOP <small>停水/水质/计量</small></div>
+          <div class="app-btn">带依据查询 <small>已采信</small></div>
+          <div class="app-btn">班前会一题 <small>未完成</small></div>
+          <div class="app-btn">我要反馈 <small>SOP不适用?</small></div>
+          <div class="callout warn" style="font-size:13px;margin-top:14px">员工不需要理解采信中心、资产留存、使用边界等后台功能。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>原功能键的岗位化解释</h3>
+  <div class="table-wrap"><table><thead><tr><th>原功能键</th><th>岗位化名称</th><th>宣贯时怎么说</th></tr></thead><tbody><tr><td><b>首页</b></td><td>管理驾驶舱</td><td>管理层看风险、覆盖、闭环和待办，一线员工日常不必从这里开始。</td></tr>
+<tr><td><b>知识总纲</b></td><td>组织地图</td><td>说明标准源、对象编码、规则、SOP、案例、数据资产、AI 应用之间的关系。</td></tr>
+<tr><td><b>SOP库</b></td><td>岗位动作库</td><td>把制度变成“什么场景、谁来做、怎么做、留什么证据”。</td></tr>
+<tr><td><b>服务架构</b></td><td>客服营业流程</td><td>沉淀报装、计量、热线、12345、停水、水质投诉等服务口径。</td></tr>
+<tr><td><b>治理架构</b></td><td>责任体系</td><td>说明谁负责采信、复核、发布、培训、整改和审计。</td></tr>
+<tr><td><b>采信中心</b></td><td>可信闸门</td><td>所有关键知识从 AI 初稿到人工复核、发布、废止的状态管理。</td></tr>
+<tr><td><b>强检索</b></td><td>带依据查询</td><td>不是普通聊天，必须返回来源、适用岗位、操作步骤和不确定项。</td></tr>
+<tr><td><b>岗位知识</b></td><td>员工首页</td><td>员工最常用入口：看红线、查 SOP、做测试、留反馈。</td></tr>
+<tr><td><b>学习看板</b></td><td>培训复训</td><td>把知识条目变成题库、班前会和监管可查的学习留痕。</td></tr>
+<tr><td><b>知识产权</b></td><td>使用边界</td><td>标记资料能不能入库、能不能训练、能不能外发、是否需要脱敏。</td></tr>
+<tr><td><b>资产留存</b></td><td>证据仓库</td><td>保存原文、OCR、条款切片、版本、采信、学习、反馈和审计记录。</td></tr>
+<tr><td><b>排水网格等扩展</b></td><td>扩展业务域</td><td>供水样板跑通后，可扩展到排水、固废、环卫等网格化场景。</td></tr></tbody></table></div>
+</section>
+
+<section id="roleplay" class="section">
+  <span class="badge">多角色扮演体验测试</span>
+  <h2>面对不同岗位的疑问，一一作答</h2>
+  <p>下面内容可直接作为宣贯讲义。建议讲课时不要从菜单讲起，而是从岗位疑问讲起：每个岗位只回答“我为什么用、我用哪几个入口、哪些事情不能让 AI 直接决定”。</p>
+  <div class="role-filter">
+    <input id="roleSearch" type="search" placeholder="输入岗位或关键词筛选，例如：客服、调度、采信、SOP、AI、培训" />
+    <button type="button" onclick="expandAll(true)">全部展开</button>
+    <button type="button" class="secondary btn" onclick="expandAll(false)">收起详情</button>
+  </div>
+  <div id="roleGrid" class="role-grid"><article class="role-card" data-role="董事会 / 总经理室" data-text="董事会 / 总经理室 看方向、看风险、看组织能力 功能键很多，是不是又增加一个复杂系统？为什么不让员工直接问 AI？ 高层不需要操作所有按钮。完整菜单是一张组织治理地图，员工端实际按岗位收敛。这个 APP 的价值不是“随时问 AI”，而是把法规标准、企业制度、岗位 SOP、培训留痕、风险闭环固化为组织能力。AI 只是辅助检索、比对、生成和提醒，不能替代采信、复核、发布和责任闭环。 首页驾驶舱 → 采信风险 → SOP 覆盖 → 学习完成 → 问题闭环 → 决策事项 高层共识课 30 分钟：只看五个指标——采信率、SOP 覆盖率、培训完成率、反馈闭环率、标准变更响应时间。 高层视图以风险、覆盖、闭环、趋势为主，不展示一线操作按钮。">
+  <div class="role-top"><span class="role-name">董事会 / 总经理室</span><span class="role-tag">看方向、看风险、看组织能力</span></div>
+  <details open><summary>岗位疑问</summary><p>功能键很多，是不是又增加一个复杂系统？为什么不让员工直接问 AI？</p></details>
+  <details><summary>宣贯答复口径</summary><p>高层不需要操作所有按钮。完整菜单是一张组织治理地图，员工端实际按岗位收敛。这个 APP 的价值不是“随时问 AI”，而是把法规标准、企业制度、岗位 SOP、培训留痕、风险闭环固化为组织能力。AI 只是辅助检索、比对、生成和提醒，不能替代采信、复核、发布和责任闭环。</p></details>
+  <details><summary>岗位使用路径</summary><p>首页驾驶舱 → 采信风险 → SOP 覆盖 → 学习完成 → 问题闭环 → 决策事项</p></details>
+  <details><summary>开课讲法</summary><p>高层共识课 30 分钟：只看五个指标——采信率、SOP 覆盖率、培训完成率、反馈闭环率、标准变更响应时间。</p></details>
+  <details><summary>界面理解提示</summary><p>高层视图以风险、覆盖、闭环、趋势为主，不展示一线操作按钮。</p></details>
+</article>
+<article class="role-card" data-role="分管副总 / 总工程师" data-text="分管副总 / 总工程师 看标准、看技术边界、看 SOP 可靠性 AI 生成的 SOP 谁负责？条款理解错了怎么办？ 必须坚持“AI 初稿、专业复核、授权发布、岗位执行、全程留痕”。水质、安全、应急、停水外发、网络安全等高风险知识，不能由 AI 直接发布。总工体系重点审四件事：来源是否有效、条款是否适用、岗位动作是否正确、证据留存是否完整。 采信中心 → 标准条款 → 影响岗位 → SOP 卡 → 规则提醒 → 执行反馈 技术负责人课 45 分钟：用一个标准条款演示如何变成岗位 SOP、培训题和检查记录。 技术视图按“待复核、即将实施、员工争议、已废止替代”排序。">
+  <div class="role-top"><span class="role-name">分管副总 / 总工程师</span><span class="role-tag">看标准、看技术边界、看 SOP 可靠性</span></div>
+  <details open><summary>岗位疑问</summary><p>AI 生成的 SOP 谁负责？条款理解错了怎么办？</p></details>
+  <details><summary>宣贯答复口径</summary><p>必须坚持“AI 初稿、专业复核、授权发布、岗位执行、全程留痕”。水质、安全、应急、停水外发、网络安全等高风险知识，不能由 AI 直接发布。总工体系重点审四件事：来源是否有效、条款是否适用、岗位动作是否正确、证据留存是否完整。</p></details>
+  <details><summary>岗位使用路径</summary><p>采信中心 → 标准条款 → 影响岗位 → SOP 卡 → 规则提醒 → 执行反馈</p></details>
+  <details><summary>开课讲法</summary><p>技术负责人课 45 分钟：用一个标准条款演示如何变成岗位 SOP、培训题和检查记录。</p></details>
+  <details><summary>界面理解提示</summary><p>技术视图按“待复核、即将实施、员工争议、已废止替代”排序。</p></details>
+</article>
+<article class="role-card" data-role="信息化主管 / 数字化部门" data-text="信息化主管 / 数字化部门 看架构、安全、权限和数据边界 APP 后面要不要直接接入 SCADA、GIS、工单、客服、水质检测等系统？ 分阶段接入。第一阶段先做知识底座、采信流程、SOP 卡片、学习留痕；第二阶段接工单、培训、档案；涉及生产控制、管网图纸、用户信息、在线监测时，优先只读、脱敏、分权限。AI 可以提示和推荐，不能直接修改生产参数或下发控制指令。 权限管理 → 资产留存 → 使用边界 → 日志审计 → 接口清单 → 备份恢复 数字化支撑课 60 分钟：讲清本地化部署、账号权限、日志、数据分级、备份恢复和安全边界。 信息化视图要突出“哪些能接、哪些暂缓接、哪些严禁接”。">
+  <div class="role-top"><span class="role-name">信息化主管 / 数字化部门</span><span class="role-tag">看架构、安全、权限和数据边界</span></div>
+  <details open><summary>岗位疑问</summary><p>APP 后面要不要直接接入 SCADA、GIS、工单、客服、水质检测等系统？</p></details>
+  <details><summary>宣贯答复口径</summary><p>分阶段接入。第一阶段先做知识底座、采信流程、SOP 卡片、学习留痕；第二阶段接工单、培训、档案；涉及生产控制、管网图纸、用户信息、在线监测时，优先只读、脱敏、分权限。AI 可以提示和推荐，不能直接修改生产参数或下发控制指令。</p></details>
+  <details><summary>岗位使用路径</summary><p>权限管理 → 资产留存 → 使用边界 → 日志审计 → 接口清单 → 备份恢复</p></details>
+  <details><summary>开课讲法</summary><p>数字化支撑课 60 分钟：讲清本地化部署、账号权限、日志、数据分级、备份恢复和安全边界。</p></details>
+  <details><summary>界面理解提示</summary><p>信息化视图要突出“哪些能接、哪些暂缓接、哪些严禁接”。</p></details>
+</article>
+<article class="role-card" data-role="采信管理员 / 标准化管理员" data-text="采信管理员 / 标准化管理员 管来源、版本、状态和发布边界 资料这么多，是不是所有内容都要人工逐条审核？ 不是全量重审批，而是分级采信。P0/P1 必须人工复核，P2 抽检复核，P3 可先内部沉淀。管理员不负责替所有部门写专业结论，而是管来源、版本、适用范围、风险等级、责任部门、发布状态和废止归档。 资料入库 → AI 摘要 → 待复核 → 已采信 → 已发布 → 版本监测 → 归档 采信实操课半天：资料入库、条款切片、风险分级、复核意见、版本变更、知识边界。 采信管理员看到后台全量功能，一线员工不看到这些复杂状态。">
+  <div class="role-top"><span class="role-name">采信管理员 / 标准化管理员</span><span class="role-tag">管来源、版本、状态和发布边界</span></div>
+  <details ><summary>岗位疑问</summary><p>资料这么多，是不是所有内容都要人工逐条审核？</p></details>
+  <details><summary>宣贯答复口径</summary><p>不是全量重审批，而是分级采信。P0/P1 必须人工复核，P2 抽检复核，P3 可先内部沉淀。管理员不负责替所有部门写专业结论，而是管来源、版本、适用范围、风险等级、责任部门、发布状态和废止归档。</p></details>
+  <details><summary>岗位使用路径</summary><p>资料入库 → AI 摘要 → 待复核 → 已采信 → 已发布 → 版本监测 → 归档</p></details>
+  <details><summary>开课讲法</summary><p>采信实操课半天：资料入库、条款切片、风险分级、复核意见、版本变更、知识边界。</p></details>
+  <details><summary>界面理解提示</summary><p>采信管理员看到后台全量功能，一线员工不看到这些复杂状态。</p></details>
+</article>
+<article class="role-card" data-role="部门负责人 / 班组长" data-text="部门负责人 / 班组长 把制度变成班前会和岗位动作 员工已经很忙，还要学这么多功能，会不会增加负担？ 一线员工不学全量功能，只学本岗位五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。班组长的核心不是讲按钮，而是用岗位卡开班前会、用工单做案例复盘、用反馈推动 SOP 更新。 岗位知识 → 班前会卡 → 常用 SOP → 典型案例 → 一题一练 → 反馈闭环 班组长训练 60 分钟：一张岗位卡开班前会，一条故障工单做复盘，一条反馈推动修订。 班组视图按“今天要做什么”展示，不展示后台术语。">
+  <div class="role-top"><span class="role-name">部门负责人 / 班组长</span><span class="role-tag">把制度变成班前会和岗位动作</span></div>
+  <details ><summary>岗位疑问</summary><p>员工已经很忙，还要学这么多功能，会不会增加负担？</p></details>
+  <details><summary>宣贯答复口径</summary><p>一线员工不学全量功能，只学本岗位五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。班组长的核心不是讲按钮，而是用岗位卡开班前会、用工单做案例复盘、用反馈推动 SOP 更新。</p></details>
+  <details><summary>岗位使用路径</summary><p>岗位知识 → 班前会卡 → 常用 SOP → 典型案例 → 一题一练 → 反馈闭环</p></details>
+  <details><summary>开课讲法</summary><p>班组长训练 60 分钟：一张岗位卡开班前会，一条故障工单做复盘，一条反馈推动修订。</p></details>
+  <details><summary>界面理解提示</summary><p>班组视图按“今天要做什么”展示，不展示后台术语。</p></details>
+</article>
+<article class="role-card" data-role="水厂运行值班员" data-text="水厂运行值班员 看参数、看操作卡、看异常处置 我只关心设备和工艺，为什么要看知识总纲？ 值班员不需要看知识总纲。进入 APP 后先选岗位，系统只展示本岗位关键参数、运行红线、交接班要点、异常处置 SOP、今日学习题。总纲是给管理者和知识管理员看的。 选择“水厂运行” → 今日红线 → 运行 SOP → 异常处置卡 → 必留记录 → 反馈 岗位微课 15—30 分钟：用出水异常、设备报警、加药波动、交接班四个场景演示。 运行视图应以卡片和勾选项为主，不要让值班员读长文。">
+  <div class="role-top"><span class="role-name">水厂运行值班员</span><span class="role-tag">看参数、看操作卡、看异常处置</span></div>
+  <details ><summary>岗位疑问</summary><p>我只关心设备和工艺，为什么要看知识总纲？</p></details>
+  <details><summary>宣贯答复口径</summary><p>值班员不需要看知识总纲。进入 APP 后先选岗位，系统只展示本岗位关键参数、运行红线、交接班要点、异常处置 SOP、今日学习题。总纲是给管理者和知识管理员看的。</p></details>
+  <details><summary>岗位使用路径</summary><p>选择“水厂运行” → 今日红线 → 运行 SOP → 异常处置卡 → 必留记录 → 反馈</p></details>
+  <details><summary>开课讲法</summary><p>岗位微课 15—30 分钟：用出水异常、设备报警、加药波动、交接班四个场景演示。</p></details>
+  <details><summary>界面理解提示</summary><p>运行视图应以卡片和勾选项为主，不要让值班员读长文。</p></details>
+</article>
+<article class="role-card" data-role="化验检测员 / 水质负责人" data-text="化验检测员 / 水质负责人 看标准、检测方法、复测和报告边界 水质问题能不能直接按 AI 答案处理？ 不能把 AI 答复作为唯一依据。AI 的作用是快速找出已采信标准、检验方法、企业制度和异常处置流程。检测、复测、报告、上报仍以正式标准、实验室体系文件和负责人复核为准。 岗位知识 → 水质标准卡 → 检测方法 → 异常复核 SOP → 报告留痕 → 对外口径 水质专题课 30 分钟：确认标准版本、检测方法、异常复测、客服联动口径。 检索结果必须显示来源、版本、采信状态、适用检测场景和不确定项。">
+  <div class="role-top"><span class="role-name">化验检测员 / 水质负责人</span><span class="role-tag">看标准、检测方法、复测和报告边界</span></div>
+  <details ><summary>岗位疑问</summary><p>水质问题能不能直接按 AI 答案处理？</p></details>
+  <details><summary>宣贯答复口径</summary><p>不能把 AI 答复作为唯一依据。AI 的作用是快速找出已采信标准、检验方法、企业制度和异常处置流程。检测、复测、报告、上报仍以正式标准、实验室体系文件和负责人复核为准。</p></details>
+  <details><summary>岗位使用路径</summary><p>岗位知识 → 水质标准卡 → 检测方法 → 异常复核 SOP → 报告留痕 → 对外口径</p></details>
+  <details><summary>开课讲法</summary><p>水质专题课 30 分钟：确认标准版本、检测方法、异常复测、客服联动口径。</p></details>
+  <details><summary>界面理解提示</summary><p>检索结果必须显示来源、版本、采信状态、适用检测场景和不确定项。</p></details>
+</article>
+<article class="role-card" data-role="调度员 / 生产调度中心" data-text="调度员 / 生产调度中心 看事件、影响范围、协同和升级条件 AI 能不能根据数据直接给调度指令？ 不能。AI 可以提示异常趋势、推荐 SOP、列出协同部门和必留证据，但不能自动下发调度指令、调整阀门或改变压力设定。调度动作必须由授权人员判断、执行和记录。 调度岗位 → 异常事件卡 → 影响范围 → 关联 SOP → 通知规则 → 协同记录 调度专题课 30 分钟：压力异常、停水协同、抢修联动、客服口径。 调度视图重点显示风险等级、影响范围、是否通知、是否升级。">
+  <div class="role-top"><span class="role-name">调度员 / 生产调度中心</span><span class="role-tag">看事件、影响范围、协同和升级条件</span></div>
+  <details ><summary>岗位疑问</summary><p>AI 能不能根据数据直接给调度指令？</p></details>
+  <details><summary>宣贯答复口径</summary><p>不能。AI 可以提示异常趋势、推荐 SOP、列出协同部门和必留证据，但不能自动下发调度指令、调整阀门或改变压力设定。调度动作必须由授权人员判断、执行和记录。</p></details>
+  <details><summary>岗位使用路径</summary><p>调度岗位 → 异常事件卡 → 影响范围 → 关联 SOP → 通知规则 → 协同记录</p></details>
+  <details><summary>开课讲法</summary><p>调度专题课 30 分钟：压力异常、停水协同、抢修联动、客服口径。</p></details>
+  <details><summary>界面理解提示</summary><p>调度视图重点显示风险等级、影响范围、是否通知、是否升级。</p></details>
+</article>
+<article class="role-card" data-role="管网巡检 / 抢修班长" data-text="管网巡检 / 抢修班长 看爆管、阀门、现场安全和恢复确认 现场手机操作不方便，APP 能不能真正帮到抢修？ 抢修场景不适合复杂操作。APP 应提供离线可读的爆管处置卡、阀门操作注意、停水通知要点、现场照片留痕、恢复供水确认单。抢修班长只需打开相应 SOP 并勾选关键步骤。 管网抢修 → 爆管 SOP → 现场安全卡 → 阀门记录 → 恢复确认 → 案例复盘 现场微课 20 分钟：一个爆管案例从接警、隔离、抢修到恢复供水如何留痕。 抢修视图采用大按钮、少输入、可离线、可拍照。">
+  <div class="role-top"><span class="role-name">管网巡检 / 抢修班长</span><span class="role-tag">看爆管、阀门、现场安全和恢复确认</span></div>
+  <details ><summary>岗位疑问</summary><p>现场手机操作不方便，APP 能不能真正帮到抢修？</p></details>
+  <details><summary>宣贯答复口径</summary><p>抢修场景不适合复杂操作。APP 应提供离线可读的爆管处置卡、阀门操作注意、停水通知要点、现场照片留痕、恢复供水确认单。抢修班长只需打开相应 SOP 并勾选关键步骤。</p></details>
+  <details><summary>岗位使用路径</summary><p>管网抢修 → 爆管 SOP → 现场安全卡 → 阀门记录 → 恢复确认 → 案例复盘</p></details>
+  <details><summary>开课讲法</summary><p>现场微课 20 分钟：一个爆管案例从接警、隔离、抢修到恢复供水如何留痕。</p></details>
+  <details><summary>界面理解提示</summary><p>抢修视图采用大按钮、少输入、可离线、可拍照。</p></details>
+</article>
+<article class="role-card" data-role="二次供水运维员" data-text="二次供水运维员 看泵房、水箱、清洗消毒和住户沟通 二供小区情况差异很大，统一 SOP 会不会太死？ SOP 管底线动作，案例库管小区差异。二供场景要把标准底线、企业运维要求、设备台账、小区历史问题分开管理：底线不能变，现场经验可以按小区沉淀。 二供岗位 → 小区台账 → 巡检 SOP → 清洗消毒记录 → 住户答复卡 → 历史案例 二供专题课 30 分钟：泵房巡检、清洗消毒、投诉答复、异常上报。 二供视图应支持小区搜索、本小区常见问题和历史记录。">
+  <div class="role-top"><span class="role-name">二次供水运维员</span><span class="role-tag">看泵房、水箱、清洗消毒和住户沟通</span></div>
+  <details ><summary>岗位疑问</summary><p>二供小区情况差异很大，统一 SOP 会不会太死？</p></details>
+  <details><summary>宣贯答复口径</summary><p>SOP 管底线动作，案例库管小区差异。二供场景要把标准底线、企业运维要求、设备台账、小区历史问题分开管理：底线不能变，现场经验可以按小区沉淀。</p></details>
+  <details><summary>岗位使用路径</summary><p>二供岗位 → 小区台账 → 巡检 SOP → 清洗消毒记录 → 住户答复卡 → 历史案例</p></details>
+  <details><summary>开课讲法</summary><p>二供专题课 30 分钟：泵房巡检、清洗消毒、投诉答复、异常上报。</p></details>
+  <details><summary>界面理解提示</summary><p>二供视图应支持小区搜索、本小区常见问题和历史记录。</p></details>
+</article>
+<article class="role-card" data-role="客服坐席 / 962001 / 12345 工单" data-text="客服坐席 / 962001 / 12345 工单 看话术、派单、外发口径和证据留痕 客户问水黄、水小、停水，能不能让 AI 直接回复？ AI 可以生成话术草案，但客服对外答复必须基于已采信口径。涉及水质、停水范围、恢复时间、责任边界、赔付争议等，必须按企业发布信息和主管流程回答。客服端最重要的是统一口径、快速派单、证据留痕。 客服岗位 → 问题分类 → 已采信话术 → 派单规则 → 进度反馈 → 复盘题库 客服专题课 30 分钟：水质投诉、停水咨询、计量争议、12345 工单四个场景。 客服视图应优先显示“可以直接说 / 需要确认后说 / 禁止承诺”。">
+  <div class="role-top"><span class="role-name">客服坐席 / 962001 / 12345 工单</span><span class="role-tag">看话术、派单、外发口径和证据留痕</span></div>
+  <details ><summary>岗位疑问</summary><p>客户问水黄、水小、停水，能不能让 AI 直接回复？</p></details>
+  <details><summary>宣贯答复口径</summary><p>AI 可以生成话术草案，但客服对外答复必须基于已采信口径。涉及水质、停水范围、恢复时间、责任边界、赔付争议等，必须按企业发布信息和主管流程回答。客服端最重要的是统一口径、快速派单、证据留痕。</p></details>
+  <details><summary>岗位使用路径</summary><p>客服岗位 → 问题分类 → 已采信话术 → 派单规则 → 进度反馈 → 复盘题库</p></details>
+  <details><summary>开课讲法</summary><p>客服专题课 30 分钟：水质投诉、停水咨询、计量争议、12345 工单四个场景。</p></details>
+  <details><summary>界面理解提示</summary><p>客服视图应优先显示“可以直接说 / 需要确认后说 / 禁止承诺”。</p></details>
+</article>
+<article class="role-card" data-role="营业 / 计量 / 报装岗位" data-text="营业 / 计量 / 报装岗位 看政策口径、业务流程和用户解释 报装、表务、计量争议涉及政策和用户权益，APP 怎么避免口径不一致？ 把常见服务事项拆成岗位卡：受理条件、材料清单、办理时限、收费边界、派工规则、用户解释口径。客服、营业、计量、工程应使用同一套已采信口径，避免不同窗口不同说法。 营业岗位 → 服务事项卡 → 政策依据 → 话术模板 → 派工/流转 → 反馈闭环 服务窗口微课 30 分钟：报装接入、换表、计量争议、欠费提醒等高频场景。 营业视图应按用户问题入口展示，而不是按制度名称展示。">
+  <div class="role-top"><span class="role-name">营业 / 计量 / 报装岗位</span><span class="role-tag">看政策口径、业务流程和用户解释</span></div>
+  <details ><summary>岗位疑问</summary><p>报装、表务、计量争议涉及政策和用户权益，APP 怎么避免口径不一致？</p></details>
+  <details><summary>宣贯答复口径</summary><p>把常见服务事项拆成岗位卡：受理条件、材料清单、办理时限、收费边界、派工规则、用户解释口径。客服、营业、计量、工程应使用同一套已采信口径，避免不同窗口不同说法。</p></details>
+  <details><summary>岗位使用路径</summary><p>营业岗位 → 服务事项卡 → 政策依据 → 话术模板 → 派工/流转 → 反馈闭环</p></details>
+  <details><summary>开课讲法</summary><p>服务窗口微课 30 分钟：报装接入、换表、计量争议、欠费提醒等高频场景。</p></details>
+  <details><summary>界面理解提示</summary><p>营业视图应按用户问题入口展示，而不是按制度名称展示。</p></details>
+</article>
+<article class="role-card" data-role="工程建设 / 竣工资料与运维移交" data-text="工程建设 / 竣工资料与运维移交 看标准、资料清单和移交边界 工程资料多、图纸多，知识库能解决运维接收断点吗？ 可以先从资料清单和移交 SOP 入手。系统应明确设计、施工、监理、接收、运维之间的资料边界，把隐蔽工程记录、试压冲洗资料、竣工图、资产编码和运维接收记录固化为证据链。 工程岗位 → 资料清单 → 标准条款 → 移交 SOP → 缺项提醒 → 运维反馈 工程资料专题课 30 分钟：从项目资料到运维接收的证据链。 工程视图支持附件、图纸、表单、节点和缺项清单，不宜只做问答。">
+  <div class="role-top"><span class="role-name">工程建设 / 竣工资料与运维移交</span><span class="role-tag">看标准、资料清单和移交边界</span></div>
+  <details ><summary>岗位疑问</summary><p>工程资料多、图纸多，知识库能解决运维接收断点吗？</p></details>
+  <details><summary>宣贯答复口径</summary><p>可以先从资料清单和移交 SOP 入手。系统应明确设计、施工、监理、接收、运维之间的资料边界，把隐蔽工程记录、试压冲洗资料、竣工图、资产编码和运维接收记录固化为证据链。</p></details>
+  <details><summary>岗位使用路径</summary><p>工程岗位 → 资料清单 → 标准条款 → 移交 SOP → 缺项提醒 → 运维反馈</p></details>
+  <details><summary>开课讲法</summary><p>工程资料专题课 30 分钟：从项目资料到运维接收的证据链。</p></details>
+  <details><summary>界面理解提示</summary><p>工程视图支持附件、图纸、表单、节点和缺项清单，不宜只做问答。</p></details>
+</article>
+<article class="role-card" data-role="安全管理 / 应急管理" data-text="安全管理 / 应急管理 看红线、作业票、应急卡和演练记录 安全内容能不能也让 AI 自动生成？ AI 可以辅助生成安全交底、应急演练脚本和题库，但有限空间、动火、临电、危化品、抢修交通等安全事项必须以正式制度、作业票和责任人确认作为依据。安全知识要突出红线、禁止项和升级条件。 安全岗位 → 红线清单 → 作业票核查 → 应急 SOP → 演练记录 → 整改闭环 安全专题课 45 分钟：用有限空间、夜间抢修、泵房停电三个场景演练。 安全视图应使用红黄绿风险提示，避免长段文字埋没红线。">
+  <div class="role-top"><span class="role-name">安全管理 / 应急管理</span><span class="role-tag">看红线、作业票、应急卡和演练记录</span></div>
+  <details ><summary>岗位疑问</summary><p>安全内容能不能也让 AI 自动生成？</p></details>
+  <details><summary>宣贯答复口径</summary><p>AI 可以辅助生成安全交底、应急演练脚本和题库，但有限空间、动火、临电、危化品、抢修交通等安全事项必须以正式制度、作业票和责任人确认作为依据。安全知识要突出红线、禁止项和升级条件。</p></details>
+  <details><summary>岗位使用路径</summary><p>安全岗位 → 红线清单 → 作业票核查 → 应急 SOP → 演练记录 → 整改闭环</p></details>
+  <details><summary>开课讲法</summary><p>安全专题课 45 分钟：用有限空间、夜间抢修、泵房停电三个场景演练。</p></details>
+  <details><summary>界面理解提示</summary><p>安全视图应使用红黄绿风险提示，避免长段文字埋没红线。</p></details>
+</article>
+<article class="role-card" data-role="法务 / 合规 / 内控" data-text="法务 / 合规 / 内控 看依据、边界、责任和外发风险 知识库里哪些内容能对外引用，哪些只能内部参考？ 每份资料都应标记使用边界：公开、内部、受控、敏感；是否允许 AI 摘要、是否允许对外、是否需要脱敏、是否涉及个人信息或商业秘密。对外发布必须经过企业既有审批流程。 知识产权/边界 → 资料分级 → 对外口径 → 审批记录 → 版本归档 合规边界课 30 分钟：公开资料、内部制度、敏感数据、外发材料如何区分。 合规视图重点显示“能不能用、能不能发、谁批准、是否留痕”。">
+  <div class="role-top"><span class="role-name">法务 / 合规 / 内控</span><span class="role-tag">看依据、边界、责任和外发风险</span></div>
+  <details ><summary>岗位疑问</summary><p>知识库里哪些内容能对外引用，哪些只能内部参考？</p></details>
+  <details><summary>宣贯答复口径</summary><p>每份资料都应标记使用边界：公开、内部、受控、敏感；是否允许 AI 摘要、是否允许对外、是否需要脱敏、是否涉及个人信息或商业秘密。对外发布必须经过企业既有审批流程。</p></details>
+  <details><summary>岗位使用路径</summary><p>知识产权/边界 → 资料分级 → 对外口径 → 审批记录 → 版本归档</p></details>
+  <details><summary>开课讲法</summary><p>合规边界课 30 分钟：公开资料、内部制度、敏感数据、外发材料如何区分。</p></details>
+  <details><summary>界面理解提示</summary><p>合规视图重点显示“能不能用、能不能发、谁批准、是否留痕”。</p></details>
+</article>
+<article class="role-card" data-role="人资 / 培训管理员" data-text="人资 / 培训管理员 看题库、复训、能力画像和学习留痕 怎么证明员工真的学会了，而不是点了已读？ 知识条目要和题库、场景演练、错题、复训记录关联。培训记录应包含岗位、题库版本、完成时间、得分、错题标签和补训情况。班组长还可以用岗位卡做班前会抽问。 学习看板 → 岗位题库 → 班前会卡 → 考核记录 → 错题复训 → 能力画像 培训管理员课 45 分钟：从知识条目生成题库，从错题反推薄弱岗位。 培训视图不要只显示完成率，还要显示低分知识点和复训建议。">
+  <div class="role-top"><span class="role-name">人资 / 培训管理员</span><span class="role-tag">看题库、复训、能力画像和学习留痕</span></div>
+  <details ><summary>岗位疑问</summary><p>怎么证明员工真的学会了，而不是点了已读？</p></details>
+  <details><summary>宣贯答复口径</summary><p>知识条目要和题库、场景演练、错题、复训记录关联。培训记录应包含岗位、题库版本、完成时间、得分、错题标签和补训情况。班组长还可以用岗位卡做班前会抽问。</p></details>
+  <details><summary>岗位使用路径</summary><p>学习看板 → 岗位题库 → 班前会卡 → 考核记录 → 错题复训 → 能力画像</p></details>
+  <details><summary>开课讲法</summary><p>培训管理员课 45 分钟：从知识条目生成题库，从错题反推薄弱岗位。</p></details>
+  <details><summary>界面理解提示</summary><p>培训视图不要只显示完成率，还要显示低分知识点和复训建议。</p></details>
+</article>
+<article class="role-card" data-role="企管 / 运营管理" data-text="企管 / 运营管理 看流程、绩效、闭环和持续改进 知识库如何和日常管理结合，而不是上线后一阵风？ 要把知识运营纳入月度例会和部门考核：标准变更是否响应、SOP 是否覆盖、反馈是否闭环、培训是否达标、高频工单是否下降。系统不是一次性项目，而是持续改进机制。 运营看板 → 关键指标 → 部门反馈 → 整改任务 → 月度复盘 → 绩效挂钩 运营管理课 30 分钟：如何用知识运营指标开月度复盘会。 运营视图展示趋势和闭环，不以文档数量作为主要成绩。">
+  <div class="role-top"><span class="role-name">企管 / 运营管理</span><span class="role-tag">看流程、绩效、闭环和持续改进</span></div>
+  <details ><summary>岗位疑问</summary><p>知识库如何和日常管理结合，而不是上线后一阵风？</p></details>
+  <details><summary>宣贯答复口径</summary><p>要把知识运营纳入月度例会和部门考核：标准变更是否响应、SOP 是否覆盖、反馈是否闭环、培训是否达标、高频工单是否下降。系统不是一次性项目，而是持续改进机制。</p></details>
+  <details><summary>岗位使用路径</summary><p>运营看板 → 关键指标 → 部门反馈 → 整改任务 → 月度复盘 → 绩效挂钩</p></details>
+  <details><summary>开课讲法</summary><p>运营管理课 30 分钟：如何用知识运营指标开月度复盘会。</p></details>
+  <details><summary>界面理解提示</summary><p>运营视图展示趋势和闭环，不以文档数量作为主要成绩。</p></details>
+</article>
+<article class="role-card" data-role="协会 / 标委会 / 行业推广人员" data-text="协会 / 标委会 / 行业推广人员 看标准化、可复制和行业共建 企业内部 APP 经验如何转成行业可推广成果？ 企业样板可沉淀为团体标准或指南：知识分类、采信分级、岗位 SOP 模板、培训闭环、互操作格式、知识产权边界。行业宣贯不展示企业内部敏感数据，而展示方法、模板、评价指标和脱敏案例。 知识总纲 → 标准化框架 → 样板场景 → 采信规范 → 脱敏案例 → 行业交流 行业宣贯课半天：从企业样板到行业标准化材料组织。 行业版提供脱敏模式、模板和术语，不展示内部账号、数据和敏感图纸。">
+  <div class="role-top"><span class="role-name">协会 / 标委会 / 行业推广人员</span><span class="role-tag">看标准化、可复制和行业共建</span></div>
+  <details ><summary>岗位疑问</summary><p>企业内部 APP 经验如何转成行业可推广成果？</p></details>
+  <details><summary>宣贯答复口径</summary><p>企业样板可沉淀为团体标准或指南：知识分类、采信分级、岗位 SOP 模板、培训闭环、互操作格式、知识产权边界。行业宣贯不展示企业内部敏感数据，而展示方法、模板、评价指标和脱敏案例。</p></details>
+  <details><summary>岗位使用路径</summary><p>知识总纲 → 标准化框架 → 样板场景 → 采信规范 → 脱敏案例 → 行业交流</p></details>
+  <details><summary>开课讲法</summary><p>行业宣贯课半天：从企业样板到行业标准化材料组织。</p></details>
+  <details><summary>界面理解提示</summary><p>行业版提供脱敏模式、模板和术语，不展示内部账号、数据和敏感图纸。</p></details>
+</article></div>
+</section>
+
+<section id="faq" class="section">
+  <span class="badge">共性疑问答复</span>
+  <h2>十二个最容易被问到的问题</h2>
+  <p>这些问题建议做成 APP 内“帮助中心”，也可用于高管会、班组长会和岗位试用前说明。</p>
+  <div><div class="faq-item"><button class="faq-q" type="button">功能键太多，员工看不懂怎么办？<span>＋</span></button><div class="faq-a"><p>把菜单分成“岗位工作视图”和“管理后台视图”。员工登录后默认只看到本岗位五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。全量菜单不是每个人都要学。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">为什么实际 APP 界面要分岗位？<span>＋</span></button><div class="faq-a"><p>供水企业是岗位协同组织，不同岗位的责任、权限、风险和证据要求不同。客服看话术，调度看事件，化验看标准，抢修看现场卡。所有人看到同一界面，反而容易误解和越权。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">为什么不是随时随地问 AI 就能解决行业知识库问题？<span>＋</span></button><div class="faq-a"><p>问 AI 只能解决信息检索的一部分，不能解决采信、责任、版本、流程、培训和审计。行业知识库的核心是组织机制：谁确认依据、谁发布 SOP、谁执行、谁复训、谁整改。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">为什么说一个 APP 是一种组织建设灵魂？<span>＋</span></button><div class="faq-a"><p>因为 APP 不是孤立工具，它会把组织架构、岗位边界、审批规则、SOP 流程、培训复训和问题闭环固化下来。按钮背后是组织管理逻辑，不是简单功能堆叠。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">要不要专门开课培训？<span>＋</span></button><div class="faq-a"><p>要开课，但不是传统软件功能培训，而是岗位工作法培训。高层讲组织治理，管理员讲采信流程，班组长讲班前会和案例复盘，一线员工讲三分钟找 SOP 和一键反馈。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">员工会不会把 AI 答案当成制度？<span>＋</span></button><div class="faq-a"><p>系统必须清楚标识状态：AI 初稿、待复核、已采信、已发布、历史归档。岗位端默认只推荐已采信或已发布知识，高风险内容必须提示需主管确认。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">SOP 不准确或不适合现场怎么办？<span>＋</span></button><div class="faq-a"><p>员工不能私自改正式 SOP，但可以提交反馈。反馈进入“问题—责任人—修订—复核—发布—复训”闭环。现场经验先进入案例库，再判断是否升级为 SOP。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">老师傅经验怎么沉淀？<span>＋</span></button><div class="faq-a"><p>不要求老师傅写长文。可用访谈、录音整理、典型工单复盘、故障照片、班前会问答等方式采集，再整理成案例卡，由班组长和技术负责人确认。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">能否接入客服、工单、GIS、生产系统？<span>＋</span></button><div class="faq-a"><p>可以分阶段。先做知识和 SOP，再接工单和培训，涉及管网、生产控制和用户信息时必须只读、脱敏、分权限，不能让 AI 直接控制生产系统。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">知识产权和涉密资料怎么管？<span>＋</span></button><div class="faq-a"><p>每份资料应标记使用边界：公开、内部、受控、敏感；是否允许 AI 摘要、是否允许外发、是否允许培训使用、是否需要脱敏。外部宣传只用脱敏案例和公开依据。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">如何证明投入有效？<span>＋</span></button><div class="faq-a"><p>不要只统计上传文件数量。要看 SOP 覆盖率、岗位查询频次、培训达标率、反馈闭环率、标准变更响应时间、重复工单变化、监管检查资料准备效率。</p></div></div>
+<div class="faq-item"><button class="faq-q" type="button">系统上线后谁维护？<span>＋</span></button><div class="faq-a"><p>建议建立“采信中心 + 业务域负责人 + 班组知识管理员 + 信息化支撑 + 培训管理员”的联合机制。AI 参与监测和初稿，最终采信和发布必须有人负责。</p></div></div></div>
+</section>
+
+<section id="training" class="section">
+  <span class="badge">培训不是教按钮，而是教组织工作法</span>
+  <h2>建议开设“1+3+N”岗位宣贯培训体系</h2>
+  <div class="grid grid-3">
+    <div class="card"><h3>1 门共识课</h3><p>面向高层和部门负责人，讲清“一个 APP 是组织建设灵魂”：标准采信、岗位责任、SOP 闭环、AI 边界和持续改进。</p></div>
+    <div class="card"><h3>3 门核心课</h3><p>采信管理员课、班组长课、一线岗位课。分别解决“怎么管、怎么带、怎么用”。</p></div>
+    <div class="card"><h3>N 个岗位微课</h3><p>客服、调度、抢修、水质、二供、安全、工程、营业等岗位各 15—30 分钟，围绕真实场景演练。</p></div>
+  </div>
+  <h3>开课安排建议</h3>
+  <div class="timeline">
+    <div class="step"><b>第 1 课：领导共识会，30 分钟</b><p>讲清系统不是聊天机器人，而是“法规标准—制度流程—岗位 SOP—培训复训—审计留痕”的组织能力建设。</p></div>
+    <div class="step"><b>第 2 课：管理员实操课，半天</b><p>围绕采信中心、资料入库、条款切片、风险分级、复核意见、版本变更、资料使用边界进行演练。</p></div>
+    <div class="step"><b>第 3 课：班组长训练营，60 分钟</b><p>用一张岗位卡开班前会，用一次工单做案例复盘，用一个反馈推动 SOP 修订。</p></div>
+    <div class="step"><b>第 4 课：一线岗位微课，每岗 15—30 分钟</b><p>不讲全量菜单，只讲本岗位五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。</p></div>
+    <div class="step"><b>第 5 课：岗位试用复盘会，2 周后</b><p>收集“看不懂、找不到、不适用、误用、重复录入”等问题，作为下一轮内容优化依据。</p></div>
+  </div>
+  <div class="copybox" id="trainingNotice"><pre>【培训通知口径】
+本次培训不是普通软件操作培训，而是水务知识库岗位化应用培训。系统实行分岗位界面，员工不需要学习全部功能，只需掌握本岗位“看红线、查SOP、带依据查询、做测试、留反馈”五个动作。后台采信、资产留存、使用边界和治理架构由管理员、业务专家和管理层使用。请各部门安排班组长和关键岗位人员参加岗位宣贯培训。</pre><button class="btn secondary" type="button" onclick="copyText('trainingNotice')">复制培训通知</button></div>
+</section>
+
+<section id="practice" class="section">
+  <span class="badge">课堂演练</span>
+  <h2>宣贯课不讲全量菜单，建议用五个真实任务演示</h2>
+  <div class="checklist">
+    <div class="check"><b>任务 1：选择岗位</b><p>每人先选择自己的岗位，确认看到的是本岗位工作台，而不是后台总菜单。</p></div>
+    <div class="check"><b>任务 2：查一个 SOP</b><p>以“水质投诉、爆管、停水通知、二供巡检、计量争议”等真实场景查找岗位 SOP。</p></div>
+    <div class="check"><b>任务 3：看依据来源</b><p>训练员工识别来源、版本、采信状态、适用岗位和不确定项，不把 AI 草案当正式制度。</p></div>
+    <div class="check"><b>任务 4：完成一题一练</b><p>用班前会题目检验是否理解关键红线和操作步骤。</p></div>
+    <div class="check"><b>任务 5：提交一条反馈</b><p>让员工知道现场差异、资料过期、SOP 不适用时如何反馈，而不是私自修改口径。</p></div>
+    <div class="check"><b>任务 6：班组长复盘</b><p>班组长用一次工单或一条投诉做案例复盘，沉淀为后续培训素材。</p></div>
+  </div>
+  <div class="callout"><b>课堂提示：</b>每个岗位只需要完成自己岗位的一组任务。不要要求一线人员理解全部菜单、全部后台状态和全部治理逻辑。</div>
+</section>
+
+<section id="boundary" class="section">
+  <span class="badge">使用边界</span>
+  <h2>必须讲清：AI 可以帮忙，但不能替代组织责任</h2>
+  <div class="grid grid-2">
+    <div class="card"><h3>AI 可以做</h3><p>查找已采信资料、生成摘要、推荐 SOP、生成培训题、比对版本差异、整理案例、提醒过期知识、辅助形成反馈清单。</p></div>
+    <div class="card"><h3>AI 不能直接做</h3><p>直接发布制度、直接对外承诺、直接下发调度指令、直接修改生产参数、直接替代检测复核、直接决定安全作业许可。</p></div>
+  </div>
+
+  <h3>时间压力下的“分级信任”原则</h3>
+  <div class="table-wrap"><table><thead><tr><th>场景类型</th><th>AI 可以被信任到什么程度</th><th>岗位怎么做</th><th>事后要求</th></tr></thead><tbody>
+    <tr><td><b>P0/P1 红线场景</b><br>水质安全、重大停水、安全作业、应急处置、外发口径</td><td>只信任已采信资料、已发布 SOP、红线规则和固定模板；不接受 AI 临时编造的新判断。</td><td>按系统推荐的已发布 SOP 执行，同时按规定上报或请求确认。</td><td>必须复盘，保留 AI 调取依据、岗位操作记录、主管确认和整改结论。</td></tr>
+    <tr><td><b>P2 日常运行场景</b><br>一般巡检、普通咨询、培训学习、资料解释</td><td>可采用 AI 的摘要、解释和建议，但要查看来源、版本和适用岗位。</td><td>用于辅助理解和提高效率；涉及操作改变时仍按制度执行。</td><td>发现不适用、过期、缺项时提交反馈，进入采信或修订流程。</td></tr>
+    <tr><td><b>P3 经验案例场景</b><br>历史工单、老师傅经验、相似案例、班组复盘</td><td>可用于提示思路和参考案例，但不能直接替代制度、标准和现场判断。</td><td>把经验当“参考”，把已采信 SOP 当“依据”。</td><td>优秀经验可由班组长提交，复核后转为案例库或培训题。</td></tr>
+  </tbody></table></div>
+  <div class="callout"><b>一句话：</b>来不及人工逐条判断时，系统必须让员工“快速相信正确的东西”——即已采信的规则、已发布的 SOP、明确的岗位边界和可追溯的证据，而不是相信一个没有边界的 AI 回答。</div>
+
+  <div class="callout red"><b>宣贯红线：</b>不能把“能问 AI”作为系统成功标准。真正的成功是：员工能按岗位找到可信 SOP，管理者能看到采信和闭环，管理员能维护版本和责任，组织能把反馈变成改进。</div>
+  <div class="copybox" id="closingText"><pre>【结束语口径】
+江苏江南水务 601199 推进水务知识库，是供水服务标准化体系建设再上台阶，也是行业标杆建设可复制、可借鉴的一项基础工作。知识库不是让大家多一个软件，也不是让大家随时问 AI；它是把老师傅经验、标准规范、企业制度、岗位动作、培训复训和问题整改沉淀成组织能力。
+
+知识的价值，在阅读困惑中解疑，在授业执行中传道。员工端要简单，后台端要可靠，管理端要看闭环。每个岗位先用好本岗位五个动作：看红线、查 SOP、带依据查询、做测试、留反馈。
+
+面对紧急场景，现场可能来不及人工逐条判断，但我们信任的不是 AI 的自由发挥，而是已采信知识、已发布 SOP、风险分级、岗位权限和事后复核组成的组织系统。</pre><button class="btn secondary" type="button" onclick="copyText('closingText')">复制结束语</button></div>
+</section>
+</main>
+<button class="btn print-btn" onclick="window.print()">打印 / 导出PDF</button>
+<footer class="footer">水务知识库 APP 多角色岗位宣贯与答疑｜适用于内部宣贯、岗位开课、班组培训和行业交流</footer>
+<script>
+function expandAll(open){document.querySelectorAll('.role-card details').forEach(d=>d.open=open);}
+const search = document.getElementById('roleSearch');
+if(search){search.addEventListener('input',()=>{const kw=search.value.trim().toLowerCase();document.querySelectorAll('.role-card').forEach(card=>{const text=(card.dataset.text||'').toLowerCase();card.classList.toggle('hidden', kw && !text.includes(kw));});});}
+document.querySelectorAll('.faq-q').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');item.classList.toggle('open');btn.querySelector('span').textContent=item.classList.contains('open')?'－':'＋';});});
+function copyText(id){const el=document.getElementById(id);const text=el.innerText.replace(/复制培训通知|复制结束语/g,'').trim();navigator.clipboard.writeText(text).then(()=>{alert('已复制，可粘贴使用。');}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('已复制，可粘贴使用。');});}
+</script>
+</body>
+</html>
