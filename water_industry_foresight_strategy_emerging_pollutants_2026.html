@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>水务行业前瞻研究与策略｜新污染物治理与饮用水安全</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --paper:#ffffff;
+      --ink:#14213d;
+      --muted:#5f6b7a;
+      --line:#dfe6ef;
+      --blue:#1261a6;
+      --cyan:#0f8b8d;
+      --green:#1b7f5c;
+      --orange:#c56a14;
+      --red:#b33a3a;
+      --purple:#6654a6;
+      --shadow:0 12px 36px rgba(20,33,61,.10);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#eef5fb 0,#f5f7fb 26%,#f5f7fb 100%);color:var(--ink);font-family:var(--sans);line-height:1.72;}
+    a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 18% 12%,rgba(15,139,141,.22),transparent 28%),radial-gradient(circle at 83% 6%,rgba(18,97,166,.20),transparent 25%),linear-gradient(135deg,#0b3d63,#0f608d 48%,#102a43);color:#fff;padding:46px 0 34px;border-bottom:1px solid rgba(255,255,255,.16)}
+    .hero:before{content:"";position:absolute;inset:auto -15% -80px -15%;height:180px;background:rgba(255,255,255,.08);filter:blur(20px);transform:rotate(-3deg)}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.10);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+    h1{font-size:clamp(30px,5vw,56px);line-height:1.08;margin:18px 0 14px;font-weight:800;letter-spacing:-.02em}
+    .subtitle{font-size:clamp(16px,2vw,21px);max-width:920px;color:rgba(255,255,255,.88);margin:0 0 18px}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);font-size:13px;color:rgba(255,255,255,.92)}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .topbar .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;min-height:54px}
+    .brand{font-weight:800;color:#0b3d63;white-space:nowrap}
+    .nav{display:flex;gap:4px;overflow:auto;padding:8px 0;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+    .nav a{white-space:nowrap;font-size:13px;color:#344054;padding:7px 10px;border-radius:999px}.nav a:hover{background:#eaf2f9;text-decoration:none;color:var(--blue)}
+    .toolbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;color:#344054;font-size:13px;cursor:pointer;white-space:nowrap}.toolbtn:hover{background:#f2f6fb}
+    main{padding:26px 0 56px}
+    section{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:18px 0}
+    section.flat{box-shadow:none;background:transparent;border:0;padding:0}
+    h2{font-size:28px;line-height:1.25;margin:0 0 14px;color:#0b3d63;letter-spacing:-.01em}
+    h3{font-size:20px;line-height:1.35;margin:24px 0 10px;color:#123b5d}
+    h4{font-size:16px;margin:16px 0 8px;color:#1d3557}
+    p{margin:8px 0 12px}.lead{font-size:18px;color:#243b53}.muted{color:var(--muted)}.small{font-size:13px}.strong{font-weight:700}.note{border-left:4px solid var(--cyan);background:#edfafa;padding:12px 14px;border-radius:12px;margin:14px 0;color:#194d4f}.warn{border-left:4px solid var(--orange);background:#fff7ed;padding:12px 14px;border-radius:12px;margin:14px 0}.risk{border-left:4px solid var(--red);background:#fff2f2;padding:12px 14px;border-radius:12px;margin:14px 0}
+    .grid{display:grid;gap:14px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;box-shadow:0 6px 20px rgba(20,33,61,.05)}
+    .card h3,.card h4{margin-top:0}.card.blue{border-top:4px solid var(--blue)}.card.green{border-top:4px solid var(--green)}.card.orange{border-top:4px solid var(--orange)}.card.purple{border-top:4px solid var(--purple)}.card.red{border-top:4px solid var(--red)}.card.cyan{border-top:4px solid var(--cyan)}
+    .kpi{display:flex;flex-direction:column;gap:4px;min-height:112px}.kpi .num{font-size:28px;font-weight:850;color:#0b3d63}.kpi .label{font-size:14px;color:#334e68}.kpi .desc{font-size:12px;color:#6b7280}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+    th,td{padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:14px}th{background:#eef5fb;color:#0b3d63;font-weight:800}tr:last-child td{border-bottom:0}.nowrap{white-space:nowrap}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef5fb;color:#0b3d63;font-size:12px;margin:2px}.tag.green{background:#e9f7f1;color:#116149}.tag.orange{background:#fff1df;color:#994d0b}.tag.red{background:#fff0f0;color:#9e2f2f}.tag.purple{background:#f2efff;color:#5845a3}.tag.gray{background:#f2f4f7;color:#475467}
+    ul,ol{padding-left:1.35em;margin:8px 0 12px}li{margin:5px 0}.compact li{margin:2px 0}
+    .flow{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:10px;align-items:stretch;margin:18px 0;overflow:auto;padding-bottom:4px}.flow .node{position:relative;border:1px solid var(--line);border-radius:14px;background:#f8fbfe;padding:13px;min-height:116px}.flow .node:after{content:"→";position:absolute;right:-11px;top:45%;color:#9aa6b2;font-weight:800}.flow .node:last-child:after{display:none}.flow .node b{display:block;color:#0b3d63;margin-bottom:6px}.flow .node span{font-size:12px;color:#5f6b7a}
+    .timeline{position:relative;margin:18px 0;padding-left:18px}.timeline:before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:#cfe0f0}.titem{position:relative;margin:0 0 14px;padding:0 0 0 18px}.titem:before{content:"";position:absolute;left:-18px;top:8px;width:12px;height:12px;background:#1261a6;border-radius:50%;box-shadow:0 0 0 4px #e6f0fa}.titem .time{font-weight:800;color:#0b3d63}.titem .txt{color:#4b5563}
+    .matrix{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:14px 0}.matrix div{background:#fff;padding:10px;font-size:13px}.matrix .head{background:#eef5fb;font-weight:800;color:#0b3d63}.matrix .good{background:#edf7f1}.matrix .mid{background:#fff7e8}.matrix .bad{background:#fff0f0}.matrix .exp{background:#f4f1ff}
+    .formula{font-family:var(--mono);background:#0f172a;color:#dbeafe;border-radius:14px;padding:16px;overflow:auto;margin:14px 0}.formula b{color:#7dd3fc}
+    .toc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.toc a{display:block;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;color:#123b5d}.toc a:hover{background:#eef7ff;text-decoration:none}.toc b{display:block}.toc span{font-size:12px;color:#667085}
+    .quote{font-size:20px;line-height:1.6;margin:14px 0;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,#f0f8ff,#eefaf7);border:1px solid #d8ebf4;color:#123b5d}.quote:before{content:"“";font-size:48px;line-height:0;color:#1261a6;vertical-align:-18px;margin-right:6px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;color:#344054}.tab.active{background:#1261a6;color:white;border-color:#1261a6}.task[data-role]{display:block}.hidden{display:none!important}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.check{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.check b{color:#0b3d63}.check:before{content:"✓";display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:8px;border-radius:50%;background:#e7f6ef;color:#16734f;font-weight:800}
+    .footer{color:#667085;font-size:13px;text-align:center;padding:30px 0 45px}.refs li{font-size:13px;color:#4b5563;margin-bottom:8px}.source{font-size:12px;color:#667085}.watermark{position:fixed;right:18px;bottom:14px;font-size:12px;color:#9aa6b2;background:rgba(255,255,255,.75);border:1px solid #e5e7eb;border-radius:999px;padding:4px 9px;z-index:10}
+    @media (max-width:920px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.toc{grid-template-columns:1fr 1fr}.checklist{grid-template-columns:1fr}.matrix{grid-template-columns:1fr}.matrix .head:not(:first-child){display:none}.flow{grid-template-columns:repeat(7,180px)}section{padding:20px}.topbar .brand{display:none}}
+    @media (max-width:560px){.hero{padding:34px 0 28px}.toc{grid-template-columns:1fr}.meta{gap:8px}.pill{font-size:12px}h2{font-size:23px}h3{font-size:18px}th,td{font-size:13px;padding:10px}.watermark{display:none}}
+    @media print{body{background:#fff}.topbar,.toolbtn,.watermark{display:none!important}.wrap{max-width:none}.hero{background:#fff;color:#111;padding:20px 0;border-bottom:2px solid #111}.hero .subtitle,.pill,.eyebrow{color:#111;border-color:#ccc;background:#fff}section{break-inside:avoid;box-shadow:none;border:1px solid #ccc}.nav{display:none}a{text-decoration:none;color:#111}.card{box-shadow:none}.flow{overflow:visible;grid-template-columns:repeat(7,1fr)}.flow .node{min-height:auto}.quote{background:#fff}.formula{background:#fff;color:#111;border:1px solid #ccc}}
+  </style>
+</head>
+<body>
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div class="eyebrow">Water Foresight · Emerging Contaminants · 2026–2030</div>
+      <h1>水务行业前瞻研究与策略</h1>
+      <p class="subtitle">从“常规污染物达标治理”迈向“新污染物风险治理”：面向地方政府、水务集团、供水企业、污水厂、工业园区和行业协会标委会的务实行动方案。</p>
+      <div class="meta">
+        <span class="pill">依据：余刚院士演讲文字稿</span>
+        <span class="pill">重点：水环境 · 饮用水 · 污水厂 · 工业园区</span>
+        <span class="pill">输出：策略路线图 + 技术矩阵 + 标准课题</span>
+        <span class="pill">文件：单文件 HTML，可打印汇报</span>
+      </div>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">水务前瞻策略</div>
+      <nav class="nav" aria-label="目录">
+        <a href="#summary">结论</a><a href="#logic">演讲逻辑</a><a href="#risk">风险图谱</a><a href="#policy">政策趋势</a><a href="#chain">水务链条</a><a href="#tech">技术矩阵</a><a href="#monitor">监测方案</a><a href="#roadmap">路线图</a><a href="#roles">角色任务</a><a href="#standards">标准化</a><a href="#evidence">证据边界</a><a href="#refs">参考依据</a>
+      </nav>
+      <button class="toolbtn" onclick="window.print()">打印/存PDF</button>
+    </div>
+  </div>
+  <main class="wrap">
+    <section class="flat">
+      <div class="toc">
+        <a href="#summary"><b>一页结论</b><span>行业判断、策略关键词、先做什么</span></a>
+        <a href="#tech"><b>技术路线</b><span>吸附、氧化、膜、离子交换、生物处理</span></a>
+        <a href="#roadmap"><b>行动计划</b><span>90天、1年、3年、5年路线图</span></a>
+        <a href="#standards"><b>标准课题</b><span>团标/地标/企业制度储备方向</span></a>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>一、核心结论：水务行业进入“微量、长期、复合、跨界”的风险治理阶段</h2>
+      <p class="lead">余刚院士演讲的核心价值，不是提醒行业“水里又多了几个指标”，而是提示水务治理逻辑正在变化：过去二十年，COD、氨氮、总磷、重金属、黑臭、浊度、感官等常规污染物治理取得显著成效；下一阶段，真正考验行业能力的是看不见、闻不到、低剂量、长期暴露、跨介质迁移、末端难完全去除的新污染物。</p>
+      <div class="quote">新污染物治理不能简单理解为水厂末端加设备，而应当转化为“源头清单、过程减排、污水截控、水源预警、供水屏障、残余物处置、公众沟通”的全链条治理。</div>
+      <div class="grid grid-4">
+        <div class="card blue kpi"><span class="num">1</span><span class="label">行业主线</span><span class="desc">从达标排放转向健康风险、生态风险和源头责任。</span></div>
+        <div class="card green kpi"><span class="num">3</span><span class="label">三道防线</span><span class="desc">源头减量、污水/水环境拦截、饮用水多屏障。</span></div>
+        <div class="card orange kpi"><span class="num">5</span><span class="label">五类场景</span><span class="desc">工业园区、污水厂、医院/养殖、饮用水源、水厂深度处理。</span></div>
+        <div class="card purple kpi"><span class="num">90天</span><span class="label">启动窗口</span><span class="desc">不等标准完全成熟，先做筛查、建库、分级、试点。</span></div>
+      </div>
+      <h3>对水务企业的务实判断</h3>
+      <table>
+        <thead><tr><th>判断</th><th>含义</th><th>经营管理启示</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><span class="tag red">不能后知后觉</span></td><td>新污染物的公众感知往往滞后于真实风险；一旦发生饮用水异味、检出或网络传播事件，水司承压最大。</td><td>先做底线监测和应急预案，形成“我知道、我监测、我有预案”的可信表达。</td></tr>
+          <tr><td class="nowrap"><span class="tag orange">不能一刀切投资</span></td><td>不同物质的去除机理差异很大，常规处理、臭氧、生物活性炭、活性炭、膜、离子交换各有边界。</td><td>先小试/中试，再工程化；先高风险点源和关键水源，不宜全域盲目上膜。</td></tr>
+          <tr><td class="nowrap"><span class="tag green">不能只靠水厂</span></td><td>污水厂、垃圾渗滤液、工业园区、医院、养殖和居民消费品共同构成输入端。</td><td>推动“排水许可+工业预处理+污水厂协同+水源保护”联动。</td></tr>
+          <tr><td class="nowrap"><span class="tag purple">不能只做科研</span></td><td>新污染物处于科研、监管、标准和工程快速转化期。</td><td>把课题做成制度、团标、指标、投资项目和岗位SOP。</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><b>建议总口径：</b>将新污染物治理列为水务行业“十五五”前瞻课题，不以恐慌式宣传推动，不以单一设备替代系统治理，而以风险清单、源头削减、监测预警、分级处置和示范工程为抓手，逐步纳入企业高质量发展、供水安全保障、污水提质增效和标准化建设。</div>
+    </section>
+
+    <section id="logic">
+      <h2>二、演讲逻辑拆解：从国家行动到水环境控制，再到饮用水安全</h2>
+      <p>演讲可以拆成三层递进逻辑：第一层说明常规污染治理成效与新风险显现；第二层介绍国家层面新污染物治理制度体系正在建立；第三层把治理压力落到水环境、城市污水、工业废水和饮用水安全。</p>
+      <div class="grid grid-3">
+        <div class="card blue"><h3>1. 背景判断</h3><p>过去污染防治攻坚主要解决“可见、可闻、可量”的常规污染物，如黑臭水体、COD、氨氮、氮氧化物、二氧化硫等。治理成效越明显，微量有机污染物、持久性污染物、内分泌干扰物等问题越凸显。</p></div>
+        <div class="card green"><h3>2. 制度转向</h3><p>新污染物治理涉及生态环境、住建、水利、卫健、农业农村、工信、市场监管、药监、海关等多部门，具有典型跨界治理特征。单靠水务企业末端处理无法闭环。</p></div>
+        <div class="card orange"><h3>3. 行业落点</h3><p>污水处理厂、垃圾处理设施、工业园区既是常规污染治理设施，也是新污染物可能汇集和排放的节点；饮用水企业则是公众健康风险的最后屏障。</p></div>
+      </div>
+      <h3>演讲中的关键词转译为水务管理语言</h3>
+      <table>
+        <thead><tr><th>演讲关键词</th><th>水务行业转译</th><th>应形成的管理动作</th></tr></thead>
+        <tbody>
+          <tr><td>“生活在新污染物海洋”</td><td>新污染物来源广、浓度低、复合暴露，难以用单点工程解决。</td><td>建立全链条风险图谱，而不是只看出厂水。</td></tr>
+          <tr><td>“污水处理厂是重要排放源”</td><td>污水厂对不同微量有机物去除率差异大，出水和污泥均需关注。</td><td>开展进出水、污泥、再生水去向的筛查评价。</td></tr>
+          <tr><td>“工业园区源头控制”</td><td>医药、农药、化工、纺织、橡胶、电子等行业应先分类收集和预处理。</td><td>建立园区重点物质清单、企业申报、预处理限值和异常溯源机制。</td></tr>
+          <tr><td>“饮用水没有成熟样板可照搬”</td><td>供水端应慎重、分级、验证，避免被动恐慌和过度承诺。</td><td>先做水源—工艺—出厂—管网末梢的基线监测与应急能力。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="risk">
+      <h2>三、新污染物风险图谱：不是一个指标，而是一组治理对象</h2>
+      <p>新污染物通常指新近发现或新被关注，具有生物毒性、环境持久性、生物累积性，或可能对生态环境和人体健康产生较大风险的化学物质。管理上应以“国家重点管控清单 + 地方高风险特征清单 + 企业排口和水源实测清单”三类清单并行。</p>
+      <div class="grid grid-4">
+        <div class="card red"><h3>持久性有机污染物</h3><p>POPs、部分有机氯、有机溴阻燃剂、氯化石蜡、PFOS/PFOA/PFHxS 等。特点是难降解、可远距离迁移、可生物累积。</p><span class="tag red">高持久性</span><span class="tag orange">低浓度长期风险</span></div>
+        <div class="card purple"><h3>内分泌干扰物</h3><p>双酚类、邻苯二甲酸酯、壬基酚、部分农药和工业助剂。难点在低剂量效应、发育敏感期和混合暴露。</p><span class="tag purple">健康敏感</span><span class="tag gray">证据需分级</span></div>
+        <div class="card blue"><h3>药物和个人护理品</h3><p>抗生素、降压药、抗抑郁药、避孕药、防晒剂、消毒剂、三氯生等。来源高度生活化，污水厂是重要汇集点。</p><span class="tag blue">PPCPs</span><span class="tag green">生活源</span></div>
+        <div class="card green"><h3>微塑料与转化产物</h3><p>微塑料、抗性基因、消毒副产物、氧化转化产物、超短链PFAS如TFA等。很多仍处于监测方法和风险评价完善阶段。</p><span class="tag green">前沿关注</span><span class="tag orange">方法挑战</span></div>
+      </div>
+      <h3>暴露路径与水务链条关系</h3>
+      <table>
+        <thead><tr><th>暴露路径</th><th>水务关联</th><th>应对重点</th></tr></thead>
+        <tbody>
+          <tr><td>饮水摄入</td><td>水源、水厂、管网和末梢直接关联公众健康。</td><td>水源预警、工艺屏障、出厂水和末梢水验证。</td></tr>
+          <tr><td>食物链暴露</td><td>河湖、农灌、养殖、污泥土地利用、再生水利用均可能影响。</td><td>污水出水和污泥去向管理，避免“水处理转移到土壤/食物”。</td></tr>
+          <tr><td>皮肤和吸入暴露</td><td>洗浴、泳池、气溶胶、污水厂曝气、污泥处置等场景存在间接关联。</td><td>职业健康、防护、通风、气味与挥发性有机物管理。</td></tr>
+          <tr><td>生态暴露</td><td>排口下游、入河入湖、河口海湾、水生生物更敏感。</td><td>排口溯源、受纳水体生态风险评价和重点断面监测。</td></tr>
+        </tbody>
+      </table>
+      <div class="formula"><b>建议风险分级公式：</b><br>R = H × E × P × S × U<br><span>H：危害属性（毒性/持久性/生物累积性）｜E：暴露水平（浓度、频次、人群）｜P：工艺穿透概率｜S：水源/排口敏感性｜U：不确定性系数</span><br><br>R ≥ 80：红色重点管控；50–79：橙色跟踪治理；20–49：黄色观察；＜20：常规留痕。</div>
+      <p class="warn"><b>重要边界：</b>新污染物不是“检出即危险”，也不是“没有标准就不用管”。水务企业要把检出浓度、毒性证据、暴露路径、处理去除率、公众敏感性和法规趋势合并判断，避免把科研论文结论直接等同于行政合规要求。</p>
+    </section>
+
+    <section id="policy">
+      <h2>四、政策与标准趋势：从“科研关注”进入“清单管控 + 法规标准 + 工程示范”</h2>
+      <div class="timeline">
+        <div class="titem"><div class="time">国际层面：斯德哥尔摩公约持续扩展</div><div class="txt">《斯德哥尔摩公约》对持久性有机污染物分为消除、限制、无意产生等附件管理，近年来已纳入多类PFAS、溴代阻燃剂、氯化石蜡、UV-328等物质，显示国际治理对象持续扩展。</div></div>
+        <div class="titem"><div class="time">2022：我国新污染物治理行动方案</div><div class="txt">国务院办公厅印发《新污染物治理行动方案》，治理思路是筛、评、控、禁、减、治，核心在化学物质环境风险管理和重点新污染物全过程管控。</div></div>
+        <div class="titem"><div class="time">2023：重点管控新污染物清单</div><div class="txt">我国发布重点管控新污染物清单，意味着从概念讨论转向名录管理、禁限用、排放控制、环境风险管控和执法协同。</div></div>
+        <div class="titem"><div class="time">2024–2026：PFAS成为饮用水监管前沿</div><div class="txt">美国EPA于2024年发布PFAS国家一级饮用水法规，设定PFOA、PFOS等限值；2026年又提出对部分PFAS规则进行调整和延后实施的建议，说明技术、成本与健康保护之间仍在动态平衡。</div></div>
+        <div class="titem"><div class="time">“十五五”：协同治理和科技专项窗口</div><div class="txt">演讲稿提到新污染物协同治理、关键技术专项和重大工程布局。水务行业应把握政策窗口，将监测、试点、标准、工程、成本机制同步谋划。</div></div>
+      </div>
+      <h3>国际比较对我国水务企业的启示</h3>
+      <table>
+        <thead><tr><th>地区/制度</th><th>做法</th><th>对中国水务行业的启示</th></tr></thead>
+        <tbody>
+          <tr><td>美国EPA</td><td>对部分PFAS设饮用水法定限值，要求公共供水系统监测、公开信息、超标治理；处理技术明确BAT工具箱。</td><td>供水企业要提前掌握PFAS等物质的检测能力、处理验证和公众沟通模板，不能等限值出台后再从零开始。</td></tr>
+          <tr><td>欧盟</td><td>饮用水指令纳入PFAS综合性参数，强调预防原则、全链条水安全和风险评估。</td><td>我国未来很可能从单项指标转向混合物、总量、风险因子的组合管理。</td></tr>
+          <tr><td>斯德哥尔摩公约</td><td>通过全球清单逐步扩展POPs管控对象，强调淘汰、限制和无意排放削减。</td><td>地方园区和水务企业应关注出口型产业链和国际履约物质，避免“水环境风险”演变为“产业合规风险”。</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><b>落地判断：</b>未来几年最可能先落地的，不是所有新污染物统一限值，而是重点物质清单、重点行业源头控制、重点流域监测评价、饮用水源风险预警、再生水和污泥利用限制、工业园区分类预处理要求。</div>
+    </section>
+
+    <section id="chain">
+      <h2>五、水务全链条控制框架：把“末端焦虑”拆成“多屏障治理”</h2>
+      <p>对水务行业而言，新污染物治理应覆盖“源—网—厂—河—源—厂—网—户”的闭环。任何单一环节都无法独立解决问题，尤其不能把供水厂作为唯一屏障。</p>
+      <div class="flow" aria-label="水务全链条">
+        <div class="node"><b>源头产品</b><span>化学品、药物、农药、助剂、消费品、消防泡沫、防晒剂</span></div>
+        <div class="node"><b>工业园区</b><span>分类收集、预处理、排水许可、清洁生产、事故池</span></div>
+        <div class="node"><b>城市污水</b><span>生活污水、医院、养殖、垃圾渗滤液、初雨径流</span></div>
+        <div class="node"><b>污水厂</b><span>生化去除差异、深度处理、污泥和再生水去向</span></div>
+        <div class="node"><b>受纳水体</b><span>断面、排口、河湖、水库、河口海湾、生态累积</span></div>
+        <div class="node"><b>饮用水厂</b><span>常规处理+臭氧/BAC/GAC/膜/应急粉炭</span></div>
+        <div class="node"><b>用户末端</b><span>公众信任、信息公开、二供、末梢监测、健康沟通</span></div>
+      </div>
+      <h3>三道防线与责任边界</h3>
+      <div class="grid grid-3">
+        <div class="card green"><h3>第一道：源头减量</h3><p>由政府、工信、生态环境、园区和企业共同负责。重点是禁限用替代、清洁生产、分类收集、特征污染物预处理、排水许可和异常溯源。</p></div>
+        <div class="card blue"><h3>第二道：排水与水环境截控</h3><p>由排水公司、污水厂、生态环境、水利和河湖管理部门联动。重点是污水厂协同去除、排口监管、初雨径流、污泥残余物和受纳水体生态风险。</p></div>
+        <div class="card orange"><h3>第三道：饮用水安全屏障</h3><p>由供水企业承担最后屏障，但不应承担全部源头责任。重点是水源预警、深度处理能力、应急投加、备用水源、末梢监测和公众沟通。</p></div>
+      </div>
+      <p class="risk"><b>治理误区：</b>只在水厂末端叠加高成本工艺，会造成投资和运行成本急剧上升，还可能产生浓水、废炭、树脂、污泥等二次处置问题；若源头不控，末端会长期被动。</p>
+    </section>
+
+    <section id="tech">
+      <h2>六、关键技术矩阵：成熟技术可用，但必须“按物质、按场景、按风险”选择</h2>
+      <p>新污染物技术选择的核心不是“哪种技术最好”，而是“对什么污染物、在哪个水质背景、以什么目标、承担什么残余物处置责任、能否长期经济运行”。</p>
+      <div class="matrix">
+        <div class="head">技术/维度</div><div class="head">适用对象</div><div class="head">成熟度</div><div class="head">主要局限</div><div class="head">水务策略</div>
+        <div><b>颗粒/粉末活性炭 GAC/PAC</b></div><div>疏水性有机物、部分PPCPs、臭味物质、部分PFAS</div><div class="good">成熟度高，饮用水和深度处理常见</div><div class="mid">受天然有机物竞争；需更换/再生；废炭处置需闭环</div><div>作为饮用水应急粉炭和深度处理基础工具；PFAS场景需柱试突破曲线验证。</div>
+        <div><b>阴离子交换树脂</b></div><div>部分阴离子型PFAS、硝酸盐等</div><div class="good">PFAS控制中被国际认可</div><div class="mid">受pH、硫酸盐/硝酸盐竞争影响；废树脂和再生液处置复杂</div><div>适合高风险水源或局部深井/小系统，需做水质竞争离子评价。</div>
+        <div><b>臭氧 + 生物活性炭 O₃-BAC</b></div><div>嗅味、藻毒素、部分药物、可氧化有机物</div><div class="good">大中型水厂较成熟</div><div class="mid">可能产生溴酸盐、醛酮等副产物；对PFAS等难降解物有限</div><div>适合作为高品质供水基础屏障，但不能被宣传为“全部新污染物万能去除”。</div>
+        <div><b>高级氧化 AOPs</b></div><div>臭氧/过氧化氢、UV/H₂O₂、电催化等，针对难降解有机物</div><div class="mid">工程化程度因技术而异</div><div class="mid">能耗、药耗、副产物、矿化不完全、复杂基质干扰</div><div>用于工业高风险废水和污水深度处理中试，必须设置毒性削减评价。</div>
+        <div><b>膜技术 NF/RO</b></div><div>广谱盐类、微量有机物、PFAS、病原体</div><div class="good">技术成熟，但成本高</div><div class="bad">浓水处置、能耗、结垢、腐蚀控制、矿物质重构</div><div>适合高风险局部水源、再生水高品质利用，不宜作为所有城市供水的默认方案。</div>
+        <div><b>强化生化/MBR/湿地</b></div><div>可生物降解PPCPs、部分内分泌干扰物、微塑料截留</div><div class="mid">污水处理较成熟</div><div class="mid">对持久性污染物和PFAS有限；污泥富集需关注</div><div>污水厂提质增效优先结合碳氮磷、能耗、污泥和新污染物协同优化。</div>
+        <div><b>破坏性技术</b></div><div>超临界水氧化、等离子体、电化学、热处理等PFAS残余物处置</div><div class="exp">多数仍在示范或特定场景</div><div class="bad">成本、规模化、安全、完全矿化和副产物验证不足</div><div>不急于大规模采购，可作为科研和危险残余物处置储备。</div>
+      </div>
+      <h3>按场景选择的技术建议</h3>
+      <table>
+        <thead><tr><th>场景</th><th>优先策略</th><th>不宜做法</th><th>验证指标</th></tr></thead>
+        <tbody>
+          <tr><td>医药/农药/化工园区废水</td><td>一企一档、一物一策、清污分流、浓水单独处理、AOP/吸附/膜组合中试。</td><td>只用COD、氨氮判断可接管；把高风险废水稀释后进城镇污水厂。</td><td>目标物浓度、急性/慢性毒性、AOX/TOX、可生化性、转化产物。</td></tr>
+          <tr><td>城市污水厂</td><td>建立进出水和污泥筛查；选择臭氧-BAC、活性炭、膜或湿地深度处理试点。</td><td>把新污染物全部纳入全厂改造，忽视低碳和运行成本。</td><td>去除率、能耗、药耗、污泥富集、抗性基因、再生水去向。</td></tr>
+          <tr><td>饮用水源地</td><td>上游排口风险地图、预警断面、暴雨/枯水/藻类季专项监测。</td><td>只看常规水质月报，不做上游点源关联。</td><td>目标物检出率、趋势、峰值、流量负荷、预警提前量。</td></tr>
+          <tr><td>常规地表水厂</td><td>以臭氧-BAC/GAC/PAC应急为基础，保留小试接口和旁路试验能力。</td><td>未经验证直接承诺“完全去除新污染物”。</td><td>突破曲线、消毒副产物、溴酸盐、嗅味、TOC、UV254、目标物。</td></tr>
+          <tr><td>高风险小水源/深井</td><td>局部GAC、离子交换、NF/RO、备用水源或关停替代。</td><td>低流量点源盲目建设复杂全流程水厂。</td><td>PFAS/特征物质、竞争离子、废料处置、单位水成本。</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><b>技术结论：</b>国际上EPA将颗粒活性炭、阴离子交换、反渗透和纳滤列为PFAS饮用水控制的重要可用技术；但这些技术多为“分离/浓缩”而非“彻底销毁”，水务企业必须同步设计废炭、废树脂、浓水和污泥的合规处置路径。</p>
+    </section>
+
+    <section id="monitor">
+      <h2>七、监测与数据体系：先建“可解释的风险底图”，再谈工程改造</h2>
+      <p>新污染物治理的第一投资不是设备，而是监测、数据和解释能力。没有基线数据，工程投资、公众沟通、成本纳入和责任划分都缺乏依据。</p>
+      <div class="grid grid-3">
+        <div class="card blue"><h3>目标筛查</h3><p>采用LC-MS/MS、GC-MS/MS等方法，对国家清单、地方特征行业物质、国际关注物质进行定量检测。</p><span class="tag">适合合规化</span></div>
+        <div class="card purple"><h3>非目标筛查</h3><p>采用高分辨质谱HRMS，识别未知峰、转化产物和异常物质，适合源头排查和科研示范。</p><span class="tag purple">适合前瞻研究</span></div>
+        <div class="card green"><h3>效应导向监测</h3><p>结合内分泌活性、遗传毒性、急慢性毒性、抗性基因等生物效应指标，弥补“只测已知物”的不足。</p><span class="tag green">适合风险评价</span></div>
+      </div>
+      <h3>建议采样布点</h3>
+      <table>
+        <thead><tr><th>点位类型</th><th>建议样品</th><th>频次</th><th>目的</th></tr></thead>
+        <tbody>
+          <tr><td>重点工业园区</td><td>企业总排、园区污水厂进出水、事故池、初雨径流</td><td>季度 + 异常加密</td><td>识别特征污染物和责任源。</td></tr>
+          <tr><td>城市污水厂</td><td>进水、二沉出水、深度处理出水、污泥、再生水</td><td>枯丰水期各1次，重点厂月度</td><td>评价去除率、富集和外排负荷。</td></tr>
+          <tr><td>饮用水源</td><td>上游断面、取水口、支流入河口、排口下游</td><td>月度 + 暴雨/枯水/藻季</td><td>建立预警和趋势判断。</td></tr>
+          <tr><td>水厂工艺</td><td>原水、沉后水、滤后水、臭氧后/BAC后、出厂水</td><td>半年度或高风险季节</td><td>评价工艺屏障和穿透点。</td></tr>
+          <tr><td>管网末梢与二供</td><td>末梢水、二供水箱前后、投诉高发区</td><td>专项抽检</td><td>排除二次污染和公众沟通风险。</td></tr>
+        </tbody>
+      </table>
+      <h3>数据看板建议</h3>
+      <div class="checklist">
+        <div class="check"><b>风险地图：</b>将园区、排口、支流、取水口、水厂和监测结果叠加到GIS。</div>
+        <div class="check"><b>趋势曲线：</b>按枯水、丰水、暴雨、藻类季、生产周期分层看趋势。</div>
+        <div class="check"><b>去除率链条：</b>污水厂和水厂分别形成“进—出—残余物”质量平衡。</div>
+        <div class="check"><b>事件留痕：</b>异常检出、公众投诉、应急投加、停取水/切源形成证据链。</div>
+        <div class="check"><b>成本测算：</b>把监测、药剂、能耗、滤料更换、残余物处置纳入单位水成本。</div>
+        <div class="check"><b>标准接口：</b>形成团标、企标、SOP、采购技术规格和验收指标的复用数据。</div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>八、行动路线图：从90天启动到五年形成行业能力</h2>
+      <p>建议采用“先认知统一、再筛查建库、再分级试点、再工程化推广”的路线，避免一开始就陷入检测项目过多、工程投资过重、部门责任不清。</p>
+      <div class="grid grid-4">
+        <div class="card blue"><h3>0–90天：启动期</h3><ol class="compact"><li>成立新污染物专班。</li><li>梳理工业园区、污水厂、水源和水厂清单。</li><li>确定首批30–80项筛查物质。</li><li>选2个污水厂、1个水源、1座水厂做基线监测。</li><li>形成董事会/政府汇报口径。</li></ol></div>
+        <div class="card green"><h3>3–12个月：建库期</h3><ol class="compact"><li>完成四季监测。</li><li>建立风险地图和物质库。</li><li>完成工艺小试/柱试。</li><li>编制应急处置卡。</li><li>启动园区源头协同治理。</li></ol></div>
+        <div class="card orange"><h3>1–3年：示范期</h3><ol class="compact"><li>建设1–2个污水深度处理示范。</li><li>水厂预留或建设高级处理单元。</li><li>形成残余物处置闭环。</li><li>发布团体标准/企业标准。</li><li>纳入成本监审和投资计划。</li></ol></div>
+        <div class="card purple"><h3>3–5年：体系期</h3><ol class="compact"><li>重点流域全覆盖风险监测。</li><li>与排污许可、价格成本、应急管理联动。</li><li>形成水务集团技术产品包。</li><li>输出行业标杆与标准体系。</li><li>建立公众透明沟通机制。</li></ol></div>
+      </div>
+      <h3>90天工作清单</h3>
+      <table>
+        <thead><tr><th>周次</th><th>工作</th><th>牵头</th><th>成果</th></tr></thead>
+        <tbody>
+          <tr><td>第1–2周</td><td>确定专班、外部高校/检测机构、重点厂站和水源。</td><td>总工办/水质中心/运营部门</td><td>工作方案、预算框架、采样计划。</td></tr>
+          <tr><td>第3–5周</td><td>完成历史资料收集：排口、园区、投诉、藻类、嗅味、污水厂进水异常。</td><td>信息中心/生产/排水/客服</td><td>风险源台账和GIS底图。</td></tr>
+          <tr><td>第6–8周</td><td>开展首轮采样和目标筛查，形成检出清单。</td><td>水质中心/第三方实验室</td><td>检测报告、质量控制报告。</td></tr>
+          <tr><td>第9–11周</td><td>按R值分级，筛选红橙色点位和物质，提出小试方案。</td><td>技术专班/外部专家</td><td>风险分级表、技术试验清单。</td></tr>
+          <tr><td>第12–13周</td><td>形成管理层汇报：风险现状、短期措施、中试投资、标准化方向。</td><td>专班办公室</td><td>汇报PPT、董事会/总经理办公会材料。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="roles">
+      <h2>九、分角色策略：政府、水务集团、污水厂、园区、供水企业各做各的关键动作</h2>
+      <div class="tabs" role="tablist" aria-label="角色筛选">
+        <button class="tab active" onclick="filterRole('all',this)">全部</button>
+        <button class="tab" onclick="filterRole('gov',this)">地方政府</button>
+        <button class="tab" onclick="filterRole('group',this)">水务集团</button>
+        <button class="tab" onclick="filterRole('wwtp',this)">污水厂</button>
+        <button class="tab" onclick="filterRole('park',this)">工业园区</button>
+        <button class="tab" onclick="filterRole('water',this)">供水企业</button>
+        <button class="tab" onclick="filterRole('std',this)">协会标委会</button>
+      </div>
+      <div class="grid grid-3" id="roleCards">
+        <div class="card task blue" data-role="gov"><h3>地方政府：建机制</h3><ul><li>建立跨部门联席机制：生态环境、住建、水利、卫健、工信、农业农村、市场监管。</li><li>编制重点流域、重点园区、重点行业新污染物风险地图。</li><li>将源头替代、园区预处理、污水厂示范、饮用水源预警纳入专项资金和项目库。</li><li>建立公众信息发布规则，避免事件发生时多头解释。</li></ul></div>
+        <div class="card task green" data-role="group"><h3>水务集团：搭平台</h3><ul><li>建设集团级新污染物风险实验室或联合实验室。</li><li>统一采样、检测、数据、专家评审、应急处置和项目储备。</li><li>把新污染物纳入供水安全、污水提质、成本监审、科技创新和标准化。</li><li>建立“风险—投资—运行—价格—公众沟通”闭环。</li></ul></div>
+        <div class="card task orange" data-role="wwtp"><h3>污水厂：做协同</h3><ul><li>不能只看COD、氨氮、TN、TP，要建立进出水特征物质和污泥富集评价。</li><li>重点关注医药、医院、养殖、垃圾渗滤液、园区混接、初雨冲刷。</li><li>开展臭氧、活性炭、膜、湿地、强化生化等中试对比。</li><li>再生水利用前明确用途风险和监测要求。</li></ul></div>
+        <div class="card task purple" data-role="park"><h3>工业园区：控源头</h3><ul><li>建立企业化学品使用、产品、废水特征物质申报机制。</li><li>对医药、农药、电子、纺织、表面处理等实施分类收集和预处理。</li><li>高浓度母液、清洗废水、事故废水不得简单稀释接管。</li><li>对接排污许可和园区污水厂接管标准。</li></ul></div>
+        <div class="card task red" data-role="water"><h3>供水企业：守底线</h3><ul><li>建立水源地新污染物基线和高风险季节加密监测。</li><li>评估现有混凝、沉淀、过滤、消毒、臭氧/BAC对目标物的去除。</li><li>储备粉末活性炭、切源、备用水源、旁路小试、应急送水等预案。</li><li>形成公众问答：检出、限值、风险、措施、复测结果。</li></ul></div>
+        <div class="card task cyan" data-role="std"><h3>协会标委会：出标准</h3><ul><li>先做技术指南和管理规范，不急于设统一排放限值。</li><li>围绕监测布点、数据质量、风险分级、污水厂协同、供水应急等形成团标。</li><li>组织会员单位参与多地验证，避免单一企业经验上升为行业通用规则。</li><li>建立标准复审和新政策衔接机制。</li></ul></div>
+      </div>
+    </section>
+
+    <section id="standards">
+      <h2>十、标准化与科研课题储备：把前瞻研究转化为行业话语权</h2>
+      <p>对省级水协、分支机构标委会和头部水务企业而言，新污染物不是单纯科研方向，而是未来五年标准化、行业服务、会员赋能和企业技术品牌的重要抓手。</p>
+      <h3>建议优先布局的团体标准/技术指南</h3>
+      <table>
+        <thead><tr><th>标准题名建议</th><th>定位</th><th>核心内容</th><th>适宜牵头单位</th></tr></thead>
+        <tbody>
+          <tr><td>城镇供水水源新污染物风险筛查与预警技术指南</td><td>供水安全</td><td>布点、频次、物质清单、预警阈值、应急联动、公众沟通。</td><td>供水企业 + 高校/检测机构</td></tr>
+          <tr><td>城市污水处理厂新污染物协同控制评价技术规范</td><td>排水治理</td><td>进出水和污泥监测、去除率评价、深度处理验证、残余物处置。</td><td>排水公司/污水厂 + 科研单位</td></tr>
+          <tr><td>工业园区涉新污染物废水接管风险评估指南</td><td>源头管控</td><td>企业申报、特征物质筛查、分类收集、预处理要求、异常溯源。</td><td>园区水务 + 生态环境技术单位</td></tr>
+          <tr><td>水务企业新污染物监测数据质量控制规范</td><td>数据基础</td><td>采样保存、质控样、检出限、空白、平行样、第三方报告审核。</td><td>检测机构 + 水质中心</td></tr>
+          <tr><td>饮用水新污染物突发风险应急处置导则</td><td>应急管理</td><td>切源、粉炭、工艺调整、复测、专家会商、信息发布和用户服务。</td><td>供水企业 + 行业协会</td></tr>
+        </tbody>
+      </table>
+      <h3>科研项目题库</h3>
+      <div class="grid grid-2">
+        <div class="card blue"><h3>项目1：重点流域新污染物风险地图</h3><p>以水源地、排口、污水厂和工业园区为节点，开展目标筛查与非目标筛查，形成风险分级地图和年度趋势报告。</p></div>
+        <div class="card green"><h3>项目2：污水厂协同控制与低碳运行</h3><p>比较臭氧、活性炭、膜、湿地、强化生化在去除率、能耗、药耗、污泥风险和碳排放方面的综合绩效。</p></div>
+        <div class="card orange"><h3>项目3：饮用水多屏障处理验证</h3><p>针对本地水源开展PAC应急、GAC柱试、臭氧-BAC、离子交换、膜工艺的中试与成本评估。</p></div>
+        <div class="card purple"><h3>项目4：新污染物风险沟通与公众信任</h3><p>形成面向政府、媒体、社区、学校和用户的分层沟通材料，避免“检出—恐慌—抢水”链式反应。</p></div>
+      </div>
+    </section>
+
+    <section id="investment">
+      <h2>十一、投资与经营策略：不要把前瞻风险做成无边界成本</h2>
+      <p>新污染物治理的投资逻辑应当是“数据先行、源头优先、分级投资、示范验证、成本闭环”。对国有水务集团和上市水务企业，还需兼顾供水安全、用户承受、价格成本监审、项目合规和长期运维。</p>
+      <table>
+        <thead><tr><th>投资类别</th><th>近期投入</th><th>中长期投入</th><th>经营注意事项</th></tr></thead>
+        <tbody>
+          <tr><td>监测能力</td><td>第三方检测、联合实验室、采样设备、数据平台。</td><td>集团级实验室、HRMS共享平台、自动采样和预警。</td><td>最容易形成证据链，也最适合先纳入年度预算。</td></tr>
+          <tr><td>应急能力</td><td>粉炭、备用药剂、小试装置、切源预案、应急送水。</td><td>备用水源、应急深度处理模块、移动处理设备。</td><td>以安全保障和应急韧性口径立项，避免被理解为常态过度处理。</td></tr>
+          <tr><td>污水示范</td><td>典型污水厂中试、园区预处理、深度处理旁路。</td><td>高风险园区专线、污水厂深度处理升级、污泥处置改造。</td><td>明确源头企业、园区、污水厂和财政之间的成本分担。</td></tr>
+          <tr><td>供水深度处理</td><td>工艺评估、柱试、臭氧/BAC优化、GAC试点。</td><td>按水源风险实施高级处理工程或局部工艺改造。</td><td>需同步评估单位水成本、滤料更换、残余物处置和水价机制。</td></tr>
+        </tbody>
+      </table>
+      <div class="warn"><b>投资纪律：</b>未完成本地水源和排口基线监测前，不建议直接上大规模膜系统；未完成废炭、废树脂、浓水和污泥去向论证前，不建议将吸附/膜项目作为“根治方案”宣传。</div>
+    </section>
+
+    <section id="evidence">
+      <h2>十二、证据边界：哪些是事实，哪些是判断，哪些要继续验证</h2>
+      <table>
+        <thead><tr><th>类别</th><th>内容</th><th>可信度与边界</th><th>落地处理</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag green">事实</span></td><td>国际POPs清单持续扩展，PFOS/PFOA/PFHxS等已进入国际持久性污染物管控体系。</td><td>有国际公约依据，属于高确定性趋势。</td><td>园区和水源地应关注相关物质及替代品。</td></tr>
+          <tr><td><span class="tag green">事实</span></td><td>美国EPA已发布PFAS饮用水法规并列出GAC、阴离子交换、RO、NF等可用处理技术；2026年部分规则处于拟调整阶段。</td><td>法规与技术资料明确，但执行期限和部分物质要求存在动态调整。</td><td>作为技术储备和国际标杆，不直接等同于中国强制限值。</td></tr>
+          <tr><td><span class="tag orange">学术判断</span></td><td>新污染物与糖尿病、肥胖、高尿酸、生殖发育、免疫、代谢综合征等慢性健康效应存在关联。</td><td>不同物质、不同人群、不同剂量证据强度差异大；相关性不等于因果性。</td><td>用于风险预警和敏感人群保护，不宜夸大为单一疾病原因。</td></tr>
+          <tr><td><span class="tag orange">工程判断</span></td><td>污水厂是新污染物重要汇集和排放节点，常规生化工艺无法完全去除所有新污染物。</td><td>方向明确，但不同物质去除率差异很大。</td><td>要用本地进出水实测和工艺验证说话。</td></tr>
+          <tr><td><span class="tag purple">前瞻判断</span></td><td>“十五五”期间，新污染物将成为水务科技、监管和标准化重点方向。</td><td>政策趋势强，但具体资金、项目和标准落地节奏需持续跟踪。</td><td>先做不后悔事项：清单、监测、示范、标准、应急。</td></tr>
+          <tr><td><span class="tag red">需校核</span></td><td>演讲稿中涉及“生态环境法典”“国家重大工程”“专项资金规模”等最新表述。</td><td>正式引用时应以全国人大、国务院、生态环境部、科技部等公布文本为准。</td><td>汇报材料中建议写成“根据最新政策趋势/演讲信息，需进一步以正式文件校核”。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="brief">
+      <h2>十三、给政府和企业管理层的汇报口径</h2>
+      <div class="card blue">
+        <h3>可直接用于会议的五句话</h3>
+        <ol>
+          <li>水务行业过去主要解决“看得见、闻得到、常规指标可考核”的污染问题，下一阶段要提前应对“低浓度、长期暴露、复合效应、跨介质迁移”的新污染物风险。</li>
+          <li>新污染物治理不能只靠供水厂末端处理，必须把工业园区源头、城市污水厂、排口入河、水源预警和饮用水多屏障连成一条责任链。</li>
+          <li>近期不建议盲目铺开大规模工程投资，应先用90天完成专班、清单、布点、首轮监测、风险分级和小试方案。</li>
+          <li>水务企业要把监测能力、应急能力、深度处理验证、残余物处置和公众沟通纳入“十五五”供水安全与污水提质增效项目库。</li>
+          <li>协会标委会可先行布局技术指南和管理规范，以多单位验证为基础，形成水务行业标准化话语权。</li>
+        </ol>
+      </div>
+      <h3>供水企业先做十件事</h3>
+      <div class="checklist">
+        <div class="check">完成水源上游排口和工业园区风险源台账。</div>
+        <div class="check">建立水源、原水、关键工艺、出厂水、末梢水基线监测。</div>
+        <div class="check">筛选本地优先关注物质，不照搬“越多越好”。</div>
+        <div class="check">对现有臭氧/BAC、活性炭、消毒工艺做去除率验证。</div>
+        <div class="check">准备粉末活性炭和工艺调整应急卡。</div>
+        <div class="check">确定备用水源、切源和联合调度条件。</div>
+        <div class="check">建立第三方检测报告审核和质量控制机制。</div>
+        <div class="check">做一次桌面推演：检出异常如何报告、复测、解释、供水。</div>
+        <div class="check">把滤料、药剂、检测、废物处置成本纳入测算。</div>
+        <div class="check">形成用户问答，不用学术术语制造恐慌。</div>
+      </div>
+    </section>
+
+    <section id="refs">
+      <h2>十四、参考依据与后续校核清单</h2>
+      <p class="muted">本报告为行业前瞻研判和策略文件，正式对外引用、立项、招采、标准编制、投资测算前，应以最新正式法律法规、标准文本、检测方法和专家评审意见为准。</p>
+      <ol class="refs">
+        <li>国务院办公厅：《新污染物治理行动方案》（国办发〔2022〕15号），2022年。</li>
+        <li>生态环境部等：《重点管控新污染物清单（2023年版）》及相关解读文件。</li>
+        <li>Stockholm Convention Secretariat：All POPs listed in the Stockholm Convention，持续更新。</li>
+        <li>U.S. EPA：Final PFAS National Primary Drinking Water Regulation，2024；以及2026年PFAS饮用水相关拟议规则说明。</li>
+        <li>U.S. EPA：Treatment Options for Removing PFAS from Drinking Water，Fact Sheet，April 2024。</li>
+        <li>Directive (EU) 2020/2184 on the quality of water intended for human consumption。</li>
+        <li>WHO：Guidelines for Drinking-water Quality；Pharmaceuticals in Drinking-water 等技术文件。</li>
+        <li>GB 5749—2022《生活饮用水卫生标准》；GB 3838—2002《地表水环境质量标准》；GB 18918—2002《城镇污水处理厂污染物排放标准》。</li>
+        <li>余刚院士演讲文字稿：《水环境中的新污染物及其阻控技术》（用户提供整理稿）。</li>
+        <li>建议后续补充：本地水源水质报告、污水厂进出水数据、工业园区排污许可资料、第三方检测方法检出限、目标物毒理数据库和最新国家/地方政策文件。</li>
+      </ol>
+      <div class="source">文件生成日期：2026年6月25日｜定位：水务行业内部研究、政府/企业决策参考、协会标准化选题储备。</div>
+    </section>
+  </main>
+  <div class="footer wrap">© 水务行业前瞻研究与策略｜单文件HTML版。建议结合本地监测数据、法规文本和专家评审滚动更新。</div>
+  <div class="watermark">水务前瞻 · 新污染物治理</div>
+  <script>
+    function filterRole(role, btn){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.task[data-role]').forEach(card=>{
+        card.classList.toggle('hidden', role !== 'all' && card.dataset.role !== role);
+      });
+    }
+  </script>
+</body>
+</html>
