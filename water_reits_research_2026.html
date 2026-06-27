@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,email=no,address=no" />
+  <title>水务行业基础设施公募REITs方向、项目与推进方式深度研究</title>
+  <style>
+    :root{
+      --bg:#f4f8fb;
+      --paper:#ffffff;
+      --ink:#102033;
+      --muted:#5f6f83;
+      --line:#dbe6ef;
+      --line2:#c8d8e6;
+      --blue:#155e75;
+      --blue2:#0f766e;
+      --deep:#0b2a3a;
+      --cyan:#0ea5b7;
+      --green:#16a34a;
+      --amber:#b7791f;
+      --red:#b42318;
+      --softblue:#e8f6fb;
+      --softgreen:#eaf8f0;
+      --softamber:#fff6df;
+      --softred:#fff0ee;
+      --shadow:0 18px 60px rgba(15, 43, 70, .12);
+      --radius:22px;
+      --radius2:14px;
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--bg)}
+    body{margin:0;font-family:var(--font);color:var(--ink);background:
+      radial-gradient(1100px 500px at 90% -10%, rgba(14,165,183,.20), transparent 60%),
+      radial-gradient(800px 500px at -10% 10%, rgba(21,94,117,.18), transparent 60%),
+      linear-gradient(180deg,#f5fbff 0%,#eef6f8 35%,#f7f9fb 100%);
+      line-height:1.72;letter-spacing:.01em;
+    }
+    a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(21,94,117,.25)}
+    .progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));z-index:1000;box-shadow:0 0 16px rgba(14,165,183,.45)}
+    .topbar{position:sticky;top:0;z-index:99;background:rgba(244,248,251,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(219,230,239,.8)}
+    .topbar-inner{max-width:1180px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 18px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--deep);white-space:nowrap}
+    .mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#0f766e,#0891b2);display:grid;place-items:center;color:white;box-shadow:0 10px 25px rgba(8,145,178,.25)}
+    .nav{display:flex;gap:7px;overflow:auto;padding:4px 0;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{font-size:13px;color:#365065;border:1px solid rgba(200,216,230,.85);background:rgba(255,255,255,.65);padding:6px 10px;border-radius:999px;white-space:nowrap}
+    .actions{display:flex;gap:8px;align-items:center}
+    .btn{border:0;border-radius:999px;padding:8px 12px;background:var(--deep);color:#fff;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 8px 18px rgba(11,42,58,.18)}
+    .btn.secondary{background:#fff;color:var(--deep);border:1px solid var(--line);box-shadow:none}
+    .wrap{max-width:1180px;margin:0 auto;padding:30px 18px 70px}
+    .hero{position:relative;overflow:hidden;border-radius:32px;padding:46px 44px;background:
+      linear-gradient(135deg,rgba(11,42,58,.96),rgba(21,94,117,.94) 54%,rgba(15,118,110,.92));
+      color:#fff;box-shadow:var(--shadow);
+    }
+    .hero:before{content:"";position:absolute;inset:-2px;background:
+      radial-gradient(500px 240px at 85% 12%,rgba(255,255,255,.20),transparent 65%),
+      radial-gradient(420px 260px at 12% 90%,rgba(34,211,238,.18),transparent 65%);
+      pointer-events:none}
+    .hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);border-radius:999px;font-size:13px;color:#d8f8ff;font-weight:700}
+    h1{margin:18px 0 10px;font-size:44px;line-height:1.12;letter-spacing:-.04em}
+    .subtitle{font-size:18px;color:#d7edf3;max-width:780px;margin:0 0 22px}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .chip{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);font-size:13px;color:#eafaff}
+    .hero-card{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);border-radius:24px;padding:20px;backdrop-filter:blur(8px)}
+    .hero-card h3{margin:0 0 12px;font-size:18px;color:#fff}
+    .signal{display:grid;gap:10px}
+    .signal .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:9px;font-size:14px;color:#d8f8ff}
+    .signal .row:last-child{border-bottom:0;padding-bottom:0}
+    .signal strong{color:#fff;font-size:18px;white-space:nowrap}
+    .toc{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 10px}
+    .toc a{border:0;background:#fff;border-radius:18px;padding:16px;box-shadow:0 10px 28px rgba(15,43,70,.07);color:var(--ink);display:block;min-height:104px}
+    .toc b{display:block;font-size:16px;margin-bottom:6px;color:var(--deep)}
+    .toc span{font-size:13px;color:var(--muted)}
+    section{margin-top:28px;background:rgba(255,255,255,.78);border:1px solid rgba(219,230,239,.88);box-shadow:0 14px 45px rgba(15,43,70,.07);border-radius:var(--radius);padding:28px;overflow:hidden}
+    section.plain{background:transparent;border:0;box-shadow:none;padding:0}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:16px}
+    .section-head h2{margin:0;font-size:26px;line-height:1.25;letter-spacing:-.02em;color:var(--deep)}
+    .section-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:var(--softblue);color:var(--blue);font-weight:800;font-size:12px;padding:6px 10px;border:1px solid #cbe8f4;white-space:nowrap}
+    .grid{display:grid;gap:16px}
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 28px rgba(15,43,70,.05)}
+    .card h3{margin:0 0 10px;font-size:18px;color:var(--deep)}
+    .card p{margin:0;color:#46586b;font-size:14px}
+    .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#e7f8fb,#ecfdf5);color:var(--blue);font-weight:900;margin-bottom:10px;border:1px solid #c9e9ef}
+    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
+    .kpi .item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;position:relative;overflow:hidden}
+    .kpi .item:after{content:"";position:absolute;right:-35px;top:-35px;width:90px;height:90px;border-radius:999px;background:rgba(14,165,183,.10)}
+    .kpi b{display:block;font-size:28px;line-height:1.1;color:var(--deep);letter-spacing:-.03em}
+    .kpi span{display:block;margin-top:7px;font-size:13px;color:var(--muted)}
+    .note{border-left:5px solid var(--cyan);background:#ecfbff;border-radius:14px;padding:14px 16px;color:#285163;margin:16px 0}
+    .warning{border-left-color:var(--amber);background:var(--softamber);color:#684b16}
+    .danger{border-left-color:var(--red);background:var(--softred);color:#6f241b}
+    .success{border-left-color:var(--green);background:var(--softgreen);color:#18552f}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff;margin:14px 0}
+    table{width:100%;border-collapse:separate;border-spacing:0;min-width:760px;font-size:14px;background:#fff}
+    th,td{padding:12px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    th{background:#f2f8fb;color:#224356;font-weight:800;white-space:nowrap}
+    tr:last-child td{border-bottom:0}
+    td strong{color:var(--deep)}
+    .pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:800;border:1px solid transparent;margin:2px 4px 2px 0;white-space:nowrap}
+    .pill.blue{background:var(--softblue);color:var(--blue);border-color:#c5e6ef}
+    .pill.green{background:var(--softgreen);color:#166534;border-color:#c9ecd4}
+    .pill.amber{background:var(--softamber);color:#8a5b00;border-color:#f7df9a}
+    .pill.red{background:var(--softred);color:#9f2418;border-color:#ffd2cd}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+    .flow .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;min-height:140px}
+    .flow .step:not(:last-child):after{content:"→";position:absolute;right:-15px;top:45%;font-size:22px;color:#89a5b5;z-index:3}
+    .flow b{display:block;color:var(--deep);font-size:16px;margin-bottom:7px}
+    .flow span{font-size:13px;color:var(--muted)}
+    .timeline{position:relative;margin:10px 0 0;padding-left:22px}
+    .timeline:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--green))}
+    .timeitem{position:relative;margin:0 0 18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+    .timeitem:before{content:"";position:absolute;left:-22px;top:18px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--cyan)}
+    .timeitem h4{margin:0 0 7px;font-size:16px;color:var(--deep)}
+    .timeitem p{margin:0;color:var(--muted);font-size:14px}
+    .score{display:grid;grid-template-columns:1.1fr 2fr 70px;gap:10px;align-items:center;margin:8px 0}
+    .bar{height:10px;border-radius:999px;background:#e8eff5;overflow:hidden}
+    .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--green))}
+    .radar{background:linear-gradient(180deg,#fff,#f6fbfd);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;place-items:center;min-height:350px}
+    .svgbox{width:100%;max-width:560px}
+    .quote{font-size:20px;line-height:1.65;color:var(--deep);font-weight:800;background:linear-gradient(135deg,#f1fbff,#f6fff8);border:1px solid #cfe9ef;border-radius:20px;padding:22px;margin:18px 0}
+    .quote small{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-top:8px}
+    details{border:1px solid var(--line);border-radius:16px;background:#fff;margin:10px 0;overflow:hidden}
+    summary{cursor:pointer;font-weight:800;color:var(--deep);padding:14px 16px;background:#f7fbfd}
+    details .detail-body{padding:0 16px 16px;color:#46586b;font-size:14px}
+    .checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .check{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#46586b}
+    .check input{margin-top:6px;accent-color:var(--blue)}
+    .foot{margin-top:28px;border-radius:24px;background:var(--deep);color:#d7eef5;padding:26px}
+    .foot h2{margin:0 0 10px;color:#fff}
+    .foot p,.foot li{color:#c6dce5;font-size:14px}
+    .ref{font-size:13px;color:#526679}
+    .ref li{margin:6px 0}
+    .mini{font-size:12px;color:var(--muted)}
+    .nowrap{white-space:nowrap}
+    .desktop-only{display:block}
+    .mobile-only{display:none}
+    .print-tip{font-size:12px;color:var(--muted);text-align:right;margin-top:8px}
+    @media (max-width: 920px){
+      .hero{padding:28px 22px;border-radius:24px}
+      .hero-grid,.split,.g2,.g3,.g4{grid-template-columns:1fr}
+      .toc{grid-template-columns:1fr 1fr}
+      .kpi{grid-template-columns:1fr 1fr}
+      .flow{grid-template-columns:1fr}
+      .flow .step:not(:last-child):after{content:"↓";right:50%;top:auto;bottom:-23px;transform:translateX(50%)}
+      .topbar-inner{align-items:flex-start;flex-direction:column}.actions{width:100%;justify-content:space-between}.nav{width:100%}
+      h1{font-size:32px}.subtitle{font-size:16px}
+      section{padding:20px}.section-head{align-items:flex-start;flex-direction:column}
+      .checklist{grid-template-columns:1fr}
+      .desktop-only{display:none}.mobile-only{display:block}
+    }
+    @media (max-width: 560px){
+      .wrap{padding:18px 12px 50px}.toc{grid-template-columns:1fr}.kpi{grid-template-columns:1fr}
+      .hero-meta{gap:7px}.chip{font-size:12px;padding:6px 9px}
+      section{border-radius:18px}.card{padding:16px}.section-head h2{font-size:22px}
+      table{min-width:720px}
+    }
+    @media print{
+      body{background:#fff;color:#000;font-size:12px}.topbar,.progress,.btn,.toc{display:none!important}
+      .wrap{max-width:none;padding:0}.hero{box-shadow:none;border-radius:0;color:#000;background:#fff;border-bottom:2px solid #222;padding:18px 0}
+      .hero:before{display:none}.hero-grid{display:block}.hero-card{border:1px solid #aaa;background:#fff;color:#000}.hero-card h3,.signal strong{color:#000}.signal .row{color:#000;border-color:#ddd}
+      .eyebrow,.chip{color:#000;border-color:#aaa;background:#fff}h1{font-size:28px}.subtitle{color:#333}
+      section{break-inside:avoid;background:#fff;box-shadow:none;border:1px solid #bbb;padding:16px;margin-top:14px}.card,.timeitem,.flow .step,.table-wrap{box-shadow:none;break-inside:avoid}
+      a{color:#000;border:0}.foot{background:#fff;color:#000;border:1px solid #aaa}.foot h2,.foot p,.foot li{color:#000}
+    }
+  </style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="mark">水</div><span>Water REITs Research</span></div>
+    <nav class="nav" aria-label="目录导航">
+      <a href="#summary">一页结论</a><a href="#signal">珠海水控信号</a><a href="#market">行业方向</a><a href="#assets">项目选择</a><a href="#structure">交易结构</a><a href="#path">推进路线</a><a href="#risk">风险清单</a><a href="#action">行动计划</a><a href="#sources">来源</a>
+    </nav>
+    <div class="actions"><button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</button><button class="btn" onclick="window.print()">打印 / 转PDF</button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">基础设施公募REITs · 水务行业专题 · 2026观察</span>
+        <h1>水务行业REITs方向、项目与推进方式深度研究</h1>
+        <p class="subtitle">以珠海水控集团公募REITs基金管理人中标为切口，面向水务集团、上市水司、地方国资平台和行业协会，形成“能汇报、能立项、能组专班、能落地”的专业工作版。</p>
+        <div class="hero-meta">
+          <span class="chip">报告日期：2026年6月27日</span>
+          <span class="chip">适用对象：水务集团 / 国资 / 董事会 / 财务法务 / 项目专班</span>
+          <span class="chip">定位：趋势判断 + 资产筛选 + 申报路径 + 风险整改</span>
+        </div>
+      </div>
+      <aside class="hero-card" id="signal">
+        <h3>珠海水控项目观察口径</h3>
+        <div class="signal">
+          <div class="row"><span>公告节点</span><strong>2026-06-18</strong></div>
+          <div class="row"><span>中标机构</span><strong>华夏基金</strong></div>
+          <div class="row"><span>发行阶段费用</span><strong>730万元</strong></div>
+          <div class="row"><span>存续期管理费率</span><strong>0.2%</strong></div>
+          <div class="row"><span>本报告判断</span><strong>选能力，不唯低价</strong></div>
+        </div>
+        <p class="mini" style="margin-top:12px;color:#d8f8ff">注：珠海水控中标信息按用户提供摘录整理；正式决策仍应以采购平台中标公告、招标文件及后续基金披露文件为准。</p>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toc">
+    <a href="#summary"><b>01 一页结论</b><span>判断水务REITs不是简单融资，而是资产治理与资本循环。</span></a>
+    <a href="#market"><b>02 行业方向</b><span>从单一污水项目到区域综合水务资产平台。</span></a>
+    <a href="#assets"><b>03 项目选择</b><span>哪些资产可先上，哪些资产要补证，哪些暂缓。</span></a>
+    <a href="#action"><b>04 落地计划</b><span>30/60/90/180/360天推进图和专班清单。</span></a>
+  </div>
+
+  <section id="summary">
+    <div class="section-head">
+      <div><span class="tag">Executive Summary</span><h2>一页结论：水务REITs的本质，是把“沉淀资产”变成“可持续资本平台”</h2><p>珠海水控项目的意义，不在于某一家基金公司中标，而在于区域水务集团开始把REITs作为资产盘活、项目滚动建设、国企高质量发展和市值管理的综合工具。</p></div>
+    </div>
+    <div class="quote">水务行业做REITs，不能理解为“把水厂卖掉换钱”。更准确的表述是：以成熟、合规、现金流稳定的基础设施项目为底层资产，建立“资产持有—运营提升—资本回收—新建改造—后续扩募”的循环平台。<small>这一路径对供水、污水、排水、再生水、固废协同和城乡一体化改造均有借鉴意义，但首发资产必须审慎。</small></div>
+    <div class="kpi">
+      <div class="item"><b>3层</b><span>首发资产、扩募资产、培育资产分层管理</span></div>
+      <div class="item"><b>5链</b><span>权属、合同、价格、现金流、运维证据链</span></div>
+      <div class="item"><b>12个月</b><span>从预筛到申报的务实推进周期</span></div>
+      <div class="item"><b>1平台</b><span>由单次融资转向持续扩募的REITs平台</span></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="num">1</div><h3>方向判断</h3><p>水务REITs将由早期污水处理、固废环保等现金流相对清晰资产，逐步走向“水厂+污水+再生水+排水管养+固废协同+园区公用事业”的综合资产池。但供水价格公益属性强，管网资产收益边界复杂，首发要保守。</p></div>
+      <div class="card"><div class="num">2</div><h3>项目判断</h3><p>首发优先选“资产权属清晰、特许经营/服务合同明确、运营时间较长、现金流可预测、资本开支可控”的成熟项目。农村配水网、二供存量改造、排水管网等可以入培育库，不宜在证据不足时强行入池。</p></div>
+      <div class="card"><div class="num">3</div><h3>推进判断</h3><p>基金管理人、财务顾问、律所、评估、会计、税务等机构要早介入，但企业自身更关键：要先完成资产盘点、证据补正、价格机制复核、现金流模型、国资审批口径和信息披露底稿。</p></div>
+    </div>
+    <div class="note success"><strong>建议总口径：</strong>“先做REITs资产体检，不急于报材料；先建项目池和证据库，不急于追热点；先选最稳资产首发，不把历史遗留问题带到公开市场；首发成功后再以扩募承接城乡供排水一体化和存量更新改造。”</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><span class="tag">Why Now</span><h2>为什么珠海水控项目值得水务行业关注</h2><p>从招标结果看，行业推进REITs的核心竞争点已不是单一报价，而是资产识别能力、监管沟通能力、发行销售能力和存续运营能力。</p></div>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3>从中标结果看出的四个信号</h3>
+        <p><strong>第一，二次招标后成功落地，说明水务集团在REITs前期选聘上已经进入实操阶段。</strong> 首次因符合性审查不足流标，提示水务企业招标文件、资质门槛、服务范围和机构响应要提前沟通。</p>
+        <p><strong>第二，中标报价接近发行阶段最高限价，说明“最低价”并非REITs选聘的核心。</strong> 基础设施公募REITs需要基金管理人具备产品经验、机构销售、监管沟通、项目协调和存续管理能力。</p>
+        <p><strong>第三，多家基金机构参与，说明水务环境资产重新进入REITs机构视野。</strong> 尤其是具备大湾区区位、澳门供水保障、污水排水固废综合板块的区域水务集团，具备较强资产讲述能力。</p>
+        <p><strong>第四，存续期管理费率趋同，项目竞争转向前端方案质量。</strong> 对水务企业而言，招标评价应看“能不能把项目做成、做稳、做出合理估值”，不是只看服务费。</p>
+      </div>
+      <div class="radar" aria-label="REITs能力雷达图">
+        <svg class="svgbox" viewBox="0 0 520 420" role="img">
+          <defs>
+            <linearGradient id="rg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0ea5b7"/><stop offset="1" stop-color="#16a34a"/></linearGradient>
+          </defs>
+          <g transform="translate(260 210)">
+            <circle r="150" fill="none" stroke="#dbe6ef" stroke-width="1"/><circle r="110" fill="none" stroke="#dbe6ef" stroke-width="1"/><circle r="70" fill="none" stroke="#dbe6ef" stroke-width="1"/><circle r="30" fill="none" stroke="#dbe6ef" stroke-width="1"/>
+            <g stroke="#dbe6ef" stroke-width="1">
+              <line x1="0" y1="0" x2="0" y2="-160"/><line x1="0" y1="0" x2="141" y2="-81"/><line x1="0" y1="0" x2="141" y2="81"/><line x1="0" y1="0" x2="0" y2="160"/><line x1="0" y1="0" x2="-141" y2="81"/><line x1="0" y1="0" x2="-141" y2="-81"/>
+            </g>
+            <polygon points="0,-135 115,-66 108,62 0,122 -118,68 -92,-53" fill="url(#rg)" opacity=".30" stroke="url(#rg)" stroke-width="3"/>
+            <g fill="#0b2a3a" font-size="15" font-weight="700" text-anchor="middle">
+              <text x="0" y="-180">监管沟通</text><text x="178" y="-88">发行销售</text><text x="178" y="100">估值定价</text><text x="0" y="190">存续管理</text><text x="-178" y="100">资产整改</text><text x="-178" y="-88">项目协调</text>
+            </g>
+            <circle cx="0" cy="0" r="4" fill="#0b2a3a"/>
+          </g>
+        </svg>
+        <p class="mini">REITs服务机构选聘建议：综合评价权重应高于价格权重，重点看真实项目经验、发行渠道、整改能力和存续运营责任。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="market">
+    <div class="section-head">
+      <div><span class="tag">Market Direction</span><h2>水务REITs的近期方向：从“单项目融资”到“区域公用事业资产平台”</h2><p>公募REITs是依法募集资金，通过资产支持证券等特殊目的载体持有基础设施项目，并由基金管理人主动管理运营、向投资者分配收益的标准化产品。交易所公开资料也明确我国公募REITs在证券交易所上市交易。</p></div>
+    </div>
+    <div class="grid g4">
+      <div class="card"><div class="num">1.0</div><h3>环保处理型</h3><p>污水处理厂、垃圾处理、固废能源等，现金流通常来自政府付费、处理服务费、电费或补贴，合同边界相对可描述。</p></div>
+      <div class="card"><div class="num">2.0</div><h3>公用事业型</h3><p>成熟水厂、原水/应急水源、工业供水、再生水、园区公用事业等，关键在价格机制、用量稳定性和资产权属。</p></div>
+      <div class="card"><div class="num">3.0</div><h3>厂网一体型</h3><p>供排水管网、泵站、二供和管养服务可能进入资产池，但必须把“谁付费、如何调价、谁维护、谁承担更新”讲清楚。</p></div>
+      <div class="card"><div class="num">4.0</div><h3>生态平台型</h3><p>水务集团把供水、污水、再生水、排水防涝、固废、新能源等形成扩募平台，服务城市更新和地方国资资产盘活。</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>方向</th><th>适合入池的资产形态</th><th>水务企业最关心的问题</th><th>推进建议</th></tr></thead>
+        <tbody>
+          <tr><td><strong>污水处理 / 再生水</strong></td><td>成熟污水厂、再生水厂、稳定服务协议、政府/园区付费</td><td>处理量、处理单价、绩效扣减、扩容改造、应收账款周期</td><td><span class="pill green">优先筛选</span> 建立单厂现金流台账和合同调价条款摘要。</td></tr>
+          <tr><td><strong>供水厂 / 原水 / 工业供水</strong></td><td>成熟水厂、原水输配、工业园区供水、区域供水保障项目</td><td>水价公益属性、成本监审、特许经营边界、资本性支出</td><td><span class="pill blue">审慎推进</span> 优先选择B端或合同边界清晰资产。</td></tr>
+          <tr><td><strong>管网 / 泵站 / 二供</strong></td><td>主干管网、加压站、二供泵房、排水泵站、管养服务资产</td><td>独立收费权、资产权属、维修更新责任、历史遗留资产补证</td><td><span class="pill amber">培育入库</span> 不宜把权属和收益不闭合项目作为首发。</td></tr>
+          <tr><td><strong>固废 / 污泥 / 新能源协同</strong></td><td>垃圾焚烧、污泥处置、光伏、储能、充电、沼气利用等</td><td>补贴退坡、上网电价、处置费回款、环保达标和技改投资</td><td><span class="pill green">组合优化</span> 可作为现金流增强和ESG叙事资产。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><strong>行业趋势判断：</strong>水务REITs真正的增量空间，不只是“某一座污水厂”，而是地方水务集团如何把城乡供排水一体化、污水治理、排水防涝、再生水利用和存量改造形成可持续资产池。首发必须稳，后续靠扩募和资产培育持续滚动。</div>
+  </section>
+
+  <section id="assets">
+    <div class="section-head">
+      <div><span class="tag">Asset Screening</span><h2>项目选择：建立“A首发、B扩募、C培育、D暂缓”四级资产池</h2><p>水务企业推进REITs的第一步不是找中介写材料，而是做资产体检。体检结果决定是否适合首发、是否适合扩募、是否先补证。</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>分级</th><th>资产特征</th><th>典型水务项目</th><th>关键证据</th><th>处理策略</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill green">A 首发库</span></td><td>权属清楚、运营成熟、现金流稳定、合同完整、披露压力可控</td><td>成熟污水厂、再生水厂、工业供水项目、特许经营边界清晰的水厂</td><td>产权证/批复/竣工验收、特许经营或服务协议、三年以上运营和现金流、价格机制、环保合规记录</td><td><strong>优先推进尽调与估值</strong>，作为首发资产包核心。</td></tr>
+          <tr><td><span class="pill blue">B 扩募库</span></td><td>基本成熟，但需要补充运营数据、合同补充协议或价格确认</td><td>扩建水厂、区域供水、稳定排水设施、污泥处置、新能源协同资产</td><td>补充协议、收益归属、资本开支计划、运维责任划分</td><td><strong>首发后培育扩募</strong>，同步完成补证和绩效提升。</td></tr>
+          <tr><td><span class="pill amber">C 培育库</span></td><td>战略价值高，但收益或权属暂未闭合</td><td>农村配水网、二供存量改造、老旧小区供排水更新、排水管网管养</td><td>资产移交协议、收费或财政补偿机制、运维成本台账、用户服务边界</td><td><strong>先制度化、台账化、合同化</strong>，待运营和现金流稳定后再考虑。</td></tr>
+          <tr><td><span class="pill red">D 暂缓库</span></td><td>权属争议、收费不清、历史遗留问题多、重大更新投资未明确</td><td>无证资产、公益性强且无独立收入资产、待拆改管网、纠纷项目</td><td>缺失或存在重大瑕疵</td><td><strong>不得为追进度强行入池</strong>，避免公开市场披露风险。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3>首发资产包的“六问”</h3>
+        <div class="checklist" style="grid-template-columns:1fr">
+          <label class="check"><input type="checkbox">资产权属、用地、建设、竣工、环保、特许经营或服务协议是否能够闭合？</label>
+          <label class="check"><input type="checkbox">现金流是否可以从集团账套中独立识别、可审计、可预测？</label>
+          <label class="check"><input type="checkbox">收入来源是否过度依赖不确定补贴、临时协议或行政协调？</label>
+          <label class="check"><input type="checkbox">未来五至十年大修、技改、扩容、环保提标资本开支是否已经模型化？</label>
+          <label class="check"><input type="checkbox">价格调整、服务绩效扣减、政府付费和应收账款周期是否能被投资者理解？</label>
+          <label class="check"><input type="checkbox">资产入池是否影响供水安全、公共服务责任、政府监管和上市公司合规边界？</label>
+        </div>
+      </div>
+      <div class="card">
+        <h3>不宜首发的常见情形</h3>
+        <p><span class="pill red">慎入</span> 资产权属分散，政府、平台、水司、开发商、物业、业委会之间边界不清。</p>
+        <p><span class="pill red">慎入</span> 收入来源不是独立收费或合同现金流，而是内部划拨、临时补贴、费用待入价。</p>
+        <p><span class="pill red">慎入</span> 近年仍有大量补建、拆改、提标、移交、历史欠账和安全整改。</p>
+        <p><span class="pill red">慎入</span> 运营数据、计量数据、维修数据、能耗数据不完整，无法形成可信预测。</p>
+        <p><span class="pill red">慎入</span> 项目对公共安全、水质保障、应急调度有重大影响，且交易结构可能削弱原主体控制力。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="structure">
+    <div class="section-head">
+      <div><span class="tag">Transaction Structure</span><h2>交易结构：从“资产出表”误区，转向“基金 + ABS + 项目公司 + 运营管理”的治理结构</h2><p>水务企业必须同时处理国资审批、上市公司治理、税务筹划、运营管理、资产移交和持续信息披露，不能只让财务部门或中介机构单线推进。</p></div>
+    </div>
+    <div class="flow">
+      <div class="step"><b>1 资产筛选</b><span>项目池、权属核验、合同梳理、现金流拆分、整改清单。</span></div>
+      <div class="step"><b>2 项目公司</b><span>资产/股权/经营权边界设计，形成可被基金持有的项目主体。</span></div>
+      <div class="step"><b>3 ABS载体</b><span>专项计划承接项目公司股权或权益，形成REITs底层载体。</span></div>
+      <div class="step"><b>4 公募基金</b><span>基金管理人募集资金，持有ABS份额，并进行主动管理。</span></div>
+      <div class="step"><b>5 运营分配</b><span>运营管理机构持续运营项目，现金流扣除必要支出后向投资者分配。</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>角色</th><th>职责</th><th>水务企业要提前准备的材料</th><th>容易出问题的点</th></tr></thead>
+        <tbody>
+          <tr><td><strong>原始权益人 / 水务集团</strong></td><td>提供基础设施资产、参与战略配售、承担运营协同和信息披露配合</td><td>资产清单、股权结构、国资批复、董事会/股东会决议、历史经营资料</td><td>把REITs当成纯融资，忽视后续公开披露和运营约束。</td></tr>
+          <tr><td><strong>基金管理人</strong></td><td>产品设计、申报、发行、存续管理、投资者沟通</td><td>项目逻辑、估值模型、现金流预测、风险披露和整改闭环</td><td>前期只看发行成功，存续运营责任和信息披露机制不足。</td></tr>
+          <tr><td><strong>运营管理机构</strong></td><td>负责项目日常运营维护、服务质量、安全环保、预算执行</td><td>运维SOP、人员资质、维修计划、能耗水耗台账、绩效考核</td><td>管理边界不清，导致投资者与公共服务监管目标冲突。</td></tr>
+          <tr><td><strong>政府/国资/行业主管</strong></td><td>确认公共服务责任、价格机制、资产交易合规、国资保值增值</td><td>特许经营、价格政策、补贴或服务费安排、公共安全保障承诺</td><td>政府付费或调价机制表达模糊，影响估值和审核。</td></tr>
+          <tr><td><strong>律所/会计/评估/税务</strong></td><td>尽调、审计、资产评估、税务测算、交易文件</td><td>证据底稿、历史合同、财务明细、项目批复、税务处理方案</td><td>后置补证导致时间失控，或公开披露前发现重大瑕疵。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note warning"><strong>水务行业特别注意：</strong>供水安全、水质责任、应急调度、价格公益属性和政府监管不能因REITs结构而弱化。交易文件中必须写清“资产资本化”与“公共服务责任”并行不悖，运营管理考核应同时满足投资者现金流稳定和政府公共服务底线。</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><span class="tag">Valuation Logic</span><h2>估值与现金流：投资者买的不是“资产原值”，而是可分配现金流的确定性</h2><p>水务企业内部容易以工程投资额、净资产或重置成本理解价值；REITs市场更关注未来可分配现金流、收益率、增长性和风险折价。</p></div>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3>水务资产现金流模型</h3>
+        <div class="table-wrap" style="margin:8px 0 0"><table style="min-width:560px"><thead><tr><th>模块</th><th>建模要点</th></tr></thead><tbody>
+          <tr><td>收入</td><td>服务量 × 单价；保底水量/处理量；价格调整机制；绩效扣减；财政补偿或补贴确认。</td></tr>
+          <tr><td>成本</td><td>电费、药剂、人工、维修、污泥处置、检测、保险、外包、运营管理费。</td></tr>
+          <tr><td>资本开支</td><td>大修、提标、扩容、设备更新、环保整改、安全冗余和应急投入。</td></tr>
+          <tr><td>税费</td><td>股权转让、资产划转、项目公司税务、增值税和所得税处理。</td></tr>
+          <tr><td>分配</td><td>可供分配金额、分派率、覆盖倍数、存续期费用和基金份额锁定安排。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="card">
+        <h3>估值敏感性关注项</h3>
+        <div class="score"><span>价格 / 服务费调整确定性</span><div class="bar"><i style="width:92%"></i></div><b>高</b></div>
+        <div class="score"><span>用水量 / 处理量稳定性</span><div class="bar"><i style="width:86%"></i></div><b>高</b></div>
+        <div class="score"><span>应收账款回款周期</span><div class="bar"><i style="width:78%"></i></div><b>较高</b></div>
+        <div class="score"><span>大修与更新资本开支</span><div class="bar"><i style="width:82%"></i></div><b>高</b></div>
+        <div class="score"><span>环保 / 水质绩效扣减</span><div class="bar"><i style="width:70%"></i></div><b>中高</b></div>
+        <div class="score"><span>宏观利率与二级市场收益率</span><div class="bar"><i style="width:74%"></i></div><b>中高</b></div>
+        <div class="note" style="margin-bottom:0"><strong>内部测算建议：</strong>至少建立基准、压力、乐观三种情景，并单独做“价格不调、处理量下降、回款延迟、资本开支上升、绩效扣减增加”五项敏感性测试。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><span class="tag">Case Matrix</span><h2>典型样本启示：水务企业要学“结构和证据”，不要只学“资产名称”</h2><p>首创水务、首钢绿能、珠海水控等案例的共性，是把公共基础设施的长期运营现金流做成可审计、可预测、可披露的资本市场产品。</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>样本</th><th>底层资产逻辑</th><th>对水务行业的启示</th><th>不宜机械复制的地方</th></tr></thead>
+        <tbody>
+          <tr><td><strong>富国首创水务REIT</strong><br><span class="mini">生态环保/污水处理代表样本</span></td><td>以成熟污水处理项目为核心，投资者主要看处理服务费、处理量、特许经营/服务协议和稳定运营记录。</td><td>污水处理资产相对容易解释现金流，是水务REITs首发的重要参考。</td><td>不同城市的付费主体、价格调整、应收账款和提标改造责任差异很大，不能只看“同为污水厂”。</td></tr>
+          <tr><td><strong>中航首钢绿能REIT</strong><br><span class="mini">固废/绿色基础设施代表样本</span></td><td>固废处理和能源利用结合，现金流来自垃圾处理、发电上网等多元来源。</td><td>水务集团若拥有污泥、固废、新能源协同资产，可形成绿色低碳叙事和现金流增强。</td><td>补贴、电价、环保技改、设备大修对估值影响较大，需要压力测试。</td></tr>
+          <tr><td><strong>珠海水控拟REITs</strong><br><span class="mini">区域水务环境集团推进信号</span></td><td>水务、污水、排水、固废、市政工程和科技等综合板块，具备资产组合和大湾区故事线。</td><td>基金管理人选聘先行，表明地方水务集团开始做系统化REITs准备。</td><td>中标不等于发行成功，关键仍在底层资产包、证据链、估值、审批和市场窗口。</td></tr>
+          <tr><td><strong>城乡供水一体化潜在项目</strong><br><span class="mini">供水水厂/管网/二供/农水改造</span></td><td>资产规模大、社会价值高，但收益机制、价格监管、权属移交和维护责任复杂。</td><td>适合作为长期扩募和培育方向，尤其可与水价成本监审、资产分账、二供运维入价协同。</td><td>首发不可把权属、收费、更新投资、用户服务争议带入公开市场。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="path">
+    <div class="section-head">
+      <div><span class="tag">Implementation Path</span><h2>推进路线：12个月形成“可申报、可审计、可披露、可发行”的项目包</h2><p>建议采用“专班牵头 + 中介并行 + 证据先行 + 分阶段决策”的方式，避免一上来就进入高成本申报。</p></div>
+    </div>
+    <div class="timeline">
+      <div class="timeitem"><h4>第0—30天：成立专班与资产预筛</h4><p>明确一把手牵头、财务总监/总工/法务/董秘/运营/工程/资产/水价条线共同参与。完成资产总台账、候选项目清单、疑难问题清单、机构选聘策略。</p></div>
+      <div class="timeitem"><h4>第31—60天：证据链体检与项目分级</h4><p>对候选项目逐项核验权属、批复、竣工、特许经营、价格、合同、运营、环保、安全、应收账款和资本开支。形成A/B/C/D四级资产池。</p></div>
+      <div class="timeitem"><h4>第61—90天：财务模型与整改方案</h4><p>搭建现金流预测模型、三情景估值、税务测算、国资交易路径和整改台账。对关键短板形成补充协议、权属确认、价格确认或内部制度整改。</p></div>
+      <div class="timeitem"><h4>第91—180天：机构进场与预沟通</h4><p>基金管理人、财务顾问、律所、会计、评估、税务并行进场。开展监管预沟通、投资者预路演、上市公司/国资/政府内部决策材料准备。</p></div>
+      <div class="timeitem"><h4>第181—360天：申报、反馈、发行与存续准备</h4><p>按审核反馈补充材料，确定估值和发行窗口；同步建立存续期信息披露、预算控制、运营管理、绩效考核和投资者沟通机制。</p></div>
+    </div>
+    <div class="note success"><strong>关键做法：</strong>把REITs推进拆成“资产体检会、证据闭合会、估值测算会、国资预审会、监管预沟通会、董事会决策会、发行协调会、存续运营会”八类会议，每一类会议形成纪要、清单、责任人和完成时限。</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><span class="tag">Tender Strategy</span><h2>基金管理人与中介机构选聘：不宜唯低价，宜按“成事能力”设计评分</h2><p>珠海水控案例中，发行阶段费用报价较低的机构并未中标，说明REITs项目更应强调综合方案、历史经验和项目落地能力。</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>评价维度</th><th>建议权重</th><th>评分要点</th><th>证明材料</th></tr></thead>
+        <tbody>
+          <tr><td>基础设施REITs项目经验</td><td>25%</td><td>已发行、已申报、已扩募、同行业经验、反馈问题处理能力</td><td>项目清单、角色证明、审核反馈处理案例</td></tr>
+          <tr><td>水务/环保行业理解</td><td>15%</td><td>对水价、污水处理费、特许经营、政府付费、环保绩效、管网资产的理解</td><td>行业方案、尽调清单、现金流模型样例</td></tr>
+          <tr><td>项目方案与时间表</td><td>15%</td><td>资产筛选、整改路径、监管沟通、发行策略、存续管理安排</td><td>专项服务方案、里程碑计划、风险清单</td></tr>
+          <tr><td>发行销售与投资者覆盖</td><td>20%</td><td>保险、银行理财、券商、养老金、产业投资者等覆盖能力</td><td>历史发行簿记情况、投资者沟通计划</td></tr>
+          <tr><td>团队配置</td><td>10%</td><td>项目负责人稳定性、法律财务评估协调能力、驻场响应</td><td>团队简历、驻场计划、分工表</td></tr>
+          <tr><td>费用报价</td><td>10%</td><td>发行阶段费用、存续期管理费、成功费边界、第三方费用口径</td><td>报价明细、费用封顶承诺</td></tr>
+          <tr><td>合规与廉洁</td><td>5%</td><td>利益冲突、保密、廉洁承诺、信息隔离</td><td>承诺函、内控制度</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="risk">
+    <div class="section-head">
+      <div><span class="tag">Risk Control</span><h2>风险清单：水务REITs成败往往取决于前期“脏活细活”</h2><p>最危险的不是市场利率波动，而是把历史遗留的权属、价格、合同、运维和应收问题带入公开市场。</p></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>权属与资产边界风险</h3><p>资产证照不全、政府平台和水司权属混同、代建资产未移交、开发商/物业/业委会边界不清。<br><span class="pill red">整改</span> 建立一项一档，逐项补齐权属、移交、验收和使用权证据。</p></div>
+      <div class="card"><h3>价格与现金流风险</h3><p>水价或处理费调整不确定，收入依赖财政临时协调，应收账款周期长。<br><span class="pill amber">整改</span> 取得价格机制、服务费支付、回款安排和调价规则确认。</p></div>
+      <div class="card"><h3>公共服务与监管风险</h3><p>供水安全、水质保障、应急调度和环保达标不能因交易结构变化而弱化。<br><span class="pill amber">整改</span> 在运营管理协议中固化公共服务底线和政府监管接口。</p></div>
+      <div class="card"><h3>资本开支失控风险</h3><p>大修、提标、扩容、老旧管网改造、设备更新未纳入模型。<br><span class="pill amber">整改</span> 建立五至十年维修更新计划和资本开支预算。</p></div>
+      <div class="card"><h3>上市公司治理风险</h3><p>若原始权益人为上市公司或上市公司关联主体，需处理关联交易、资产出售、同业竞争、信息披露和市值影响。<br><span class="pill blue">整改</span> 董秘、法务、财务、审计提前介入。</p></div>
+      <div class="card"><h3>存续运营风险</h3><p>发行成功后，仍要持续接受公开市场检验，运营预算、绩效、分配和披露均需标准化。<br><span class="pill green">整改</span> 建立REITs存续期运营驾驶舱。</p></div>
+    </div>
+    <details open><summary>建议形成的“十张底稿表”</summary><div class="detail-body"><p>1. 资产权属证据表；2. 项目批复与竣工验收表；3. 特许经营/服务协议条款表；4. 价格与调价机制表；5. 历史收入成本现金流表；6. 应收账款和回款周期表；7. 运维绩效与环保合规表；8. 未来资本开支计划表；9. 税务与交易结构影响表；10. 风险整改责任表。</p></div></details>
+  </section>
+
+  <section id="action">
+    <div class="section-head">
+      <div><span class="tag">Action Plan</span><h2>给水务集团和上市水司的可落地行动计划</h2><p>建议按“统一认识、资产体检、证据闭合、首发决策、扩募储备、存续治理”六步走。</p></div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>董事会/总经理办公会建议议题</h3>
+        <ol>
+          <li>是否启动基础设施公募REITs资产体检专项工作。</li>
+          <li>是否成立REITs推进专班，明确牵头领导和责任部门。</li>
+          <li>是否授权开展基金管理人/财务顾问预选聘和市场测试。</li>
+          <li>是否建立A/B/C/D四级资产池并形成首发资产原则。</li>
+          <li>是否把二供、农水、排水、污水、再生水、新能源等纳入扩募培育库。</li>
+          <li>是否同步研究国资审批、上市公司治理、税务处理和信息披露边界。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>对江苏水务企业的建议口径</h3>
+        <p><strong>一是不要急于“报项目”。</strong> 先完成资产体检和证据链闭合，尤其是城乡供水一体化、二供存量改造、农网户表、排水管网等项目，要先把权属、价格、运维和费用入价关系理顺。</p>
+        <p><strong>二是不要把REITs与水价成本监审割裂。</strong> 供水资产现金流稳定性，很大程度上取决于成本监审、价格机制、政府补贴和公共服务责任的制度化表达。</p>
+        <p><strong>三是不要只做一次性融资。</strong> 应把REITs作为存量资产盘活、增量项目建设、扩募平台和上市公司市值管理的长期工具。</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>工作包</th><th>牵头部门</th><th>核心成果</th><th>完成时限</th></tr></thead>
+        <tbody>
+          <tr><td>资产总盘点</td><td>资产/工程/财务</td><td>全集团基础设施资产台账、权属状态、运营状态</td><td>30天</td></tr>
+          <tr><td>首发资产预筛</td><td>财务/法务/运营</td><td>A/B/C/D资产分级、首发候选包、暂缓清单</td><td>60天</td></tr>
+          <tr><td>证据链补正</td><td>法务/工程/档案</td><td>一项一档、缺项补证、政府确认事项清单</td><td>90天</td></tr>
+          <tr><td>现金流模型</td><td>财务/运营/水价</td><td>三情景预测、敏感性测试、估值区间</td><td>90天</td></tr>
+          <tr><td>中介选聘</td><td>招采/财务/法务</td><td>基金管理人、律所、会计、评估、税务服务方案</td><td>120天</td></tr>
+          <tr><td>决策与申报</td><td>董事会办公室/国资对接</td><td>董事会、国资、政府协调和申报材料</td><td>180—360天</td></tr>
+          <tr><td>存续运营治理</td><td>运营/信息化/财务</td><td>REITs运营驾驶舱、信息披露月报、预算和绩效机制</td><td>发行前同步完成</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note success"><strong>面向协会/标委会的可做事项：</strong>组织水务REITs专题沙龙，形成《水务基础设施资产体检清单》《供排水项目REITs证据链模板》《水务REITs项目池分级指南》三项行业工具，帮助会员单位从“听概念”走向“能筛选、能论证、能整改”。</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><span class="tag">Decision Memo</span><h2>可直接采用的内部汇报提纲</h2><p>适用于向董事长、总经理、国资、财务负责人和项目专班统一口径。</p></div>
+    </div>
+    <div class="card">
+      <h3>关于启动基础设施公募REITs资产体检和项目储备工作的建议</h3>
+      <p><strong>一、背景。</strong> 近期珠海水控集团基础设施公募REITs基金管理人服务采购中标结果公布，表明区域水务环境集团REITs推进已进入实操阶段。结合国家基础设施公募REITs常态化发行趋势，水务企业有必要系统研究存量资产盘活和持续扩募路径。</p>
+      <p><strong>二、必要性。</strong> 对水务集团而言，REITs不仅是融资工具，更是资产权属梳理、现金流标准化、价格机制审视、运维管理提升和资本循环的平台。特别是在城乡供排水一体化、二供存量改造、污水治理、排水防涝和老旧管网更新背景下，建立成熟资产—增量建设—后续扩募的闭环具有现实意义。</p>
+      <p><strong>三、基本原则。</strong> 坚持公共服务底线不变、国资保值增值不变、运营安全责任不变；坚持首发资产从严、扩募资产培育、疑难资产暂缓；坚持证据链先行、现金流先行、合规审查先行。</p>
+      <p><strong>四、工作建议。</strong> 建议成立专项工作组，先开展为期90天的资产体检，形成A首发库、B扩募库、C培育库、D暂缓库；同步开展基金管理人和专业机构预沟通，形成项目可行性判断、整改计划和董事会决策材料。</p>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="section-head">
+      <div><span class="tag">References</span><h2>资料来源与核验说明</h2><p>本报告用于内部研究、汇报和项目推进讨论；涉及正式发行、招标、审计、估值、税务和法律意见，应以官方文件、监管披露和专业机构结论为准。</p></div>
+    </div>
+    <ol class="ref">
+      <li>上海证券交易所 REITs 专栏：公开募集基础设施证券投资基金定义、上市交易安排、规则指南和信息披露栏目。</li>
+      <li>上海证券交易所公开募集不动产投资信托基金（REITs）业务指南、存续业务指南、发售上市业务办理等公开规则文件。</li>
+      <li>国家发展改革委、中国证监会关于基础设施领域不动产投资信托基金试点、项目申报推荐和常态化发行相关政策文件。</li>
+      <li>已上市基础设施公募REITs基金合同、招募说明书、上市公告书、定期报告和临时公告，重点参考生态环保、污水处理、固废能源、产业园区、能源等类型项目的公开披露逻辑。</li>
+      <li>用户提供的《珠海水控集团公募REITs项目中标结果公布》摘录，发布时间为2026年6月25日，内容涉及2026年6月18日中标结果公告、华夏基金中标及相关报价。正式引用时建议补充采购平台公告原文。</li>
+      <li>水务行业通用监管和经营资料：供水价格、成本监审、特许经营、污水处理服务费、二次供水、城乡供水一体化、排水防涝和水务集团资产管理相关公开政策与企业实践。</li>
+    </ol>
+    <div class="note warning"><strong>边界说明：</strong>本报告没有对珠海水控拟入池资产进行尽调，也没有对任何具体水务企业的REITs发行成功率、估值或收益率作承诺。所有项目推进均需完成法律、财务、评估、税务、国资和监管审核。</div>
+  </section>
+
+  <div class="foot">
+    <h2>结语：水务REITs要做成“长期资产工程”，不要做成“短期融资动作”</h2>
+    <p>对水务企业而言，真正有价值的不是赶上一轮资本市场热点，而是借REITs倒逼资产清查、价格梳理、合同补强、运营提质、现金流透明和项目滚动建设。首发项目越稳，后续扩募空间越大；证据链越扎实，估值沟通越从容；公共服务责任越清楚，资本市场越容易相信水务资产的长期价值。</p>
+    <p class="mini" style="color:#9eb9c5">建议版本：高管汇报 / 专班启动 / 行业交流三用版。可直接打印为PDF，或在企业微信、微信中转发 HTML 文件阅读。</p>
+  </div>
+  <div class="print-tip">© 2026 · @江南ai工作小组 · </div>
+</main>
+<script>
+  const progress = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+  };
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => { setTimeout(onScroll, 120); });
+  });
+</script>
+</body>
+</html>
