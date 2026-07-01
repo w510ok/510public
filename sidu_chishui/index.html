@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#7a241c" />
+  <meta name="description" content="四渡赤水战役关键决策离线沙盘地图，内置用户提供地形图、战役示意图与江南AI工作小组原创推演图，支持PWA安装、桌面投屏与手机阅读。" />
+  <meta name="author" content="江南AI工作小组" />
+  <meta name="copyright" content="© 2026 江南AI工作小组。保留署名，未经授权不得去标识、商用或二次分发。" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <title>四渡赤水战役关键决策离线沙盘地图｜江南AI工作小组</title>
+</head>
+<body>
+  <div class="watermark-bg" aria-hidden="true"></div>
+  <div class="app">
+    <header class="hero">
+      <div class="hero__content">
+        <div>
+          <div class="kicker">江南AI工作小组 · 离线地图 · HTML + PWA · 桌面/手机双适配</div>
+          <h1>四渡赤水战役<br><span>关键决策沙盘地图</span></h1>
+          <p class="subtitle">本版不再调用百度地图或 Google 地图，全部采用内置图片与原创 SVG 推演图。三张附件地图负责“地形—交通—战役态势”校核，原创示意图负责“阶段推演—决策复盘—课堂演示”。</p>
+          <div class="badges">
+            <span>内置地形广域图</span><span>内置地形核心图</span><span>内置战役示意图</span><span>原创动态沙盘</span><span>PWA 可安装</span><span>© 江南AI工作小组</span>
+          </div>
+        </div>
+        <div class="hero__stats">
+          <div><b>0</b><span>外部地图 API</span></div>
+          <div><b>5</b><span>内置地图层</span></div>
+          <div><b>9</b><span>阶段推演</span></div>
+          <div><b>8</b><span>关键决策</span></div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="页面导航">
+      <button class="tab active" data-jump="sandbox">沙盘地图</button>
+      <button class="tab" data-jump="map-reading">三图对读</button>
+      <button class="tab" data-jump="decisions">关键决策</button>
+      <button class="tab" data-jump="simulator">推演器</button>
+      <button class="tab" data-jump="deploy">PWA部署</button>
+      <button class="tab" data-jump="rights">版权边界</button>
+    </nav>
+
+    <main>
+      <section id="sandbox" class="layout layout--main">
+        <div class="panel map-panel">
+          <div class="panel__head">
+            <div>
+              <h2>离线沙盘地图</h2>
+              <p>建议先用“综合动态沙盘”讲阶段，再切换“地形广域/地形核心/战役示意图”做地理校核和细节放大。</p>
+            </div>
+            <div class="ip-chip">© 江南AI工作小组</div>
+          </div>
+
+          <div class="map-toolbar" role="toolbar" aria-label="地图图层切换">
+            <button class="map-btn active" data-map="sandbox">综合动态沙盘</button>
+            <button class="map-btn" data-map="wall">四图对读总览</button>
+            <button class="map-btn" data-map="terrainWide">地形广域图</button>
+            <button class="map-btn" data-map="terrainCore">地形核心图</button>
+            <button class="map-btn" data-map="campaignOfficial">战役示意图</button>
+            <button class="map-btn" data-map="originalTerrain">原创底图</button>
+          </div>
+
+          <div class="map-toolbar map-toolbar--sub">
+            <button class="soft-btn" id="fitMap">适屏</button>
+            <button class="soft-btn" id="zoomOut">缩小</button>
+            <button class="soft-btn" id="zoomIn">放大</button>
+            <button class="soft-btn" id="viewWide">全域视野</button>
+            <button class="soft-btn" id="viewCore">核心区视野</button>
+            <button class="soft-btn" id="prevPhase">上一阶段</button>
+            <button class="soft-btn" id="nextPhase">下一阶段</button>
+            <button class="soft-btn" id="playPhase">自动播放</button>
+          </div>
+
+          <div class="map-frame" id="mapFrame">
+            <svg id="sandboxSvg" role="img" aria-label="四渡赤水综合动态沙盘"></svg>
+            <div id="imageViewer" class="image-viewer hidden">
+              <img id="mapImage" src="" alt="内置沙盘地图" />
+              <div class="viewer-watermark">江南AI工作小组 · 内部学习研究</div>
+            </div>
+            <div class="map-caption" id="mapCaption">综合动态沙盘：用原创 SVG 展示河流、要点、红军阶段路线与国民党军围堵方向。点击下方时间线可切换阶段。</div>
+          </div>
+
+          <div class="timeline" id="timeline" aria-label="战役阶段时间线"></div>
+        </div>
+
+        <aside class="side">
+          <article class="panel phase-card" id="phaseCard"></article>
+          <article class="panel brief-card">
+            <h3>现场讲解顺序</h3>
+            <ol>
+              <li><b>先看地形：</b>川南、黔北、滇东交界，山地河谷把大兵团协同变成难题。</li>
+              <li><b>再看渡口：</b>太平渡、二郎滩、茅台、乌江与金沙江渡口决定行动窗口。</li>
+              <li><b>最后看决策：</b>每一次渡河都是对敌情、地形、后勤和政治协同的重新排序。</li>
+            </ol>
+          </article>
+        </aside>
+      </section>
+
+      <section id="map-reading" class="panel section">
+        <h2>三张附件地图如何组成“内置沙盘地图”</h2>
+        <p>本版把三张附件地图与原创示意图放进同一个离线地图工作台，不做外链、不依赖 API、不缓存第三方地图瓦片。实际使用时按“广域—核心—战役箭线—原创推演”的顺序对读。</p>
+        <div class="cards cards--four">
+          <div class="card"><h3>1. 地形广域图</h3><p>用于看川南、黔北、滇东、重庆方向的大空间关系：为什么红军的南北东西转换会迫使国民党军多路调兵，为什么大范围地形起伏会放大时间差。</p></div>
+          <div class="card"><h3>2. 地形核心图</h3><p>用于看赤水、习水、仁怀、遵义之间的山地道路、河谷、县城与关隘，帮助解释土城、茅台、桐梓、娄山关、遵义等节点为什么成为行动枢纽。</p></div>
+          <div class="card"><h3>3. 战役示意图</h3><p>用于核对一渡、二渡、三渡、四渡、南渡乌江、入滇、渡金沙江的整体路线，以及红军与国民党军行动方向的对照。</p></div>
+          <div class="card"><h3>4. 原创动态沙盘</h3><p>用于培训推演和汇报演示：它不追求测绘精度，而把河流、渡口、决策、敌我态势和行动后果压缩到一张可讲、可点、可复盘的管理地图中。</p></div>
+        </div>
+        <div class="note-box"><b>使用边界：</b>前两张地形截图和第三张战役示意图均为本会话用户提供附件。本成果包按内部学习研究、课堂沙盘与组织培训用途内置。第三张图面可见“中国地图出版集团制”和审图号，公开出版、商用展陈、二次分发或外部宣传前，应另行核验授权和引用边界。</div>
+      </section>
+
+      <section id="decisions" class="panel section">
+        <h2>关键决策链：八个节点决定战役走向</h2>
+        <div class="decision-grid" id="decisionGrid"></div>
+      </section>
+
+      <section id="simulator" class="panel section">
+        <h2>简易沙盘推演器</h2>
+        <p>选择不同方案，观察“主动权、敌方协同受扰、情报清晰度、后勤压力、合围风险”的相对变化。该模型用于培训启发，不替代严肃战史推演。</p>
+        <div class="sim-grid">
+          <div id="choices"></div>
+          <div>
+            <div class="score-card"><h3>态势指数</h3><div id="bars" class="bars"></div></div>
+            <div class="result" id="resultText"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deploy" class="panel section">
+        <h2>GitHub Pages / 手机 PWA 部署说明</h2>
+        <div class="cards">
+          <div class="card"><h3>仓库根目录</h3><p>把 ZIP 解压后的全部文件放在仓库根目录，保留 <code>index.html</code>、<code>manifest.webmanifest</code>、<code>service-worker.js</code>、<code>assets/</code> 和 <code>.nojekyll</code>。</p></div>
+          <div class="card"><h3>PWA安装</h3><p>通过 HTTPS 的 GitHub Pages 打开后，Chrome / Edge / Android 浏览器可安装；iPhone Safari 可“添加到主屏幕”。本地测试建议用 <code>python -m http.server 8000</code>。</p></div>
+          <div class="card"><h3>缓存刷新</h3><p>如果旧版本仍显示百度/Google按钮，请在开发者工具 Application → Service Workers 中注销旧缓存，或修改文件后等待浏览器刷新 Service Worker。</p></div>
+        </div>
+      </section>
+
+      <section id="rights" class="panel section">
+        <h2>知识产权保护与发布边界</h2>
+        <table class="matrix">
+          <thead><tr><th>对象</th><th>处理方式</th><th>边界说明</th></tr></thead>
+          <tbody>
+            <tr><td>HTML/PWA 程序、交互设计、原创动态沙盘</td><td>标注 © 江南AI工作小组，保留版本文件和页脚声明</td><td>内部学习研究、培训演示可用；不得去署名、冒名申报或未经授权商业分发。</td></tr>
+            <tr><td>用户提供的两张地形截图</td><td>作为附件资料内置，并加使用边界提示</td><td>用于内部研学与沙盘对读；如公开发布，应核验截图来源和地图平台使用条款。</td></tr>
+            <tr><td>用户提供的战役示意图</td><td>作为附件资料内置，保留图面原有标识</td><td>图面可见“中国地图出版集团制”和审图号；正式出版、外部展陈、商用传播前需核验授权。</td></tr>
+            <tr><td>研究文本与决策模型</td><td>采用可考据、可复核、可修订的内部研究说明</td><td>重大历史细节、点位坐标和路线应继续以权威党史军史、纪念馆、地方志和实地 GIS 校核。</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 江南AI工作小组。四渡赤水战役关键决策离线沙盘地图。内部学习研究与组织培训用途；请保留署名、版本与使用边界说明。</p>
+    </footer>
+  </div>
+
+  <button class="install" id="installBtn" hidden>安装 PWA</button>
+  <script src="assets/app.js"></script>
+</body>
+</html>
