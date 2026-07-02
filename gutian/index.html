@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>水务行业宣贯沙盘｜用户至上 多供好水</title>
+<meta name="description" content="面向水务行业多角色扮演的宣贯 HTML + PWA，含沙盘推演、可视化展示、问题纠偏工具箱与岗位落地清单。" />
+<meta name="theme-color" content="#0b4976" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="assets/icon-192.png" />
+<style>
+:root{
+  --bg:#f4f8fb; --paper:#fff; --ink:#10202e; --muted:#5c6b78; --line:#dbe7ee;
+  --blue:#0b4976; --blue2:#12699f; --cyan:#27a7d8; --green:#1f8c6d; --gold:#c58c2f; --red:#ba3f43;
+  --shadow:0 14px 40px rgba(10,55,90,.12); --radius:22px; --radius2:14px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:linear-gradient(145deg,#eef6fb 0%,#f8fbfd 48%,#f5f1e8 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;line-height:1.65;}
+a{color:var(--blue2);text-decoration:none} button,select,input{font:inherit} button{cursor:pointer}
+.shell{max-width:1240px;margin:0 auto;padding:24px 20px 88px}.topbar{position:sticky;top:0;z-index:30;backdrop-filter:blur(14px);background:rgba(244,248,251,.86);border-bottom:1px solid rgba(219,231,238,.8)}
+.topbar-inner{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--blue)}.brand-badge{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;color:#fff;box-shadow:var(--shadow);font-size:13px}.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.nav a,.nav button{border:1px solid var(--line);background:rgba(255,255,255,.72);padding:7px 12px;border-radius:999px;color:#2a4458;font-size:13px}.nav a:hover,.nav button:hover{background:#fff;border-color:#bad3e4}.hero{position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(135deg,#083d66 0%,#0d6f9f 55%,#4db9d6 100%);box-shadow:var(--shadow);padding:38px;color:#fff}.hero:before{content:"";position:absolute;inset:auto -80px -100px auto;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.13)}.hero:after{content:"";position:absolute;inset:-120px auto auto -120px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.08)}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}.eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:13px;opacity:.9}.hero h1{font-size:clamp(32px,6vw,58px);line-height:1.08;margin:12px 0 14px}.hero p{font-size:17px;max-width:760px;opacity:.94}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:999px;padding:11px 18px;background:#fff;color:var(--blue);font-weight:750;box-shadow:0 10px 25px rgba(0,0,0,.12)}.btn.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);box-shadow:none}.btn.small{font-size:13px;padding:8px 12px}.hero-card{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);border-radius:22px;padding:20px;backdrop-filter:blur(12px)}.hero-card .big{font-size:42px;font-weight:900;line-height:1;color:#fff}.hero-card .mini{font-size:13px;opacity:.86}.quote{margin-top:18px;padding:14px 16px;border-left:4px solid rgba(255,255,255,.7);background:rgba(255,255,255,.1);border-radius:12px;font-size:14px}.section{margin-top:26px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin:0 0 14px}.section h2{margin:0;font-size:26px}.section-head p{margin:4px 0 0;color:var(--muted)}.grid{display:grid;gap:16px}.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}.card.compact{padding:16px}.kicker{font-size:12px;letter-spacing:.14em;color:var(--blue2);font-weight:800;text-transform:uppercase}.card h3{margin:6px 0 8px;font-size:18px}.card p{margin:0;color:#4b5d69}.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tag{font-size:12px;border:1px solid #cfe0eb;background:#f6fbfe;color:#31546a;border-radius:999px;padding:4px 9px}.tag.strong{background:#eaf6fb;color:#0b5b86;border-color:#b6d9eb}.tag.gold{background:#fff6e6;color:#8a5b14;border-color:#efd199}.tag.red{background:#fff0f0;color:#9c3336;border-color:#f3c9c9}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative}.flow-step{position:relative;border:1px solid #cfe3ed;background:linear-gradient(180deg,#fff,#f6fbfd);border-radius:18px;padding:16px;min-height:138px}.flow-step .num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:800}.flow-step h3{font-size:17px;margin:10px 0 6px}.arrowline{height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px;margin:14px 4px 0}.role-tabs{display:flex;gap:10px;overflow:auto;padding:4px 0 10px}.role-tab{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:999px;color:#31546a}.role-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}.role-panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}.role-title{font-size:24px;font-weight:900;color:var(--blue);margin:0}.checklist{margin:10px 0 0;padding-left:20px}.checklist li{margin:6px 0}.scenario-board{display:grid;grid-template-columns:320px 1fr;gap:16px}.control-panel{position:sticky;top:74px;align-self:start}.field{margin:0 0 12px}.field label{display:block;font-weight:760;margin-bottom:6px;color:#2d475a}.field select,.field input[type=range]{width:100%}.field select{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px 12px;color:#203a4e}.range-line{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.range-line output{font-weight:800;color:var(--blue);min-width:42px;text-align:right}.scorebox{border-radius:18px;background:linear-gradient(135deg,#fff,#eef8fc);border:1px solid #cbe2ed;padding:16px}.score{font-size:44px;font-weight:900;line-height:1;color:var(--blue)}.level{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#edf7f2;color:var(--green);font-weight:800;font-size:12px}.level.warn{background:#fff7e8;color:#9b640f}.level.danger{background:#fff0f0;color:var(--red)}.bar{height:10px;background:#edf2f6;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--green),var(--gold),var(--red));border-radius:999px}.scenario-title{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.scenario-title h3{font-size:24px;margin:0;color:#0f4770}.timeline{position:relative;margin-top:10px}.tl-item{display:grid;grid-template-columns:82px 1fr;gap:12px;padding:9px 0;border-bottom:1px dashed #d9e6ed}.tl-time{font-weight:900;color:var(--blue)}.raci{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.raci .cell{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.raci .cell b{display:block;color:var(--blue);margin-bottom:4px}.matrix{display:grid;grid-template-columns:1.2fr 1.2fr 1.45fr 1.2fr;gap:1px;background:#d8e5ed;border:1px solid #d8e5ed;border-radius:16px;overflow:hidden}.matrix div{background:#fff;padding:12px}.matrix .mh{background:#0d5b87;color:#fff;font-weight:800}.heatmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.heat{min-height:64px;border-radius:14px;padding:10px;background:#e9f7f1;border:1px solid #c7e7d9}.heat.mid{background:#fff7e9;border-color:#f1d6a8}.heat.high{background:#fff0f0;border-color:#f1c2c4}.heat b{display:block;font-size:14px}.visual-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.svgbox{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;overflow:hidden}.toolbox{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.tool{border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px}.tool h4{margin:0 0 6px;color:var(--blue)}.source-list{columns:2;column-gap:30px;font-size:13px}.source-list li{break-inside:avoid;margin:0 0 8px}.footer{margin-top:34px;text-align:center;color:#657685;font-size:13px}.bottom-nav{display:none}.notice{border:1px solid #f0d6a5;background:#fff8eb;color:#755016;border-radius:16px;padding:12px 14px}.pill-title{display:inline-flex;align-items:center;gap:8px;background:#eef7fc;border:1px solid #cce1ec;border-radius:999px;padding:6px 10px;font-weight:800;color:#0d557f;font-size:13px}.divider{height:1px;background:var(--line);margin:16px 0}.hidden{display:none!important}.callout{border-radius:18px;background:linear-gradient(135deg,#eff9fc,#ffffff);border:1px solid #cde4ee;padding:16px}.callout b{color:var(--blue)}
+@media(max-width:920px){.hero-grid,.grid.cols-2,.grid.cols-3,.grid.cols-4,.role-panel,.scenario-board,.visual-wrap{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.control-panel{position:relative;top:auto}.raci,.toolbox{grid-template-columns:1fr 1fr}.matrix{grid-template-columns:1fr}.matrix .mh:nth-child(n+2){display:none}.source-list{columns:1}.nav{display:none}.bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:40;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:8px;box-shadow:0 12px 36px rgba(0,0,0,.16);backdrop-filter:blur(12px)}.bottom-nav a{font-size:12px;color:#31546a;text-align:center}.hero{padding:28px 20px}.shell{padding-left:14px;padding-right:14px}}@media(max-width:560px){.raci,.toolbox{grid-template-columns:1fr}.hero-card .big{font-size:32px}.section h2{font-size:22px}.topbar-inner{padding-left:14px;padding-right:14px}.scenario-title{display:block}.source-list{font-size:12px}}
+@media print{.topbar,.bottom-nav,.hero-actions,.control-panel .btn,.no-print{display:none!important}body{background:#fff}.shell{max-width:none;padding:0}.card,.svgbox,.hero{box-shadow:none}.hero{color:#111;background:#fff;border:1px solid #ddd}.hero-card{color:#111;background:#fff;border:1px solid #ddd}.hero-card .big{color:#111}.section{break-inside:avoid}.scenario-board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="brand-badge">水</div><span>水务行业宣贯沙盘 · 962001</span></div>
+    <nav class="nav" aria-label="主导航">
+      <a href="#method">方法转译</a><a href="#roles">多角色</a><a href="#sandtable">沙盘推演</a><a href="#matrix">问题纠偏</a><a href="#sources">依据</a>
+      <button id="installBtn" class="no-print">安装PWA</button>
+    </nav>
+  </div>
+</header>
+<main class="shell">
+  <section class="hero" id="top">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Water Utility Publicity · Roleplay · Scenario Simulation</div>
+        <h1>用户至上，多供好水：水务行业党建与服务保障宣贯沙盘</h1>
+        <p>参照《古田会议决议》的组织方法，把“方向、组织、教育、宣传、纪律、群众工作”转译为供水行业的安全生产、水质保障、热线服务、工程建设、合规治理和科创落地。</p>
+        <div class="hero-actions">
+          <a class="btn" href="#sandtable">进入沙盘推演</a>
+          <a class="btn secondary" href="#matrix">查看问题纠偏表</a>
+          <button class="btn secondary no-print" onclick="window.print()">打印学习稿</button>
+        </div>
+        <div class="quote">方法论口径：不生搬历史语境，不套用斗争化表达；只提炼其“目标统一、组织严密、调查研究、宣传教育、纪律执行、群众路线、复盘纠偏”的管理价值。</div>
+      </div>
+      <div class="hero-card">
+        <div class="mini">宣贯主线</div>
+        <div class="big">962001</div>
+        <p style="margin-top:10px;color:#eef8ff">江南水务热线与视频号可作为“宣传群众、组织群众、赋能群众、服务群众”的统一入口：讲清水从哪里来、怎样变好、如何保障、如何求助、如何共治。</p>
+        <div class="tagrow"><span class="tag strong">党建引领</span><span class="tag strong">用户导向</span><span class="tag strong">证据闭环</span><span class="tag strong">标准落地</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="method">
+    <div class="section-head"><div><h2>一、把“决议方法”转译为水务行业行动语言</h2><p>从历史文献中提炼组织建设方法，再落到现代国资上市供水公司的岗位行为。</p></div></div>
+    <div class="flow">
+      <div class="flow-step"><div class="num">1</div><h3>政治方向</h3><p>把公共供水的公益属性、安全底线、用户体验和公司治理统一起来。</p><div class="arrowline"></div></div>
+      <div class="flow-step"><div class="num">2</div><h3>业务作战</h3><p>水源、水厂、加压站、管网、二供、检测、营销、工程建设按一张图协同。</p><div class="arrowline"></div></div>
+      <div class="flow-step"><div class="num">3</div><h3>群众工作</h3><p>通过962001、视频号、社区共建、网格员，把服务标准讲清、问题入口打通。</p><div class="arrowline"></div></div>
+      <div class="flow-step"><div class="num">4</div><h3>复盘纠偏</h3><p>用数据、证据、用户反馈和组织生活，纠正偏差，形成制度、SOP和案例库。</p><div class="arrowline"></div></div>
+    </div>
+    <div class="grid cols-4" style="margin-top:16px">
+      <div class="card compact"><div class="kicker">宣传群众</div><h3>把事情讲清楚</h3><p>水质、水压、停水、抢修、价格、二供、节水、投诉路径，都用用户听得懂的话说明。</p></div>
+      <div class="card compact"><div class="kicker">组织群众</div><h3>把入口建起来</h3><p>962001热线、公众号、视频号、社区联络员、网格员、物业和街道形成同一服务闭环。</p></div>
+      <div class="card compact"><div class="kicker">赋能群众</div><h3>把能力交出去</h3><p>让用户会识别异常、会报修、会看通知、会应急储水、会节水、会保护户内设施。</p></div>
+      <div class="card compact"><div class="kicker">帮助群众</div><h3>把好水送到家</h3><p>以优质安全供水为结果，靠源头保护、水厂工艺、管网调度、二供运维和用户协同实现。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="visual">
+    <div class="section-head"><div><h2>二、可视化总图：党建、治理、业务、用户四个闭环</h2><p>适合党委理论学习中心组、基层支部、部门班组和视频号宣贯共用。</p></div></div>
+    <div class="visual-wrap">
+      <div class="svgbox">
+        <svg viewBox="0 0 820 440" width="100%" height="auto" role="img" aria-label="水务党建与服务闭环图">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#0b4976"/><stop offset="1" stop-color="#27a7d8"/></linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0a375a" flood-opacity=".18"/></filter>
+          </defs>
+          <rect x="20" y="20" width="780" height="400" rx="28" fill="#f7fbfd" stroke="#d6e6ee"/>
+          <circle cx="410" cy="220" r="116" fill="url(#g1)" filter="url(#shadow)"/>
+          <text x="410" y="200" text-anchor="middle" fill="#fff" font-size="28" font-weight="800">用户至上</text>
+          <text x="410" y="236" text-anchor="middle" fill="#fff" font-size="34" font-weight="900">多供好水</text>
+          <text x="410" y="266" text-anchor="middle" fill="#dff6ff" font-size="16">安全 · 优质 · 稳定 · 透明</text>
+          <g font-size="16" fill="#163247" font-weight="700">
+            <rect x="80" y="74" width="190" height="88" rx="18" fill="#ffffff" stroke="#cfe0eb" filter="url(#shadow)"/><text x="175" y="110" text-anchor="middle">党建引领</text><text x="175" y="138" text-anchor="middle" font-size="13" fill="#5b6f7d">方向 / 纪律 / 组织</text>
+            <rect x="550" y="74" width="190" height="88" rx="18" fill="#ffffff" stroke="#cfe0eb" filter="url(#shadow)"/><text x="645" y="110" text-anchor="middle">公司治理</text><text x="645" y="138" text-anchor="middle" font-size="13" fill="#5b6f7d">董事会 / 经理层 / 合规</text>
+            <rect x="80" y="278" width="190" height="88" rx="18" fill="#ffffff" stroke="#cfe0eb" filter="url(#shadow)"/><text x="175" y="314" text-anchor="middle">业务闭环</text><text x="175" y="342" text-anchor="middle" font-size="13" fill="#5b6f7d">水源-水厂-管网-二供</text>
+            <rect x="550" y="278" width="190" height="88" rx="18" fill="#ffffff" stroke="#cfe0eb" filter="url(#shadow)"/><text x="645" y="314" text-anchor="middle">群众工作</text><text x="645" y="342" text-anchor="middle" font-size="13" fill="#5b6f7d">962001 / 视频号 / 社区</text>
+          </g>
+          <g stroke="#79bad5" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="8 8">
+            <path d="M270 118 C330 80, 490 80, 550 118"/>
+            <path d="M645 162 C705 208,705 270,645 278"/>
+            <path d="M550 322 C490 365,330 365,270 322"/>
+            <path d="M175 278 C112 244,112 188,175 162"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="pill-title">宣贯解释词</div>
+        <h3>“政治”不是空话，“军事”不是孤立业务</h3>
+        <p>在供水公司场景中，“政治”对应公共服务方向、国企责任、上市合规、用户权益和组织纪律；“军事”对应生产运行、工程建设、检测调度、抢修服务和科创项目。党建工作要把二者贯通：方向要落到指标，指标要落到岗位，岗位要落到用户感知。</p>
+        <div class="divider"></div>
+        <div class="tagrow"><span class="tag">水质达标</span><span class="tag">供水连续</span><span class="tag">压力稳定</span><span class="tag">响应及时</span><span class="tag">信息透明</span><span class="tag">合规披露</span><span class="tag">廉洁建设</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roles">
+    <div class="section-head"><div><h2>三、多角色扮演：一项供水服务任务，十类角色同题共答</h2><p>点击角色，查看该角色在宣贯、演练、复盘中的核心问题和交付物。</p></div></div>
+    <div class="card">
+      <div class="role-tabs" id="roleTabs"></div>
+      <div class="role-panel">
+        <div>
+          <p class="kicker" id="roleKicker">角色定位</p>
+          <h3 class="role-title" id="roleTitle"></h3>
+          <p id="roleDesc"></p>
+          <div class="tagrow" id="roleTags"></div>
+        </div>
+        <div class="callout">
+          <b>本角色三问：</b>
+          <ol class="checklist" id="roleQuestions"></ol>
+          <div class="divider"></div>
+          <b>会议交付物：</b>
+          <ul class="checklist" id="roleOutputs"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sandtable">
+    <div class="section-head"><div><h2>四、沙盘推演：把“用户至上、多供好水”推到现场</h2><p>选择场景与角色，调节风险参数，系统自动生成任务、RACI、时间线和复盘要点。</p></div></div>
+    <div class="scenario-board">
+      <aside class="card control-panel">
+        <div class="field"><label for="scenarioSelect">推演场景</label><select id="scenarioSelect"></select></div>
+        <div class="field"><label for="roleSelect">当前角色</label><select id="roleSelect"></select></div>
+        <div class="field"><label>原水/水质波动 <span id="vTurb">35</span></label><div class="range-line"><input type="range" min="0" max="100" value="35" id="turb"/><output>35</output></div></div>
+        <div class="field"><label>供水负荷/压力风险 <span id="vLoad">45</span></label><div class="range-line"><input type="range" min="0" max="100" value="45" id="load"/><output>45</output></div></div>
+        <div class="field"><label>投诉/热线热度 <span id="vComplain">30</span></label><div class="range-line"><input type="range" min="0" max="100" value="30" id="complain"/><output>30</output></div></div>
+        <div class="field"><label>抢修/处置时长 <span id="vRepair">40</span></label><div class="range-line"><input type="range" min="0" max="100" value="40" id="repair"/><output>40</output></div></div>
+        <div class="field"><label>信息披露/舆情敏感 <span id="vPublic">30</span></label><div class="range-line"><input type="range" min="0" max="100" value="30" id="publicRisk"/><output>30</output></div></div>
+        <div class="scorebox">
+          <div class="mini" style="color:#607584">综合风险指数</div>
+          <div class="score" id="riskScore">36</div>
+          <span id="riskLevel" class="level">常态关注</span>
+          <div class="bar" style="margin-top:10px"><i id="riskBar"></i></div>
+        </div>
+        <div class="tagrow no-print"><button class="btn small" onclick="exportNote()">导出推演纪要</button><button class="btn small" onclick="resetRanges()">重置参数</button></div>
+      </aside>
+      <article class="card" id="scenarioPanel">
+        <div class="scenario-title"><div><p class="kicker">当前沙盘</p><h3 id="scTitle"></h3><p id="scDesc"></p></div><span class="tag gold" id="scType"></span></div>
+        <div class="grid cols-3" style="margin-top:16px" id="scCards"></div>
+        <h3 style="margin-top:20px">角色行动卡</h3>
+        <div class="callout" id="actionCard"></div>
+        <h3 style="margin-top:20px">RACI协同表</h3>
+        <div class="raci" id="raciBox"></div>
+        <h3 style="margin-top:20px">黄金处置时间线</h3>
+        <div class="timeline" id="timeline"></div>
+        <h3 style="margin-top:20px">风险热力图</h3>
+        <div class="heatmap" id="heatmap"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="matrix">
+    <div class="section-head"><div><h2>五、问题—纠正方法对照表：把“八类偏向”转成供水科创与运营纠偏</h2><p>可作为支部组织生活、部门月度复盘、项目立项评审和干部谈话提醒的工具表。</p></div></div>
+    <div class="card" style="overflow:auto">
+      <div class="matrix" id="problemMatrix"></div>
+    </div>
+  </section>
+
+  <section class="section" id="video962001">
+    <div class="section-head"><div><h2>六、视频号962001宣贯打法：一条热线，一个前台，一个群众工作入口</h2><p>从“讲清楚”到“能办理”，形成线上线下同频的用户服务资产。</p></div></div>
+    <div class="grid cols-3">
+      <div class="card compact"><div class="kicker">栏目一</div><h3>水从哪里来</h3><p>水源保护、水厂工艺、水质检测、二供运维，用短视频把“看不见的保障”讲得可视化。</p><div class="tagrow"><span class="tag">企业形象</span><span class="tag">工匠精神</span></div></div>
+      <div class="card compact"><div class="kicker">栏目二</div><h3>用户怎么做</h3><p>报修路径、停水查询、户内漏水判断、阶梯水价理解、寒潮防冻、节水技巧。</p><div class="tagrow"><span class="tag">经验技巧</span><span class="tag">用户服务</span></div></div>
+      <div class="card compact"><div class="kicker">栏目三</div><h3>现场怎么干</h3><p>抢修、检测、调度、抄表、工程验收、党员突击队，把规范、速度和温度展示出来。</p><div class="tagrow"><span class="tag">业务规范</span><span class="tag">线上线下</span></div></div>
+      <div class="card compact"><div class="kicker">栏目四</div><h3>问题怎么闭环</h3><p>选择脱敏案例，展示“用户反馈—派单—现场—复核—回访—改进”的闭环过程。</p><div class="tagrow"><span class="tag">热线962001</span><span class="tag">复盘</span></div></div>
+      <div class="card compact"><div class="kicker">栏目五</div><h3>标准怎么落地</h3><p>用一分钟讲清一个标准或制度，如水质指标、二供水箱清洗、管网冲洗、文明施工。</p><div class="tagrow"><span class="tag">规范宣贯</span><span class="tag">证据</span></div></div>
+      <div class="card compact"><div class="kicker">栏目六</div><h3>共建怎么参与</h3><p>邀请社区、物业、学校、企业用户参与节水、安全用水和用水营商环境共建。</p><div class="tagrow"><span class="tag">组织群众</span><span class="tag">共治</span></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="implementation">
+    <div class="section-head"><div><h2>七、落地路线：三个月形成宣贯、推演、复盘、案例库</h2><p>不搞一次性活动，形成支部学习、部门协同和用户服务的长期机制。</p></div></div>
+    <div class="grid cols-3">
+      <div class="card"><div class="kicker">第1月</div><h3>统一语言</h3><ul class="checklist"><li>党委委员讲一次“用户至上、多供好水”专题党课。</li><li>每个部门完成一张“我为用户做什么”岗位卡。</li><li>962001视频号发布3条“水务看得见”基础科普。</li></ul></div>
+      <div class="card"><div class="kicker">第2月</div><h3>组织推演</h3><ul class="checklist"><li>围绕水质波动、爆管抢修、二供投诉、防汛调度做4次沙盘。</li><li>每次推演形成RACI、时间线、证据清单、复盘问题。</li><li>把优秀班组经验拍成短视频或图文卡。</li></ul></div>
+      <div class="card"><div class="kicker">第3月</div><h3>制度固化</h3><ul class="checklist"><li>形成问题—纠偏清单、岗位SOP、视频脚本库。</li><li>纳入支部组织生活、班组安全会、月度经营分析。</li><li>建立用户反馈闭环与优秀案例库。</li></ul></div>
+    </div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="section-head"><div><h2>八、参考依据与校核清单</h2><p>宣贯使用前，建议由党委办、法务合规、董秘办、生产运行、水质检测、客服中心联合校核。</p></div></div>
+    <div class="card">
+      <div class="notice">本页面为宣贯与演练工具，不替代正式制度、法律意见、信息披露文件或应急预案。涉及法规标准、上市公司公告、重大舆情和突发事件，应以公司正式制度和主管部门最新要求为准。</div>
+      <ol class="source-list">
+        <li>《毛泽东选集》第一卷，《关于纠正党内的错误思想》，人民出版社相关版本。</li>
+        <li>《毛泽东文集》第一卷，人民出版社相关版本。</li>
+        <li>《中国共产党国有企业基层组织工作条例（试行）》。</li>
+        <li>《中华人民共和国公司法》《中华人民共和国证券法》。</li>
+        <li>《上市公司治理准则》及证券交易所上市规则、信息披露相关规则。</li>
+        <li>《中央企业合规管理办法》及地方国资监管合规管理要求。</li>
+        <li>《中华人民共和国安全生产法》《生产安全事故应急条例》。</li>
+        <li>《城市供水条例》及地方供水、二次供水、供排水管理相关法规规章。</li>
+        <li>GB 5749—2022《生活饮用水卫生标准》。</li>
+        <li>GB/T 32063—2015《城镇供水服务》。</li>
+        <li>供水企业现行水质检测、生产运行、管网抢修、客户服务、工程建设、信息披露、舆情处置等制度。</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="footer">© 水务行业宣贯沙盘 · 可脱敏复用 · 建议署名：江南AI工作小组 / 962001服务团队</div>
+</main>
+<nav class="bottom-nav" aria-label="底部导航"><a href="#top">首页</a><a href="#roles">角色</a><a href="#sandtable">沙盘</a><a href="#matrix">纠偏</a><a href="#sources">依据</a></nav>
+<script>
+const roles = [
+ {id:'party',name:'党委委员/支部书记',kicker:'方向与组织',desc:'把党建优势转化为公共服务优势、组织协同优势和风险防控优势。不是只讲口号，而是把“用户至上、多供好水”落实到制度、岗位、指标和群众感知。',tags:['政治引领','战斗堡垒','干部作风'],questions:['这项任务服务了哪些用户利益和公共安全底线？','支部、党员、班组是否嵌入关键岗位和关键流程？','问题复盘后能否形成制度、SOP或案例教育？'],outputs:['专题党课提纲','党员责任区/突击队安排','组织生活复盘问题清单']},
+ {id:'gm',name:'经理层/运营指挥',kicker:'资源与调度',desc:'把目标拆成资源、时序和协同动作，确保生产、管网、营销、工程、检测、信息化在同一张作战图上行动。',tags:['资源统筹','应急指挥','经营效率'],questions:['风险等级是否匹配资源投入？','跨部门边界是否清楚，谁拍板、谁执行、谁复核？','用户服务和上市合规是否同步考虑？'],outputs:['调度指令单','跨部门RACI表','经营与风险复盘报告']},
+ {id:'plant',name:'水厂/加压站负责人',kicker:'现场主力',desc:'守住水质、设备、安全生产和连续供水底线，把制水工艺、加压保障和班组管理做实做细。',tags:['安全生产','工艺控制','班组管理'],questions:['关键工艺参数是否有趋势预警和复核机制？','异常时是否先守住水质和安全，再谈效率？','班组是否知道用户侧会受到什么影响？'],outputs:['运行日报','异常参数复核记录','班组安全交底']},
+ {id:'lab',name:'水质检测/技术中心',kicker:'证据与标准',desc:'用检测数据、标准方法、趋势分析和第三方校核支撑生产调度、用户解释和风险研判。',tags:['GB5749','检测证据','趋势研判'],questions:['检测频次、项目、点位是否覆盖风险场景？','异常数据是否完成复测、溯源和留痕？','用户沟通口径是否有科学依据？'],outputs:['检测快报','水质趋势图','异常复核与溯源报告']},
+ {id:'network',name:'管网/DMA/调度',kicker:'供水战线',desc:'把管网压力、流量、漏损、阀门拓扑、抢修队伍和客服信息联动起来，防止局部问题扩大为系统问题。',tags:['DMA','阀门拓扑','抢修'],questions:['拓扑、阀门、用户影响范围是否准确？','停水、降压、浊度风险是否提前通知？','抢修后是否冲洗、复压、复核和回访？'],outputs:['影响范围图','抢修时间线','复水复核记录']},
+ {id:'customer',name:'962001客服/营销服务',kicker:'用户前台',desc:'把用户声音变成组织行动，把解释话术、工单闭环、回访评价和视频号宣贯连接起来。',tags:['热线','工单闭环','用户沟通'],questions:['用户是否知道原因、预计时间和替代措施？','工单是否派到责任部门并闭环？','高频问题能否转化为视频号科普和制度改进？'],outputs:['热点诉求清单','统一答复口径','回访与满意度报告']},
+ {id:'engineering',name:'工程建设/二供运维',kicker:'项目与设施',desc:'把工程质量、二供设施、文明施工、资产边界和运维责任讲清楚、管起来、移交好。',tags:['二供','工程质量','移交运维'],questions:['项目是否符合招采、设计、施工、验收、移交流程？','二供泵房、水箱、电源、消防和水质责任边界是否清楚？','施工扰民和停水影响是否前置沟通？'],outputs:['项目合规清单','二供移交表','施工用户告知单']},
+ {id:'compliance',name:'法务合规/董秘/纪检',kicker:'底线与透明',desc:'守住国资、上市公司、廉洁、合同、信息披露和舆情处置底线，防止好事办成风险。',tags:['上市合规','廉洁风险','信息披露'],questions:['是否触及重大事项、关联交易、采购合规或信息披露边界？','对外宣传是否准确、适度、可证据化？','关键岗位廉洁风险是否有预警和留痕？'],outputs:['合规审核意见','廉洁风险提示','对外发布校核单']},
+ {id:'digital',name:'信息化/科创/AI',kicker:'工具与模型',desc:'让数据和模型服务岗位，不让技术游离于用户、标准和业务闭环之外。',tags:['AI辅助','数据资产','科创落地'],questions:['模型数据来源是否可靠，是否经过现场校核？','算法结果是否能解释、能复核、能追责？','科创项目是否形成SOP、指标收益和推广条件？'],outputs:['数据字典','模型校核报告','试点推广评估表']},
+ {id:'community',name:'社区/物业/用户代表',kicker:'外部视角',desc:'从用户可感知角度提出问题，帮助企业把专业语言转化为清楚、可信、能执行的服务承诺。',tags:['用户共治','社区联络','满意度'],questions:['通知是否看得懂、找得到、来得及？','老人、学校、医院、商业用户等特殊群体是否被考虑？','问题解决后有没有回访和长期改进？'],outputs:['用户需求清单','社区协同建议','满意度反馈']}
+];
+const scenarios = [
+ {id:'raw',title:'原水突变与水厂工艺波动',type:'水质安全',desc:'暴雨后原水浊度、藻类或嗅味指标波动，水厂需调整工艺、加密检测、同步调度和用户沟通。',cards:['首要目标：守住出厂水与管网水质底线','关键矛盾：工艺调整速度 vs. 证据复核严谨性','用户感知：异味、浑浊疑虑、热线咨询上升'],timeline:[['0-15分','值班长确认在线仪表与人工快检，启动异常上报。'],['15-30分','水厂、检测、调度会商，明确工艺调整参数和加密检测点位。'],['30-60分','形成内部快报，客服准备解释口径，视频号/公众号视情发布科普。'],['1-4小时','持续跟踪出厂水、管网末梢和用户反馈，必要时采取分区冲洗。'],['复盘','比对原水、水厂、管网、客服数据，修订预警阈值和SOP。']],heat:['原水在线仪表','混凝沉淀','活性炭/臭氧','末梢余氯','用户咨询']},
+ {id:'peak',title:'夏季高峰与加压站故障',type:'连续供水',desc:'高温高峰期供水负荷上升，一座加压站设备故障或电力波动，局部区域出现低压风险。',cards:['首要目标：保障重点区域和民生用户连续用水','关键矛盾：压力调度、能耗、设备安全三者平衡','用户感知：水小、无水、恢复时间不确定'],timeline:[['0-10分','调度确认压力曲线、故障设备、影响小区和重点用户。'],['10-30分','启用备用泵组或联络管调度，抢修队伍进场。'],['30-60分','客服按区域推送低压提醒，重点用户点对点沟通。'],['1-3小时','监控复压曲线，防止二次水质扰动。'],['复盘','评估备用能力、错峰调蓄和设备预防性维护。']],heat:['设备冗余','电力保障','压力边界','重点用户','复压水质']},
+ {id:'burst',title:'主干管爆管与停水抢修',type:'应急抢修',desc:'主干管突发爆管，涉及交通、停水、抢修、排水、复水冲洗和舆情沟通。',cards:['首要目标：快速止损、精准影响范围、尽早复水','关键矛盾：抢修速度 vs. 安全文明施工与复水质量','用户感知：停水时间、道路影响、复水浑浊'],timeline:[['0-10分','现场确认、关阀止损、划定初步影响范围。'],['10-30分','启动抢修与交警/城管/街道协同，客服发布初步通知。'],['30-120分','抢修施工、应急供水、重点用户保障。'],['复水前','冲洗、排气、压力恢复、水质复核。'],['复盘','核对阀门拓扑、材料质量、响应时长和用户回访。']],heat:['阀门准确率','抢修安全','交通协同','通知触达','复水复核']},
+ {id:'second',title:'二供小区浊度投诉与物业协同',type:'用户服务',desc:'老旧小区用户反映水浑或异味，可能涉及水箱、泵房、户内管道、末梢沉积和物业管理边界。',cards:['首要目标：查清责任边界并先解决用户用水问题','关键矛盾：企业、物业、用户户内设施边界复杂','用户感知：谁负责、何时解决、是否安全'],timeline:[['0-30分','客服受理并标记群体性风险，二供运维与检测到场。'],['30-90分','取样检测、泵房巡检、水箱记录和末梢排放。'],['2-6小时','形成用户解释口径，必要时安排清洗、冲洗或临时供水。'],['24小时','回访用户，物业共同公示处理结果。'],['复盘','把边界问题转成二供接管、改造或物业协同清单。']],heat:['水箱清洗','泵房运维','末梢冲洗','物业协同','用户回访']},
+ {id:'flood',title:'台风暴雨防汛与供排水联动',type:'韧性安全',desc:'强降雨期间，水源、水厂、泵站、管网、排水、防汛平台、客服和值班体系需要协同响应。',cards:['首要目标：人员安全、供水安全、关键设施安全','关键矛盾：多部门联动和信息回传时效','用户感知：停水、积水、抢修和安全提醒'],timeline:[['预警期','值班排班、物资检查、泵房和低洼点风险排查。'],['临灾期','调度会商，重点设施视频巡检，客服发布安全提醒。'],['暴雨中','抢险队伍安全优先，关键点位数据回传。'],['雨后','水质加密检测、管网排查、受淹设施恢复。'],['复盘','形成一镇一策、一站一策和物资补库清单。']],heat:['人员安全','泵房防涝','水源浊度','供排联动','值班回传']},
+ {id:'innovation',title:'DMA/智能表/AI科创项目试点',type:'科创落地',desc:'推动DMA拓扑校准、智能表异常识别、AI辅助工单分派和漏损分析，防止技术项目游离于岗位。',cards:['首要目标：让模型服务岗位、服务用户、服务经营','关键矛盾：数据质量、模型可信、现场执行闭环','用户感知：少停水、快响应、少漏损、少争议'],timeline:[['立项前','明确业务问题、数据来源、责任岗位和收益口径。'],['试点期','选择片区，建立人工校核样本和例外处理机制。'],['评估期','验证漏损、投诉、工单效率和成本收益。'],['推广前','形成SOP、权限、数据安全和培训材料。'],['复盘','淘汰无收益模型，固化可复制方法。']],heat:['数据质量','模型解释','现场校核','岗位培训','收益评估']},
+ {id:'price',title:'水价成本监审与公众沟通',type:'合规治理',desc:'成本监审、水价政策、二供运维、节水政策等议题涉及用户关切、监管要求和上市公司合规边界。',cards:['首要目标：依法合规、数据真实、沟通透明','关键矛盾：专业成本语言与公众理解之间的距离','用户感知：为什么调、调多少、服务是否更好'],timeline:[['准备期','财务、法务、生产、营销统一成本口径和证据目录。'],['沟通期','用图表解释水源、水厂、管网、二供、客服等成本与服务关系。'],['听证/公开期','收集用户意见，区分合理诉求、误解和政策边界。'],['执行期','同步服务承诺、监督渠道和绩效评价。'],['复盘','把公众问题转化为降本增效和服务改进清单。']],heat:['成本证据','政策口径','信息披露','用户理解','服务承诺']},
+ {id:'video',title:'视频号962001服务宣贯',type:'宣传思想',desc:'围绕热线、企业形象、工匠精神、用户服务、业务规范、线上线下和经验技巧，建立可信、亲和、可办理的视频号。',cards:['首要目标：让用户看得见、听得懂、找得到、办得成','关键矛盾：宣传吸引力与国企合规严谨之间的平衡','用户感知：有用、真实、温暖、可信'],timeline:[['选题','从热线高频问题、季节风险、重点项目中选题。'],['脚本','业务部门提供事实，合规/宣传审核边界。'],['拍摄','多用真实岗位、脱敏数据、标准动作。'],['发布','评论区转服务入口，不承诺未核实事项。'],['复盘','看播放、收藏、转发、投诉变化和工单转化。']],heat:['选题价值','事实校核','隐私脱敏','评论响应','服务转化']}
+];
+const problems = [
+ ['单纯技术/生产观点','只讲设备、工艺、算法、工程，不讲用户感知、公共服务、合规治理和群众沟通。','项目立项必须写清“用户价值、风险底线、岗位应用、证据来源”；生产会和支部会同步讨论重大服务影响；技术成果必须经过现场验证、客服反馈和制度固化。','党建+业务融合、科创立项、生产运行'],
+ ['极端民主化/议而不决','会议上人人表态，决议后执行打折；跨部门问题久拖不决。','会前调查事实，会中充分讨论，会后明确一名牵头人、一张RACI表、一个时限；重要事项快速传达到班组；复盘只追事实和流程，不搞情绪争论。','调度会、应急会、项目会'],
+ ['非组织观点/部门墙','部门只对本部门指标负责，对用户全流程体验不负责；信息不上报、不共享。','建立“用户问题一单到底”；水厂、管网、客服、检测、工程共享同一事件编号；少数意见可保留但必须执行集体决议；跨部门批评在组织内提、用证据提。','客户服务、抢修、二供、舆情'],
+ ['绝对平均主义/撒胡椒面','资源、奖励、培训、宣传平均分配，重点风险和关键岗位得不到足够支持。','按风险等级、用户影响、战略价值配置资源；高风险片区、高投诉小区、关键泵站、重点项目差异化投入；绩效奖励与贡献、改进、协同挂钩。','预算、绩效、项目排序'],
+ ['主观主义/拍脑袋','凭经验判断水质、压力、漏损、舆情和用户诉求，缺少调查和数据验证。','所有判断先问“三个有没有”：有没有数据、有没有现场、有没有用户反馈；关键结论要有检测报告、工单、照片、趋势图、第三方或复核记录。','水质、DMA、营商环境、宣传'],
+ ['个人主义/小团体主义','只重个人成绩、部门荣誉或项目包装，忽视公司整体、用户利益和长期运维。','把团队协同、用户评价、制度沉淀纳入考核；干部谈话关注“是否补台、是否共享、是否带人”；优秀案例以团队署名、岗位署名。','干部管理、评优评先、科创'],
+ ['流寇式项目/只打游击','热衷短期试点、临时突击、展示亮点，不愿做台账、标准、培训和长期维护。','每个项目必须形成“制度+SOP+数据字典+培训课件+运维责任+退出机制”；没有复用条件的项目不盲目推广；每季清理一次僵尸系统。','数字化、工程建设、宣传活动'],
+ ['盲动主义/急于求成','未经评估就上系统、改工艺、发信息、承诺时限或大规模推广。','建立红黄绿门禁：红线事项先审批，黄色事项先试点，绿色事项可快速执行；对外口径必须经事实校核；重大操作前做安全、合规、用户影响评估。','应急处置、AI应用、对外发布'],
+ ['宣传工作弱化','只在出问题时解释，平时不科普；宣传像广告，不像服务。','视频号962001按“高频问题+季节风险+岗位故事+标准动作+闭环案例”排期；每条内容配服务入口和可核实依据；评论区问题转工单。','视频号、公众号、社区宣讲'],
+ ['党员教育与组织生活空转','学习停留在读材料，不能解决岗位问题；支部会与生产服务脱节。','支部学习采用“一篇原文+一个岗位问题+一次沙盘+一张整改表”；党员责任区绑定水厂、泵站、DMA、社区和重点项目；组织生活复盘真实案例。','基层党建、班组建设']
+];
+function $(id){return document.getElementById(id)}
+function initRoles(){
+ const tabs=$('roleTabs'), rs=$('roleSelect'); tabs.innerHTML=''; rs.innerHTML='';
+ roles.forEach((r,i)=>{let b=document.createElement('button');b.className='role-tab'+(i===0?' active':'');b.textContent=r.name;b.onclick=()=>selectRole(r.id);tabs.appendChild(b);let opt=document.createElement('option');opt.value=r.id;opt.textContent=r.name;rs.appendChild(opt);});
+ selectRole(roles[0].id);
+}
+function selectRole(id){
+ const r=roles.find(x=>x.id===id)||roles[0];
+ [...document.querySelectorAll('.role-tab')].forEach((b,i)=>b.classList.toggle('active', roles[i].id===id));
+ $('roleKicker').textContent=r.kicker;$('roleTitle').textContent=r.name;$('roleDesc').textContent=r.desc;
+ $('roleTags').innerHTML=r.tags.map(t=>`<span class="tag strong">${t}</span>`).join('');
+ $('roleQuestions').innerHTML=r.questions.map(q=>`<li>${q}</li>`).join('');
+ $('roleOutputs').innerHTML=r.outputs.map(q=>`<li>${q}</li>`).join('');
+ if($('roleSelect')) $('roleSelect').value=id;
+ updateScenario();
+}
+function initScenarios(){
+ const s=$('scenarioSelect'); s.innerHTML=''; scenarios.forEach(sc=>{let opt=document.createElement('option');opt.value=sc.id;opt.textContent=sc.title;s.appendChild(opt)}); s.value=scenarios[0].id; updateScenario();
+}
+function calcRisk(){
+ const vals=['turb','load','complain','repair','publicRisk'].map(id=>Number($(id).value));
+ const score=Math.round(vals[0]*.24+vals[1]*.22+vals[2]*.2+vals[3]*.18+vals[4]*.16);
+ $('riskScore').textContent=score; $('riskBar').style.width=Math.max(6,score)+'%';
+ const level=$('riskLevel'); level.className='level';
+ if(score<40){level.textContent='常态关注'} else if(score<70){level.textContent='橙色会商';level.classList.add('warn')} else {level.textContent='红色联动';level.classList.add('danger')}
+ return score;
+}
+function updateRangeOutputs(){['turb','load','complain','repair','publicRisk'].forEach(id=>{const el=$(id); const out=el.parentElement.querySelector('output'); out.textContent=el.value;});calcRisk();updateScenario();}
+function resetRanges(){const def={turb:35,load:45,complain:30,repair:40,publicRisk:30};Object.keys(def).forEach(k=>$(k).value=def[k]);updateRangeOutputs();}
+function updateScenario(){
+ if(!$('scenarioSelect')) return;
+ const sc=scenarios.find(x=>x.id===$('scenarioSelect').value)||scenarios[0];
+ const r=roles.find(x=>x.id===$('roleSelect').value)||roles[0];
+ const risk=calcRisk();
+ $('scTitle').textContent=sc.title;$('scDesc').textContent=sc.desc;$('scType').textContent=sc.type;
+ $('scCards').innerHTML=sc.cards.map(c=>`<div class="card compact"><span class="tag strong">要点</span><p style="margin-top:8px">${c}</p></div>`).join('');
+ const focus = roleFocus(sc, r, risk);
+ $('actionCard').innerHTML=`<p><b>${r.name}行动重点：</b>${focus.main}</p><ul class="checklist">${focus.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+ $('raciBox').innerHTML=[['R 负责',focus.r],['A 拍板',focus.a],['C 会商',focus.c],['I 告知',focus.i]].map(x=>`<div class="cell"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+ $('timeline').innerHTML=sc.timeline.map(t=>`<div class="tl-item"><div class="tl-time">${t[0]}</div><div>${t[1]}</div></div>`).join('');
+ const vals=[Number($('turb').value),Number($('load').value),Number($('complain').value),Number($('repair').value),Number($('publicRisk').value)];
+ $('heatmap').innerHTML=sc.heat.map((h,i)=>{let v=vals[i%vals.length]; let cls=v>66?'high':(v>38?'mid':''); return `<div class="heat ${cls}"><b>${h}</b><span>${v>66?'高风险':v>38?'需会商':'可控'}</span></div>`}).join('');
+}
+function roleFocus(sc,r,risk){
+ const high = risk>=70, mid=risk>=40;
+ const base={
+  party:['把场景纳入支部和党员责任区，明确政治责任与服务承诺。','督促跨部门会商，防止部门墙和口径不一。','复盘形成组织生活案例和整改闭环。'],
+  gm:['启动分级调度机制，明确资源、时限和责任人。','平衡安全、服务、成本、合规和舆情风险。','高风险时组织现场指挥和外部协同。'],
+  plant:['确认现场参数与设备状态，落实SOP和安全交底。','异常处置全程留痕，及时向调度和检测反馈。','处置后复核水质、压力和设备恢复。'],
+  lab:['加密检测和复测，输出可解释的检测快报。','提供用户沟通可引用的标准依据和趋势判断。','复盘检测点位、频次和预警阈值。'],
+  network:['核准影响范围、阀门拓扑和抢修路径。','联动客服发布停水/低压/复水信息。','复水前后完成冲洗、排气、压力和水质复核。'],
+  customer:['第一时间记录用户诉求和影响范围，形成热点图。','使用统一口径解释原因、进展和预计恢复时间。','把高频问题转为视频号选题和服务改进单。'],
+  engineering:['核查工程、二供或设施边界，调配施工与运维资源。','确保现场安全、文明施工、用户告知和验收留痕。','推动遗留问题进入改造或移交计划。'],
+  compliance:['审核对外口径、合同边界、采购流程和信息披露风险。','提示廉洁风险和重大事项上报要求。','把事件证据纳入合规档案。'],
+  digital:['提供数据看板、模型辅助和工单分派支持。','标注数据置信度，避免模型替代现场判断。','沉淀数据字典、接口和复盘样本。'],
+  community:['反馈用户真实感受和特殊群体需求。','协助物业、街道、企业用户传递信息。','参与回访评价，提出可理解的改进建议。']
+ }[r.id]||[];
+ return {main: high?'进入红色联动，先保安全和民生底线，再求效率。':mid?'进入会商状态，防止小问题扩大。':'常态运行中保持前置预防和证据留痕。',items:base,r:r.name,a: high?'公司应急指挥/经理层':'牵头部门负责人',c:'水厂、检测、管网、客服、工程、合规、信息化',i:'用户、社区、物业、监管/属地（视情）'};
+}
+function initMatrix(){
+ const headers=['偏向/问题','水务场景表现','纠正方法','适用岗位'];
+ $('problemMatrix').innerHTML=headers.map(h=>`<div class="mh">${h}</div>`).join('') + problems.map(row=>row.map(c=>`<div>${c}</div>`).join('')).join('');
+}
+function exportNote(){
+ const sc=scenarios.find(x=>x.id===$('scenarioSelect').value)||scenarios[0]; const r=roles.find(x=>x.id===$('roleSelect').value)||roles[0]; const risk=$('riskScore').textContent; const level=$('riskLevel').textContent;
+ const text=`水务行业宣贯沙盘推演纪要\n\n场景：${sc.title}\n类型：${sc.type}\n当前角色：${r.name}\n综合风险：${risk}（${level}）\n\n场景说明：${sc.desc}\n\n角色三问：\n${r.questions.map((q,i)=>`${i+1}. ${q}`).join('\n')}\n\n处置时间线：\n${sc.timeline.map(t=>`${t[0]}：${t[1]}`).join('\n')}\n\n复盘要求：\n1. 是否守住用户、安全、水质、合规底线；\n2. 是否形成证据链、RACI和闭环工单；\n3. 是否能转化为SOP、视频号选题或支部案例。\n`;
+ const blob=new Blob([text],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${sc.title}_推演纪要.txt`; a.click(); URL.revokeObjectURL(a.href);
+}
+let deferredPrompt=null; window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;}); $('installBtn').addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;} else {alert('浏览器未显示安装入口时，可用“分享/更多”菜单选择添加到主屏幕，或在桌面浏览器地址栏安装。');}});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
+['scenarioSelect','roleSelect'].forEach(id=>document.addEventListener('change',e=>{if(e.target&&e.target.id===id){if(id==='roleSelect')selectRole(e.target.value);else updateScenario();}}));
+['turb','load','complain','repair','publicRisk'].forEach(id=>document.addEventListener('input',e=>{if(e.target&&e.target.id===id)updateRangeOutputs();}));
+initRoles(); initScenarios(); initMatrix(); resetRanges();
+</script>
+</body>
+</html>

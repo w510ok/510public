@@ -1,0 +1,23 @@
+{
+  "name": "水务行业宣贯沙盘｜用户至上 多供好水",
+  "short_name": "水务宣贯沙盘",
+  "description": "面向水务行业多角色的党建、服务、合规、安全生产与科创宣贯 PWA。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f8fb",
+  "theme_color": "#0b4976",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
