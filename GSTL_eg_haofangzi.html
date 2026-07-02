@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>从“二供进水价”到“好房子水系统”｜江南AI工作小组</title>
+<style>
+:root{
+  --bg:#f5f8fb;
+  --paper:#ffffff;
+  --ink:#183247;
+  --muted:#5c6f7f;
+  --soft:#e8f1f8;
+  --line:#d8e6ef;
+  --blue:#1769aa;
+  --blue2:#0e4f86;
+  --cyan:#19a7b8;
+  --green:#35a871;
+  --amber:#f0a321;
+  --red:#d85b5b;
+  --shadow:0 18px 48px rgba(20,66,98,.13);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(25,167,184,.16), transparent 28%),
+    radial-gradient(circle at 86% 2%, rgba(23,105,170,.16), transparent 30%),
+    linear-gradient(180deg,#f7fbff 0%,#eef5fa 44%,#f8fafc 100%);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  line-height:1.82;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue); text-decoration:none; border-bottom:1px dotted rgba(23,105,170,.35)}
+img,svg{max-width:100%;height:auto}
+.container{width:min(900px,100%);margin:0 auto;padding:0 16px 56px}
+.article{
+  background:rgba(255,255,255,.86);
+  border:1px solid rgba(216,230,239,.88);
+  border-radius:30px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin:18px auto 36px;
+  backdrop-filter: blur(10px);
+}
+.hero{
+  position:relative;
+  padding:42px 22px 28px;
+  color:#fff;
+  background:
+    linear-gradient(135deg,rgba(10,54,94,.96),rgba(19,111,163,.92) 52%,rgba(25,167,184,.88)),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,.22), transparent 24%);
+  overflow:hidden;
+}
+.hero:before{
+  content:"";position:absolute;inset:-80px -80px auto auto;width:260px;height:260px;border-radius:50%;border:38px solid rgba(255,255,255,.08)
+}
+.hero:after{
+  content:"长治久安"; position:absolute; right:-18px; bottom:18px; font-size:56px; font-weight:900; letter-spacing:.08em; color:rgba(255,255,255,.075); transform:rotate(-8deg)
+}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.42);padding:4px 10px;border-radius:999px;font-size:12px;color:#eaf8ff;background:rgba(255,255,255,.10)}
+h1{font-size:32px;line-height:1.18;margin:18px 0 12px;letter-spacing:-.03em;font-weight:900}
+.subtitle{font-size:16px;line-height:1.68;color:#eaf7ff;margin:0 0 18px;max-width:760px}
+.byline{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#e9f7ff;opacity:.95}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26)}
+.cover-grid{margin-top:28px;display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:stretch;position:relative;z-index:1}
+.hero-card{border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.12);border-radius:22px;padding:16px;min-height:120px;box-shadow:0 10px 24px rgba(0,0,0,.10)}
+.hero-card h3{margin:0 0 8px;font-size:15px;color:#fff}
+.hero-card p{margin:0;color:#e7f7ff;font-size:13px;line-height:1.7}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:14px 16px;background:rgba(255,255,255,.82);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.toc a{white-space:nowrap;color:var(--blue2);background:#f0f7fc;border:1px solid #d9e9f5;border-radius:999px;padding:6px 11px;font-size:13px;text-decoration:none}
+.content{padding:26px 22px 38px;background:linear-gradient(180deg,rgba(255,255,255,.95),#fff)}
+section{margin:0 0 34px}
+h2{font-size:24px;line-height:1.35;margin:0 0 14px;padding-top:8px;letter-spacing:-.02em;color:#0d3559}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:10px;margin-right:8px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--cyan));font-size:15px;vertical-align:2px}
+h3{font-size:18px;margin:20px 0 10px;color:#143d63}
+p{margin:0 0 14px}.lead{font-size:18px;color:#23445d;font-weight:600;line-height:1.75}.note{font-size:13px;color:var(--muted);background:#f7fbfe;border-left:4px solid var(--cyan);border-radius:14px;padding:12px 14px}.quote{font-size:18px;font-weight:800;line-height:1.65;padding:18px 18px;margin:18px 0;border-radius:22px;background:linear-gradient(135deg,#f2f9ff,#f5fffc);border:1px solid #d9ecf5;color:#0f3d62;position:relative}.quote:before{content:"“";font-size:54px;position:absolute;left:12px;top:-2px;color:rgba(25,167,184,.20);font-family:Georgia,serif}.quote span{position:relative;z-index:1}.grid{display:grid;gap:14px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 10px 28px rgba(23,105,170,.08)}.card.soft{background:linear-gradient(180deg,#fbfeff,#f5fbff)}.card h3{margin-top:0}.kpi{display:grid;gap:10px;grid-template-columns:repeat(4,minmax(0,1fr));margin:18px 0}.kpi .item{background:#fff;border:1px solid #dceaf4;border-radius:18px;padding:14px;text-align:center;box-shadow:0 8px 18px rgba(23,105,170,.06)}.kpi .big{display:block;font-size:24px;font-weight:900;color:var(--blue2);line-height:1.1}.kpi .label{display:block;font-size:12px;color:var(--muted);margin-top:5px}.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.tag{display:inline-flex;align-items:center;gap:6px;background:#edf7fd;color:#13537c;border:1px solid #d5eafa;border-radius:999px;padding:4px 10px;font-size:13px}.tag.green{background:#eefbf4;color:#20764d;border-color:#cef1dc}.tag.amber{background:#fff8ec;color:#8a5a0b;border-color:#f5dfb8}.tag.red{background:#fff1f1;color:#9d3e3e;border-color:#f0c9c9}.flow{border-radius:24px;background:linear-gradient(180deg,#f7fbff,#fff);border:1px solid var(--line);padding:16px;overflow:hidden}.watermark{position:fixed;inset:auto 10px 10px auto;z-index:0;color:rgba(14,79,134,.08);font-size:12px;pointer-events:none}.matrix{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:14px}.matrix th{background:#eff7fc;color:#0d4773;text-align:left;padding:11px;border-bottom:1px solid var(--line);font-weight:800}.matrix td{padding:11px;border-bottom:1px solid #eef3f7;vertical-align:top;background:#fff}.matrix tr:last-child td{border-bottom:0}.matrix td:first-child{font-weight:800;color:#0f3d62}.ok{color:var(--green);font-weight:800}.warn{color:var(--amber);font-weight:800}.no{color:var(--red);font-weight:800}.wheel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.wheel .node{border-radius:20px;padding:15px;background:linear-gradient(135deg,#ffffff,#f4fbff);border:1px solid #dcebf5;min-height:120px;position:relative;overflow:hidden}.wheel .node:after{content:"";position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border-radius:50%;background:rgba(25,167,184,.09)}.wheel .node b{display:block;font-size:19px;color:#0e4f86;margin-bottom:6px}.wheel .node small{display:block;color:var(--muted);line-height:1.65}.sand{background:linear-gradient(135deg,#0d365e,#0a6e88);color:#fff;border-radius:28px;padding:20px;box-shadow:0 18px 38px rgba(10,54,94,.18);position:relative;overflow:hidden}.sand:after{content:"AI 沙盘";position:absolute;right:-10px;top:10px;font-size:42px;font-weight:900;color:rgba(255,255,255,.08);transform:rotate(8deg)}.sand h3{color:#fff;margin:0 0 8px}.sand p{color:#eaf9ff}.sand-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;position:relative;z-index:1}.panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:16px}.control{margin:0 0 14px}.control label{display:flex;justify-content:space-between;font-size:13px;color:#ecfbff;margin-bottom:6px}.control input{width:100%;accent-color:#84e6f2}.score{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.score .box{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px}.score .num{font-size:26px;font-weight:900;line-height:1;color:#fff}.score .txt{font-size:12px;color:#d9f4ff;margin-top:5px}.bar{height:8px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:9px}.bar span{display:block;height:100%;background:linear-gradient(90deg,#7be2ff,#b6f4d5);width:50%;border-radius:999px;transition:.25s}.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.scenario-btn{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.13);color:#fff;border-radius:16px;padding:10px 8px;font-size:13px;cursor:pointer}.scenario-btn:hover,.scenario-btn.active{background:rgba(255,255,255,.25)}.result-text{font-size:14px;color:#f0fbff;background:rgba(0,0,0,.16);border-radius:16px;padding:12px;margin-top:12px}.timeline{position:relative;margin:18px 0 0;padding-left:18px}.timeline:before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:#cfe6f4}.step{position:relative;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 14px 14px 18px}.step:before{content:"";position:absolute;left:-18px;top:20px;width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 0 4px #e7f7fb}.step b{color:#0e4f86}.mini{font-size:13px;color:var(--muted)}.source-list{font-size:13px;color:#526979;background:#f8fbfd;border:1px solid var(--line);border-radius:20px;padding:14px 18px}.source-list li{margin:6px 0}.footer{padding:24px 22px;background:#082a46;color:#d8edf8}.footer b{color:#fff}.footer .copy{font-size:12px;color:#a9c9d9;margin-top:10px}.print-note{display:none}.divider{height:1px;background:linear-gradient(90deg,transparent,#d8e6ef,transparent);margin:26px 0}.shareline{background:linear-gradient(135deg,#f1f8ff,#f4fffb);border:1px solid #d9ecf6;border-radius:22px;padding:18px;font-weight:700;color:#113c60}.pill-title{display:inline-flex;gap:8px;align-items:center;color:#0d4773;background:#edf7fd;border:1px solid #d5eafa;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:800;margin-bottom:10px}.personal{border-radius:22px;border:1px solid #d9eaf5;background:#fcfeff;padding:18px;position:relative}.personal:before{content:"个人观点";position:absolute;right:14px;top:12px;font-size:12px;color:#7a91a2;border:1px solid #d8e6ef;border-radius:999px;padding:2px 8px;background:#fff}.sticky-label{position:absolute;left:14px;top:14px;background:#fff;color:#0e4f86;border-radius:999px;padding:3px 9px;font-size:12px;border:1px solid rgba(14,79,134,.2)}
+@media (max-width:720px){
+  .container{padding:0 10px 40px}.article{border-radius:24px;margin-top:10px}.hero{padding:34px 18px 24px}h1{font-size:28px}.cover-grid,.grid.two,.grid.three,.sand-grid{grid-template-columns:1fr}.kpi{grid-template-columns:repeat(2,1fr)}.wheel{grid-template-columns:1fr}.content{padding:24px 16px 32px}.toc{padding:10px}.scenarios{grid-template-columns:1fr}.matrix{font-size:13px}.matrix th,.matrix td{padding:9px}.score{grid-template-columns:1fr 1fr}.hero:after{font-size:44px;bottom:34px}.watermark{display:none}
+}
+@media print{body{background:#fff}.toc,.sand input,.scenario-btn{display:none}.article{box-shadow:none;border:0}.print-note{display:block}.watermark{display:block;position:fixed;top:48%;left:18%;right:auto;bottom:auto;font-size:42px;transform:rotate(-25deg);color:rgba(0,0,0,.06)}}
+</style>
+</head>
+<body>
+<div class="watermark">© 江南AI工作小组</div>
+<div class="container">
+  <article class="article">
+    <header class="hero">
+      <div class="eyebrow">行业观察 · 新《供水条例》 · 二次供水 · 好房子</div>
+      <h1>从“二供进水价”到“好房子水系统”</h1>
+      <p class="subtitle">水协近期讨论的二次供水、存量改造、智能表、规划设计、外包服务和水价调整，本质上不是几项孤立事务，而是一次供水行业走向全生命周期治理的制度窗口。</p>
+      <div class="byline">
+        <span class="badge">作者观点整理：江南AI工作小组</span>
+        <span class="badge">适用场景：行业交流 / 会员宣贯 / 方案研讨</span>
+        <span class="badge">2026年7月</span>
+      </div>
+      <div class="cover-grid">
+        <div class="hero-card">
+          <h3>一句话判断</h3>
+          <p>二供进入水价运营管理，不能理解为“费用装进去”，而应理解为依法移交、专业运维、合理成本疏导和用户可感知提升的长效机制。</p>
+        </div>
+        <div class="hero-card">
+          <h3>一套方法</h3>
+          <p>以“确权、确责、确账、确标、确价、确监管”为主线，用AI把政策条款、资产台账、成本证据、岗位SOP和公众解释连接起来。</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#viewpoint">个人观点</a>
+      <a href="#policy">政策窗口</a>
+      <a href="#framework">顶层框架</a>
+      <a href="#boundary">边界清单</a>
+      <a href="#sandtable">沙盘推演</a>
+      <a href="#ai">AI赋能</a>
+      <a href="#action">行动建议</a>
+      <a href="#sources">参考依据</a>
+    </nav>
+
+    <main class="content">
+      <section id="viewpoint">
+        <h2><span class="num">01</span>我的基本观点：水价只是入口，长治久安才是目标</h2>
+        <p class="lead">近期行业讨论“二次供水进入水价运营管理”，我认为方向是对的，但表达和推进方式要更稳。</p>
+        <div class="personal">
+          <p>真正要解决的不是“多收一笔钱”或“少收一笔钱”，而是过去住宅供水系统中长期存在的几个断点：开发建设和后期运维脱节，物业管理和专业供水脱节，工程改造和资产移交脱节，水表计量和数据治理脱节，外包服务和公用事业成本脱节。</p>
+          <p>所以，我更愿意把这件事称为：<b>住宅供排水全生命周期治理与水价成本合理疏导</b>。它既要配合调价，也不能依赖调价；既要尊重成本，也要经得起听证、审计、监管和群众体验的检验。</p>
+        </div>
+        <div class="quote"><span>二供进水价不是终点，而是把“有人建、有人修、有人管、有人评、有人付、有人监督”统一起来的制度入口。</span></div>
+        <div class="kpi">
+          <div class="item"><span class="big">6确</span><span class="label">确权确责确账确标确价确监管</span></div>
+          <div class="item"><span class="big">3网</span><span class="label">物理网 / 账务网 / 岗位网</span></div>
+          <div class="item"><span class="big">4线</span><span class="label">建设 / 改造 / 运维 / 服务</span></div>
+          <div class="item"><span class="big">1体</span><span class="label">好房子水系统</span></div>
+        </div>
+      </section>
+
+      <section id="policy">
+        <h2><span class="num">02</span>政策窗口已经打开：条例、水价、好房子、计量合规正在同向发力</h2>
+        <div class="grid two">
+          <div class="card soft">
+            <div class="pill-title">法规底座</div>
+            <h3>新《供水条例》把“专业化运行维护”写进制度</h3>
+            <p>新建居民住宅共有供水设施，以及地方政府组织实施改造后的居民住宅共有供水设施，应依法交由供水单位运行维护；其他居民住宅共有供水设施，也由县级以上地方政府逐步组织依法交由供水单位运维。</p>
+            <div class="tag-row"><span class="tag green">依法移交</span><span class="tag green">专业运维</span><span class="tag amber">分类推进</span></div>
+          </div>
+          <div class="card soft">
+            <div class="pill-title">价格逻辑</div>
+            <h3>水价改革强调“准许成本+合理收益”</h3>
+            <p>供水价格制定以成本监审为基础，二次加压调蓄设施由供水企业负责运行管理的，其运行维护、修理更新成本可计入供水价格，但不能另行收费。</p>
+            <div class="tag-row"><span class="tag green">成本监审</span><span class="tag green">合理收益</span><span class="tag red">不得重复收费</span></div>
+          </div>
+          <div class="card soft">
+            <div class="pill-title">住房品质</div>
+            <h3>“好房子”把供排水纳入住宅品质</h3>
+            <p>住房品质提升意见明确推动供水、排水、消防管道更新改造，开展居民供水加压调蓄设施更新改造并推动专业化运维。供排水不再只是隐蔽工程，而是安全、舒适、绿色、智慧住房的重要组成。</p>
+            <div class="tag-row"><span class="tag green">安全</span><span class="tag green">舒适</span><span class="tag green">绿色</span><span class="tag green">智慧</span></div>
+          </div>
+          <div class="card soft">
+            <div class="pill-title">监管约束</div>
+            <h3>计量、价格、外包服务都要经得起合规检查</h3>
+            <p>民用“三表”实行首次强制检定、限期使用和到期轮换；工程安装和延伸服务收费要防止不合理收费、转嫁成本和垄断性收费，外包服务必须有制度、有单价、有验收、有绩效。</p>
+            <div class="tag-row"><span class="tag green">计量公平</span><span class="tag amber">外包公允</span><span class="tag red">收费红线</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework">
+        <h2><span class="num">03</span>顶层框架：把分散议题收束成“一条主线、三张网、六个确”</h2>
+        <p>二供、水表、电价、智能表、高品质水、外包服务，看似分散，实际都可以装入同一个治理框架。关键是先做“结构化”，再做“信息化”，最后再谈“智能化”。</p>
+        <div class="flow" aria-label="治理框架示意图">
+          <svg viewBox="0 0 860 370" role="img" aria-labelledby="flow-title">
+            <title id="flow-title">一条主线三张网六个确治理框架</title>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1769aa"/><stop offset="1" stop-color="#19a7b8"/></linearGradient>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#1769aa" flood-opacity=".16"/></filter>
+            </defs>
+            <rect x="20" y="25" width="820" height="320" rx="28" fill="#f8fcff" stroke="#d9e9f5"/>
+            <text x="430" y="66" text-anchor="middle" font-size="23" font-weight="900" fill="#0e4f86">主线：住宅供排水全生命周期治理</text>
+            <line x1="120" y1="110" x2="740" y2="110" stroke="#cfe2ee" stroke-width="3" stroke-dasharray="8 8"/>
+            <g filter="url(#shadow)">
+              <rect x="65" y="140" width="210" height="122" rx="20" fill="#fff" stroke="#d8e7f0"/>
+              <rect x="325" y="140" width="210" height="122" rx="20" fill="#fff" stroke="#d8e7f0"/>
+              <rect x="585" y="140" width="210" height="122" rx="20" fill="#fff" stroke="#d8e7f0"/>
+            </g>
+            <circle cx="170" cy="128" r="30" fill="url(#g1)"/><circle cx="430" cy="128" r="30" fill="url(#g1)"/><circle cx="690" cy="128" r="30" fill="url(#g1)"/>
+            <text x="170" y="136" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">1</text>
+            <text x="430" y="136" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">2</text>
+            <text x="690" y="136" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">3</text>
+            <text x="170" y="178" text-anchor="middle" font-size="20" font-weight="900" fill="#0f3d62">物理设施网</text>
+            <text x="170" y="210" text-anchor="middle" font-size="15" fill="#5c6f7f">水源-水厂-管网-泵房-水表-用户</text>
+            <text x="170" y="238" text-anchor="middle" font-size="14" fill="#5c6f7f">改造、移交、运维、应急闭环</text>
+            <text x="430" y="178" text-anchor="middle" font-size="20" font-weight="900" fill="#0f3d62">成本价格网</text>
+            <text x="430" y="210" text-anchor="middle" font-size="15" fill="#5c6f7f">资产、折旧、动力、修理、外包</text>
+            <text x="430" y="238" text-anchor="middle" font-size="14" fill="#5c6f7f">入价、补助、委托、负面清单</text>
+            <text x="690" y="178" text-anchor="middle" font-size="20" font-weight="900" fill="#0f3d62">岗位行动网</text>
+            <text x="690" y="210" text-anchor="middle" font-size="15" fill="#5c6f7f">规划、建设、营销、财务、法务、客服</text>
+            <text x="690" y="238" text-anchor="middle" font-size="14" fill="#5c6f7f">SOP、证据夹、工单和评价</text>
+            <g>
+              <rect x="116" y="294" width="628" height="34" rx="17" fill="#eaf7fc" stroke="#cde7f3"/>
+              <text x="430" y="317" text-anchor="middle" font-size="16" font-weight="800" fill="#0e4f86">六个确：确权 · 确责 · 确账 · 确标 · 确价 · 确监管</text>
+            </g>
+          </svg>
+        </div>
+        <div class="wheel">
+          <div class="node"><b>确权</b><small>新建、改建、存量改造、非居民委托，资产权属和移交条件先说清楚。</small></div>
+          <div class="node"><b>确责</b><small>政府组织、建设单位配套、供水单位运维、物业协同、用户配合分工明确。</small></div>
+          <div class="node"><b>确账</b><small>动力费、修理费、表计费、外包费、补助冲减、非供水业务单独核算。</small></div>
+          <div class="node"><b>确标</b><small>泵房、管道、表计、水质、水压、噪声、能耗、远传数据全部标准化。</small></div>
+          <div class="node"><b>确价</b><small>能入价的依法入价，需补助的财政补助，属委托的委托付费。</small></div>
+          <div class="node"><b>确监管</b><small>信息公开、成本监审、服务评价、投诉闭环、外包绩效形成闭环。</small></div>
+        </div>
+      </section>
+
+      <section id="boundary">
+        <h2><span class="num">04</span>权责和成本边界：越是要进入水价，越要先建立负面清单</h2>
+        <p>行业沟通中最容易引发误解的是“二供全部进水价”。更稳的表达应当是：<b>依法移交、符合标准、由供水单位专业运维的居民住宅共有供水设施，其合理运行维护、修理更新成本按规定疏导；非居民委托、用户产权延伸服务和已有专项资金覆盖的内容不得混入基本供水成本。</b></p>
+        <table class="matrix">
+          <thead><tr><th>事项</th><th>建议口径</th><th>可纳入水价成本的前提</th><th>风险提示</th></tr></thead>
+          <tbody>
+            <tr><td>新建住宅二供</td><td>规划设计提前介入，建设单位按标准配套，验收合格后依法移交专业运维。</td><td><span class="ok">依法移交 + 供水单位负责运维 + 成本真实合理</span></td><td>不能把开发建设责任转嫁给居民基本水价。</td></tr>
+            <tr><td>存量小区改造</td><td>政府组织、有计划改造、改造后移交，形成资产、资料、验收、运维闭环。</td><td><span class="ok">政府组织改造后移交 + 专项资金冲减 + 运维成本可审计</span></td><td>国债、财政补助、用户自筹部分要防止重复计入。</td></tr>
+            <tr><td>水表轮换与智能表</td><td>先满足强检、到期轮换和计量公平，再叠加远传、异常预警、DMA校核。</td><td><span class="ok">计量器具检定与更换费可按监审规则核定</span></td><td>不要把智能表做成单纯采购，应做成计量资产和数据资产。</td></tr>
+            <tr><td>泵房电价</td><td>生活二供用电应分项计量、单独核算、能耗对标、优化运行。</td><td><span class="ok">直接用于供水业务的合理动力费</span></td><td>商业、消防、物业公共用电混在一起时，不能粗放归集。</td></tr>
+            <tr><td>市政工程外包</td><td>外包可以提高效率，但必须招采合规、单价公允、验收量化、绩效闭环。</td><td><span class="warn">与供水正常运行相关、符合社会公允水平的外包修理活动</span></td><td>关联交易、内部结算和延伸服务收费要有隔离墙。</td></tr>
+            <tr><td>非居民委托二供</td><td>由委托方承担运维费用，独立合同、独立核算、独立评价。</td><td><span class="no">不得计入居民基本供水成本</span></td><td>混合业态要把居民、商业、办公、酒店等边界拆清。</td></tr>
+            <tr><td>高品质水增量</td><td>基本供水质量提升属于公共服务提升；直饮水、分质供水、工艺定制水属增值服务。</td><td><span class="warn">基本公共服务部分按规则论证；增值服务单独核算定价</span></td><td>不能把个性化、高端化服务成本摊入居民基本水价。</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="sandtable">
+        <h2><span class="num">05</span>沙盘推演：把“部门争论”变成“参数推演”和“证据说话”</h2>
+        <p>水协和企业可以先不急着争论结论，而是把不同地区、不同小区、不同项目放进同一个沙盘：改造强度、移交成熟度、成本归集、表计覆盖、外包合规、公众解释六个变量一调，方案风险和行动优先级就出来了。</p>
+        <div class="sand">
+          <h3>住宅二供治理 AI 沙盘示意</h3>
+          <p>以下为行业交流用模拟模型。分值越高，代表长效治理基础越成熟；重复收费风险越低，说明边界和台账越清楚。</p>
+          <div class="sand-grid">
+            <div class="panel">
+              <div class="control"><label>政府组织与移交成熟度 <span id="v1">65</span></label><input id="s1" type="range" min="0" max="100" value="65"></div>
+              <div class="control"><label>资产资料与成本归集完整度 <span id="v2">58</span></label><input id="s2" type="range" min="0" max="100" value="58"></div>
+              <div class="control"><label>智能表与在线监测覆盖度 <span id="v3">52</span></label><input id="s3" type="range" min="0" max="100" value="52"></div>
+              <div class="control"><label>外包服务制度成熟度 <span id="v4">60</span></label><input id="s4" type="range" min="0" max="100" value="60"></div>
+              <div class="control"><label>公众解释与服务评价准备度 <span id="v5">55</span></label><input id="s5" type="range" min="0" max="100" value="55"></div>
+              <div class="scenarios">
+                <button class="scenario-btn" data-set="basic">先标准后扩面</button>
+                <button class="scenario-btn active" data-set="balance">改造入价联动</button>
+                <button class="scenario-btn" data-set="smart">AI沙盘先行</button>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="score">
+                <div class="box"><div class="num" id="govern">58</div><div class="txt">长效治理指数</div><div class="bar"><span id="b1"></span></div></div>
+                <div class="box"><div class="num" id="hear">57</div><div class="txt">听证可解释度</div><div class="bar"><span id="b2"></span></div></div>
+                <div class="box"><div class="num" id="risk">42</div><div class="txt">重复收费风险</div><div class="bar"><span id="b3"></span></div></div>
+                <div class="box"><div class="num" id="act">3</div><div class="txt">近期优先动作</div><div class="bar"><span id="b4"></span></div></div>
+              </div>
+              <div class="result-text" id="resultText">当前适合“标准化移交+成本台账+示范小区”同步推进。先把泵房电费、水表轮换、外包检修、政府补助冲减四类证据建起来，再扩大进入水价的论证范围。</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid three" style="margin-top:16px">
+          <div class="card"><h3>A 新改扩建项目</h3><p>报装接入前置，规划设计模块化，施工图审查嵌入供水要求，竣工验收即形成移交包。</p></div>
+          <div class="card"><h3>B 存量改造项目</h3><p>以风险分级排序，红色保水质水压，橙色抓泵房安全，黄色抓能耗和智能化，绿色抓长效移交。</p></div>
+          <div class="card"><h3>C 水表与数据项目</h3><p>到期轮换是合规底线，智能表是漏损、收费、服务和公众解释的数字底座。</p></div>
+        </div>
+      </section>
+
+      <section id="ai">
+        <h2><span class="num">06</span>AI赋能不是“写材料”，而是把顶层设计变成岗位行动</h2>
+        <p>这轮改革最适合用AI做的，不是简单生成报告，而是建立一个可持续迭代的“政策—资产—成本—运维—服务”规则引擎。它能帮助水协做行业共识，也能帮助企业做内部协同。</p>
+        <div class="flow">
+          <svg viewBox="0 0 860 320" role="img" aria-labelledby="ai-title">
+            <title id="ai-title">AI赋能从政策到岗位SOP闭环</title>
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0e4f86"/><stop offset="1" stop-color="#35a871"/></linearGradient></defs>
+            <rect x="24" y="28" width="812" height="264" rx="28" fill="#fff" stroke="#dcebf5"/>
+            <g fill="#f3faff" stroke="#cfe4ef">
+              <rect x="62" y="92" width="124" height="76" rx="18"/>
+              <rect x="214" y="92" width="124" height="76" rx="18"/>
+              <rect x="366" y="92" width="124" height="76" rx="18"/>
+              <rect x="518" y="92" width="124" height="76" rx="18"/>
+              <rect x="670" y="92" width="124" height="76" rx="18"/>
+            </g>
+            <g font-size="16" font-weight="900" fill="#0f3d62" text-anchor="middle">
+              <text x="124" y="124">政策条款</text><text x="276" y="124">资产画像</text><text x="428" y="124">成本模型</text><text x="580" y="124">岗位SOP</text><text x="732" y="124">公众解释</text>
+            </g>
+            <g font-size="12" fill="#5c6f7f" text-anchor="middle">
+              <text x="124" y="148">条例/办法/标准</text><text x="276" y="148">泵房/表计/管网</text><text x="428" y="148">电费/修理/折旧</text><text x="580" y="148">工单/验收/留痕</text><text x="732" y="148">水质/水压/价格</text>
+            </g>
+            <g stroke="url(#g2)" stroke-width="4" fill="none" stroke-linecap="round" marker-end="url(#arrow)">
+              <path d="M190 130 L210 130"/><path d="M342 130 L362 130"/><path d="M494 130 L514 130"/><path d="M646 130 L666 130"/>
+            </g>
+            <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#1a8c9c"/></marker></defs>
+            <rect x="134" y="210" width="592" height="46" rx="23" fill="url(#g2)" opacity=".92"/>
+            <text x="430" y="239" text-anchor="middle" font-size="18" font-weight="900" fill="#fff">AI规则引擎：自动校核边界、生成证据清单、提示风险、推送岗位任务</text>
+          </svg>
+        </div>
+        <div class="grid two">
+          <div class="card">
+            <h3>对水协：形成行业共识</h3>
+            <p>可以沉淀政策矩阵、标准框架、典型场景、术语口径和会员单位问题库，逐步形成行业白皮书、团体标准和地方导则。</p>
+          </div>
+          <div class="card">
+            <h3>对企业：形成岗位闭环</h3>
+            <p>把“规划设计、工程建设、资产财务、生产运维、营销客服、法务合规、外包管理”连成一张可执行的岗位驾驶舱。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="action">
+        <h2><span class="num">07</span>建议的推进节奏：不要等所有问题想清楚才开始</h2>
+        <p>这类改革最怕两个极端：一种是只讲原则，不落账；另一种是急着收费，不讲边界。较稳妥的路径，是边研究、边试点、边建账、边解释。</p>
+        <div class="timeline">
+          <div class="step"><b>第一步：政策矩阵</b><br><span class="mini">把新《供水条例》、水价办法、成本监审办法、好房子政策、计量和价格合规要求逐条映射到建设、改造、移交、运维、收费、监管。</span></div>
+          <div class="step"><b>第二步：资产和成本台账</b><br><span class="mini">按小区、泵房、表计、管线、在线仪表、外包合同、电费账单、维修记录、政府补助建立证据夹。</span></div>
+          <div class="step"><b>第三步：典型场景试点</b><br><span class="mini">选择新建住宅、老旧小区、混合业态、智能表覆盖片区、市政外包服务五类场景做样板。</span></div>
+          <div class="step"><b>第四步：价格与服务联动</b><br><span class="mini">水价论证同步展示水质、水压、停水、投诉、表计准确、漏损控制、泵房能耗等用户可感知指标。</span></div>
+          <div class="step"><b>第五步：团标和导则固化</b><br><span class="mini">通过水协形成《二供移交运维导则》《智能表应用与数据质量指南》《二供外包服务评价规范》等成果。</span></div>
+        </div>
+        <div class="shareline">可供会议引用的一句话：这轮改革不是“二供费用进水价”的单项动作，而是以“好房子”为牵引，把供排水隐蔽工程、二次供水专业运维、水表计量公平、成本监审证据和AI岗位闭环打通，形成群众可感知、政府可监管、企业可持续的长效机制。</div>
+      </section>
+
+      <section id="sources">
+        <h2><span class="num">08</span>参考依据与发布边界</h2>
+        <ol class="source-list">
+          <li><a href="https://flk.npc.gov.cn/detail?id=ff8081819c46f9bb019c938759470be9&title=%E4%BE%9B%E6%B0%B4%E6%9D%A1%E4%BE%8B" target="_blank" rel="noopener">《供水条例》（中华人民共和国国务院令第831号）</a>，2026年2月11日公布，2026年6月1日起施行。重点参考：第一条、第二条、第五条、第七条、第十六条、第二十六条、第二十八条、第二十九条等。</li>
+          <li><a href="https://zfxxgk.ndrc.gov.cn/web/iteminfo.jsp?id=18524" target="_blank" rel="noopener">《城镇供水价格管理办法》</a>（国家发展改革委、住房城乡建设部令第46号，2021年10月1日起施行）。重点参考：准许成本加合理收益、一户一表和智能水表、二次加压调蓄设施运行维护修理更新成本、延伸服务收费等条款。</li>
+          <li><a href="https://zfxxgk.ndrc.gov.cn/web/iteminfo.jsp?id=18523" target="_blank" rel="noopener">《城镇供水定价成本监审办法》</a>（国家发展改革委、住房城乡建设部令第45号，2021年10月1日起施行）。重点参考：合法性、相关性、合理性原则，动力费、修理费、计量器具检定与更换费、专项资金冲减、其他业务单独核算、关联方交易公允等条款。</li>
+          <li><a href="https://www.hlj.gov.cn/hljzqc/c100116/202601/c00_31901876.shtml" target="_blank" rel="noopener">住房城乡建设部《关于提升住房品质的意见》</a>（建标〔2025〕66号）。重点参考：好房子、既有住房供水排水消防管道更新、居民供水加压调蓄设施更新改造、专业化运维、人工智能设计方法、智慧社区和数字家庭等要求。</li>
+          <li><a href="https://www.news.cn/20251219/33e1f4a05b6e4532a4529fcff49ed2dc/c.html" target="_blank" rel="noopener">市场监管总局关于公用企业价格行为合规的公开信息</a>，以及<a href="https://www.tls.gov.cn/newtlsrmzf/c104502/202503/397047.shtml" target="_blank" rel="noopener">民用“三表”计量科普资料</a>。重点参考：政府定价执行、工程安装和延伸服务收费风险、民用“三表”首次强制检定、限期使用、到期轮换等要求。</li>
+        </ol>
+        <p class="note">本文为行业研究交流和个人观察整理，不替代地方政府正式政策、价格听证材料、成本监审结论或企业内部决策文件。不同城市应结合地方定价目录、二次供水管理办法、财政补助政策、资产权属安排和用户承受能力因地制宜推进。</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <b>江南AI工作小组</b><br>
+      <span>用AI辅助行业研究、政策解读、可视化展示、沙盘推演和岗位SOP转化。</span>
+      <div class="copy">© 江南AI工作小组。转载请保留署名。本文图示为原创示意，用于行业交流和方法研讨。</div>
+    </footer>
+  </article>
+</div>
+<script>
+(function(){
+  const sliders = ['s1','s2','s3','s4','s5'].map(id=>document.getElementById(id));
+  const vals = ['v1','v2','v3','v4','v5'].map(id=>document.getElementById(id));
+  const govern = document.getElementById('govern');
+  const hear = document.getElementById('hear');
+  const risk = document.getElementById('risk');
+  const act = document.getElementById('act');
+  const bars = ['b1','b2','b3','b4'].map(id=>document.getElementById(id));
+  const resultText = document.getElementById('resultText');
+  function clamp(n){return Math.max(0,Math.min(100,Math.round(n)));}
+  function update(){
+    const s = sliders.map(x=>Number(x.value));
+    vals.forEach((v,i)=>v.textContent=s[i]);
+    const gov = clamp((s[0]*.28+s[1]*.24+s[2]*.18+s[3]*.16+s[4]*.14));
+    const h = clamp((s[1]*.36+s[4]*.30+s[0]*.18+s[3]*.16));
+    const r = clamp(100-(s[1]*.34+s[0]*.24+s[3]*.26+s[4]*.16));
+    const actions = r>55?5:(gov<60?4:(h<65?3:2));
+    govern.textContent=gov; hear.textContent=h; risk.textContent=r; act.textContent=actions;
+    [gov,h,r,actions*20].forEach((n,i)=>bars[i].style.width=clamp(n)+'%');
+    if(r>58){resultText.textContent='当前重复收费和解释风险偏高。建议先补齐资产权属、专项资金冲减、泵房电费分项、外包单价和非居民委托边界，再进入价格疏导论证。';}
+    else if(gov>=72 && h>=70){resultText.textContent='当前具备较好的联动基础。可以选择示范片区同步推进存量改造移交、智能表轮换、泵房能耗优化和用户服务公开，形成调价证据包。';}
+    else{resultText.textContent='当前适合“标准化移交+成本台账+示范小区”同步推进。先把泵房电费、水表轮换、外包检修、政府补助冲减四类证据建起来，再扩大进入水价的论证范围。';}
+  }
+  sliders.forEach(s=>s.addEventListener('input',update));
+  const sets={basic:[55,70,45,74,68],balance:[65,58,52,60,55],smart:[70,72,82,66,64]};
+  document.querySelectorAll('.scenario-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.scenario-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const arr=sets[btn.dataset.set];
+      sliders.forEach((s,i)=>s.value=arr[i]);
+      update();
+    });
+  });
+  update();
+})();
+</script>
+</body>
+</html>
